@@ -9,30 +9,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
-import com.example.testedittext.entities.ReportEntity;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class ReportListViewAdapter extends BaseAdapter {
+public class FilesListViewAdapter extends BaseAdapter {
 
     Context context;
     LayoutInflater layoutInflater;
-    ArrayList<ReportEntity> reportEntityList;
+    ArrayList <File> fileList;
 
-    public ReportListViewAdapter(Context context, ArrayList<ReportEntity> reportEntityList) {
+    public FilesListViewAdapter(Context context, ArrayList <File> fileList) {
         this.context = context;
-        this.reportEntityList = reportEntityList;
+        this.fileList = fileList;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return reportEntityList.size();
+        return fileList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return reportEntityList.get(i);
+        return fileList.get(i);
     }
 
     @Override
@@ -43,10 +43,12 @@ public class ReportListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.reports_list_item, viewGroup, false);
-            ReportEntity reportEntity = reportEntityList.get(i);
-            ((TextView) view.findViewById(R.id.reportName)).setText(reportEntity.getReportName());
-            ((ImageView) view.findViewById(R.id.reportIcon)).setImageResource(R.drawable.folder);
+            view = layoutInflater.inflate(R.layout.folder_list_item, viewGroup, false);
+            File file = fileList.get(i);
+            ((TextView) view.findViewById(R.id.reportName)).setText(file.getName());
+            if (file.isDirectory()) {
+                ((ImageView) view.findViewById(R.id.reportIcon)).setImageResource(R.drawable.folder);
+            }
         }
         return view;
     }

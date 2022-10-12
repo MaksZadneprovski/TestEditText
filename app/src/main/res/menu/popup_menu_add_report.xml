@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuAddInsulationReport"
+        android:title="Изоляция" />
+
+    <item android:id="@+id/menuAddMetalicBondReport"
+        android:title="Метсвязь"/>
+
+    <item android:id="@+id/menuAddPhazeZeroReport"
+        android:title="Петля"/>
+
+    <item android:id="@+id/menuAddVisualReport"
+        android:title="Визуальный осмотр"/>
+</menu>
