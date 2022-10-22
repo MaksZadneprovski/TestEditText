@@ -13,13 +13,14 @@ import com.example.testedittext.R;
 import java.io.File;
 import java.util.ArrayList;
 
-public class FilesListViewAdapter extends BaseAdapter {
+// Адаптер listView для отображения списка отчетов
+public class Reports_LV_Adapter extends BaseAdapter {
 
     Context context;
     LayoutInflater layoutInflater;
     ArrayList <File> fileList;
 
-    public FilesListViewAdapter(Context context, ArrayList <File> fileList) {
+    public Reports_LV_Adapter(Context context, ArrayList <File> fileList) {
         this.context = context;
         this.fileList = fileList;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -40,10 +41,11 @@ public class FilesListViewAdapter extends BaseAdapter {
         return i;
     }
 
+    // Заполняем шаблон report_list_item элементом из списка отчетов
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.folder_list_item, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.report_list_item, viewGroup, false);
             File file = fileList.get(i);
             ((TextView) view.findViewById(R.id.reportName)).setText(file.getName());
             if (file.isDirectory()) {

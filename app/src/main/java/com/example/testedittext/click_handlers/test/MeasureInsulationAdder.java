@@ -1,4 +1,4 @@
-package com.example.testedittext.click_handlers;
+package com.example.testedittext.click_handlers.test;
 
 import android.content.Context;
 import android.view.View;
@@ -7,9 +7,7 @@ import android.widget.ScrollView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.testedittext.MainActivity;
 import com.example.testedittext.R;
-import com.example.testedittext.activities.InsulationActivity;
 
 import java.util.List;
 

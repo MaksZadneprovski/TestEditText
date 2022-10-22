@@ -8,21 +8,20 @@ import android.view.View;
 import androidx.core.content.FileProvider;
 
 import com.example.testedittext.BuildConfig;
+import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.utils.DirectoryUtil;
 
 import java.io.File;
 
 public class ShareReportHandler implements View.OnClickListener {
     Context context;
-    private String fileName = "yoyoyo.xls";
+    private String fileName;
 
-    public ShareReportHandler(Context context) {
-        this.context = context;
-    }
 
     @Override
     public void onClick(View view) {
-        //String path = context.getExternalFilesDir(null).getAbsolutePath().toString()+"/yoyoyo.xls";
-        File file = getExternalPath();
+        Context context = view.getContext();
+        File file = new File(DirectoryUtil.currentDirectory +"/" + "notExist");
         if (file.exists()){
             Intent share = new Intent();
             share.setAction(Intent.ACTION_SEND);
@@ -30,10 +29,10 @@ public class ShareReportHandler implements View.OnClickListener {
             share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             share.setType("text/plain");
             context.startActivity(share);
+
         }
     }
 
-    private File getExternalPath() {
-        return new File(context.getExternalFilesDir(null), fileName);
-    }
+
+
 }

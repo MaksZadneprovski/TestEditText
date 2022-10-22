@@ -1,41 +1,85 @@
 package com.example.testedittext.click_handlers;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.PopupMenu;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.example.testedittext.R;
+import androidx.appcompat.app.AlertDialog;
 
+import com.example.testedittext.activities.ReportActivity;
+import com.example.testedittext.activities.ReportListActivity;
+import com.example.testedittext.adapters.Reports_LV_Adapter;
+import com.example.testedittext.utils.DirectoryUtil;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
+// Добавляет новую папку-отчет
 public class NewReportAdder implements View.OnClickListener{
+
+    ArrayList<File> folderList;
+    ListView listView;
+
+    public NewReportAdder( ArrayList<File> folderList, ListView listView) {
+        this.folderList = folderList;
+        this.listView = listView;
+    }
+
     @Override
     public void onClick(View view) {
+
         Context context = view.getContext();
 
-        PopupMenu popupMenu = new PopupMenu(context, view);
-        popupMenu.getMenuInflater().inflate(R.menu.popup_menu_add_report,popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.menuAddInsulationReport:
+        // Ввод названия папки
+        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+        alert.setTitle("Создать отчет");
+        alert.setMessage("Введите название");
+        final EditText input = new EditText(context);
+        alert.setView(input);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = String.valueOf(input.getText());
+                Path path = Paths.get(view.getContext().getExternalFilesDir(null) + "/" + value);
 
-                        break;
-                    case R.id.menuAddMetalicBondReport:
+                if (!Files.exists(path)) {
+                    try {
+                        Files.createDirectory(path);
+                        folderList = DirectoryUtil.getReportList(context.getExternalFilesDir(null).toString());
 
-                        break;
-                    case R.id.menuAddPhazeZeroReport:
+                        // Устанавливаем текущую директорию
+                        File file = new File(String.valueOf(path));
+                        DirectoryUtil.currentDirectory = file.getAbsolutePath();;
 
-                        break;
-                    case R.id.menuAddVisualReport:
+                        Intent intent = new Intent(context, ReportActivity.class);
+                        context.startActivity(intent);
 
-                        break;
-
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    Toast toast = Toast.makeText(view.getContext(), "Отчет с таким названием уже существует!",Toast.LENGTH_LONG);
+                    toast.show();
                 }
-                return true;
             }
         });
-        popupMenu.show();
+        alert.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+        ////////////////
+
+
+
     }
 }

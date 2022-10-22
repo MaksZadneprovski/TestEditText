@@ -1,21 +1,191 @@
 package com.example.testedittext.entities;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.example.testedittext.entities.enums.ElementsOfElectricalInstallations;
+import com.example.testedittext.entities.enums.GroundingSystem;
+import com.example.testedittext.entities.enums.TypeOfWork;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Set;
 
-public class ReportEntity {
-    private String reportName;
+
+public class ReportEntity implements Serializable {
+    @NonNull
+    private String path;
+    private String date;
+    private String customer;
+    private String object;
+    private String address;
+    private String characteristic;
+    private String temperature;
+    private String humidity;
+    private String pressure;
+    private String engineer;
+    private String test_type;
+    private Set<TypeOfWork> type_of_work;
+    private Set<ElementsOfElectricalInstallations> elements;
+    private GroundingSystem groundingSystem;
+    private boolean newness;
+    private ArrayList<Shield> shields;
 
 
-    public ReportEntity(String reportName) {
-        this.reportName = reportName;
+
+    public ReportEntity(String path) {
+        this.path = path;
     }
 
-
-    public String getReportName() {
-        return reportName;
+    @Override
+    public String toString() {
+        return "ReportEntity{" +
+                "path='" + path + '\'' +
+                ", date='" + date + '\'' +
+                ", customer='" + customer + '\'' +
+                ", object='" + object + '\'' +
+                ", address='" + address + '\'' +
+                ", characteristic='" + characteristic + '\'' +
+                ", temperature='" + temperature + '\'' +
+                ", humidity='" + humidity + '\'' +
+                ", pressure='" + pressure + '\'' +
+                ", engineer='" + engineer + '\'' +
+                ", test_type='" + test_type + '\'' +
+                ", type_of_work=" + type_of_work +
+                ", elements=" + elements +
+                ", groundingSystem=" + groundingSystem +
+                ", newness=" + newness +
+                ", shields=" + shields +
+                '}';
     }
 
-    public void setReportName(String reportName) {
-        this.reportName = reportName;
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCharacteristic() {
+        return characteristic;
+    }
+
+    public void setCharacteristic(String characteristic) {
+        this.characteristic = characteristic;
+    }
+
+    public String getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
+    }
+
+    public String getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(String humidity) {
+        this.humidity = humidity;
+    }
+
+    public String getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(String pressure) {
+        this.pressure = pressure;
+    }
+
+    public String getEngineer() {
+        return engineer;
+    }
+
+    public void setEngineer(String engineer) {
+        this.engineer = engineer;
+    }
+
+    public String getTest_type() {
+        return test_type;
+    }
+
+    public void setTest_type(String test_type) {
+        this.test_type = test_type;
+    }
+
+    public Set<TypeOfWork> getType_of_work() {
+        return type_of_work;
+    }
+
+    public void setType_of_work(Set<TypeOfWork> type_of_work) {
+        this.type_of_work = type_of_work;
+    }
+
+    public Set<ElementsOfElectricalInstallations> getElements() {
+        return elements;
+    }
+
+    public void setElements(Set<ElementsOfElectricalInstallations> elements) {
+        this.elements = elements;
+    }
+
+    public GroundingSystem getGroundingSystem() {
+        return groundingSystem;
+    }
+
+    public void setGroundingSystem(GroundingSystem groundingSystem) {
+        this.groundingSystem = groundingSystem;
+    }
+
+    public boolean isNewness() {
+        return newness;
+    }
+
+    public void setNewness(boolean newness) {
+        this.newness = newness;
+    }
+
+    public ArrayList<Shield> getShields() {
+        return shields;
+    }
+
+    public void setShields(ArrayList<Shield> shields) {
+        this.shields = shields;
     }
 }

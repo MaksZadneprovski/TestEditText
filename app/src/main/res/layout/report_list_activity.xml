@@ -6,19 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".activities.ReportListActivity">
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addNewReport"
+        android:id="@+id/addNewFolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reportsListView"
+        app:layout_constraintTop_toBottomOf="@+id/folderListView"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ListView
-        android:id="@+id/reportsListView"
+        android:id="@+id/folderListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="90dp"
@@ -26,5 +27,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

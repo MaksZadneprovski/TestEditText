@@ -9,8 +9,9 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class DirectoryUtil {
+    public static String currentDirectory;
 
-    public static ArrayList<File> getFolderAndFileList(String path) {
+    public static ArrayList<File> getReportList(String path) {
         // path = context.getExternalFilesDir(null).toString();
         File rootDir = new File(path);
         ArrayList<File> result = new ArrayList<>();
@@ -24,7 +25,6 @@ public class DirectoryUtil {
                 result.add(currentFile);
                 //Collections.addAll(fileTree, currentFile.listFiles());
             } else {
-                result.add(currentFile);
                 //System.out.println(currentFile.getAbsolutePath());
             }
         }
@@ -39,5 +39,10 @@ public class DirectoryUtil {
             }
         }
         return directoryToBeDeleted.delete();
+    }
+
+    public static String getCurrentFolder(){
+        String title = currentDirectory.substring(currentDirectory.lastIndexOf("/") + 1);
+        return title;
     }
 }
