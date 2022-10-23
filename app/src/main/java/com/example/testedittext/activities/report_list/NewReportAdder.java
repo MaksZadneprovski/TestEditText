@@ -1,4 +1,4 @@
-package com.example.testedittext.click_handlers;
+package com.example.testedittext.activities.report_list;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,9 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.testedittext.activities.ReportActivity;
-import com.example.testedittext.activities.ReportListActivity;
-import com.example.testedittext.adapters.Reports_LV_Adapter;
+import com.example.testedittext.activities.report_list.report.ReportActivity;
 import com.example.testedittext.utils.DirectoryUtil;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.example.testedittext.activities;
+package com.example.testedittext.activities.report_list.report.basic_information;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.example.testedittext.R;
-import com.example.testedittext.Storage;
+import com.example.testedittext.utils.Storage;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportEntity;
@@ -34,7 +34,8 @@ public class BasicInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.basic_information_activity);
 
-        String[] cities = {"1", "2", "3", "4", "5", "6"};
+        // Получаем массив строк из ресурсов
+        String[] characteristics = getResources().getStringArray(R.array.characteristics);
 
         // Получаем ссылку на элемент AutoCompleteTextView в разметке
         InstantAutoComplete autoCompleteTextView = findViewById(R.id.infCharacteristic);
@@ -64,7 +65,7 @@ public class BasicInformationActivity extends AppCompatActivity {
         report = Storage.reportEntityStorage;
 
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
-        ArrayAdapter<String> adapter = new ArrayAdapter (this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, cities);
+        ArrayAdapter<String> adapter = new ArrayAdapter (this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, characteristics);
         autoCompleteTextView.setAdapter(adapter);
 
         // Для появления и пропадания календаря при фокусе на поле даты
@@ -115,6 +116,35 @@ public class BasicInformationActivity extends AppCompatActivity {
         infTemperature.setText(report.getTemperature());
         infHumidity.setText(report.getHumidity());
         infPressure.setText(report.getPressure());
+
+        String test_type = report.getTest_type();
+        if (test_type != null && !test_type.isEmpty()) {
+            switch (test_type) {
+                case "Эксплуатационные":
+                    infRadio1.toggle();
+                    break;
+                case "Приёмо-сдаточные":
+                    infRadio2.toggle();
+                    break;
+                case "Сличительные":
+                    infRadio3.toggle();
+                    break;
+                case "Контрольные испытания":
+                    infRadio4.toggle();
+                    break;
+                case "Для целей сертификации":
+                    infRadio5.toggle();
+                    break;
+            }
+        }
+        Set<TypeOfWork> typeOfWorks = report.getType_of_work();
+        if (typeOfWorks != null && !typeOfWorks.isEmpty()){
+            if (typeOfWorks.contains(TypeOfWork.Visual)) cb1Visual.toggle();
+            if (typeOfWorks.contains(TypeOfWork.MetallicBond)) cb2Met.toggle();
+            if (typeOfWorks.contains(TypeOfWork.Insulation)) cb3Insul.toggle();
+            if (typeOfWorks.contains(TypeOfWork.PhaseZero)) cb4Phase.toggle();
+            if (typeOfWorks.contains(TypeOfWork.Grounding)) cb5Ground.toggle();
+        }
     }
 
     private void readDataFromFields(){
@@ -138,6 +168,7 @@ public class BasicInformationActivity extends AppCompatActivity {
         if (cb4Phase.isChecked()) typeOfWorks.add(TypeOfWork.PhaseZero);
         if (cb5Ground.isChecked()) typeOfWorks.add(TypeOfWork.Grounding);
         if (!typeOfWorks.isEmpty()) report.setType_of_work(typeOfWorks);
+
 
     }
 

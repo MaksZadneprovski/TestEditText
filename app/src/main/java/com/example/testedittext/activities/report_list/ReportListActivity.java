@@ -1,4 +1,4 @@
-package com.example.testedittext.activities;
+package com.example.testedittext.activities.report_list;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.example.testedittext.R;
-import com.example.testedittext.adapters.Reports_LV_Adapter;
-import com.example.testedittext.click_handlers.Reports_LV_ItemClickHandler;
-import com.example.testedittext.click_handlers.NewReportAdder;
 import com.example.testedittext.utils.DirectoryUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

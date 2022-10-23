@@ -12,30 +12,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestEditText"
         tools:targetApi="31">
+
         <activity
-            android:name=".activities.ShieldActivity"
+            android:name=".activities.report_list.report.shield_list.shield.ShieldActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
-            android:name=".activities.BasicInformationActivity"
+            android:name=".activities.report_list.report.shield_list.ShieldsListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
-            android:name=".activities.ReportActivity"
+            android:name=".activities.report_list.report.basic_information.BasicInformationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".activities.report_list.report.ReportActivity"
             android:exported="false"
             android:noHistory="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
-            android:name=".activities.ReportListActivity"
+            android:name=".activities.report_list.ReportListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

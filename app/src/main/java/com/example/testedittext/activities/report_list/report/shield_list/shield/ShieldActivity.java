@@ -1,4 +1,4 @@
-package com.example.testedittext.activities;
+package com.example.testedittext.activities.report_list.report.shield_list.shield;
 
 import androidx.appcompat.app.AppCompatActivity;
 

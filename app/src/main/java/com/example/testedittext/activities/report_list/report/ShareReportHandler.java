@@ -1,4 +1,4 @@
-package com.example.testedittext.click_handlers;
+package com.example.testedittext.activities.report_list.report;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.example.testedittext.activities;
+package com.example.testedittext.activities.report_list.report;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
-import com.example.testedittext.Storage;
-import com.example.testedittext.click_handlers.AddShieldHandler;
-import com.example.testedittext.click_handlers.DeleteReportHandler;
-import com.example.testedittext.click_handlers.ShareReportHandler;
-import com.example.testedittext.click_handlers.AddBasicInformationHandler;
+import com.example.testedittext.utils.Storage;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportEntity;
@@ -49,7 +45,7 @@ public class ReportActivity extends AppCompatActivity {
         // TV Основная информация
         TextView addInf = findViewById(R.id.addInf);
         // TV Щиты и помещения
-        TextView addShield = findViewById(R.id.addShield);
+        TextView shieldsList = findViewById(R.id.addShield);
 
 
 
@@ -66,7 +62,7 @@ public class ReportActivity extends AppCompatActivity {
         // Назначаем обработчик тексту Основн. инф.
         addInf.setOnClickListener(new AddBasicInformationHandler());
         // Назначаем обработчик тексту Щиты и помещения
-        addShield.setOnClickListener(new AddShieldHandler());
+        shieldsList.setOnClickListener(new ShieldsListHandler());
 
 
 

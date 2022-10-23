@@ -1,4 +1,4 @@
-package com.example.testedittext.adapters;
+package com.example.testedittext.activities.report_list;
 
 import android.content.Context;
 import android.view.LayoutInflater;

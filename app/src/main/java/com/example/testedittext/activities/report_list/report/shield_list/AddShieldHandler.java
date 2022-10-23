@@ -1,4 +1,4 @@
-package com.example.testedittext.click_handlers;
+package com.example.testedittext.activities.report_list.report.shield_list;
 
 
 import android.content.Context;
@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.example.testedittext.activities.ShieldActivity;
-import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.activities.report_list.report.shield_list.shield.ShieldActivity;
 
 public class AddShieldHandler implements  AdapterView.OnClickListener{
 
@@ -17,7 +16,6 @@ public class AddShieldHandler implements  AdapterView.OnClickListener{
         Context context = view.getContext();
 
         Intent intent = new Intent(context, ShieldActivity.class);
-        // Передаем объект отчета, чтобы в него дополнять инф.
         context.startActivity(intent);
     }
 }

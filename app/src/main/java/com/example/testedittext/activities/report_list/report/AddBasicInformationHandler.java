@@ -1,12 +1,11 @@
-package com.example.testedittext.click_handlers;
+package com.example.testedittext.activities.report_list.report;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.example.testedittext.activities.BasicInformationActivity;
-import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.activities.report_list.report.basic_information.BasicInformationActivity;
 
 public class AddBasicInformationHandler implements  AdapterView.OnClickListener{
 
@@ -16,7 +15,6 @@ public class AddBasicInformationHandler implements  AdapterView.OnClickListener{
         Context context = view.getContext();
 
         Intent intent = new Intent(context, BasicInformationActivity.class);
-        // Передаем объект отчета, чтобы в него дополнять инф.
         context.startActivity(intent);
     }
 }
