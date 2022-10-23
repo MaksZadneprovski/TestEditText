@@ -11,11 +11,6 @@ import com.example.testedittext.entities.ReportEntity;
 
 public class AddShieldHandler implements  AdapterView.OnClickListener{
 
-    ReportEntity reportEntity;
-
-    public AddShieldHandler(ReportEntity reportEntity) {
-        this.reportEntity = reportEntity;
-    }
 
     @Override
     public void onClick(View view) {
@@ -23,7 +18,6 @@ public class AddShieldHandler implements  AdapterView.OnClickListener{
 
         Intent intent = new Intent(context, ShieldActivity.class);
         // Передаем объект отчета, чтобы в него дополнять инф.
-        intent.putExtra(ReportEntity.class.getSimpleName(), reportEntity);
         context.startActivity(intent);
     }
 }

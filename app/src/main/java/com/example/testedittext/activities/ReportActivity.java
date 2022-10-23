@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
+import com.example.testedittext.Storage;
 import com.example.testedittext.click_handlers.AddShieldHandler;
 import com.example.testedittext.click_handlers.DeleteReportHandler;
 import com.example.testedittext.click_handlers.ShareReportHandler;
@@ -63,9 +64,9 @@ public class ReportActivity extends AppCompatActivity {
         // Назначаем обработчик кнопке удалить отчет
         buttonDelete.setOnClickListener(new DeleteReportHandler(this));
         // Назначаем обработчик тексту Основн. инф.
-        addInf.setOnClickListener(new AddBasicInformationHandler(reportEntity));
+        addInf.setOnClickListener(new AddBasicInformationHandler());
         // Назначаем обработчик тексту Щиты и помещения
-        addShield.setOnClickListener(new AddShieldHandler(reportEntity));
+        addShield.setOnClickListener(new AddShieldHandler());
 
 
 
@@ -75,15 +76,9 @@ public class ReportActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
+        getActualReportEntity();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        DirectoryUtil.currentDirectory = null;
-    }
 
     public void getActualReportEntity(){
         // Создание  объекта DAO для работы с БД
@@ -93,12 +88,13 @@ public class ReportActivity extends AppCompatActivity {
         ReportInDB report = reportDAO.getReportByPath(DirectoryUtil.currentDirectory);
         // Создаем новый и сохраняем его в БД, если его не было
         if (report == null){
-            reportEntity = new ReportEntity(DirectoryUtil.currentDirectory);
-            reportDAO.insertReport(new ReportInDB(reportEntity));
+            Storage.reportEntityStorage = new ReportEntity(DirectoryUtil.currentDirectory);
+            reportDAO.insertReport(new ReportInDB(Storage.reportEntityStorage));
         }else {
             // Если был, получаем объект отчет
-            reportEntity = report.getReportEntity();
+            Storage.reportEntityStorage = report.getReportEntity();
         }
+
     }
 
 

@@ -9,10 +9,13 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.example.testedittext.R;
+import com.example.testedittext.Storage;
+import com.example.testedittext.db.Bd;
+import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.entities.enums.TypeOfWork;
 import com.example.testedittext.visual.InstantAutoComplete;
 
@@ -23,8 +26,8 @@ public class BasicInformationActivity extends AppCompatActivity {
 
     EditText infDate, infCustomer, infObject, infAddress, infCharacteristic, infTemperature,infHumidity,infPressure;
     CheckBox cb1Visual, cb2Met, cb3Insul, cb4Phase, cb5Ground;
-    ReportEntity report;
     RadioButton infRadio1,infRadio2,infRadio3,infRadio4,infRadio5;
+    ReportEntity report;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +49,21 @@ public class BasicInformationActivity extends AppCompatActivity {
         infHumidity = findViewById(R.id.infHumidity);
         infPressure = findViewById(R.id.infPressure);
         infRadio1 = findViewById(R.id.infRadio1);
+        infRadio2 = findViewById(R.id.infRadio2);
+        infRadio3 = findViewById(R.id.infRadio3);
+        infRadio4 = findViewById(R.id.infRadio4);
+        infRadio5 = findViewById(R.id.infRadio5);
          cb1Visual = findViewById(R.id.cb1);
          cb2Met = findViewById(R.id.cb2);
          cb3Insul = findViewById(R.id.cb3);
          cb4Phase = findViewById(R.id.cb4);
          cb5Ground = findViewById(R.id.cb5);
 
-        // Получаем объект отчета из ReportActivity, чтобы записывать в него информацию
-        Bundle arguments = getIntent().getExtras();
-        if(arguments!=null) {
-            report = (ReportEntity) arguments.getSerializable(ReportEntity.class.getSimpleName());
-        }
 
+        // Берем акуальный объект отчета из хранилища
+        report = Storage.reportEntityStorage;
 
-            // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
+        // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter (this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, cities);
         autoCompleteTextView.setAdapter(adapter);
 
@@ -83,9 +87,34 @@ public class BasicInformationActivity extends AppCompatActivity {
             }
         });
 
+        setDataToFieldsFromBd();
+
+
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
 
         readDataFromFields();
 
+        // Обновляем актуальный объект отчета из хранилища
+        Storage.reportEntityStorage = report;
+
+        saveReport();
+    }
+
+    private void setDataToFieldsFromBd(){
+        infDate.setText(report.getDate());
+        infCustomer.setText(report.getCustomer());
+        infObject.setText(report.getObject());
+        infAddress.setText(report.getAddress());
+        infCharacteristic.setText(report.getCharacteristic());
+        infTemperature.setText(report.getTemperature());
+        infHumidity.setText(report.getHumidity());
+        infPressure.setText(report.getPressure());
     }
 
     private void readDataFromFields(){
@@ -109,6 +138,13 @@ public class BasicInformationActivity extends AppCompatActivity {
         if (cb4Phase.isChecked()) typeOfWorks.add(TypeOfWork.PhaseZero);
         if (cb5Ground.isChecked()) typeOfWorks.add(TypeOfWork.Grounding);
         if (!typeOfWorks.isEmpty()) report.setType_of_work(typeOfWorks);
+
+    }
+
+    public void saveReport(){
+        // Создание  объекта DAO для работы с БД
+        ReportDAO reportDAO = Bd.getAppDatabaseClass(getApplicationContext()).getReportDao();
+        reportDAO.insertReport(new ReportInDB(report));
 
     }
 }

@@ -8,9 +8,13 @@ import android.widget.AdapterView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.testedittext.Storage;
 import com.example.testedittext.activities.ReportActivity;
 import com.example.testedittext.activities.ReportListActivity;
 import com.example.testedittext.adapters.Reports_LV_Adapter;
+import com.example.testedittext.db.Bd;
+import com.example.testedittext.db.dao.ReportDAO;
+import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.utils.DirectoryUtil;
 
 import java.io.File;
@@ -33,8 +37,13 @@ public class DeleteReportHandler implements  AdapterView.OnClickListener{
         builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                // Создание  объекта DAO для работы с БД
+                ReportDAO reportDAO = Bd.getAppDatabaseClass(view.getContext().getApplicationContext()).getReportDao();
+                // Удаляем отчет из БД
+                reportDAO.deleteReport(new ReportInDB(Storage.reportEntityStorage));
+
                 DirectoryUtil.deleteDirectory(new File(DirectoryUtil.currentDirectory));
-                DirectoryUtil.currentDirectory = null;
                 reportActivity.finish();
             }
         });
