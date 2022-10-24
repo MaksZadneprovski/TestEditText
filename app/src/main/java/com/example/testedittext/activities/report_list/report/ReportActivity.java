@@ -2,10 +2,15 @@ package com.example.testedittext.activities.report_list.report;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
+import com.example.testedittext.activities.report_list.report.basic_information.BasicInformationActivity;
+import com.example.testedittext.activities.report_list.report.shield_list.ShieldsListActivity;
+import com.example.testedittext.activities.report_list.report.shield_list.shield.ShieldActivity;
 import com.example.testedittext.utils.Storage;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
@@ -26,12 +31,6 @@ public class ReportActivity extends AppCompatActivity {
 
         // Получаем reportEntity из БД или создаем если не было
         getActualReportEntity();
-
-        /////////////////////////////////////////////////////////////////////////////////////////
-        // Выводим все, что есть в БД
-        // reportDAO.getAllReports().stream().forEach(x -> System.out.println(x));
-        /////////////////////////////////////////////////////////////////////////////////////////
-
 
 
         // Кнопка сохранить отчет
@@ -60,9 +59,9 @@ public class ReportActivity extends AppCompatActivity {
         // Назначаем обработчик кнопке удалить отчет
         buttonDelete.setOnClickListener(new DeleteReportHandler(this));
         // Назначаем обработчик тексту Основн. инф.
-        addInf.setOnClickListener(new AddBasicInformationHandler());
+        addInf.setOnClickListener(view -> startActivity(new Intent(view.getContext(), BasicInformationActivity.class)));
         // Назначаем обработчик тексту Щиты и помещения
-        shieldsList.setOnClickListener(new ShieldsListHandler());
+        shieldsList.setOnClickListener((view -> startActivity(new Intent(view.getContext(), ShieldsListActivity.class))));
 
 
 

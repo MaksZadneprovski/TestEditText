@@ -104,7 +104,7 @@
                 <RadioButton android:id="@+id/shieldRadio2_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="L1,L2,L3"/>
+                    android:text="L1, L2, L3"/>
 
             </RadioGroup>
 

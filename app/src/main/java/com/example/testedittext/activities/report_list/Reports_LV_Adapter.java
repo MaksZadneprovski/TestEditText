@@ -28,12 +28,18 @@ public class Reports_LV_Adapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return fileList.size();
+        if (fileList != null) {
+            return fileList.size();
+        }
+        return 0;
     }
 
     @Override
     public Object getItem(int i) {
-        return fileList.get(i);
+        if (fileList != null) {
+            return fileList.get(i);
+        }
+        return null;
     }
 
     @Override

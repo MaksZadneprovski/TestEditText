@@ -43,8 +43,8 @@ public class ReportListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume() {
+        super.onResume();
         // ListView
         ListView listView = findViewById(R.id.folderListView);
 
