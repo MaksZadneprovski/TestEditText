@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.basic_information.BasicInformationActivity;
-import com.example.testedittext.activities.report_list.report.shield_list.ShieldsListActivity;
-import com.example.testedittext.activities.report_list.report.shield_list.shield.ShieldActivity;
+import com.example.testedittext.activities.report_list.report.shield_list.ShieldListActivity;
 import com.example.testedittext.utils.Storage;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
@@ -61,7 +59,7 @@ public class ReportActivity extends AppCompatActivity {
         // Назначаем обработчик тексту Основн. инф.
         addInf.setOnClickListener(view -> startActivity(new Intent(view.getContext(), BasicInformationActivity.class)));
         // Назначаем обработчик тексту Щиты и помещения
-        shieldsList.setOnClickListener((view -> startActivity(new Intent(view.getContext(), ShieldsListActivity.class))));
+        shieldsList.setOnClickListener((view -> startActivity(new Intent(view.getContext(), ShieldListActivity.class))));
 
 
 
@@ -83,11 +81,11 @@ public class ReportActivity extends AppCompatActivity {
         ReportInDB report = reportDAO.getReportByPath(DirectoryUtil.currentDirectory);
         // Создаем новый и сохраняем его в БД, если его не было
         if (report == null){
-            Storage.reportEntityStorage = new ReportEntity(DirectoryUtil.currentDirectory);
-            reportDAO.insertReport(new ReportInDB(Storage.reportEntityStorage));
+            Storage.currentReportEntityStorage = new ReportEntity(DirectoryUtil.currentDirectory);
+            reportDAO.insertReport(new ReportInDB(Storage.currentReportEntityStorage));
         }else {
             // Если был, получаем объект отчет
-            Storage.reportEntityStorage = report.getReportEntity();
+            Storage.currentReportEntityStorage = report.getReportEntity();
         }
 
     }

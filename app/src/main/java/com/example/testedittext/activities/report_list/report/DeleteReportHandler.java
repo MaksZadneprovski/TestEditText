@@ -37,7 +37,7 @@ public class DeleteReportHandler implements  AdapterView.OnClickListener{
                 // Создание  объекта DAO для работы с БД
                 ReportDAO reportDAO = Bd.getAppDatabaseClass(view.getContext().getApplicationContext()).getReportDao();
                 // Удаляем отчет из БД
-                reportDAO.deleteReport(new ReportInDB(Storage.reportEntityStorage));
+                reportDAO.deleteReport(new ReportInDB(Storage.currentReportEntityStorage));
 
                 DirectoryUtil.deleteDirectory(new File(DirectoryUtil.currentDirectory));
                 reportActivity.finish();

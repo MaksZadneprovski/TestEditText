@@ -23,14 +23,6 @@ import java.util.ArrayList;
 // Добавляет новую папку-отчет
 public class NewReportAdder implements View.OnClickListener{
 
-    ArrayList<File> folderList;
-    ListView listView;
-
-    public NewReportAdder( ArrayList<File> folderList, ListView listView) {
-        this.folderList = folderList;
-        this.listView = listView;
-    }
-
     @Override
     public void onClick(View view) {
 
@@ -50,7 +42,6 @@ public class NewReportAdder implements View.OnClickListener{
                 if (!Files.exists(path)) {
                     try {
                         Files.createDirectory(path);
-                        folderList = DirectoryUtil.getReportList(context.getExternalFilesDir(null).toString());
 
                         // Устанавливаем текущую директорию
                         File file = new File(String.valueOf(path));

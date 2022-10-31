@@ -62,7 +62,7 @@ public class BasicInformationActivity extends AppCompatActivity {
 
 
         // Берем акуальный объект отчета из хранилища
-        report = Storage.reportEntityStorage;
+        report = Storage.currentReportEntityStorage;
 
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter (this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, characteristics);
@@ -102,7 +102,7 @@ public class BasicInformationActivity extends AppCompatActivity {
         readDataFromFields();
 
         // Обновляем актуальный объект отчета из хранилища
-        Storage.reportEntityStorage = report;
+        Storage.currentReportEntityStorage = report;
 
         saveReport();
     }

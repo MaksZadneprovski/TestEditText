@@ -10,7 +10,7 @@ public class Shield {
     private boolean isPEN;
     private Phases phases;
     private ArrayList<MetallicBond> metallicBonds;
-    private ArrayList<ShieldGroups> shieldGroups;
+    private ArrayList<Group> shieldGroups;
 
 
     public String getName() {
@@ -45,11 +45,22 @@ public class Shield {
         this.metallicBonds = metallicBonds;
     }
 
-    public ArrayList<ShieldGroups> getShieldGroups() {
+    public ArrayList<Group> getShieldGroups() {
         return shieldGroups;
     }
 
-    public void setShieldGroups(ArrayList<ShieldGroups> shieldGroups) {
+    public void setShieldGroups(ArrayList<Group> shieldGroups) {
         this.shieldGroups = shieldGroups;
+    }
+
+    @Override
+    public String toString() {
+        return "Shield{" +
+                "name='" + name + '\'' +
+                ", isPEN=" + isPEN +
+                ", phases=" + phases +
+                ", metallicBonds=" + metallicBonds +
+                ", shieldGroups=" + shieldGroups +
+                '}';
     }
 }

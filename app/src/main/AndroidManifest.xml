@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestEditText"
         tools:targetApi="31">
+
         <activity
-            android:name=".activities.report_list.report.shield_list.shield.shield_group.ShieldGroupActivity"
+            android:name=".activities.report_list.report.shield_list.shield.shield_group.GroupListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -27,7 +28,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activities.report_list.report.shield_list.ShieldsListActivity"
+            android:name=".activities.report_list.report.shield_list.ShieldListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
