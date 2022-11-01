@@ -1,16 +1,21 @@
 package com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group;
 
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testedittext.R;
 import com.example.testedittext.entities.Group;
+import com.example.testedittext.utils.CopyClick;
 
 import java.util.List;
 
@@ -18,15 +23,16 @@ public class GroupListRVAdapter extends RecyclerView.Adapter<GroupListRVAdapter.
 
     private final List<Group> groupList;
 
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView textView;
-        final Button button;
+        final EditText editText;
+        final TextView button;
 
         public ViewHolder(View view) {
             super(view);
 
-            textView = (TextView) view.findViewById(R.id.tvRecView1);
-            button = (Button) view.findViewById(R.id.buttonRv1);
+            editText = (EditText) view.findViewById(R.id.tvRecView1);
+            button = (TextView) view.findViewById(R.id.buttonRv1);
         }
 
     }
@@ -49,19 +55,11 @@ public class GroupListRVAdapter extends RecyclerView.Adapter<GroupListRVAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        Group group = groupList.get(position);
-        viewHolder.textView.setText(group.getName());
+        CopyClick copyClick = new CopyClick(position);
 
+        viewHolder.button.setOnClickListener(copyClick);
 
-
-        viewHolder.textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                notifyDataSetChanged();
-            }
-        });
+        viewHolder.button.setOnLongClickListener(copyClick);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

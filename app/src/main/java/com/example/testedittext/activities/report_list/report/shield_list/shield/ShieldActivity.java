@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
@@ -23,9 +24,12 @@ public class ShieldActivity extends AppCompatActivity {
 
     EditText shieldName;
     TextView tvShieldGroups;
+    RadioButton shieldRadio1_1,shieldRadio1_2,shieldRadio2_1,shieldRadio2_2,shieldRadio2_3 ,shieldRadio2_4;
+
+
     Shield shield;
     ArrayList<Shield> shieldArrayList;
-    ReportEntity reportEntity;
+    ReportEntity report;
     int numberOfPressedShield;
 
     @Override
@@ -38,10 +42,16 @@ public class ShieldActivity extends AppCompatActivity {
 
         shieldName = findViewById(R.id.shieldName);
         tvShieldGroups = findViewById(R.id.tvShieldGroups);
+        shieldRadio1_1 = findViewById(R.id.shieldRadio1_1);
+        shieldRadio1_2 = findViewById(R.id.shieldRadio1_2);
+        shieldRadio2_1 = findViewById(R.id.shieldRadio2_1);
+        shieldRadio2_2 = findViewById(R.id.shieldRadio2_2);
+        shieldRadio2_3 = findViewById(R.id.shieldRadio2_3);
+        shieldRadio2_4 = findViewById(R.id.shieldRadio2_4);
 
         // Берем акуальный объект отчета из хранилища
-        reportEntity = Storage.currentReportEntityStorage;
-        shieldArrayList = reportEntity.getShields();
+        report = Storage.currentReportEntityStorage;
+        shieldArrayList = report.getShields();
 
 
         // Нажатие на текст "Группы"
@@ -53,7 +63,7 @@ public class ShieldActivity extends AppCompatActivity {
         if (arguments != null) {
             numberOfPressedShield = (int) arguments.get("numberOfPressedShield");
             Storage.currentNumberSelectedShield = numberOfPressedShield;
-            shield = reportEntity.getShields().get(numberOfPressedShield);
+            shield = report.getShields().get(numberOfPressedShield);
         }else {
             numberOfPressedShield = -1;
             shield = new Shield();
@@ -70,6 +80,8 @@ public class ShieldActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        // Обновляем актуальный объект отчета из хранилища
+        //Storage.currentReportEntityStorage = report;
 
         if (!Storage.isDeleteShield) {
             readDataFromFields();
@@ -78,7 +90,18 @@ public class ShieldActivity extends AppCompatActivity {
     }
 
     private void setDataToFieldsFromBd(){
-            shieldName.setText(shield.getName());
+        shieldName.setText(shield.getName());
+
+        if (shield.isPEN()) shieldRadio1_2.toggle();
+        else shieldRadio1_1.toggle();
+
+        switch (shield.getPhases()){
+            case A : shieldRadio2_1.toggle(); break;
+            case B : shieldRadio2_2.toggle(); break;
+            case C : shieldRadio2_3.toggle(); break;
+            case ABC : shieldRadio2_4.toggle(); break;
+        }
+
     }
 
     private void readDataFromFields(){
@@ -102,8 +125,8 @@ public class ShieldActivity extends AppCompatActivity {
 
         }
 
-        reportEntity.setShields(shieldArrayList);
-        reportDAO.insertReport(new ReportInDB(reportEntity));
+        report.setShields(shieldArrayList);
+        reportDAO.insertReport(new ReportInDB(report));
 
     }
 
