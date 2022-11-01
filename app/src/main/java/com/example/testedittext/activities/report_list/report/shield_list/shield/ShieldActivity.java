@@ -3,6 +3,7 @@ package com.example.testedittext.activities.report_list.report.shield_list.shiel
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -40,6 +41,7 @@ public class ShieldActivity extends AppCompatActivity {
 
         // Кнопка удалить щит
         FloatingActionButton deleteShield =  findViewById(R.id.deleteShield);
+        deleteShield.setColorFilter(Color.argb(255, 255, 255, 255));
 
         shieldName = findViewById(R.id.shieldName);
         tvShieldGroups = findViewById(R.id.tvShieldGroups);

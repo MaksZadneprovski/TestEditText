@@ -3,6 +3,7 @@ package com.example.testedittext.activities.report_list.report;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -33,10 +34,13 @@ public class ReportActivity extends AppCompatActivity {
 
         // Кнопка сохранить отчет
         FloatingActionButton reportSave =  findViewById(R.id.reportSave);
+        reportSave.setColorFilter(Color.argb(255, 255, 255, 255));
         // Кнопка поделиться
         FloatingActionButton buttonShare =  findViewById(R.id.shareReport);
+        buttonShare.setColorFilter(Color.argb(255, 255, 255, 255));
         // Кнопка удалить отчет
         FloatingActionButton buttonDelete =  findViewById(R.id.deleteReport);
+        buttonDelete.setColorFilter(Color.argb(255, 255, 255, 255));
         // TV название отчета
         TextView reportTitle = findViewById(R.id.reportTitle);
         // TV Основная информация

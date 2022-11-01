@@ -21,16 +21,38 @@ public class GroupListRVAdapter extends RecyclerView.Adapter<GroupListRVAdapter.
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final EditText editText1, editText2;
-        final TextView button1, button2 ;
+        final EditText tvRecView1, tvRecView2, tvRecView3, tvRecView4, tvRecView5, tvRecView6, tvRecView7, tvRecView8, tvRecView9, tvRecView10, tvRecView11, tvRecView12;
+        final TextView buttonRv1, buttonRv2, buttonRv3, buttonRv4, buttonRv5, buttonRv6, buttonRv7, buttonRv8, buttonRv9, buttonRv10, buttonRv11, buttonRv12 ;
 
         public ViewHolder(View view) {
             super(view);
 
-            editText1 = (EditText) view.findViewById(R.id.tvRecView1);
-            button1 = (TextView) view.findViewById(R.id.buttonRv1);
-            editText2 = (EditText) view.findViewById(R.id.tvRecView2);
-            button2 = (TextView) view.findViewById(R.id.buttonRv2);
+            tvRecView1 = (EditText) view.findViewById(R.id.tvRecView1);
+            tvRecView2 = (EditText) view.findViewById(R.id.tvRecView2);
+            tvRecView3 = (EditText) view.findViewById(R.id.tvRecView3);
+            tvRecView4 = (EditText) view.findViewById(R.id.tvRecView4);
+            tvRecView5 = (EditText) view.findViewById(R.id.tvRecView5);
+            tvRecView6 = (EditText) view.findViewById(R.id.tvRecView6);
+            tvRecView7 = (EditText) view.findViewById(R.id.tvRecView7);
+            tvRecView8 = (EditText) view.findViewById(R.id.tvRecView8);
+            tvRecView9 = (EditText) view.findViewById(R.id.tvRecView9);
+            tvRecView10 = (EditText) view.findViewById(R.id.tvRecView10);
+            tvRecView11 = (EditText) view.findViewById(R.id.tvRecView11);
+            tvRecView12 = (EditText) view.findViewById(R.id.tvRecView12);
+
+            buttonRv1 = (TextView) view.findViewById(R.id.buttonRv1);
+            buttonRv2 = (TextView) view.findViewById(R.id.buttonRv2);
+            buttonRv3 = (TextView) view.findViewById(R.id.buttonRv3);
+            buttonRv4 = (TextView) view.findViewById(R.id.buttonRv4);
+            buttonRv5 = (TextView) view.findViewById(R.id.buttonRv5);
+            buttonRv6 = (TextView) view.findViewById(R.id.buttonRv6);
+            buttonRv7 = (TextView) view.findViewById(R.id.buttonRv7);
+            buttonRv8 = (TextView) view.findViewById(R.id.buttonRv8);
+            buttonRv9 = (TextView) view.findViewById(R.id.buttonRv9);
+            buttonRv10 = (TextView) view.findViewById(R.id.buttonRv10);
+            buttonRv11 = (TextView) view.findViewById(R.id.buttonRv11);
+            buttonRv12 = (TextView) view.findViewById(R.id.buttonRv12);
+
         }
 
     }
@@ -53,17 +75,46 @@ public class GroupListRVAdapter extends RecyclerView.Adapter<GroupListRVAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-
-
         CopyClick copyClick = new CopyClick(position);
 
-        viewHolder.button1.setOnClickListener(copyClick);
-        viewHolder.button1.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv1.setOnClickListener(copyClick);
+        viewHolder.buttonRv2.setOnClickListener(copyClick);
+        viewHolder.buttonRv3.setOnClickListener(copyClick);
+        viewHolder.buttonRv4.setOnClickListener(copyClick);
+        viewHolder.buttonRv5.setOnClickListener(copyClick);
+        viewHolder.buttonRv6.setOnClickListener(copyClick);
+        viewHolder.buttonRv7.setOnClickListener(copyClick);
+        viewHolder.buttonRv8.setOnClickListener(copyClick);
+        viewHolder.buttonRv9.setOnClickListener(copyClick);
+        viewHolder.buttonRv10.setOnClickListener(copyClick);
+        viewHolder.buttonRv11.setOnClickListener(copyClick);
+        viewHolder.buttonRv12.setOnClickListener(copyClick);
 
-        viewHolder.button2.setOnClickListener(copyClick);
-        viewHolder.button2.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv1.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv2.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv3.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv4.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv5.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv6.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv7.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv8.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv9.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv10.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv11.setOnLongClickListener(copyClick);
+        viewHolder.buttonRv12.setOnLongClickListener(copyClick);
 
-        viewHolder.editText2.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView1.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView2.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView3.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView4.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView5.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView6.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView7.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView8.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView9.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView10.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView11.setText(groupList.get(position).getAddress());
+        viewHolder.tvRecView12.setText(groupList.get(position).getAddress());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

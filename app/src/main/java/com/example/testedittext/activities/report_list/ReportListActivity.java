@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.testedittext.R;
@@ -25,6 +26,7 @@ public class ReportListActivity extends AppCompatActivity {
 
         // Кнопка Создать новый отчет
         FloatingActionButton buttonAddNewReport =  findViewById(R.id.addNewFolder);
+        buttonAddNewReport.setColorFilter(Color.argb(255, 255, 255, 255));
 
         // Создаем и назначаем обработчик кнопки создания отчетов
         buttonAddNewReport.setOnClickListener(new NewReportAdder());

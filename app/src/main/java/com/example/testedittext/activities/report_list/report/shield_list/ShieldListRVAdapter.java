@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testedittext.R;
@@ -46,7 +47,7 @@ public class ShieldListRVAdapter extends RecyclerView.Adapter<ShieldListRVAdapte
         holder.reportIcon.setImageResource(R.drawable.shield);
 
 
-        holder.reportName.setOnClickListener(new View.OnClickListener() {
+        holder.reportConstraint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ShieldActivity.class);
@@ -65,12 +66,14 @@ public class ShieldListRVAdapter extends RecyclerView.Adapter<ShieldListRVAdapte
 
         ImageView reportIcon;
         TextView reportName;
+        ConstraintLayout reportConstraint;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
+            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportConstraint);
         }
     }
 }

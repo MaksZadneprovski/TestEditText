@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testedittext.R;
@@ -47,7 +48,7 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
             holder.reportIcon.setImageResource(R.drawable.folder);
         }
 
-        holder.reportName.setOnClickListener(new View.OnClickListener() {
+        holder.reportConstraint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Устанавливаем текущую директорию
@@ -69,12 +70,14 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
 
         ImageView reportIcon;
         TextView reportName;
+        ConstraintLayout reportConstraint;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
+            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportConstraint);
         }
     }
 }

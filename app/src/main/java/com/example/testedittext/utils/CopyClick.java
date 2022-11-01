@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +25,8 @@ public class CopyClick implements View.OnClickListener, View.OnLongClickListener
     public void onClick(View view) {
         if (CopyClick.isPressedLong) {
             RecyclerView rv = ((RecyclerView) ((LinearLayout) view.getParent()).getParent().getParent());
-            rv.setBackgroundColor(Color.parseColor("#ffffff"));
+            // Затемняем фон
+            ((ScrollView) rv.getParent().getParent().getParent()).setBackgroundColor(Color.parseColor("#ffffff"));
 
             // Пробегаемся по RV от кликнутого long , до кликнутого short
             for (int i = CopyClick.clickedPrevPosition; i < position + 1; i++) {
@@ -45,7 +47,8 @@ public class CopyClick implements View.OnClickListener, View.OnLongClickListener
         CopyClick.clickedPrevPosition = position;
 
         RecyclerView rv = ((RecyclerView) ((LinearLayout) view.getParent()).getParent().getParent());
-        rv.setBackgroundColor(Color.parseColor("#b4b8b6"));
+        // Затемняем фон
+        ((ScrollView) rv.getParent().getParent().getParent()).setBackgroundColor(Color.parseColor("#b4b8b6"));
         // Получили кликнутый LL
         LinearLayout linearLayout = (LinearLayout) ((ConstraintLayout) rv.getChildAt(position)).getChildAt(0);
         // Пробегаемся по LL, чтобы выяснить индекс кликнутой кнопки

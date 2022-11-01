@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.testedittext.R;
@@ -27,6 +28,7 @@ public class ShieldListActivity extends AppCompatActivity {
 
         // Кнопка Создать новый щит
         FloatingActionButton buttonAddNewShield =  findViewById(R.id.addNewShield);
+        buttonAddNewShield.setColorFilter(Color.argb(255, 255, 255, 255));
 
         setAdapter();
 
