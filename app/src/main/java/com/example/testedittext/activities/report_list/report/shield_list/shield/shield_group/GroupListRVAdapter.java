@@ -1,16 +1,12 @@
 package com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group;
 
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testedittext.R;
@@ -25,14 +21,16 @@ public class GroupListRVAdapter extends RecyclerView.Adapter<GroupListRVAdapter.
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final EditText editText;
-        final TextView button;
+        final EditText editText1, editText2;
+        final TextView button1, button2 ;
 
         public ViewHolder(View view) {
             super(view);
 
-            editText = (EditText) view.findViewById(R.id.tvRecView1);
-            button = (TextView) view.findViewById(R.id.buttonRv1);
+            editText1 = (EditText) view.findViewById(R.id.tvRecView1);
+            button1 = (TextView) view.findViewById(R.id.buttonRv1);
+            editText2 = (EditText) view.findViewById(R.id.tvRecView2);
+            button2 = (TextView) view.findViewById(R.id.buttonRv2);
         }
 
     }
@@ -55,11 +53,17 @@ public class GroupListRVAdapter extends RecyclerView.Adapter<GroupListRVAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
+
+
         CopyClick copyClick = new CopyClick(position);
 
-        viewHolder.button.setOnClickListener(copyClick);
+        viewHolder.button1.setOnClickListener(copyClick);
+        viewHolder.button1.setOnLongClickListener(copyClick);
 
-        viewHolder.button.setOnLongClickListener(copyClick);
+        viewHolder.button2.setOnClickListener(copyClick);
+        viewHolder.button2.setOnLongClickListener(copyClick);
+
+        viewHolder.editText2.setText(groupList.get(position).getAddress());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

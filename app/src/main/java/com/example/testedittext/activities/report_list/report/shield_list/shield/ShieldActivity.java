@@ -15,6 +15,7 @@ import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.entities.Shield;
+import com.example.testedittext.entities.enums.Phases;
 import com.example.testedittext.utils.Storage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -95,17 +96,24 @@ public class ShieldActivity extends AppCompatActivity {
         if (shield.isPEN()) shieldRadio1_2.toggle();
         else shieldRadio1_1.toggle();
 
-        switch (shield.getPhases()){
-            case A : shieldRadio2_1.toggle(); break;
-            case B : shieldRadio2_2.toggle(); break;
-            case C : shieldRadio2_3.toggle(); break;
-            case ABC : shieldRadio2_4.toggle(); break;
+        if (shield.getPhases() != null){
+            switch (shield.getPhases()){
+                case A : shieldRadio2_1.toggle(); break;
+                case B : shieldRadio2_2.toggle(); break;
+                case C : shieldRadio2_3.toggle(); break;
+                case ABC : shieldRadio2_4.toggle(); break;
+            }
         }
 
     }
 
     private void readDataFromFields(){
         shield.setName(shieldName.getText().toString());
+        shield.setPEN(shieldRadio1_2.isChecked());
+        if (shieldRadio2_1.isChecked()) shield.setPhases(Phases.A);
+        if (shieldRadio2_2.isChecked()) shield.setPhases(Phases.B);
+        if (shieldRadio2_3.isChecked()) shield.setPhases(Phases.C);
+        if (shieldRadio2_4.isChecked()) shield.setPhases(Phases.ABC);
     }
 
     public void saveReport(){
