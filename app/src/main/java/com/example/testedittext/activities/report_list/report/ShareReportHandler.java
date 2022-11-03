@@ -12,6 +12,10 @@ import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.utils.DirectoryUtil;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class ShareReportHandler implements View.OnClickListener {
     Context context;
@@ -21,8 +25,22 @@ public class ShareReportHandler implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Context context = view.getContext();
-        File file = new File(DirectoryUtil.currentDirectory +"/" + "notExist");
-        if (file.exists()){
+        //File file = new File(DirectoryUtil.currentDirectory +"/" + "notExist");
+
+        File file = null;
+        try {
+            InputStream inputStream = context.getAssets().open("w.xls");
+            file = new File(context.getExternalFilesDir(null)+ "/" + "file.txt");
+
+            Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        if (file != null || file.exists()){
             Intent share = new Intent();
             share.setAction(Intent.ACTION_SEND);
             share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file));

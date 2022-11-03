@@ -27,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Название щита :"
+                android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,6 +45,7 @@
 
             <TextView
                 android:id="@+id/tv13"
+                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Нулевая шина :"
@@ -62,20 +64,19 @@
 
                 <RadioButton
                     android:id="@+id/shieldRadio1_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="N и PE" />
 
                 <RadioButton
                     android:id="@+id/shieldRadio1_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="PEN" />
 
             </RadioGroup>
 
             <TextView
                 android:id="@+id/tv14"
+                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Фазные шины :"
@@ -85,6 +86,7 @@
 
             <RadioGroup
                 android:id="@+id/shieldRadioGroup2"
+                android:paddingBottom="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,27 +94,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv14">
 
                 <RadioButton
+                    style="@style/MyStyleRadio"
                     android:id="@+id/shieldRadio2_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="L1" />
 
                 <RadioButton
                     android:id="@+id/shieldRadio2_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="L2" />
 
                 <RadioButton
                     android:id="@+id/shieldRadio2_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="L3" />
 
                 <RadioButton
                     android:id="@+id/shieldRadio2_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="L1, L2, L3" />
 
             </RadioGroup>

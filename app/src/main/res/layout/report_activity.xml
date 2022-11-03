@@ -74,44 +74,44 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/deleteReport"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@drawable/delete"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        android:backgroundTint="@color/clickText"
-        android:layout_marginRight="20dp"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/reportSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_marginLeft="20dp"
-        android:src="@drawable/save"
-        android:backgroundTint="@color/clickText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/reportSave"
+            style="@style/MyStyleFloating"
+            android:src="@drawable/save"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/shareReport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:srcCompat="@drawable/share"
-        android:backgroundTint="@color/clickText"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/shareReport"
+            style="@style/MyStyleFloating"
+            app:srcCompat="@drawable/share"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/renameReport"
+            style="@style/MyStyleFloating"
+            app:srcCompat="@drawable/rename"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteReport"
+            style="@style/MyStyleFloating"
+            android:src="@drawable/delete"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

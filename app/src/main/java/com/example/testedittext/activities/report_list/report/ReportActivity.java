@@ -38,6 +38,9 @@ public class ReportActivity extends AppCompatActivity {
         // Кнопка поделиться
         FloatingActionButton buttonShare =  findViewById(R.id.shareReport);
         buttonShare.setColorFilter(Color.argb(255, 255, 255, 255));
+        // Кнопка переименовать отчет
+        FloatingActionButton buttonRename =  findViewById(R.id.renameReport);
+        buttonRename.setColorFilter(Color.argb(255, 255, 255, 255));
         // Кнопка удалить отчет
         FloatingActionButton buttonDelete =  findViewById(R.id.deleteReport);
         buttonDelete.setColorFilter(Color.argb(255, 255, 255, 255));
@@ -58,6 +61,8 @@ public class ReportActivity extends AppCompatActivity {
         buttonShare.setOnClickListener(new ShareReportHandler());
         // Назначаем обработчик кнопке поделиться
         buttonShare.setOnClickListener(new ShareReportHandler());
+        // Назначаем обработчик кнопке переименовать
+        buttonRename.setOnClickListener(new ShareReportHandler());
         // Назначаем обработчик кнопке удалить отчет
         buttonDelete.setOnClickListener(new DeleteReportHandler(this));
         // Назначаем обработчик тексту Основн. инф.

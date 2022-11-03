@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testedittext.R;
 import com.example.testedittext.entities.Group;
+import com.example.testedittext.entities.enums.Phases;
 import com.example.testedittext.utils.CopyClick;
 
 import java.util.List;
@@ -103,18 +104,20 @@ public class GroupListRVAdapter extends RecyclerView.Adapter<GroupListRVAdapter.
         viewHolder.buttonRv11.setOnLongClickListener(copyClick);
         viewHolder.buttonRv12.setOnLongClickListener(copyClick);
 
-        viewHolder.tvRecView1.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView2.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView3.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView4.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView5.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView6.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView7.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView8.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView9.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView10.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView11.setText(groupList.get(position).getAddress());
-        viewHolder.tvRecView12.setText(groupList.get(position).getAddress());
+        Group group = groupList.get(position);
+
+        viewHolder.tvRecView1.setText(group.getDesignation());
+        viewHolder.tvRecView2.setText(group.getAddress());
+        viewHolder.tvRecView3.setText(group.getPhases());
+        viewHolder.tvRecView4.setText(group.getCable());
+        viewHolder.tvRecView5.setText(group.getNumberOfWireCores());
+        viewHolder.tvRecView6.setText(group.getWireThickness());
+        viewHolder.tvRecView7.setText(group.getDefenseApparatus());
+        viewHolder.tvRecView8.setText(group.getMachineBrand());
+        viewHolder.tvRecView9.setText(group.getRatedCurrent());
+        viewHolder.tvRecView10.setText(group.getReleaseType());
+        viewHolder.tvRecView11.setText(group.getF0Range());
+        viewHolder.tvRecView12.setText(group.gettSrabAvt());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.testedittext.R;
 import com.example.testedittext.entities.Group;
+import com.example.testedittext.entities.enums.Phases;
 import com.example.testedittext.utils.MyLinearLayoutManager;
 import com.example.testedittext.utils.Storage;
 
@@ -73,7 +74,19 @@ public class GroupListActivity extends AppCompatActivity {
         // Пробегаемся по RecyclerView
         for (int i = 0; i < recyclerView.getChildCount(); i++) {
             LinearLayout linearLayout = ((LinearLayout) ((ConstraintLayout) recyclerView.getChildAt(i)).getChildAt(0));
-            groupList.get(i).setAddress(getTextFromEditTextInLinear(linearLayout, 2));
+            Group group = groupList.get(i);
+            group.setDesignation(getTextFromEditTextInLinear(linearLayout, 0));
+            group.setAddress(getTextFromEditTextInLinear(linearLayout, 2));
+            group.setPhases(getTextFromEditTextInLinear(linearLayout, 4));
+            group.setCable(getTextFromEditTextInLinear(linearLayout, 6));
+            group.setNumberOfWireCores(getTextFromEditTextInLinear(linearLayout, 8));
+            group.setWireThickness(getTextFromEditTextInLinear(linearLayout, 10));
+            group.setDefenseApparatus(getTextFromEditTextInLinear(linearLayout, 12));
+            group.setMachineBrand(getTextFromEditTextInLinear(linearLayout, 14));
+            group.setRatedCurrent(getTextFromEditTextInLinear(linearLayout, 16));
+            group.setReleaseType(getTextFromEditTextInLinear(linearLayout, 18));
+            group.setF0Range(getTextFromEditTextInLinear(linearLayout, 20));
+            group.settSrabAvt(getTextFromEditTextInLinear(linearLayout, 22));
 
         }
     }

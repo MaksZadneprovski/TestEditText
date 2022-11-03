@@ -57,8 +57,19 @@
     </style>
 
     <style name="MyStyleRadio" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/clickText</item>
-        <item name="colorControlActivated">@color/clickText</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="buttonTint">@color/clickText</item>
+    </style>
+
+    <style name="MyStyleFloating" parent="Theme.AppCompat.Light">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:backgroundTint">@color/clickText</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
     </style>
 
 
