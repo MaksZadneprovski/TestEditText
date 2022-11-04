@@ -32,7 +32,7 @@ public class ShieldListRVAdapter extends RecyclerView.Adapter<ShieldListRVAdapte
     @Override
     public ShieldListRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.report_rv_item, parent, false);
+                .inflate(R.layout.shield_rv_item, parent, false);
 
         if (context == null) context = parent.getContext();
 

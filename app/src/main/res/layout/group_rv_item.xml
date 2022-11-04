@@ -17,112 +17,112 @@
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView1"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Обозначение" />
 
         <TextView
             android:id="@+id/buttonRv1"
-            style="@style/MyStyleTextView"/>
+            style="@style/TVForGroupRVItem"/>
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView2"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Адрес" />
 
 
         <TextView
             android:id="@+id/buttonRv2"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView3"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Фаза" />
 
         <TextView
             android:id="@+id/buttonRv3"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView4"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Кабель" />
 
         <TextView
             android:id="@+id/buttonRv4"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView5"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Кол-во жил" />
 
         <TextView
             android:id="@+id/buttonRv5"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView6"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Сечение" />
 
         <TextView
             android:id="@+id/buttonRv6"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView7"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Аппарат защиты" />
 
         <TextView
             android:id="@+id/buttonRv7"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView8"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Марка автомата" />
 
         <TextView
             android:id="@+id/buttonRv8"
-            style="@style/MyStyleTextView"/>
+            style="@style/TVForGroupRVItem"/>
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView9"
             android:hint="Iном"
-            style="@style/MyStyleEditText"/>
+            style="@style/ETForGroupRVItem"/>
 
         <TextView
             android:id="@+id/buttonRv9"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView10"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Тип расцепителя" />
 
         <TextView
             android:id="@+id/buttonRv10"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
         <com.example.testedittext.visual.InstantAutoComplete
             android:id="@+id/tvRecView11"
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:hint="Диапазон Ф-0" />
 
         <TextView
             android:id="@+id/buttonRv11"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
         <com.example.testedittext.visual.InstantAutoComplete
-            style="@style/MyStyleEditText"
+            style="@style/ETForGroupRVItem"
             android:id="@+id/tvRecView12"
             android:hint="t сраб. автомата" />
 
         <TextView
             android:id="@+id/buttonRv12"
-            style="@style/MyStyleTextView" />
+            style="@style/TVForGroupRVItem" />
 
     </LinearLayout>
 

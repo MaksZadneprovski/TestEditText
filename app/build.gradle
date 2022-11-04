@@ -51,6 +51,8 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
 
+    // https://mvnrepository.com/artifact/org.jopendocument/jOpenDocument
+    implementation group: 'org.jopendocument', name: 'jOpenDocument', version: '1.3'
 
 
 }

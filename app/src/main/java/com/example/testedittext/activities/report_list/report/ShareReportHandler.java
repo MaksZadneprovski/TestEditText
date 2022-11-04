@@ -30,7 +30,7 @@ public class ShareReportHandler implements View.OnClickListener {
         File file = null;
         try {
             InputStream inputStream = context.getAssets().open("w.xls");
-            file = new File(context.getExternalFilesDir(null)+ "/" + "file.txt");
+            file = new File(context.getExternalFilesDir(null)+ "/" + "file.xls");
 
             Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
 

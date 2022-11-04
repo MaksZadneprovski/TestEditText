@@ -62,7 +62,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/addInf" />
 
                 <TextView
-                    android:id="@+id/zzz2"
+                    android:id="@+id/tvGround"
                     style="@style/MyStyleTextViewMenu"
                     android:text="Заземление и молниезащита"
                     app:layout_constraintStart_toStartOf="parent"

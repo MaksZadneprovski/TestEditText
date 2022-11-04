@@ -29,7 +29,7 @@ public class DeleteReportHandler implements  AdapterView.OnClickListener{
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Удаление");
-        builder.setMessage("Вы действительно хотите удалить папку?");
+        builder.setMessage("Вы действительно хотите удалить отчет?");
         builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

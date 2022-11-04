@@ -17,8 +17,7 @@
 
             <TextView
                 android:id="@+id/tv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TVForTitleInf"
                 android:text="Дата испытаний"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,11 +34,7 @@
 
             <EditText
                 android:id="@+id/infDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
+                style="@style/ETForBasicInf"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/datePicker"
@@ -48,8 +43,7 @@
 
             <TextView
                 android:id="@+id/tv2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TVForTitleInf"
                 android:text="Заказчик"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,11 +51,7 @@
 
             <EditText
                 android:id="@+id/infCustomer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
+                style="@style/ETForBasicInf"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv2"
@@ -70,8 +60,7 @@
 
             <TextView
                 android:id="@+id/tv3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TVForTitleInf"
                 android:text="Объект"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,11 +68,7 @@
 
             <EditText
                 android:id="@+id/infObject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
+                style="@style/ETForBasicInf"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv3"
@@ -92,8 +77,7 @@
 
             <TextView
                 android:id="@+id/tv4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TVForTitleInf"
                 android:text="Адрес"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,11 +85,7 @@
 
             <EditText
                 android:id="@+id/infAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
+                style="@style/ETForBasicInf"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv4"
@@ -113,8 +93,7 @@
 
             <TextView
                 android:id="@+id/tv5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TVForTitleInf"
                 android:text="Характеристика"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -122,11 +101,7 @@
 
             <com.example.testedittext.visual.InstantAutoComplete
                 android:id="@+id/infCharacteristic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
+                style="@style/ETForBasicInf"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv5"
@@ -134,57 +109,45 @@
 
             <TextView
                 android:id="@+id/tv6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TVForTitleInf"
                 android:text="Температура"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/infCharacteristic" />
             <EditText
                 android:id="@+id/infTemperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
+                style="@style/ETForBasicInf"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv6" />
 
             <TextView
                 android:id="@+id/tv7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TVForTitleInf"
                 android:text="Влажность"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/infTemperature" />
             <EditText
                 android:id="@+id/infHumidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
+                style="@style/ETForBasicInf"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv7" />
 
             <TextView
                 android:id="@+id/tv8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TVForTitleInf"
                 android:text="Атмосферное давление"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/infHumidity" />
             <EditText
                 android:id="@+id/infPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
+                style="@style/ETForBasicInf"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv8" />
@@ -192,49 +155,42 @@
 
             <TextView
                 android:id="@+id/tv9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Тип испытаний :"
+                style="@style/TVForTitleInf"
+                android:text="Тип испытаний"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/infPressure" />
 
             <RadioGroup
                 android:id="@+id/infRadioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MyStyleRadioGroup"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv9">
 
                 <RadioButton android:id="@+id/infRadio1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Эксплуатационные"/>
                 <RadioButton android:id="@+id/infRadio2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Приёмо-сдаточные"/>
                 <RadioButton android:id="@+id/infRadio3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Сличительные" />
                 <RadioButton android:id="@+id/infRadio4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Контрольные испытания"/>
                 <RadioButton android:id="@+id/infRadio5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Для целей сертификации"/>
 
             </RadioGroup>
 
             <TextView
                 android:id="@+id/tv10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Вид работ :"
+                style="@style/TVForTitleInf"
+                android:text="Вид работ"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/infRadioGroup" />
@@ -242,42 +198,38 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constForChBx"
+                android:layout_marginTop="20dp"
                 app:layout_constraintTop_toBottomOf="@+id/tv10"
                 app:layout_constraintStart_toStartOf="@+id/infRadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <CheckBox android:id="@+id/cb1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Визуальный осмотр"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/constForChBx" />
 
                 <CheckBox android:id="@+id/cb2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Метсвязь"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cb1" />
 
                 <CheckBox android:id="@+id/cb3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Изоляция"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cb2" />
 
                 <CheckBox android:id="@+id/cb4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Фаза-нуль"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cb3" />
 
                 <CheckBox android:id="@+id/cb5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/MyStyleRadio"
                     android:text="Заземляющее устройство"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cb4" />

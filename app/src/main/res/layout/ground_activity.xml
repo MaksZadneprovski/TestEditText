@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/constraintGround"
+    tools:context=".activities.report_list.report.shield_list.shield.ShieldActivity">
+
+    <ScrollView
+        android:id="@+id/scrollViewGround"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv21"
+                style="@style/TVForTitleInf"
+                android:text="Вид грунта"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <RadioGroup
+                android:id="@+id/groundRadioGroup1"
+                style="@style/MyStyleRadioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/tv21"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <RadioButton
+                    android:id="@+id/groundRadio1_1"
+                    style="@style/MyStyleRadio"
+                    android:text="Суглинок" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio1_2"
+                    style="@style/MyStyleRadio"
+                    android:text="Песок" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio1_3"
+                    style="@style/MyStyleRadio"
+                    android:text="Глина" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio1_4"
+                    style="@style/MyStyleRadio"
+                    android:text="Чернозем" />
+                <RadioButton
+                    android:id="@+id/groundRadio1_5"
+                    style="@style/MyStyleRadio"
+                    android:text="Торф" />
+                <RadioButton
+                    android:id="@+id/groundRadio1_6"
+                    style="@style/MyStyleRadio"
+                    android:text="Садовый" />
+                <RadioButton
+                    android:id="@+id/groundRadio1_7"
+                    style="@style/MyStyleRadio"
+                    android:text="Каменистый" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv22"
+                style="@style/TVForTitleInf"
+                android:text="Характер грунта"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groundRadioGroup1" />
+
+
+            <RadioGroup
+                android:id="@+id/groundRadioGroup2"
+                style="@style/MyStyleRadioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/tv22"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <RadioButton
+                    android:id="@+id/groundRadio2_1"
+                    style="@style/MyStyleRadio"
+                    android:text="Влажный" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio2_2"
+                    style="@style/MyStyleRadio"
+                    android:text="Средневлажный" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio2_3"
+                    style="@style/MyStyleRadio"
+                    android:text="Сухой " />
+
+
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/tv23"
+                style="@style/TVForTitleInf"
+                android:text="Напряжение заземляющего устройства"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groundRadioGroup2" />
+
+
+            <RadioGroup
+                android:id="@+id/groundRadioGroup3"
+                style="@style/MyStyleRadioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/tv23"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <RadioButton
+                    android:id="@+id/groundRadio3_1"
+                    style="@style/MyStyleRadio"
+                    android:text="До 1000 В" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio3_2"
+                    style="@style/MyStyleRadio"
+                    android:text="До и выше 1000 В" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio3_3"
+                    style="@style/MyStyleRadio"
+                    android:text="Выше 1000 В " />
+
+
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/tv24"
+                style="@style/TVForTitleInf"
+                android:text="Режим нейтрали"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groundRadioGroup3" />
+
+
+            <RadioGroup
+                android:id="@+id/groundRadioGroup4"
+                style="@style/MyStyleRadioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/tv24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <RadioButton
+                    android:id="@+id/groundRadio4_1"
+                    style="@style/MyStyleRadio"
+                    android:text="Глухозаземленная" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio4_2"
+                    style="@style/MyStyleRadio"
+                    android:text="Изолированная" />
+
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/tv25"
+                style="@style/TVForTitleInf"
+                android:text="Категория молниезащиты"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groundRadioGroup4" />
+
+            <RadioGroup
+                android:id="@+id/groundRadioGroup5"
+                style="@style/MyStyleRadioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/tv25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <RadioButton
+                    android:id="@+id/groundRadio5_1"
+                    style="@style/MyStyleRadio"
+                    android:text="1" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio5_2"
+                    style="@style/MyStyleRadio"
+                    android:text="2" />
+
+                <RadioButton
+                    android:id="@+id/groundRadio5_3"
+                    style="@style/MyStyleRadio"
+                    android:text="3" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv26"
+                style="@style/TVForTitleInf"
+                android:text="Коэффициент сезонности"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groundRadioGroup5" />
+
+
+            <EditText
+                android:id="@+id/groundCoefSeazon"
+                style="@style/ETForBasicInf"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv26" />
+
+            <TextView
+                android:id="@+id/tv27"
+                style="@style/TVForTitleInf"
+                android:text="Удельное сопротивление грунта"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groundCoefSeazon" />
+
+
+            <EditText
+                android:id="@+id/groundResistGrunt"
+                style="@style/ETForBasicInf"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv27" />
+
+            <TextView
+                android:id="@+id/tvZazemliteli"
+                style="@style/MyStyleTextViewMenu"
+                android:text="Заземлители"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/groundResistGrunt" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/deleteShield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/clickText"
+        android:clickable="true"
+        android:src="@drawable/delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewGround"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
