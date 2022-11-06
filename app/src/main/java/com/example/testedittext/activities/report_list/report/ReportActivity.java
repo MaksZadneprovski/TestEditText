@@ -89,12 +89,6 @@ public class ReportActivity extends AppCompatActivity {
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-        MeasureInsulationSaver m = new MeasureInsulationSaver("sdsdsd.xls", this);
-        try {
-            m.save();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
     }

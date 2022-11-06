@@ -9,7 +9,9 @@ import androidx.core.content.FileProvider;
 
 import com.example.testedittext.BuildConfig;
 import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.report_creator.Report;
 import com.example.testedittext.utils.DirectoryUtil;
+import com.example.testedittext.utils.Storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,29 +26,45 @@ public class ShareReportHandler implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Context context = view.getContext();
-        //File file = new File(DirectoryUtil.currentDirectory +"/" + "notExist");
 
-        File file = null;
+        Report r = new Report(view.getContext(), DirectoryUtil.getCurrentFolder() + ".xls", Storage.currentReportEntityStorage);
         try {
-            InputStream inputStream = context.getAssets().open("w.xls");
-            file = new File(context.getExternalFilesDir(null)+ "/" + "file.xls");
-
-            Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
+            r.generate();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
+        Context context = view.getContext();
+        //File file = new File(DirectoryUtil.currentDirectory +"/" + "notExist");
+
+        File file = new File(context.getExternalFilesDir(null)+ "/" + DirectoryUtil.getCurrentFolder() + ".xls");
+        System.out.println(file.getAbsoluteFile());
+
+        //Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
 
         if (file != null || file.exists()){
+            // Поделиться файлом
             Intent share = new Intent();
             share.setAction(Intent.ACTION_SEND);
-            share.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file));
+            Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file);
+            share.putExtra(Intent.EXTRA_STREAM, contentUri);
             share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             share.setType("text/plain");
             context.startActivity(share);
+
+
+            // Открыть файл
+//            Intent share = new Intent();
+//            share.setAction(Intent.ACTION_VIEW);
+//            Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file);
+//            share.putExtra(Intent.EXTRA_STREAM, contentUri);
+//            share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            share.setDataAndType(contentUri, "application/vnd.ms-excel");
+//            //share.setType("text/plain");
+//            context.startActivity(share);
+
 
         }
     }

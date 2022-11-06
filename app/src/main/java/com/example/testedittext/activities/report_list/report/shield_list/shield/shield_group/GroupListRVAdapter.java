@@ -4,6 +4,8 @@ package com.example.testedittext.activities.report_list.report.shield_list.shiel
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.example.testedittext.R;
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.enums.Phases;
 import com.example.testedittext.utils.CopyClick;
+import com.example.testedittext.visual.InstantAutoComplete;
 
 import java.util.List;
 
@@ -22,15 +25,16 @@ public class GroupListRVAdapter extends RecyclerView.Adapter<GroupListRVAdapter.
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final EditText tvRecView1, tvRecView2, tvRecView3, tvRecView4, tvRecView5, tvRecView6, tvRecView7, tvRecView8, tvRecView9, tvRecView10, tvRecView11, tvRecView12;
+        final EditText tvRecView1, tvRecView2, tvRecView4, tvRecView5, tvRecView6, tvRecView7, tvRecView8, tvRecView9, tvRecView10, tvRecView11, tvRecView12;
         final TextView buttonRv1, buttonRv2, buttonRv3, buttonRv4, buttonRv5, buttonRv6, buttonRv7, buttonRv8, buttonRv9, buttonRv10, buttonRv11, buttonRv12 ;
+        final InstantAutoComplete tvRecView3;
 
         public ViewHolder(View view) {
             super(view);
 
             tvRecView1 = (EditText) view.findViewById(R.id.tvRecView1);
             tvRecView2 = (EditText) view.findViewById(R.id.tvRecView2);
-            tvRecView3 = (EditText) view.findViewById(R.id.tvRecView3);
+            tvRecView3 = (InstantAutoComplete) view.findViewById(R.id.tvRecView3);
             tvRecView4 = (EditText) view.findViewById(R.id.tvRecView4);
             tvRecView5 = (EditText) view.findViewById(R.id.tvRecView5);
             tvRecView6 = (EditText) view.findViewById(R.id.tvRecView6);
@@ -53,6 +57,14 @@ public class GroupListRVAdapter extends RecyclerView.Adapter<GroupListRVAdapter.
             buttonRv10 = (TextView) view.findViewById(R.id.buttonRv10);
             buttonRv11 = (TextView) view.findViewById(R.id.buttonRv11);
             buttonRv12 = (TextView) view.findViewById(R.id.buttonRv12);
+
+            // Получаем массив строк из ресурсов
+            String[] phases = view.getResources().getStringArray(R.array.phases);
+
+
+            // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
+            ArrayAdapter<String> adapter = new ArrayAdapter (view.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, phases);
+            tvRecView3.setAdapter(adapter);
 
         }
 
