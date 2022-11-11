@@ -13,7 +13,6 @@ public class Storage {
 
 
     public static int currentNumberSelectedShield;
-    // Для копирования
 
 
     public static boolean isDeleteShield;

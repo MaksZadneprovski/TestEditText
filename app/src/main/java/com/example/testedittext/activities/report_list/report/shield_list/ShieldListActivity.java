@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.testedittext.R;
+import com.example.testedittext.activities.report_list.report.shield_list.shield.AddShieldHandler;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.ShieldActivity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.Storage;
@@ -33,7 +34,7 @@ public class ShieldListActivity extends AppCompatActivity {
         setAdapter();
 
         // Обработчик нажатия кнопки добавить щит
-        buttonAddNewShield.setOnClickListener(view -> startActivity(new Intent(view.getContext(), ShieldActivity.class)));
+        buttonAddNewShield.setOnClickListener(new AddShieldHandler());
 
 
     }

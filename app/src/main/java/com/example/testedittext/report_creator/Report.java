@@ -65,6 +65,7 @@ public class Report {
 
         Row row;
         String avtomat = "QF";
+        System.out.println(report);
         // Проход по щитам
         for (int i = 0; i < shields.size(); i++) {
             Shield shield = shields.get(i);
@@ -80,20 +81,24 @@ public class Report {
 
             // Вставляем название щита
             cell = row.createCell(1);
+            ////////////////////////////////////////////////////////////////////////
+            System.out.println(shield.getName());
             cell.setCellValue(shield.getName());
             cell.setCellStyle(style);
 
             countRow++;
             // Получаем группы щита
             ArrayList<Group> shieldGroups = shield.getShieldGroups();
+            // Переменная для автоматической генерации номера автомата (QF1, QF2...)
             int avtomatCount = 1;
             if (shieldGroups != null) {
                 // Проход по группам
                 for (int j = 0; j < shieldGroups.size(); j++) {
                     // Получаем группу и записываем ее данные в таблицу, если имеется поле адрес
                     Group group = shieldGroups.get(j);
+                    ////////////////////////////////////////////////////////////////////////
+                    System.out.println(j);
 
-                    // Переменная для автоматической генерации номера автомата (QF1, QF2...)
                     if (!group.getAddress().isEmpty()) {
 
                         row = sheet.createRow(countRow);

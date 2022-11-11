@@ -10,7 +10,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
+import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.DefectListActivity;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.GroupListActivity;
+import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.NewGroupListActivity;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportEntity;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 public class ShieldActivity extends AppCompatActivity {
 
     EditText shieldName;
-    TextView tvShieldGroups;
+    TextView tvShieldGroups, tvShieldDefects;
     RadioButton shieldRadio1_1,shieldRadio1_2,shieldRadio2_1,shieldRadio2_2,shieldRadio2_3 ,shieldRadio2_4;
 
 
@@ -45,6 +47,7 @@ public class ShieldActivity extends AppCompatActivity {
 
         shieldName = findViewById(R.id.shieldName);
         tvShieldGroups = findViewById(R.id.tvShieldGroups);
+        tvShieldDefects = findViewById(R.id.tvShieldDefects);
         shieldRadio1_1 = findViewById(R.id.shieldRadio1_1);
         shieldRadio1_2 = findViewById(R.id.shieldRadio1_2);
         shieldRadio2_1 = findViewById(R.id.shieldRadio2_1);
@@ -58,18 +61,22 @@ public class ShieldActivity extends AppCompatActivity {
 
 
         // Нажатие на текст "Группы"
-        tvShieldGroups.setOnClickListener(view -> startActivity(new Intent(view.getContext(), GroupListActivity.class)));
+        tvShieldGroups.setOnClickListener(view -> startActivity(new Intent(view.getContext(), NewGroupListActivity.class)));
+        tvShieldDefects.setOnClickListener(view -> startActivity(new Intent(view.getContext(), DefectListActivity.class)));
 
         // Если нажали на элемент LV, получаем индекс элемента через Intent и объект щита из хранилища
-        // Иначе индекс = -1 и созаем новый щит
+        // Если нажали на кнопку новый щит, он создается
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
             numberOfPressedShield = (int) arguments.get("numberOfPressedShield");
             Storage.currentNumberSelectedShield = numberOfPressedShield;
+
+            // Если создали новый щит, то передается его номер в обработчике AddShieldHandler, но он еще не создан в отчете, и поэтому нужно его сначала создать
+            if (numberOfPressedShield == report.getShields().size()){
+                report.getShields().add(new Shield());
+            }
+
             shield = report.getShields().get(numberOfPressedShield);
-        }else {
-            numberOfPressedShield = -1;
-            shield = new Shield();
         }
 
 

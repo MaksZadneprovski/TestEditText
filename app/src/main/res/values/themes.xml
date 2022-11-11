@@ -24,14 +24,15 @@
     <style name="Theme.TestEditText.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ETForGroupRVItem" parent="@android:style/Widget.EditText">
-        <item name="android:ems">10</item>
+
         <item name="android:completionThreshold">1</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:inputType">textPersonName</item>
-        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
         <item name="android:text"></item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:backgroundTint">@color/clickText</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
     <style name="ETForBasicInf" parent="@android:style/Widget.EditText">
@@ -45,16 +46,19 @@
         <item name="android:textAlignment">center</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:backgroundTint">@color/clickText</item>
-        <item name="colorControlActivated">@color/clickText</item>
-        <item name="colorControlHighlight">@color/clickText</item>
+
     </style>
 
     <style name="TVForGroupRVItem" parent="@android:style/Widget.TextView">
-        <item name="android:layout_height">20dp</item>
-        <item name="android:layout_width">20dp</item>
-        <item name="android:layout_marginTop">2dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
         <item name="android:background">@color/clickText</item>
     </style>
 
@@ -102,6 +106,22 @@
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:layout_marginBottom">15dp</item>
         <item name="android:layout_marginLeft">15dp</item>
+    </style>
+
+    <style name="TVForDelGroupRVItem" parent="@android:style/Widget.TextView">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:background">@color/red</item>
+        <item name="android:text">Удалить</item>
     </style>
 
 

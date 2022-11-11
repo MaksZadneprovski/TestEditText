@@ -123,6 +123,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvShieldMetallicBond" />
 
+            <TextView
+                android:id="@+id/tvShieldDefects"
+                style="@style/MyStyleTextViewMenu"
+                android:text="Дефекты"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvShieldGroups" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

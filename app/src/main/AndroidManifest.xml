@@ -2,17 +2,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestEditText"
-        android:requestLegacyExternalStorage="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.report_list.report.shield_list.shield.shield_group.NewGroupListActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activities.report_list.report.shield_list.shield.shield_group.DefectListActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".activities.report_list.report.ground.GroundActivity"
             android:exported="false">
@@ -22,7 +42,8 @@
         </activity>
         <activity
             android:name=".activities.report_list.report.shield_list.shield.shield_group.GroupListActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -79,13 +100,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
-
-
     </application>
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 </manifest>

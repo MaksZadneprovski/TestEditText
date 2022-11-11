@@ -64,6 +64,8 @@ public class ReportActivity extends AppCompatActivity {
         TextView shieldsList = findViewById(R.id.addShield);
         // TV Заземление и молниезащита
         TextView ground = findViewById(R.id.tvGround);
+        // TV Посмотреть отчет
+        TextView viewReport = findViewById(R.id.tvViewReport);
 
 
 
@@ -85,6 +87,8 @@ public class ReportActivity extends AppCompatActivity {
         shieldsList.setOnClickListener((view -> startActivity(new Intent(view.getContext(), ShieldListActivity.class))));
         // Назначаем обработчик тексту Щиты и помещения
         ground.setOnClickListener((view -> startActivity(new Intent(view.getContext(), GroundActivity.class))));
+        // Назначаем обработчик TV Посмотреть отчет
+        viewReport.setOnClickListener(new ViewReportHandler());
 
 /////////////////////////////////////////////////////////////////////////////////////
 

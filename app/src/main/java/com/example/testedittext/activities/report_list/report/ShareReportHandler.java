@@ -39,7 +39,6 @@ public class ShareReportHandler implements View.OnClickListener {
         //File file = new File(DirectoryUtil.currentDirectory +"/" + "notExist");
 
         File file = new File(context.getExternalFilesDir(null)+ "/" + DirectoryUtil.getCurrentFolder() + ".xls");
-        System.out.println(file.getAbsoluteFile());
 
         //Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
@@ -54,16 +53,6 @@ public class ShareReportHandler implements View.OnClickListener {
             share.setType("text/plain");
             context.startActivity(share);
 
-
-            // Открыть файл
-//            Intent share = new Intent();
-//            share.setAction(Intent.ACTION_VIEW);
-//            Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file);
-//            share.putExtra(Intent.EXTRA_STREAM, contentUri);
-//            share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//            share.setDataAndType(contentUri, "application/vnd.ms-excel");
-//            //share.setType("text/plain");
-//            context.startActivity(share);
 
 
         }

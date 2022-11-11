@@ -5,46 +5,47 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.testedittext.R;
 import com.example.testedittext.entities.Group;
-import com.example.testedittext.entities.enums.Phases;
-import com.example.testedittext.utils.MyLinearLayoutManager;
 import com.example.testedittext.utils.Storage;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class GroupListActivity extends AppCompatActivity {
 
+    //////////////////////////////////////////////////////////////
+    // Класс не используется
+
     ArrayList<Group> groupList;
     RecyclerView recyclerView;
-    private boolean needToReadDataFromDb = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_activity);
 
+        // Кнопка Добавить группы
+        FloatingActionButton addGroup =  findViewById(R.id.addGroup);
+        addGroup.setColorFilter(Color.argb(255, 255, 255, 255));
+        // Нажатие на кнопку Добавить группы
+        addGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addGroups();
+                saveGroupList();
+                setAdapter();
+            }
+        });
 
-        groupList = Storage.currentReportEntityStorage.getShields().get(Storage.currentNumberSelectedShield).getShieldGroups();
-
-        // Если групп нет, добавляем 10
-        checkEmptyGroupList();
-
-        recyclerView = findViewById(R.id.groupListRV);
-        // создаем адаптер, передаем туда список групп для выбранного щита
-        GroupListRVAdapter adapter =  new GroupListRVAdapter(groupList);
-
-        recyclerView.setLayoutManager(new MyLinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-
-
-
+        setAdapter();
 
     }
 
@@ -53,6 +54,12 @@ public class GroupListActivity extends AppCompatActivity {
         super.onPause();
         readDataFromFields();
         saveGroupList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setAdapter();
     }
 
     private void addGroups(){
@@ -65,7 +72,6 @@ public class GroupListActivity extends AppCompatActivity {
         if ( groupList == null) {
             groupList = new ArrayList<>();
             addGroups();
-            needToReadDataFromDb = false;
         }
     }
 
@@ -73,7 +79,7 @@ public class GroupListActivity extends AppCompatActivity {
     private void readDataFromFields() {
         // Пробегаемся по RecyclerView
         for (int i = 0; i < recyclerView.getChildCount(); i++) {
-            LinearLayout linearLayout = ((LinearLayout) ((ConstraintLayout) recyclerView.getChildAt(i)).getChildAt(0));
+            LinearLayout linearLayout = ((LinearLayout)  recyclerView.getChildAt(i));
             Group group = groupList.get(i);
             group.setDesignation(getTextFromEditTextInLinear(linearLayout, 0));
             group.setAddress(getTextFromEditTextInLinear(linearLayout, 2));
@@ -97,5 +103,18 @@ public class GroupListActivity extends AppCompatActivity {
 
     private void saveGroupList(){
         Storage.setGroupList(groupList);
+    }
+
+    private void setAdapter(){
+        if (recyclerView == null)  recyclerView = findViewById(R.id.report_rv);
+        groupList = Storage.currentReportEntityStorage.getShields().get(Storage.currentNumberSelectedShield).getShieldGroups();
+        // Если групп нет, добавляем 10
+        checkEmptyGroupList();
+
+        recyclerView = findViewById(R.id.groupListRV);
+        // создаем адаптер, передаем туда список групп для выбранного щита
+        GroupListRVAdapter adapter =  new GroupListRVAdapter(this, groupList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 }

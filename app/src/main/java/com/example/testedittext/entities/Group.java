@@ -22,6 +22,7 @@ public class Group {
 
     }
 
+
     public String getPhases() {
         return phases;
     }

@@ -68,6 +68,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/addShield" />
 
+                <TextView
+                    android:id="@+id/tvViewReport"
+                    style="@style/MyStyleTextViewMenu"
+                    android:text="Технический отчет"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvGround" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

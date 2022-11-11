@@ -56,11 +56,8 @@ public class Shield {
     @Override
     public String toString() {
         return "Shield{" +
-                "name='" + name + '\'' +
-                ", isPEN=" + isPEN +
-                ", phases=" + phases +
-                ", metallicBonds=" + metallicBonds +
-                ", shieldGroups=" + shieldGroups +
-                '}';
+                "name='" + name + '\''
+                //"countGroups= '" + shieldGroups.size() + '\''
+                ;
     }
 }

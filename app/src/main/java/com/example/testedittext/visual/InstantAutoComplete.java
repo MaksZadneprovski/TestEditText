@@ -40,7 +40,9 @@ public class InstantAutoComplete extends androidx.appcompat.widget.AppCompatAuto
         instantAutoComplete.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                instantAutoComplete.showDropDown();
+                if (b) {
+                    instantAutoComplete.showDropDown();
+                }
             }
         });
     }
