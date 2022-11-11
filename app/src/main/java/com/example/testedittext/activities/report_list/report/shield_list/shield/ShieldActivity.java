@@ -12,9 +12,9 @@ import android.widget.TextView;
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.DefectListActivity;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.GroupListActivity;
-import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.NewGroupListActivity;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
+import com.example.testedittext.entities.Defect;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.entities.Shield;
@@ -61,7 +61,7 @@ public class ShieldActivity extends AppCompatActivity {
 
 
         // Нажатие на текст "Группы"
-        tvShieldGroups.setOnClickListener(view -> startActivity(new Intent(view.getContext(), NewGroupListActivity.class)));
+        tvShieldGroups.setOnClickListener(view -> startActivity(new Intent(view.getContext(), GroupListActivity.class)));
         tvShieldDefects.setOnClickListener(view -> startActivity(new Intent(view.getContext(), DefectListActivity.class)));
 
         // Если нажали на элемент LV, получаем индекс элемента через Intent и объект щита из хранилища
@@ -71,12 +71,18 @@ public class ShieldActivity extends AppCompatActivity {
             numberOfPressedShield = (int) arguments.get("numberOfPressedShield");
             Storage.currentNumberSelectedShield = numberOfPressedShield;
 
-            // Если создали новый щит, то передается его номер в обработчике AddShieldHandler, но он еще не создан в отчете, и поэтому нужно его сначала создать
-            if (numberOfPressedShield == report.getShields().size()){
-                report.getShields().add(new Shield());
+            if (shieldArrayList == null){
+                shieldArrayList = new ArrayList<>();
+                shieldArrayList.add(new Shield());
+                report.setShields(shieldArrayList);
             }
 
-            shield = report.getShields().get(numberOfPressedShield);
+            // Если создали новый щит, то передается его номер в обработчике AddShieldHandler, но он еще не создан в отчете, и поэтому нужно его сначала создать
+            if (numberOfPressedShield == shieldArrayList.size()){
+                shieldArrayList.add(new Shield());
+            }
+
+            shield = shieldArrayList.get(numberOfPressedShield);
         }
 
 
@@ -90,8 +96,6 @@ public class ShieldActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        // Обновляем актуальный объект отчета из хранилища
-        //Storage.currentReportEntityStorage = report;
 
         if (!Storage.isDeleteShield) {
             readDataFromFields();
@@ -129,20 +133,15 @@ public class ShieldActivity extends AppCompatActivity {
         // Создание  объекта DAO для работы с БД
         ReportDAO reportDAO = Bd.getAppDatabaseClass(getApplicationContext()).getReportDao();
 
-        if (shieldArrayList == null ){
-            shieldArrayList = new ArrayList<>();
-            shieldArrayList.add(shield);
+        if (!shieldArrayList.isEmpty()) {
+            shieldArrayList.remove(numberOfPressedShield);
+            shieldArrayList.add(numberOfPressedShield,shield);
         }else {
-            if (!shieldArrayList.isEmpty() && numberOfPressedShield != -1) {
-                shieldArrayList.remove(numberOfPressedShield);
-                shieldArrayList.add(numberOfPressedShield,shield);
-            }else {
-                shieldArrayList.add(shield);
-            }
-
+            shieldArrayList.add(shield);
         }
 
         report.setShields(shieldArrayList);
+        Storage.currentReportEntityStorage = report;
         reportDAO.insertReport(new ReportInDB(report));
 
     }

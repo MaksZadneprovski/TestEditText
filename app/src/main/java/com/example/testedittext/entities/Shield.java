@@ -11,6 +11,7 @@ public class Shield {
     private Phases phases;
     private ArrayList<MetallicBond> metallicBonds;
     private ArrayList<Group> shieldGroups;
+    private ArrayList<Defect> defects;
 
 
     public String getName() {
@@ -51,6 +52,14 @@ public class Shield {
 
     public void setShieldGroups(ArrayList<Group> shieldGroups) {
         this.shieldGroups = shieldGroups;
+    }
+
+    public ArrayList<Defect> getDefects() {
+        return defects;
+    }
+
+    public void setDefects(ArrayList<Defect> defects) {
+        this.defects = defects;
     }
 
     @Override

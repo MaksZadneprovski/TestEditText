@@ -35,6 +35,7 @@ public class ReportEntity implements Serializable {
 
 
 
+
     public ReportEntity(String path) {
         this.path = path;
     }
@@ -188,4 +189,6 @@ public class ReportEntity implements Serializable {
     public void setShields(ArrayList<Shield> shields) {
         this.shields = shields;
     }
+
+
 }

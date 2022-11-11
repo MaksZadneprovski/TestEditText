@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.report_list.report.shield_list.shield.shield_group.NewGroupListActivity">
+    tools:context=".activities.report_list.report.shield_list.shield.shield_group.GroupListActivity">
 
     <HorizontalScrollView
         android:id="@+id/HorizScroll"

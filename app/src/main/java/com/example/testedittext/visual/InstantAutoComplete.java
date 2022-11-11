@@ -34,6 +34,9 @@ public class InstantAutoComplete extends androidx.appcompat.widget.AppCompatAuto
         instantAutoComplete.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                instantAutoComplete.setFocusableInTouchMode(true);
+                instantAutoComplete.setFocusable(true);
+                instantAutoComplete.requestFocus();
                 instantAutoComplete.showDropDown();
             }
         });
@@ -42,6 +45,9 @@ public class InstantAutoComplete extends androidx.appcompat.widget.AppCompatAuto
             public void onFocusChange(View view, boolean b) {
                 if (b) {
                     instantAutoComplete.showDropDown();
+                }else {
+                    instantAutoComplete.setFocusableInTouchMode(false);
+                    instantAutoComplete.setFocusable(false);
                 }
             }
         });

@@ -1,36 +1,39 @@
 package com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.testedittext.R;
+import com.example.testedittext.db.Bd;
+import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.Group;
+import com.example.testedittext.entities.ReportInDB;
+import com.example.testedittext.utils.DeleteViewAndObjectFromList;
+import com.example.testedittext.utils.CopyClick;
 import com.example.testedittext.utils.Storage;
+import com.example.testedittext.visual.InstantAutoComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class GroupListActivity extends AppCompatActivity {
 
-    //////////////////////////////////////////////////////////////
-    // Класс не используется
-
     ArrayList<Group> groupList;
-    RecyclerView recyclerView;
+    LinearLayout linLayout;
+    TextView buttonRv1, buttonRv2, buttonRv3, buttonRv4, buttonRv5, buttonRv6, buttonRv7, buttonRv8, buttonRv9, buttonRv10, buttonRv11, buttonRv12 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.group_activity);
+        setContentView(R.layout.group_list_activity);
 
         // Кнопка Добавить группы
         FloatingActionButton addGroup =  findViewById(R.id.addGroup);
@@ -41,11 +44,19 @@ public class GroupListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 addGroups();
                 saveGroupList();
-                setAdapter();
             }
         });
 
-        setAdapter();
+        linLayout = (LinearLayout) findViewById(R.id.linLayGroup);
+
+
+        // Получаем список имеющихся щитов
+        groupList = Storage.currentReportEntityStorage.getShields().get(Storage.currentNumberSelectedShield).getShieldGroups();
+
+        // Если групп нет, добавляем 10
+        checkEmptyGroupList();
+
+
 
     }
 
@@ -56,30 +67,152 @@ public class GroupListActivity extends AppCompatActivity {
         saveGroupList();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setAdapter();
-    }
-
     private void addGroups(){
         for (int i = 0; i < 10; i++) {
             groupList.add(new Group());
         }
+        // Отображаем последние 10 групп
+        showViewInLayout(groupList.size() -10);
     }
 
     private void checkEmptyGroupList(){
         if ( groupList == null) {
             groupList = new ArrayList<>();
             addGroups();
+        }else {
+            showViewInLayout(0);
         }
     }
 
+    private void showViewInLayout(int startView){
+        LayoutInflater ltInflater = getLayoutInflater();
+
+        // Получаем массив строк из ресурсов
+        String[] phases = getResources().getStringArray(R.array.phases);
+        String[] cables = getResources().getStringArray(R.array.phases);
+        String[] numCores = getResources().getStringArray(R.array.phases);
+        String[] sechenie = getResources().getStringArray(R.array.phases);
+        String[] apparat = getResources().getStringArray(R.array.phases);
+        String[] marka = getResources().getStringArray(R.array.phases);
+        String[] nominal = getResources().getStringArray(R.array.phases);
+
+        // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
+        ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        ArrayAdapter<String> adapter4 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        ArrayAdapter<String> adapter5 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        ArrayAdapter<String> adapter6 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        ArrayAdapter<String> adapter7 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+
+
+        for (int i = startView; i < groupList.size(); i++) {
+
+            View view = ltInflater.inflate(R.layout.groupview, null, false);
+            //ViewGroup.LayoutParams lp = view.getLayoutParams();
+            LinearLayout linearOfXML = (LinearLayout) view;
+
+            for (int j = 0; j < linearOfXML.getChildCount(); j++) {
+                linearOfXML.getChildAt(j).setId(View.generateViewId());
+            }
+            Group group = groupList.get(i);
+            if (group != null) {
+                // Устанавливаем текст в поле таблицы
+                ((EditText) linearOfXML.getChildAt(0)).setText(group.getDesignation());
+                ((EditText) linearOfXML.getChildAt(2)).setText(group.getAddress());
+                ((InstantAutoComplete) linearOfXML.getChildAt(4)).setText(group.getPhases());
+                ((InstantAutoComplete) linearOfXML.getChildAt(6)).setText(group.getCable());
+                ((InstantAutoComplete) linearOfXML.getChildAt(8)).setText(group.getNumberOfWireCores());
+                ((InstantAutoComplete) linearOfXML.getChildAt(10)).setText(group.getWireThickness());
+                ((InstantAutoComplete) linearOfXML.getChildAt(12)).setText(group.getDefenseApparatus());
+                ((InstantAutoComplete) linearOfXML.getChildAt(14)).setText(group.getMachineBrand());
+                ((InstantAutoComplete) linearOfXML.getChildAt(16)).setText(group.getRatedCurrent());
+                ((InstantAutoComplete) linearOfXML.getChildAt(18)).setText(group.getReleaseType());
+                ((InstantAutoComplete) linearOfXML.getChildAt(20)).setText(group.getF0Range());
+                ((InstantAutoComplete) linearOfXML.getChildAt(22)).setText(group.gettSrabAvt());
+            }
+
+
+            CopyClick clk = new CopyClick(i);
+
+            TextView childAt1 = (TextView) linearOfXML.getChildAt(1);
+            TextView childAt3 = (TextView) linearOfXML.getChildAt(3);
+            TextView childAt5 = (TextView) linearOfXML.getChildAt(5);
+            TextView childAt7 = (TextView) linearOfXML.getChildAt(7);
+            TextView childAt9 = (TextView) linearOfXML.getChildAt(9);
+            TextView childAt11 = (TextView) linearOfXML.getChildAt(11);
+            TextView childAt13 = (TextView) linearOfXML.getChildAt(13);
+            TextView childAt15 = (TextView) linearOfXML.getChildAt(15);
+            TextView childAt17 = (TextView) linearOfXML.getChildAt(17);
+            TextView childAt19 = (TextView) linearOfXML.getChildAt(19);
+            TextView childAt21 = (TextView) linearOfXML.getChildAt(21);
+            TextView childAt23 = (TextView) linearOfXML.getChildAt(23);
+
+            InstantAutoComplete childAt4 = (InstantAutoComplete) linearOfXML.getChildAt(4);
+            InstantAutoComplete childAt6 = (InstantAutoComplete) linearOfXML.getChildAt(6);
+            InstantAutoComplete childAt8 = (InstantAutoComplete) linearOfXML.getChildAt(8);
+            InstantAutoComplete childAt10 = (InstantAutoComplete) linearOfXML.getChildAt(10);
+            InstantAutoComplete childAt12 = (InstantAutoComplete) linearOfXML.getChildAt(12);
+            InstantAutoComplete childAt14 = (InstantAutoComplete) linearOfXML.getChildAt(14);
+            InstantAutoComplete childAt16 = (InstantAutoComplete) linearOfXML.getChildAt(16);
+            InstantAutoComplete childAt18 = (InstantAutoComplete) linearOfXML.getChildAt(18);
+            InstantAutoComplete childAt20 = (InstantAutoComplete) linearOfXML.getChildAt(20);
+            InstantAutoComplete childAt22 = (InstantAutoComplete) linearOfXML.getChildAt(22);
+
+            childAt1 .setOnClickListener(clk);
+            childAt3 .setOnClickListener(clk);
+            childAt5 .setOnClickListener(clk);
+            childAt7 .setOnClickListener(clk);
+            childAt9 .setOnClickListener(clk);
+            childAt11.setOnClickListener(clk);
+            childAt13.setOnClickListener(clk);
+            childAt15.setOnClickListener(clk);
+            childAt17.setOnClickListener(clk);
+            childAt19.setOnClickListener(clk);
+            childAt21.setOnClickListener(clk);
+            childAt23.setOnClickListener(clk);
+            // Кнопка удалить
+            ((TextView) linearOfXML.getChildAt(24)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i));
+
+            childAt1.setOnLongClickListener(clk);
+            childAt3.setOnLongClickListener(clk);
+            childAt5.setOnLongClickListener(clk);
+            childAt7.setOnLongClickListener(clk);
+            childAt9.setOnLongClickListener(clk);
+            childAt11.setOnLongClickListener(clk);
+            childAt13.setOnLongClickListener(clk);
+            childAt15.setOnLongClickListener(clk);
+            childAt17.setOnLongClickListener(clk);
+            childAt19.setOnLongClickListener(clk);
+            childAt21.setOnLongClickListener(clk);
+            childAt23.setOnLongClickListener(clk);
+
+            childAt3.setText(String.valueOf(i+1));
+            childAt9.setText(String.valueOf(i+1));
+            childAt15.setText(String.valueOf(i+1));
+            childAt21.setText(String.valueOf(i+1));
+
+            childAt4.setAdapter(adapter1);
+            childAt6.setAdapter(adapter2);
+            childAt8.setAdapter(adapter3);
+            childAt10.setAdapter(adapter1);
+            childAt12.setAdapter(adapter1);
+            childAt14.setAdapter(adapter1);
+            childAt16.setAdapter(adapter1);
+            childAt18.setAdapter(adapter1);
+            childAt20.setAdapter(adapter1);
+            childAt22.setAdapter(adapter1);
+
+
+
+            linLayout.addView(view);
+        }
+    }
 
     private void readDataFromFields() {
         // Пробегаемся по RecyclerView
-        for (int i = 0; i < recyclerView.getChildCount(); i++) {
-            LinearLayout linearLayout = ((LinearLayout)  recyclerView.getChildAt(i));
+        for (int i = 0; i < linLayout.getChildCount(); i++) {
+            LinearLayout linearLayout = ((LinearLayout)  linLayout.getChildAt(i));
             Group group = groupList.get(i);
             group.setDesignation(getTextFromEditTextInLinear(linearLayout, 0));
             group.setAddress(getTextFromEditTextInLinear(linearLayout, 2));
@@ -102,19 +235,12 @@ public class GroupListActivity extends AppCompatActivity {
     }
 
     private void saveGroupList(){
+        // Создание  объекта DAO для работы с БД
+        ReportDAO reportDAO = Bd.getAppDatabaseClass(getApplicationContext()).getReportDao();
+
         Storage.setGroupList(groupList);
+        reportDAO.insertReport(new ReportInDB(Storage.currentReportEntityStorage));
     }
 
-    private void setAdapter(){
-        if (recyclerView == null)  recyclerView = findViewById(R.id.report_rv);
-        groupList = Storage.currentReportEntityStorage.getShields().get(Storage.currentNumberSelectedShield).getShieldGroups();
-        // Если групп нет, добавляем 10
-        checkEmptyGroupList();
 
-        recyclerView = findViewById(R.id.groupListRV);
-        // создаем адаптер, передаем туда список групп для выбранного щита
-        GroupListRVAdapter adapter =  new GroupListRVAdapter(this, groupList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-    }
 }

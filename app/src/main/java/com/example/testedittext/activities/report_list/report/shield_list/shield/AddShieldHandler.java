@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.Storage;
 
 import java.util.ArrayList;
@@ -14,8 +15,12 @@ public class AddShieldHandler implements View.OnClickListener{
         //view -> startActivity(new Intent(view.getContext(), ShieldActivity.class))
         Context context = view.getContext();
         Intent intent = new Intent(context, ShieldActivity.class);
-        ArrayList shieldsList = Storage.currentReportEntityStorage.getShields();
-        intent.putExtra("numberOfPressedShield", shieldsList.size());
+        ArrayList<Shield> shieldsList = Storage.currentReportEntityStorage.getShields();
+        if (shieldsList != null) {
+            intent.putExtra("numberOfPressedShield", shieldsList.size());
+        }else {
+            intent.putExtra("numberOfPressedShield", 0);
+        }
         context.startActivity(intent);
 
     }
