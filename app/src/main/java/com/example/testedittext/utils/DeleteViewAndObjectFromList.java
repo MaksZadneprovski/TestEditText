@@ -22,7 +22,7 @@ public class DeleteViewAndObjectFromList implements View.OnClickListener{
 
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setTitle("Удаление");
-        builder.setMessage("Вы действительно хотите удалить группу?");
+        builder.setMessage("Вы действительно хотите удалить элемент?");
         builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

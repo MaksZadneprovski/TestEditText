@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.DeleteShieldHandler;
@@ -14,6 +15,7 @@ import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.Storage;
+import com.example.testedittext.visual.InstantAutoComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class DefectActivity extends AppCompatActivity {
     ReportEntity report;
     Defect defect;
     ArrayList<Defect> defectArrayList;
+    InstantAutoComplete  defGroup, def, note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,10 @@ public class DefectActivity extends AppCompatActivity {
         // Кнопка удалить щит
         FloatingActionButton deleteShield =  findViewById(R.id.deleteDefect);
         deleteShield.setColorFilter(Color.argb(255, 255, 255, 255));
+
+        defGroup = findViewById(R.id.defectGroup);
+        def = findViewById(R.id.defect);
+        note = findViewById(R.id.note);
 
         report = Storage.currentReportEntityStorage;
         defectArrayList = report.getShields().get(Storage.currentNumberSelectedShield).getDefects();
@@ -64,6 +71,14 @@ public class DefectActivity extends AppCompatActivity {
 
         setDataToFieldsFromBd();
 
+        // Получаем массив строк из ресурсов
+        String[] phases = getResources().getStringArray(R.array.phases);
+        // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
+        ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        defGroup.setAdapter(adapter1);
+        def.setAdapter(adapter1);
+        note.setAdapter(adapter1);
+
     }
 
     @Override
@@ -85,10 +100,14 @@ public class DefectActivity extends AppCompatActivity {
     }
 
     private void readDataFromFields() {
-
+        defect.setDefectGroup(defGroup.getText().toString());
+        defect.setDefect(def.getText().toString());
+        defect.setNote(note.getText().toString());
     }
 
     private void setDataToFieldsFromBd() {
-
+        defGroup.setText(defect.getDefectGroup());
+        def.setText(defect.getDefect());
+        note.setText(defect.getNote());
     }
 }

@@ -2,6 +2,7 @@ package com.example.testedittext.utils;
 
 import com.example.testedittext.entities.Defect;
 import com.example.testedittext.entities.Group;
+import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 
@@ -24,6 +25,13 @@ public class Storage {
     public static void setGroupList(ArrayList<Group> groups) {
         Shield shield = currentReportEntityStorage.getShields().get(currentNumberSelectedShield);
         shield.setShieldGroups(groups);
+        currentReportEntityStorage.getShields().remove(currentNumberSelectedShield);
+        currentReportEntityStorage.getShields().add(currentNumberSelectedShield, shield);
+    }
+
+    public static void setMetallicBondList(ArrayList<MetallicBond> metallicBonds) {
+        Shield shield = currentReportEntityStorage.getShields().get(currentNumberSelectedShield);
+        shield.setMetallicBonds(metallicBonds);
         currentReportEntityStorage.getShields().remove(currentNumberSelectedShield);
         currentReportEntityStorage.getShields().add(currentNumberSelectedShield, shield);
     }

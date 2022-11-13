@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.DefectListActivity;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.GroupListActivity;
+import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.MetallicBondActivity;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.Defect;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 public class ShieldActivity extends AppCompatActivity {
 
     EditText shieldName;
-    TextView tvShieldGroups, tvShieldDefects;
+    TextView tvShieldGroups, tvShieldDefects, tvMetallicBond;
     RadioButton shieldRadio1_1,shieldRadio1_2,shieldRadio2_1,shieldRadio2_2,shieldRadio2_3 ,shieldRadio2_4;
 
 
@@ -48,6 +49,7 @@ public class ShieldActivity extends AppCompatActivity {
         shieldName = findViewById(R.id.shieldName);
         tvShieldGroups = findViewById(R.id.tvShieldGroups);
         tvShieldDefects = findViewById(R.id.tvShieldDefects);
+        tvMetallicBond = findViewById(R.id.tvShieldMetallicBond);
         shieldRadio1_1 = findViewById(R.id.shieldRadio1_1);
         shieldRadio1_2 = findViewById(R.id.shieldRadio1_2);
         shieldRadio2_1 = findViewById(R.id.shieldRadio2_1);
@@ -60,9 +62,10 @@ public class ShieldActivity extends AppCompatActivity {
         shieldArrayList = report.getShields();
 
 
-        // Нажатие на текст "Группы"
+        // Нажатие на текст
         tvShieldGroups.setOnClickListener(view -> startActivity(new Intent(view.getContext(), GroupListActivity.class)));
         tvShieldDefects.setOnClickListener(view -> startActivity(new Intent(view.getContext(), DefectListActivity.class)));
+        tvMetallicBond.setOnClickListener(view -> startActivity(new Intent(view.getContext(), MetallicBondActivity.class)));
 
         // Если нажали на элемент LV, получаем индекс элемента через Intent и объект щита из хранилища
         // Если нажали на кнопку новый щит, он создается

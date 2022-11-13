@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/groupViewLL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <com.example.testedittext.visual.InstantAutoComplete
+        android:id="@+id/tvRecView1"
+        style="@style/ETForGroupRVItem"
+        android:layout_width="260dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+    <TextView
+        android:id="@+id/buttonRv1"
+        style="@style/TVForGroupRVItem" />
+
+    <com.example.testedittext.visual.InstantAutoComplete
+        android:id="@+id/tvRecView2"
+        style="@style/ETForGroupRVItem"
+        android:layout_width="80dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+    <TextView
+        android:id="@+id/buttonRv2"
+        style="@style/TVForGroupRVItem" />
+
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="25dp"
+        style="@style/MyStyleRadio"
+        android:text="" />
+
+    <TextView
+        android:layout_marginLeft="30dp"
+        style="@style/TVForDelGroupRVItem" />
+
+
+</LinearLayout>

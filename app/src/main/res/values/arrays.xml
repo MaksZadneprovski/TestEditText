@@ -7,9 +7,9 @@
     </string-array>
 
     <string-array name="phases">
-        <item>ABC</item>
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
+        <item>АВС</item>
+        <item>А</item>
+        <item>В</item>
+        <item>С</item>
     </string-array>
 </resources>

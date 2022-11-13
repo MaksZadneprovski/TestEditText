@@ -23,6 +23,55 @@
             android:layout_height="wrap_content">
 
 
+            <TextView
+                android:id="@+id/tv1"
+                style="@style/TVForTitleInf"
+                android:text="Группа дефектов"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.example.testedittext.visual.InstantAutoComplete
+                android:id="@+id/defectGroup"
+                style="@style/ETForBasicInf"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv1"
+                android:completionThreshold="0"/>
+
+            <TextView
+                android:id="@+id/tv2"
+                style="@style/TVForTitleInf"
+                android:text="Выявленный дефект"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/defectGroup" />
+
+            <com.example.testedittext.visual.InstantAutoComplete
+                android:id="@+id/defect"
+                style="@style/ETForBasicInf"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv2"
+                android:completionThreshold="0"/>
+
+            <TextView
+                android:id="@+id/tv3"
+                style="@style/TVForTitleInf"
+                android:text="Примечания"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/defect" />
+
+            <com.example.testedittext.visual.InstantAutoComplete
+                android:id="@+id/note"
+                style="@style/ETForBasicInf"
+                android:inputType="textMultiLine|textCapWords"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv3"
+                android:completionThreshold="0"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

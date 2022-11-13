@@ -46,7 +46,6 @@ public class DefectListActivity extends AppCompatActivity {
         defectList = Storage.currentReportEntityStorage.getShields().get(Storage.currentNumberSelectedShield).getDefects();
         if (recyclerView == null)  recyclerView = findViewById(R.id.defect_rv);
         // Создаем адаптер и назначаем его  recyclerView
-        System.out.println(defectList.size()+"  yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
         DefectListRVAdapter adapter = new DefectListRVAdapter(defectList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
