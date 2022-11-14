@@ -43,6 +43,7 @@
             style="@style/ETForBasicInf"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:ems="20"
             android:inputType="textCapCharacters"
             app:layout_constraintTop_toBottomOf="@+id/tv2"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -59,6 +60,7 @@
             android:id="@+id/infCustomer"
             style="@style/ETForBasicInf"
             android:inputType="textPassword"
+            android:ems="20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv3"

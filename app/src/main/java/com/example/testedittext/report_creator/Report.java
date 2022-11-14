@@ -82,7 +82,6 @@ public class Report {
                 // Вставляем название щита
                 cell = row.createCell(1);
                 ////////////////////////////////////////////////////////////////////////
-                System.out.println(shield.getName());
                 cell.setCellValue(shield.getName());
                 cell.setCellStyle(style);
 
@@ -134,7 +133,12 @@ public class Report {
                             cell.setCellValue("0,5");
                             cell.setCellStyle(style);
 
-                            // Столбец
+                            // Столбцы сопротивления
+                            switch (group.getPhases()) {
+                                case "A":
+
+                                    break;
+                            }
 
                             // Столбец
 

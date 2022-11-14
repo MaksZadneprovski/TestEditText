@@ -23,6 +23,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 // Класс для отображения списка отчетов
 public class ReportListActivity extends AppCompatActivity {
@@ -68,6 +71,7 @@ public class ReportListActivity extends AppCompatActivity {
 
 
         if (recyclerView == null)  recyclerView = findViewById(R.id.report_rv);
+        Collections.reverse(reportList);
 
         // Создаем адаптер и назначаем его  recyclerView
         ReportListRVAdapter adapter = new ReportListRVAdapter(reportList);
