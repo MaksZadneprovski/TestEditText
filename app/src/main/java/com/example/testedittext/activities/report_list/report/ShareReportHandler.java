@@ -27,7 +27,7 @@ public class ShareReportHandler implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        Report r = new Report(view.getContext(), DirectoryUtil.getCurrentFolder() + ".xls", Storage.currentReportEntityStorage);
+        Report r = new Report(view.getContext(), Storage.currentReportEntityStorage.getName() + ".xls", Storage.currentReportEntityStorage);
         try {
             r.generate();
         } catch (IOException e) {
@@ -38,7 +38,7 @@ public class ShareReportHandler implements View.OnClickListener {
         Context context = view.getContext();
         //File file = new File(DirectoryUtil.currentDirectory +"/" + "notExist");
 
-        File file = new File(context.getExternalFilesDir(null)+ "/" + DirectoryUtil.getCurrentFolder() + ".xls");
+        File file = new File(context.getExternalFilesDir(null)+ "/" + Storage.currentReportEntityStorage.getName() + ".xls");
 
         //Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
 

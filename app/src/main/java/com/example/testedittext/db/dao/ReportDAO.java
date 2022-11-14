@@ -27,7 +27,7 @@ public interface ReportDAO {
     @Query("SELECT * FROM reportindb")
     List<ReportInDB> getAllReports();
 
-    @Query("SELECT * FROM reportindb WHERE path = :path")
-    ReportInDB getReportByPath(String path);
+    @Query("SELECT * FROM reportindb WHERE name = :name")
+    ReportInDB getReportByName(String name);
 
 }

@@ -13,7 +13,6 @@ public class Storage {
     // Текущий отчет
     public static ReportEntity currentReportEntityStorage;
 
-
     public static int currentNumberSelectedShield;
     public static int currentNumberOfPressedDefect;
 

@@ -11,7 +11,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.testedittext.activities.report_list.report.ReportActivity;
+import com.example.testedittext.db.Bd;
+import com.example.testedittext.db.dao.ReportDAO;
+import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.utils.DirectoryUtil;
+import com.example.testedittext.utils.Storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +32,13 @@ public class NewReportAdder implements View.OnClickListener{
     public void onClick(View view) {
 
         Context context = view.getContext();
+        // Создание  объекта DAO для работы с БД
+        ReportDAO reportDAO = Bd.getAppDatabaseClass(view.getContext()).getReportDao();
+        ArrayList <ReportInDB> reportList = (ArrayList<ReportInDB>) reportDAO.getAllReports();
+        ArrayList <String> nameReportList = new ArrayList<>();
+        for (ReportInDB report : reportList) {
+            nameReportList.add(report.getName());
+        }
 
         // Ввод названия папки
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -37,22 +49,28 @@ public class NewReportAdder implements View.OnClickListener{
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String value = String.valueOf(input.getText());
-                Path path = Paths.get(view.getContext().getExternalFilesDir(null) + "/" + value);
+                //Path path = Paths.get(view.getContext().getExternalFilesDir(null) + "/" + value);
 
-                if (!Files.exists(path)) {
-                    try {
-                        Files.createDirectory(path);
-
-                        // Устанавливаем текущую директорию
-                        File file = new File(String.valueOf(path));
-                        DirectoryUtil.currentDirectory = file.getAbsolutePath();;
-
-                        Intent intent = new Intent(context, ReportActivity.class);
-                        context.startActivity(intent);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                //if (!Files.exists(path)) {
+                if (!nameReportList.contains(value)) {
+//                    try {
+//                        Files.createDirectory(path);
+//
+//                        // Устанавливаем текущую директорию
+//                        File file = new File(String.valueOf(path));
+//                        DirectoryUtil.currentDirectory = file.getAbsolutePath();;
+//
+//                        Intent intent = new Intent(context, ReportActivity.class);
+//                        context.startActivity(intent);
+//
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+                    ReportEntity reportEntity = new ReportEntity(value);
+                    reportDAO.insertReport(new ReportInDB(reportEntity));
+                    Storage.currentReportEntityStorage = reportEntity;
+                    Intent intent = new Intent(context, ReportActivity.class);
+                    context.startActivity(intent);
                 }else {
                     Toast toast = Toast.makeText(view.getContext(), "Отчет с таким названием уже существует!",Toast.LENGTH_LONG);
                     toast.show();

@@ -6,17 +6,22 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.Gson;
 
+import java.util.Date;
+
 @Entity
 public class ReportInDB {
     @PrimaryKey
     @NonNull
-    private String path;
+    private String name;
+
+    private long dateOfCreate;
 
     private String report;
 
     public ReportInDB(ReportEntity report) {
         this.report = new Gson().toJson(report);
-        this.path = report.getPath();
+        this.name = report.getName();
+        this.dateOfCreate = new Date().getTime();
     }
 
     public ReportInDB() {
@@ -33,12 +38,21 @@ public class ReportInDB {
                 '}';
     }
 
-    public String getPath() {
-        return path;
+    @NonNull
+    public String getName() {
+        return name;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+    public long getDateOfCreate() {
+        return dateOfCreate;
+    }
+
+    public void setDateOfCreate(long dateOfCreate) {
+        this.dateOfCreate = dateOfCreate;
     }
 
     public String getReport() {

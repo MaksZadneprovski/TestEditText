@@ -12,36 +12,19 @@ import com.example.testedittext.activities.report_list.report.basic_information.
 import com.example.testedittext.activities.report_list.report.ground.GroundActivity;
 import com.example.testedittext.activities.report_list.report.shield_list.RenameReportHandler;
 import com.example.testedittext.activities.report_list.report.shield_list.ShieldListActivity;
-import com.example.testedittext.click_handlers.test.MeasureInsulationAdder;
-import com.example.testedittext.click_handlers.test.MeasureInsulationSaver;
-import com.example.testedittext.report_creator.Report;
 import com.example.testedittext.utils.Storage;
-import com.example.testedittext.db.Bd;
-import com.example.testedittext.db.dao.ReportDAO;
-import com.example.testedittext.entities.ReportEntity;
-import com.example.testedittext.entities.ReportInDB;
-import com.example.testedittext.utils.DirectoryUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 
 // Класс для редактирования отчета
 public class ReportActivity extends AppCompatActivity {
 
-    ReportEntity reportEntity;
     TextView reportTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_activity);
-
-        // Получаем reportEntity из БД или создаем если не было
-        getActualReportEntity();
 
 
         // Кнопка сохранить отчет
@@ -68,10 +51,8 @@ public class ReportActivity extends AppCompatActivity {
         TextView viewReport = findViewById(R.id.tvViewReport);
 
 
-
-
         // Устанавливаем в TV название отчета
-        reportTitle.setText(DirectoryUtil.getCurrentFolder());
+        changeTitle();
 
         // Назначаем обработчик кнопке сохранить отчет
         buttonShare.setOnClickListener(new ShareReportHandler());
@@ -93,37 +74,11 @@ public class ReportActivity extends AppCompatActivity {
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getActualReportEntity();
-    }
-
-
-    public void getActualReportEntity(){
-        // Создание  объекта DAO для работы с БД
-        ReportDAO reportDAO = Bd.getAppDatabaseClass(getApplicationContext()).getReportDao();
-
-        // Получаем из БД отчет
-        ReportInDB report = reportDAO.getReportByPath(DirectoryUtil.currentDirectory);
-        // Создаем новый и сохраняем его в БД, если его не было
-        if (report == null){
-            Storage.currentReportEntityStorage = new ReportEntity(DirectoryUtil.currentDirectory);
-            reportDAO.insertReport(new ReportInDB(Storage.currentReportEntityStorage));
-        }else {
-            // Если был, получаем объект отчет
-            Storage.currentReportEntityStorage = report.getReportEntity();
-        }
-
     }
 
 
     public void changeTitle() {
         // Устанавливаем в TV название отчета
-        reportTitle.setText(DirectoryUtil.getCurrentFolder());
+        reportTitle.setText(Storage.currentReportEntityStorage.getName());
     }
 }

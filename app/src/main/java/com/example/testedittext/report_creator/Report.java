@@ -65,81 +65,81 @@ public class Report {
 
         Row row;
         String avtomat = "QF";
-        System.out.println(report);
-        // Проход по щитам
-        for (int i = 0; i < shields.size(); i++) {
-            Shield shield = shields.get(i);
-            row = sheet.createRow(countRow);
+        if (shields != null) {
+            // Проход по щитам
+            for (int i = 0; i < shields.size(); i++) {
+                Shield shield = shields.get(i);
+                row = sheet.createRow(countRow);
 
-            Cell cell;
+                Cell cell;
 
-            for (int k = 0; k < 16; k++) {
-                cell = row.createCell(k);
-                cell.setCellValue(" ");
+                for (int k = 0; k < 16; k++) {
+                    cell = row.createCell(k);
+                    cell.setCellValue(" ");
+                    cell.setCellStyle(style);
+                }
+
+                // Вставляем название щита
+                cell = row.createCell(1);
+                ////////////////////////////////////////////////////////////////////////
+                System.out.println(shield.getName());
+                cell.setCellValue(shield.getName());
                 cell.setCellStyle(style);
-            }
 
-            // Вставляем название щита
-            cell = row.createCell(1);
-            ////////////////////////////////////////////////////////////////////////
-            System.out.println(shield.getName());
-            cell.setCellValue(shield.getName());
-            cell.setCellStyle(style);
+                countRow++;
+                // Получаем группы щита
+                ArrayList<Group> shieldGroups = shield.getShieldGroups();
+                // Переменная для автоматической генерации номера автомата (QF1, QF2...)
+                int avtomatCount = 1;
+                if (shieldGroups != null) {
+                    // Проход по группам
+                    for (int j = 0; j < shieldGroups.size(); j++) {
+                        // Получаем группу и записываем ее данные в таблицу, если имеется поле адрес
+                        Group group = shieldGroups.get(j);
+                        ////////////////////////////////////////////////////////////////////////
+                        System.out.println(j);
 
-            countRow++;
-            // Получаем группы щита
-            ArrayList<Group> shieldGroups = shield.getShieldGroups();
-            // Переменная для автоматической генерации номера автомата (QF1, QF2...)
-            int avtomatCount = 1;
-            if (shieldGroups != null) {
-                // Проход по группам
-                for (int j = 0; j < shieldGroups.size(); j++) {
-                    // Получаем группу и записываем ее данные в таблицу, если имеется поле адрес
-                    Group group = shieldGroups.get(j);
-                    ////////////////////////////////////////////////////////////////////////
-                    System.out.println(j);
+                        if (!group.getAddress().isEmpty()) {
 
-                    if (!group.getAddress().isEmpty()) {
+                            row = sheet.createRow(countRow);
 
-                        row = sheet.createRow(countRow);
+                            // Столбец пункт
+                            cell = row.createCell(0);
+                            cell.setCellValue(String.valueOf(j + 1));
+                            cell.setCellStyle(style);
 
-                        // Столбец пункт
-                        cell = row.createCell(0);
-                        cell.setCellValue(String.valueOf(j + 1));
-                        cell.setCellStyle(style);
+                            // Столбец наименование линии
+                            cell = row.createCell(1);
+                            String lineName = "";
+                            if (group.getDesignation().isEmpty()) {
+                                lineName = avtomat + avtomatCount + " - " + group.getAddress();
+                                avtomatCount++;
+                            } else lineName = group.getDesignation() + " - " + group.getAddress();
+                            cell.setCellValue(lineName);
+                            cell.setCellStyle(style);
 
-                        // Столбец наименование линии
-                        cell = row.createCell(1);
-                        String lineName = "";
-                        if (group.getDesignation().isEmpty()) {
-                            lineName = avtomat + avtomatCount + " - " + group.getAddress();
-                            avtomatCount++;
+                            // Столбец Марка, кол-во жил, сечение
+                            cell = row.createCell(2);
+                            String val = group.getCable() + " " + group.getNumberOfWireCores() + "x" + group.getWireThickness();
+                            cell.setCellValue(val);
+                            cell.setCellStyle(style);
+
+                            // Столбец Напряжение мегаомметра
+                            cell = row.createCell(3);
+                            cell.setCellValue("2500");
+                            cell.setCellStyle(style);
+
+                            // Столбец Допустимое R
+                            cell = row.createCell(4);
+                            cell.setCellValue("0,5");
+                            cell.setCellStyle(style);
+
+                            // Столбец
+
+                            // Столбец
+
+                            countRow++;
                         }
-                        else lineName = group.getDesignation() + " - " + group.getAddress();
-                        cell.setCellValue(lineName);
-                        cell.setCellStyle(style);
-
-                        // Столбец Марка, кол-во жил, сечение
-                        cell = row.createCell(2);
-                        String val = group.getCable() + " " + group.getNumberOfWireCores() + "x" + group.getWireThickness();
-                        cell.setCellValue(val);
-                        cell.setCellStyle(style);
-
-                        // Столбец Напряжение мегаомметра
-                        cell = row.createCell(3);
-                        cell.setCellValue("2500");
-                        cell.setCellStyle(style);
-
-                        // Столбец Допустимое R
-                        cell = row.createCell(4);
-                        cell.setCellValue("0,5");
-                        cell.setCellStyle(style);
-
-                        // Столбец
-
-                        // Столбец
-
-                        countRow++;
                     }
                 }
             }

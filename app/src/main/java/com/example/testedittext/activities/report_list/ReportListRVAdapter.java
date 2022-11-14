@@ -14,20 +14,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.ReportActivity;
+import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.utils.DirectoryUtil;
+import com.example.testedittext.utils.Storage;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapter.ViewHolder> {
 
-    private final ArrayList<File> fileList;
+    private final ArrayList<ReportInDB> fileList;
     Context context;
 
-    public ReportListRVAdapter(ArrayList<File> fileList) {
+    public ReportListRVAdapter(ArrayList<ReportInDB> fileList) {
         this.fileList = fileList;
     }
-
 
     @NonNull
     @Override
@@ -42,17 +44,17 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ReportListRVAdapter.ViewHolder holder, int position) {
-        File file = fileList.get(position);
-        holder.reportName.setText(file.getName());
-        if (file.isDirectory()) {
-            holder.reportIcon.setImageResource(R.drawable.folder);
-        }
+        ReportEntity report = fileList.get(position).getReportEntity();
+        holder.reportName.setText(report.getName());
+
+        holder.reportIcon.setImageResource(R.drawable.folder);
+
 
         holder.reportConstraint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Устанавливаем текущую директорию
-                DirectoryUtil.currentDirectory = file.getAbsolutePath();
+                // Устанавливаем текущий отчет
+                Storage.currentReportEntityStorage = report;
                 Intent intent = new Intent(context, ReportActivity.class);
                 // Флаг Intent.FLAG_ACTIVITY_REORDER_TO_FRONT перемещает activity, к которой осуществляется переход на вершину стека, если она ужее есть в стеке.
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

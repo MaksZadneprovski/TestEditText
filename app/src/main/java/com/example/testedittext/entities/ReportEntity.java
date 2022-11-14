@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class ReportEntity implements Serializable {
     @NonNull
-    private String path;
+    private String name;
     private String date;
     private String customer;
     private String object;
@@ -36,14 +36,14 @@ public class ReportEntity implements Serializable {
 
 
 
-    public ReportEntity(String path) {
-        this.path = path;
+    public ReportEntity(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "ReportEntity{" +
-                "path='" + path + '\'' +
+                "name='" + name + '\'' +
                 ", date='" + date + '\'' +
                 ", customer='" + customer + '\'' +
                 ", object='" + object + '\'' +
@@ -62,12 +62,13 @@ public class ReportEntity implements Serializable {
                 '}';
     }
 
-    public String getPath() {
-        return path;
+    @NonNull
+    public String getName() {
+        return name;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setName(@NonNull String name) {
+        this.name = name;
     }
 
     public String getDate() {

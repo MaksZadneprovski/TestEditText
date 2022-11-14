@@ -45,37 +45,30 @@ public class RenameReportHandler implements View.OnClickListener {
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String value = String.valueOf(input.getText());
-                String newName = view.getContext().getExternalFilesDir(null) + "/" + value;
+
 
                 // Меняем название в БД
                 // Создание  объекта DAO для работы с БД
                 ReportDAO reportDAO = Bd.getAppDatabaseClass(context).getReportDao();
                 // Получаем из БД отчет
-                ReportInDB oldReport = reportDAO.getReportByPath(DirectoryUtil.currentDirectory);
+                ReportInDB oldReport = reportDAO.getReportByName(Storage.currentReportEntityStorage.getName());
                 Storage.currentReportEntityStorage = oldReport.getReportEntity();
 
-                ReportInDB newReportEntityInDB = reportDAO.getReportByPath(DirectoryUtil.currentDirectory);
+                ReportInDB newReportEntityInDB = reportDAO.getReportByName(Storage.currentReportEntityStorage.getName());
                 ReportEntity newReportEntity = newReportEntityInDB.getReportEntity();
-                newReportEntity.setPath(newName);
+                newReportEntity.setName(value);
                 reportDAO.deleteReport(new ReportInDB(oldReport.getReportEntity()));
                 reportDAO.insertReport(new ReportInDB(newReportEntity));
 
                 Storage.currentReportEntityStorage = newReportEntity;
 
-                //здесь указываем абсолютный путь к файлу
-                File file = new File(DirectoryUtil.currentDirectory);
-                File newFile = new File(newName);
-                if(file.renameTo(newFile)){
-                    Toast toast = Toast.makeText(context, "Отчет переименован!",Toast.LENGTH_LONG);
-                    toast.show();
-                }else{
-                    Toast toast = Toast.makeText(context, "Ошибка переименования!",Toast.LENGTH_LONG);
-                    toast.show();
-                }
 
-                // Устанавливаем текущую директорию
-                DirectoryUtil.currentDirectory = newReportEntity.getPath();
+                Toast toast = Toast.makeText(context, "Отчет переименован!",Toast.LENGTH_SHORT);
+                toast.show();
 
+
+                // Устанавливаем текущий отчет
+                Storage.currentReportEntityStorage = newReportEntity;
                 // Меняем заголовок
                 reportActivity.changeTitle();
 

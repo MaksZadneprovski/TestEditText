@@ -20,6 +20,13 @@
         android:theme="@style/Theme.TestEditText"
         tools:targetApi="31">
         <activity
+            android:name=".activities.report_list.CloudActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activities.report_list.report.shield_list.shield.shield_group.MetallicBondActivity"
             android:exported="false">
             <meta-data
