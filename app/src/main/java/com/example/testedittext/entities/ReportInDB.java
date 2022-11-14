@@ -34,7 +34,9 @@ public class ReportInDB {
     @Override
     public String toString() {
         return "ReportInDB{" +
-                "report='" + report + '\'' +
+                "name='" + name + '\'' +
+                ", dateOfCreate=" + dateOfCreate +
+                ", report='" + report + '\'' +
                 '}';
     }
 

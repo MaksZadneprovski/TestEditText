@@ -10,7 +10,6 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,13 +31,54 @@
                 android:layout_height="match_parent">
 
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_avtor"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/reportTitle">
+
+                    <TextView
+                        android:id="@+id/addInf"
+                        style="@style/MyStyleTextViewMenu"
+                        android:text="Основная информация"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/addShield"
+                        style="@style/MyStyleTextViewMenu"
+                        android:text="Щиты и помещения"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/addInf" />
+
+                    <TextView
+                        android:id="@+id/tvGround"
+                        style="@style/MyStyleTextViewMenu"
+                        android:text="Заземление и молниезащита"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/addShield" />
+
+                    <TextView
+                        android:id="@+id/tvViewReport"
+                        style="@style/MyStyleTextViewMenu"
+                        android:text="Технический отчет"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvGround" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <TextView
                     android:id="@+id/reportTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
                     android:paddingTop="40dp"
+                    android:paddingRight="20dp"
                     android:paddingBottom="30dp"
                     android:text="Text"
                     android:textSize="20sp"
@@ -46,79 +86,49 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/addInf"
-                    style="@style/MyStyleTextViewMenu"
-                    android:text="Основная информация"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/reportTitle" />
 
-
-                <TextView
-                    android:id="@+id/addShield"
-                    style="@style/MyStyleTextViewMenu"
-                    android:text="Щиты и помещения"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addInf" />
-
-                <TextView
-                    android:id="@+id/tvGround"
-                    style="@style/MyStyleTextViewMenu"
-                    android:text="Заземление и молниезащита"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addShield" />
-
-                <TextView
-                    android:id="@+id/tvViewReport"
-                    style="@style/MyStyleTextViewMenu"
-                    android:text="Технический отчет"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvGround" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/reportSave"
+            android:id="@+id/deleteReport"
             style="@style/MyStyleFloating"
-            android:src="@drawable/save"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/shareReport"
-            style="@style/MyStyleFloating"
-            app:srcCompat="@drawable/share"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/renameReport"
             style="@style/MyStyleFloating"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteReport"
             app:srcCompat="@drawable/rename"
             tools:ignore="SpeakableTextPresentCheck" />
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/deleteReport"
+            android:id="@+id/shareReport"
             style="@style/MyStyleFloating"
-            android:src="@drawable/delete"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/renameReport"
+            app:srcCompat="@drawable/share"
             tools:ignore="SpeakableTextPresentCheck" />
 
-    </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/reportSave"
+            style="@style/MyStyleFloating"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/shareReport"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

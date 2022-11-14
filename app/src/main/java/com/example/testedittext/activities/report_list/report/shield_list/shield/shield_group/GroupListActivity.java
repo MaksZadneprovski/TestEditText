@@ -28,7 +28,6 @@ public class GroupListActivity extends AppCompatActivity {
 
     ArrayList<Group> groupList;
     LinearLayout linLayout;
-    TextView buttonRv1, buttonRv2, buttonRv3, buttonRv4, buttonRv5, buttonRv6, buttonRv7, buttonRv8, buttonRv9, buttonRv10, buttonRv11, buttonRv12 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

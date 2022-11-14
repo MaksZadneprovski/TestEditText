@@ -5,6 +5,7 @@
     android:id="@+id/groupViewLL"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_avtor"
     android:orientation="horizontal">
 
 
@@ -36,7 +37,7 @@
         android:id="@+id/tvRecView3"
         style="@style/ETForGroupRVItem"
         android:layout_width="40dp"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        android:completionThreshold="0" />
     <!--        android:hint="Фаза"-->
 
 
@@ -58,6 +59,7 @@
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView5"
         style="@style/ETForGroupRVItem"
+        android:inputType="textAutoComplete|number"
         android:layout_width="40dp" />
     <!--        android:hint="Кол-во жил"-->
 
