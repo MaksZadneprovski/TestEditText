@@ -37,12 +37,12 @@
     </style>
 
     <style name="ETForBasicInf" parent="@android:style/Widget.EditText">
-        <item name="android:ems">15</item>
+        <item name="android:ems">13</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:inputType">textPersonName|textCapWords</item>
         <item name="android:text"></item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:backgroundTint">@color/clickText</item>
@@ -66,8 +66,8 @@
     <style name="TVForTitleInf" parent="@android:style/Widget.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_marginTop">40dp</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 
@@ -133,6 +133,17 @@
 
     <style name="CircularProgress" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/clickText</item>
+    </style>
+
+    <style name="Constraint" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:background">@drawable/bg_avtor</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:elevation">3dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
     </style>
 
 

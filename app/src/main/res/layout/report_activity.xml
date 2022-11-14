@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,11 +33,15 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                    style="@style/Constraint"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_avtor"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+                    android:paddingLeft="40dp"
+                    android:paddingTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:paddingRight="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reportTitle">
@@ -44,6 +49,7 @@
                     <TextView
                         android:id="@+id/addInf"
                         style="@style/MyStyleTextViewMenu"
+                        android:paddingLeft="0dp"
                         android:text="Основная информация"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -52,6 +58,7 @@
                     <TextView
                         android:id="@+id/addShield"
                         style="@style/MyStyleTextViewMenu"
+                        android:paddingLeft="0dp"
                         android:text="Щиты и помещения"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/addInf" />
@@ -59,6 +66,7 @@
                     <TextView
                         android:id="@+id/tvGround"
                         style="@style/MyStyleTextViewMenu"
+                        android:paddingLeft="0dp"
                         android:text="Заземление и молниезащита"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/addShield" />
@@ -66,6 +74,7 @@
                     <TextView
                         android:id="@+id/tvViewReport"
                         style="@style/MyStyleTextViewMenu"
+                        android:paddingLeft="0dp"
                         android:text="Технический отчет"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvGround" />

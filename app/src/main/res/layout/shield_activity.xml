@@ -11,7 +11,6 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,90 +21,136 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv12"
-                style="@style/TVForTitleInf"
-                android:text="Название щита :"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <EditText
-                android:id="@+id/shieldName"
-                style="@style/ETForBasicInf"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv12" />
-
-
-            <TextView
-                android:id="@+id/tv13"
-                style="@style/TVForTitleInf"
-                android:text="Нулевая шина :"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shieldName" />
-
-
-            <RadioGroup
-                android:id="@+id/shieldRadioGroup1"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/c1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv13">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <RadioButton
-                    android:id="@+id/shieldRadio1_1"
-                    style="@style/MyStyleRadio"
-                    android:text="N и PE" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    style="@style/Constraint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/c1">
 
-                <RadioButton
-                    android:id="@+id/shieldRadio1_2"
-                    style="@style/MyStyleRadio"
-                    android:text="PEN" />
+                    <TextView
+                        android:id="@+id/tv12"
+                        style="@style/TVForTitleInf"
+                        android:text="Название щита :"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </RadioGroup>
 
-            <TextView
-                android:id="@+id/tv14"
-                style="@style/TVForTitleInf"
-                android:text="Фазные шины :"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shieldRadioGroup1" />
+                    <EditText
+                        android:id="@+id/shieldName"
+                        style="@style/ETForBasicInf"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv12"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-            <RadioGroup
-                android:id="@+id/shieldRadioGroup2"
-                android:paddingBottom="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv14">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <RadioButton
-                    style="@style/MyStyleRadio"
-                    android:id="@+id/shieldRadio2_1"
-                    android:text="L1" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl41"
+                    style="@style/Constraint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
-                <RadioButton
-                    android:id="@+id/shieldRadio2_2"
-                    style="@style/MyStyleRadio"
-                    android:text="L2" />
+                    <TextView
+                        android:id="@+id/tv14"
+                        style="@style/TVForTitleInf"
+                        android:text="Фазные шины :"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <RadioButton
-                    android:id="@+id/shieldRadio2_3"
-                    style="@style/MyStyleRadio"
-                    android:text="L3" />
+                    <RadioGroup
+                        android:id="@+id/shieldRadioGroup2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv14">
 
-                <RadioButton
-                    android:id="@+id/shieldRadio2_4"
-                    style="@style/MyStyleRadio"
-                    android:text="L1, L2, L3" />
+                        <RadioButton
+                            android:id="@+id/shieldRadio2_1"
+                            style="@style/MyStyleRadio"
+                            android:text="L1" />
 
-            </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/shieldRadio2_2"
+                            style="@style/MyStyleRadio"
+                            android:text="L2" />
+
+                        <RadioButton
+                            android:id="@+id/shieldRadio2_3"
+                            style="@style/MyStyleRadio"
+                            android:text="L3" />
+
+                        <RadioButton
+                            android:id="@+id/shieldRadio2_4"
+                            style="@style/MyStyleRadio"
+                            android:text="L1, L2, L3" />
+
+                    </RadioGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout3"
+                    style="@style/Constraint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl41">
+
+                    <TextView
+                        android:id="@+id/tv13"
+                        style="@style/TVForTitleInf"
+                        android:text="Нулевая шина :"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <RadioGroup
+                        android:id="@+id/shieldRadioGroup1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv13">
+
+                        <RadioButton
+                            android:id="@+id/shieldRadio1_1"
+                            style="@style/MyStyleRadio"
+                            android:text="N и PE" />
+
+                        <RadioButton
+                            android:id="@+id/shieldRadio1_2"
+                            style="@style/MyStyleRadio"
+                            android:text="PEN" />
+
+                    </RadioGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
             <TextView
                 android:id="@+id/tvShieldMetallicBond"
@@ -113,7 +158,7 @@
                 android:text="Наличие цепи"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shieldRadioGroup2" />
+                app:layout_constraintTop_toBottomOf="@+id/c1" />
 
             <TextView
                 android:id="@+id/tvShieldGroups"
@@ -140,12 +185,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/clickText"
         android:clickable="true"
         android:src="@drawable/delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

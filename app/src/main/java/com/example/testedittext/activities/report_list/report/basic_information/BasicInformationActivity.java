@@ -2,8 +2,11 @@ package com.example.testedittext.activities.report_list.report.basic_information
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -64,6 +67,7 @@ public class BasicInformationActivity extends AppCompatActivity {
         // Берем акуальный объект отчета из хранилища
         report = Storage.currentReportEntityStorage;
 
+
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
         ArrayAdapter<String> adapter = new ArrayAdapter (this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, characteristics);
         autoCompleteTextView.setAdapter(adapter);
@@ -79,6 +83,7 @@ public class BasicInformationActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         // Чтобы поле даты заполнялось при изменении календаря
         datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
