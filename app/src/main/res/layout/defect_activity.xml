@@ -10,7 +10,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,55 +22,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <TextView
-                android:id="@+id/tv1"
-                style="@style/TVForTitleInf"
-                android:text="Группа дефектов"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl111"
+                style="@style/Constraint"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <com.example.testedittext.visual.InstantAutoComplete
-                android:id="@+id/defectGroup"
-                style="@style/ETForBasicInf"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv1"
-                android:completionThreshold="0"/>
+                <TextView
+                    android:id="@+id/tv1"
+                    style="@style/TVForTitleInf"
+                    android:text="Группа дефектов"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv2"
-                style="@style/TVForTitleInf"
-                android:text="Выявленный дефект"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/defectGroup" />
+                <com.example.testedittext.visual.InstantAutoComplete
+                    android:id="@+id/defectGroup"
+                    style="@style/ETForBasicInf"
+                    android:ems="20"
+                    android:inputType="textMultiLine|textCapWords"
+                    android:completionThreshold="0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv1" />
 
-            <com.example.testedittext.visual.InstantAutoComplete
-                android:id="@+id/defect"
-                style="@style/ETForBasicInf"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv2"
-                android:completionThreshold="0"/>
+                <TextView
+                    android:id="@+id/tv2"
+                    style="@style/TVForTitleInf"
+                    android:text="Выявленный дефект"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/defectGroup" />
 
-            <TextView
-                android:id="@+id/tv3"
-                style="@style/TVForTitleInf"
-                android:text="Примечания"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/defect" />
+                <com.example.testedittext.visual.InstantAutoComplete
+                    android:id="@+id/defect"
+                    style="@style/ETForBasicInf"
+                    android:completionThreshold="0"
+                    android:ems="20"
+                    android:inputType="textMultiLine|textCapWords"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv2" />
 
-            <com.example.testedittext.visual.InstantAutoComplete
-                android:id="@+id/note"
-                style="@style/ETForBasicInf"
-                android:inputType="textMultiLine|textCapWords"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv3"
-                android:completionThreshold="0"/>
+                <TextView
+                    android:id="@+id/tv3"
+                    style="@style/TVForTitleInf"
+                    android:text="Примечания"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/defect" />
+
+                <com.example.testedittext.visual.InstantAutoComplete
+                    android:id="@+id/note"
+                    style="@style/ETForBasicInf"
+                    android:completionThreshold="0"
+                    android:ems="20"
+                    android:inputType="textMultiLine|textCapWords"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -82,12 +97,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/clickText"
         android:clickable="true"
         android:src="@drawable/delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

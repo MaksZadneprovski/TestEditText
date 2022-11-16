@@ -72,9 +72,9 @@ public class DefectActivity extends AppCompatActivity {
         setDataToFieldsFromBd();
 
         // Получаем массив строк из ресурсов
-        String[] phases = getResources().getStringArray(R.array.phases);
+        String[] defectGroup = getResources().getStringArray(R.array.defectGroup);
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
-        ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, defectGroup);
         defGroup.setAdapter(adapter1);
         def.setAdapter(adapter1);
         note.setAdapter(adapter1);

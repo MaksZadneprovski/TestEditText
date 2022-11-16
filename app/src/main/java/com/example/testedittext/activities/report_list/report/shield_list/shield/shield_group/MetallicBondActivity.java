@@ -87,13 +87,11 @@ public class MetallicBondActivity extends AppCompatActivity {
         LayoutInflater ltInflater = getLayoutInflater();
 
         // Получаем массив строк из ресурсов
-        String[] phases = getResources().getStringArray(R.array.phases);
-        String[] cables = getResources().getStringArray(R.array.phases);
+        String[] pe = getResources().getStringArray(R.array.pe);
 
 
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
-        ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, pe);
 
 
         for (int i = startView; i < metallicBondList.size(); i++) {
@@ -123,7 +121,6 @@ public class MetallicBondActivity extends AppCompatActivity {
 
 
             InstantAutoComplete childAt0 = (InstantAutoComplete) linearOfXML.getChildAt(0);
-            InstantAutoComplete childAt2 = (InstantAutoComplete) linearOfXML.getChildAt(2);
 
             childAt1 .setOnClickListener(clk);
             childAt3 .setOnClickListener(clk);
@@ -139,7 +136,6 @@ public class MetallicBondActivity extends AppCompatActivity {
 
 
             childAt0.setAdapter(adapter1);
-            childAt2.setAdapter(adapter2);
 
             linLayout.addView(view);
         }

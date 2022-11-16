@@ -19,9 +19,12 @@
         android:id="@+id/buttonRv1"
         style="@style/TVForGroupRVItem" />
 
-    <com.example.testedittext.visual.InstantAutoComplete
+    <EditText
         android:id="@+id/tvRecView2"
         style="@style/ETForGroupRVItem"
+        android:inputType="numberDecimal"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="80dp"
         tools:ignore="SpeakableTextPresentCheck" />
 

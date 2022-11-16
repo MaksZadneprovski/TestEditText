@@ -19,7 +19,7 @@ public class ViewReportHandler implements View.OnClickListener{
     @Override
     public void onClick(View view) {
 
-        Report r = new Report(view.getContext(), Storage.currentReportEntityStorage.getName() + ".xls", Storage.currentReportEntityStorage);
+        Report r = new Report(view.getContext(), Storage.currentReportEntityStorage.getName() + ".xlsx", Storage.currentReportEntityStorage);
         try {
             r.generate();
         } catch (IOException e) {
@@ -28,14 +28,15 @@ public class ViewReportHandler implements View.OnClickListener{
 
         // Открыть файл
         Context context = view.getContext();
-        File file = new File(context.getExternalFilesDir(null)+ "/" + Storage.currentReportEntityStorage.getName() + ".xls");
+        File file = new File(context.getExternalFilesDir(null)+ "/" + Storage.currentReportEntityStorage.getName() + ".xlsx");
 
         Intent share = new Intent();
         share.setAction(Intent.ACTION_VIEW);
         Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file);
         share.putExtra(Intent.EXTRA_STREAM, contentUri);
         share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        share.setDataAndType(contentUri, "application/vnd.ms-excel");
+        //share.setDataAndType(contentUri, "application/vnd.ms-excel");
+        share.setDataAndType(contentUri, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         //share.setType("text/plain");
         context.startActivity(share);
     }
