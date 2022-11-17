@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -30,6 +32,7 @@ public class ShieldActivity extends AppCompatActivity {
     EditText shieldName;
     TextView tvShieldGroups, tvShieldDefects, tvMetallicBond;
     RadioButton shieldRadio1_1,shieldRadio1_2,shieldRadio2_1,shieldRadio2_2,shieldRadio2_3 ,shieldRadio2_4;
+    ProgressBar progressBar;
 
 
     Shield shield;
@@ -45,6 +48,8 @@ public class ShieldActivity extends AppCompatActivity {
         // Кнопка удалить щит
         FloatingActionButton deleteShield =  findViewById(R.id.deleteShield);
         deleteShield.setColorFilter(Color.argb(255, 255, 255, 255));
+
+        progressBar = findViewById(R.id.progressBar3);
 
         shieldName = findViewById(R.id.shieldName);
         tvShieldGroups = findViewById(R.id.tvShieldGroups);
@@ -63,7 +68,12 @@ public class ShieldActivity extends AppCompatActivity {
 
 
         // Нажатие на текст
-        tvShieldGroups.setOnClickListener(view -> startActivity(new Intent(view.getContext(), GroupListActivity.class)));
+        tvShieldGroups.setOnClickListener(view -> {
+            progressBar.setVisibility(View.VISIBLE);
+            Thread thread = new Thread(() -> startActivity(new Intent(view.getContext(), GroupListActivity.class)));
+            thread.start();
+        });
+
         tvShieldDefects.setOnClickListener(view -> startActivity(new Intent(view.getContext(), DefectListActivity.class)));
         tvMetallicBond.setOnClickListener(view -> startActivity(new Intent(view.getContext(), MetallicBondActivity.class)));
 
@@ -97,9 +107,14 @@ public class ShieldActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
-
         if (!Storage.isDeleteShield) {
             readDataFromFields();
             saveReport();

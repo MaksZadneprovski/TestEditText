@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
@@ -20,12 +22,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class ReportActivity extends AppCompatActivity {
 
     TextView reportTitle;
-
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_activity);
 
+
+        progressBar =  findViewById(R.id.progressBar2);
 
         // Кнопка сохранить отчет
         FloatingActionButton reportSave =  findViewById(R.id.reportSave);
@@ -55,9 +59,9 @@ public class ReportActivity extends AppCompatActivity {
         changeTitle();
 
         // Назначаем обработчик кнопке сохранить отчет
-        buttonShare.setOnClickListener(new ShareReportHandler());
+        //buttonShare.setOnClickListener(new ShareReportHandler());
         // Назначаем обработчик кнопке поделиться
-        buttonShare.setOnClickListener(new ShareReportHandler());
+        buttonShare.setOnClickListener(new ShareReportHandler(progressBar));
         // Назначаем обработчик кнопке переименовать
         buttonRename.setOnClickListener(new RenameReportHandler(this));
         // Назначаем обработчик кнопке удалить отчет
@@ -69,16 +73,22 @@ public class ReportActivity extends AppCompatActivity {
         // Назначаем обработчик тексту Щиты и помещения
         ground.setOnClickListener((view -> startActivity(new Intent(view.getContext(), GroundActivity.class))));
         // Назначаем обработчик TV Посмотреть отчет
-        viewReport.setOnClickListener(new ViewReportHandler());
+        viewReport.setOnClickListener(new ViewReportHandler(progressBar));
 
 /////////////////////////////////////////////////////////////////////////////////////
 
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        progressBar.setVisibility(View.GONE);
+    }
 
     public void changeTitle() {
         // Устанавливаем в TV название отчета
         reportTitle.setText(Storage.currentReportEntityStorage.getName());
     }
+
 }

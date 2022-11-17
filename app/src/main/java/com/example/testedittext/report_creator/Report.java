@@ -221,7 +221,7 @@ public class Report {
     }
 
     private void setInsulation3Phase(Row row, boolean isPE){
-        for (int i = 5; i < 11; i++) {
+        for (int i = 5; i < 8; i++) {
             row.getCell(i).setCellFormula(ExcelFormula.random);
             row.getCell(i+3).setCellFormula(ExcelFormula.random);
             if (isPE) {

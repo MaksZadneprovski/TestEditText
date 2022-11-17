@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 public class CopyClick implements View.OnClickListener, View.OnLongClickListener {
 
     private int position;
@@ -21,19 +23,21 @@ public class CopyClick implements View.OnClickListener, View.OnLongClickListener
     public void onClick(View view) {
         if (CopyClick.isPressedLong) {
             LinearLayout ll = (LinearLayout) ((LinearLayout) view.getParent()).getParent();
-
+            ConstraintLayout main = ((ConstraintLayout) ll.getParent().getParent().getParent().getParent());
 
             // Пробегаемся по RV от кликнутого long , до кликнутого short
             for (int i = CopyClick.clickedPrevPosition; i < position + 1; i++) {
 
                 LinearLayout linearLayout = (LinearLayout) (ll.getChildAt(i));
 
+
+
                 ((EditText) linearLayout.getChildAt(CopyClick.clickedIndexInLL - 1)).setText(CopyClick.clickedText);
 
             }
 
             // Осветляем фон
-            ll.setBackgroundColor(Color.parseColor("#ffffff"));
+            main.setBackgroundColor(Color.parseColor("#ffffff"));
             View prevView = ((LinearLayout) ll.getChildAt(clickedPrevPosition)).getChildAt(clickedIndexInLL);
             prevView.setBackgroundColor(Color.parseColor("#4873B8"));
 
@@ -51,8 +55,10 @@ public class CopyClick implements View.OnClickListener, View.OnLongClickListener
 
 
         LinearLayout ll = (LinearLayout) ((LinearLayout) view.getParent()).getParent();
+        ConstraintLayout main = ((ConstraintLayout) ll.getParent().getParent().getParent().getParent());
+
         // затемняем фон
-        ll.setBackgroundColor(Color.parseColor("#b4b8b6"));
+        main.setBackgroundColor(Color.parseColor("#b4b8b6"));
         view.setBackgroundColor(Color.parseColor("#FFC6473E"));
         // Получили кликнутый LL
         LinearLayout linearLayout = (LinearLayout) (ll.getChildAt(position));
