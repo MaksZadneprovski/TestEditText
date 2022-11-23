@@ -2,6 +2,8 @@ package com.example.testedittext.entities;
 
 import com.example.testedittext.entities.enums.Phases;
 
+import java.util.Map;
+
 // В щите есть группы, это класс, представляющий их
 public class Group {
 
@@ -17,6 +19,12 @@ public class Group {
     private String releaseType;
     private String f0Range;
     private String tSrabAvt;
+    private String markaUzo;
+    private String iNomUzo;
+    private String iDifNom;
+    private boolean isSetMeasure = false;
+    private Map<String, String> insulation;
+    private Map<String, String> f0;
 
     public Group() {
 
@@ -117,5 +125,53 @@ public class Group {
 
     public void settSrabAvt(String tSrabAvt) {
         this.tSrabAvt = tSrabAvt;
+    }
+
+    public String getMarkaUzo() {
+        return markaUzo;
+    }
+
+    public void setMarkaUzo(String markaUzo) {
+        this.markaUzo = markaUzo;
+    }
+
+    public String getiNomUzo() {
+        return iNomUzo;
+    }
+
+    public void setiNomUzo(String iNomUzo) {
+        this.iNomUzo = iNomUzo;
+    }
+
+    public String getiDifNom() {
+        return iDifNom;
+    }
+
+    public void setiDifNom(String iDifNom) {
+        this.iDifNom = iDifNom;
+    }
+
+    public boolean isSetMeasure() {
+        return isSetMeasure;
+    }
+
+    public void setSetMeasure(boolean setMeasure) {
+        isSetMeasure = setMeasure;
+    }
+
+    public Map<String, String> getInsulation() {
+        return insulation;
+    }
+
+    public void setInsulation(Map<String, String> insulation) {
+        this.insulation = insulation;
+    }
+
+    public Map<String, String> getF0() {
+        return f0;
+    }
+
+    public void setF0(Map<String, String> f0) {
+        this.f0 = f0;
     }
 }

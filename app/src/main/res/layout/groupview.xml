@@ -79,7 +79,7 @@
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView7"
         style="@style/ETForGroupRVItem"
-        android:layout_width="80dp" />
+        android:layout_width="100dp" />
     <!--        android:hint="Аппарат защиты" -->
 
     <TextView
@@ -135,6 +135,42 @@
     <TextView
         android:id="@+id/buttonRv12"
         style="@style/TVForGroupRVItem" />
+
+    <com.example.testedittext.visual.InstantAutoComplete
+        android:id="@+id/tvRecView13"
+        style="@style/ETForGroupRVItem"
+        android:layout_width="80dp" />
+    <!--        android:hint="Марка УЗО" -->
+
+    <TextView
+        android:id="@+id/buttonRv13"
+        style="@style/TVForGroupRVItem" />
+
+    <com.example.testedittext.visual.InstantAutoComplete
+        android:id="@+id/tvRecView14"
+        style="@style/ETForGroupRVItem"
+        android:layout_width="80dp" />
+    <!--        android:hint="Iном УЗО" -->
+
+    <TextView
+        android:id="@+id/buttonRv14"
+        style="@style/TVForGroupRVItem" />
+
+    <com.example.testedittext.visual.InstantAutoComplete
+        android:id="@+id/tvRecView15"
+        style="@style/ETForGroupRVItem"
+        android:layout_width="80dp" />
+    <!--        android:hint="Номин. откл. диф. ток" -->
+
+    <TextView
+        android:id="@+id/buttonRv15"
+        style="@style/TVForGroupRVItem" />
+
+    <TextView
+        android:id="@+id/measure"
+        android:background="@color/clickText"
+        android:text="Измерения"
+        style="@style/TVForDelGroupRVItem" />
 
     <TextView
         android:id="@+id/buttonDelGroup"

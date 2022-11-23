@@ -1,9 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="й">
-        <item>q</item>
-        <item>w</item>
-        <item>e</item>
+    <string-array name="cables">
+        <item>ВВГнг</item>
+        <item>АВВГнг</item>
+        <item>ВВГнг(А)LS</item>
+    </string-array>
+
+    <string-array name="numCores">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="sechenie">
+        <item>0,5</item>
+        <item>0,75</item>
+        <item>1,5</item>
+        <item>2,5</item>
+        <item>4</item>
+        <item>6</item>
+        <item>10</item>
+        <item>16</item>
+        <item>25</item>
+        <item>35</item>
+        <item>50</item>
+        <item>70</item>
+        <item>95</item>
+    </string-array>
+
+    <string-array name="markaavtomata">
+        <item>S201</item>
+        <item>S203</item>
+    </string-array>
+
+    <string-array name="nominal">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>6</item>
+        <item>10</item>
+        <item>16</item>
+        <item>20</item>
+        <item>25</item>
+        <item>32</item>
+        <item>40</item>
+        <item>50</item>
+        <item>63</item>
+        <item>80</item>
+        <item>100</item>
+        <item>125</item>
+        <item>160</item>
+        <item>200</item>
+        <item>250</item>
+        <item>315</item>
+        <item>320</item>
+        <item>400</item>
+        <item>500</item>
+        <item>630</item>
+        <item>800</item>
+        <item>1000</item>
+        <item>1200</item>
+        <item>1250</item>
+        <item>1600</item>
     </string-array>
 
     <string-array name="phases">
@@ -11,6 +70,13 @@
         <item>А</item>
         <item>В</item>
         <item>С</item>
+    </string-array>
+
+    <string-array name="apparat">
+        <item>Автомат</item>
+        <item>Дифавтомат</item>
+        <item>Автомат + УЗО</item>
+        <item>УЗО</item>
     </string-array>
 
     <string-array name="pe">

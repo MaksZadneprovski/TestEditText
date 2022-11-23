@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,6 +25,7 @@ import com.example.testedittext.visual.InstantAutoComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class GroupListActivity extends AppCompatActivity {
 
@@ -88,21 +91,21 @@ public class GroupListActivity extends AppCompatActivity {
 
         // Получаем массив строк из ресурсов
         String[] phases = getResources().getStringArray(R.array.phases);
-        String[] cables = getResources().getStringArray(R.array.phases);
-        String[] numCores = getResources().getStringArray(R.array.phases);
-        String[] sechenie = getResources().getStringArray(R.array.phases);
-        String[] apparat = getResources().getStringArray(R.array.phases);
-        String[] marka = getResources().getStringArray(R.array.phases);
-        String[] nominal = getResources().getStringArray(R.array.phases);
+        String[] cables = getResources().getStringArray(R.array.cables);
+        String[] numCores = getResources().getStringArray(R.array.numCores);
+        String[] sechenie = getResources().getStringArray(R.array.sechenie);
+        String[] apparat = getResources().getStringArray(R.array.apparat);
+        String[] markaavtomata = getResources().getStringArray(R.array.markaavtomata);
+        String[] nominal = getResources().getStringArray(R.array.nominal);
 
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
         ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
-        ArrayAdapter<String> adapter3 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
-        ArrayAdapter<String> adapter4 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
-        ArrayAdapter<String> adapter5 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
-        ArrayAdapter<String> adapter6 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
-        ArrayAdapter<String> adapter7 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter (this, R.layout.custom_spinner, cables);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter (this, R.layout.custom_spinner, numCores);
+        ArrayAdapter<String> adapter4 = new ArrayAdapter (this, R.layout.custom_spinner, sechenie);
+        ArrayAdapter<String> adapter5 = new ArrayAdapter (this, R.layout.custom_spinner, apparat);
+        ArrayAdapter<String> adapter6 = new ArrayAdapter (this, R.layout.custom_spinner, markaavtomata);
+        ArrayAdapter<String> adapter7 = new ArrayAdapter (this, R.layout.custom_spinner, nominal);
 
 
         for (int i = startView; i < groupList.size(); i++) {
@@ -146,6 +149,9 @@ public class GroupListActivity extends AppCompatActivity {
             TextView childAt19 = (TextView) linearOfXML.getChildAt(19);
             TextView childAt21 = (TextView) linearOfXML.getChildAt(21);
             TextView childAt23 = (TextView) linearOfXML.getChildAt(23);
+            TextView childAt25 = (TextView) linearOfXML.getChildAt(25);
+            TextView childAt27 = (TextView) linearOfXML.getChildAt(27);
+            TextView childAt29 = (TextView) linearOfXML.getChildAt(29);
 
             InstantAutoComplete childAt4 = (InstantAutoComplete) linearOfXML.getChildAt(4);
             InstantAutoComplete childAt6 = (InstantAutoComplete) linearOfXML.getChildAt(6);
@@ -157,6 +163,9 @@ public class GroupListActivity extends AppCompatActivity {
             InstantAutoComplete childAt18 = (InstantAutoComplete) linearOfXML.getChildAt(18);
             InstantAutoComplete childAt20 = (InstantAutoComplete) linearOfXML.getChildAt(20);
             InstantAutoComplete childAt22 = (InstantAutoComplete) linearOfXML.getChildAt(22);
+            InstantAutoComplete childAt24 = (InstantAutoComplete) linearOfXML.getChildAt(24);
+            InstantAutoComplete childAt26 = (InstantAutoComplete) linearOfXML.getChildAt(26);
+            InstantAutoComplete childAt28 = (InstantAutoComplete) linearOfXML.getChildAt(28);
 
             childAt1 .setOnClickListener(clk);
             childAt3 .setOnClickListener(clk);
@@ -170,8 +179,12 @@ public class GroupListActivity extends AppCompatActivity {
             childAt19.setOnClickListener(clk);
             childAt21.setOnClickListener(clk);
             childAt23.setOnClickListener(clk);
+            childAt25.setOnClickListener(clk);
+            childAt27.setOnClickListener(clk);
+            childAt29.setOnClickListener(clk);
             // Кнопка удалить
-            ((TextView) linearOfXML.getChildAt(24)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i));
+            ((TextView) linearOfXML.getChildAt(30)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i));
+            ((TextView) linearOfXML.getChildAt(31)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i));
 
             childAt1.setOnLongClickListener(clk);
             childAt3.setOnLongClickListener(clk);
@@ -194,13 +207,39 @@ public class GroupListActivity extends AppCompatActivity {
             childAt4.setAdapter(adapter1);
             childAt6.setAdapter(adapter2);
             childAt8.setAdapter(adapter3);
-            childAt10.setAdapter(adapter1);
-            childAt12.setAdapter(adapter1);
-            childAt14.setAdapter(adapter1);
-            childAt16.setAdapter(adapter1);
+            childAt10.setAdapter(adapter4);
+            childAt12.setAdapter(adapter5);
+            childAt14.setAdapter(adapter6);
+            childAt16.setAdapter(adapter7);
             childAt18.setAdapter(adapter1);
             childAt20.setAdapter(adapter1);
             childAt22.setAdapter(adapter1);
+            childAt24.setAdapter(adapter1);
+            childAt26.setAdapter(adapter1);
+            childAt28.setAdapter(adapter1);
+
+//            childAt24.setEnabled(false);
+//            childAt26.setEnabled(false);
+//            childAt28.setEnabled(false);
+
+//            childAt12.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//                    if (editable.toString().trim().equalsIgnoreCase("дифавтомат")){
+//
+//                    }
+//                }
+//            });
 
 
 

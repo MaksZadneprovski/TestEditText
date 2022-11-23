@@ -34,6 +34,7 @@
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:backgroundTint">@color/clickText</item>
         <item name="android:textSize">11sp</item>
+        <item name="android:cursorVisible">false</item>
     </style>
 
     <style name="ETForBasicInf" parent="@android:style/Widget.EditText">

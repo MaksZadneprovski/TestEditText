@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/login" />
 
         <EditText
-            android:id="@+id/infCustomer"
+            android:id="@+id/pass"
             style="@style/ETForBasicInf"
             android:inputType="textPassword"
             android:ems="20"
@@ -78,7 +78,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/infCustomer" />
+            app:layout_constraintTop_toBottomOf="@+id/pass" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

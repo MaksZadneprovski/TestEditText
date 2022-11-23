@@ -60,6 +60,12 @@ public class Report {
         font.setFontName("Times New Roman");
         font.setBold(false);
 
+        // Create a new font and alter it.
+        Font font2 = wb.createFont();
+        font2.setFontHeightInPoints((short)10);
+        font2.setFontName("Times New Roman");
+        font2.setBold(false);
+
         // Создаем стиль для создания рамки у ячейки
         CellStyle style = wb.getCellStyleAt(1);
         style.setBorderBottom(BorderStyle.THIN);
@@ -75,6 +81,44 @@ public class Report {
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // Создаем стиль для данных
+        CellStyle style2 = wb.getCellStyleAt(2);
+        style2.setBorderTop(BorderStyle.NONE);
+        style2.setBorderBottom(BorderStyle.NONE);
+        style2.setBorderLeft(BorderStyle.NONE);
+        style2.setBorderRight(BorderStyle.NONE);
+        style2.setWrapText(false);
+        style2.setFont(font);
+        style2.setAlignment(HorizontalAlignment.RIGHT);
+        style2.setVerticalAlignment(VerticalAlignment.CENTER);
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        //
+        Row row1 = sheet.getRow(0);
+        Row row2 = sheet.getRow(1);
+        Row row3 = sheet.getRow(2);
+        Row row4 = sheet.getRow(3);
+
+        Cell cell_1_15 = row1.createCell(15);
+        Cell cell_2_15 = row2.createCell(15);
+        Cell cell_3_15 = row3.createCell(15);
+        Cell cell_4_15 = row4.createCell(15);
+
+        cell_1_15.setCellValue("Заказчик: " + report.getCustomer());
+        cell_2_15.setCellValue("Объект: " + report.getObject());
+        cell_3_15.setCellValue("Адрес: " + report.getAddress());
+        cell_4_15.setCellValue("Дата: " + report.getDate());
+
+
+        cell_1_15.setCellStyle(style2);
+        cell_2_15.setCellStyle(style2);
+        cell_3_15.setCellStyle(style2);
+        cell_4_15.setCellStyle(style2);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
