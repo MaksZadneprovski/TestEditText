@@ -117,11 +117,13 @@ public class Report {
         if (shields != null) {
             // Проход по щитам
             for (int i = 0; i < shields.size(); i++) {
+                // Получаем щит
                 Shield shield = shields.get(i);
                 row = sheetInsulation.createRow(countRow);
 
                 Cell cell;
 
+                // Объединяем столбцы для вставки названия щита
                 sheetInsulation.addMergedRegion(new CellRangeAddress(
                         countRow, //first row (0-based)
                         countRow, //last row  (0-based)
@@ -240,6 +242,137 @@ public class Report {
 
         // Заполняем строку погоды
         fillWeather(sheetF0, 10, 6);
+
+        // Начинаем с 29 строки, первые 28 занимает шапка таблицы
+         countRow = 28;
+         paragraph = 1;
+
+        if (shields != null) {
+            // Проход по щитам
+            for (int i = 0; i < shields.size(); i++) {
+                // Получаем щит
+                Shield shield = shields.get(i);
+                row = sheetF0.createRow(countRow);
+                Cell cell;
+
+                // Объединяем столбцы для вставки названия щита
+                sheetF0.addMergedRegion(new CellRangeAddress(
+                        countRow, //first row (0-based)
+                        countRow, //last row  (0-based)
+                        0, //first column (0-based)
+                        14  //last column  (0-based)
+                ));
+
+                // Вставляем название щита
+                cell = row.createCell(0);
+                ////////////////////////////////////////////////////////////////////////
+                cell.setCellValue(shield.getName());
+                cell.setCellStyle(style);
+
+                countRow++;
+                // Получаем группы щита
+                ArrayList<Group> shieldGroups = shield.getShieldGroups();
+                // Переменная для автоматической генерации номера автомата (QF1, QF2...)
+                int avtomatCount = 1;
+                if (shieldGroups != null) {
+                    // Проход по группам
+
+                    // Для автоматического заполнения фаз, если не указана конкретная
+                    int numberPhase = 1;
+
+                    for (int j = 0; j < shieldGroups.size(); j++) {
+                        // Получаем группу и записываем ее данные в таблицу, если имеется поле адрес
+                        Group group = shieldGroups.get(j);
+                        ////////////////////////////////////////////////////////////////////////
+
+                        if (!group.getAddress().isEmpty()) {
+
+                            row = sheetF0.createRow(countRow);
+
+                            //увеличиваем высоту строки, чтобы вместить две строки текста
+                            row.setHeightInPoints((2*sheetF0.getDefaultRowHeightInPoints()));
+
+                            // Столбец пункт
+                            cell = row.createCell(0);
+                            cell.setCellValue(paragraph++);
+                            cell.setCellStyle(style);
+
+                            // Столбец наименование линии
+                            cell = row.createCell(1);
+                            String lineName = "";
+                            if (group.getDesignation().isEmpty()) {
+                                lineName = avtomat + avtomatCount + " - " + group.getAddress();
+                                avtomatCount++;
+                            } else lineName = group.getDesignation() + " - " + group.getAddress();
+                            cell.setCellValue(lineName);
+                            cell.setCellStyle(style);
+
+                            // Типовое обозначение автомата
+                            cell = row.createCell(2);
+                            cell.setCellValue(group.getMachineBrand());
+                            cell.setCellStyle(style);
+
+                            // Столбец Тип расцепителя
+                            cell = row.createCell(3);
+                            cell.setCellValue(group.getReleaseType());
+                            cell.setCellStyle(style);
+
+                            // Столбец Ном.ток
+                            cell = row.createCell(4);
+                            cell.setCellValue(group.getRatedCurrent());
+                            cell.setCellStyle(style);
+
+                            // Создаем столбцы измерений и ставим туда "-"
+                            for (int k = 6; k < 12; k++) {
+                                cell = row.createCell(k);
+                                cell.setCellValue("-");
+                                cell.setCellStyle(style);
+                            }
+
+                            // Столбец Диапазон тока срабатывания расцепителя
+                            cell = row.createCell(5);
+                            String ratedCurrent = group.getRatedCurrent();
+                            if (!ratedCurrent.isEmpty()) {
+                                cell.setCellValue(Integer.parseInt(ratedCurrent) * 10);
+                            }
+                            cell.setCellStyle(style);
+
+                            // Столбцы измерений
+
+                            // Автоматическое заполнение А,В,С, елси фаза не заполнена
+
+                            if (group.getPhases().isEmpty() && !group.getAddress().isEmpty()){
+                                switch (numberPhase){
+                                    case 1: group.setPhases("А"); break;
+                                    case 2: group.setPhases("В"); break;
+                                    case 3: group.setPhases("С"); break;
+                                }
+                                if (numberPhase == 3) numberPhase = 1;
+                                else numberPhase++;
+                            }
+
+                            switch (group.getPhases()) {
+                                case "А":
+
+                                    break;
+                                case "В":
+
+                                    break;
+                                case "С":
+
+                                    break;
+                                case "АВС":
+
+                                    break;
+                            }
+
+                            // Столбец соотв
+                            countRow++;
+                        }
+                    }
+                }
+            }
+        }
 
 
 // Создание файла
