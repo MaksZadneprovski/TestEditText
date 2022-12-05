@@ -10,7 +10,6 @@ import androidx.core.content.FileProvider;
 
 import com.example.testedittext.BuildConfig;
 import com.example.testedittext.report_creator.Report;
-import com.example.testedittext.utils.DirectoryUtil;
 import com.example.testedittext.utils.Storage;
 
 import java.io.File;
@@ -34,7 +33,7 @@ public class ViewReportHandler implements View.OnClickListener{
             @Override
             public void run() {
                 try {
-                    r.generate();
+                    r.generateReport();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
