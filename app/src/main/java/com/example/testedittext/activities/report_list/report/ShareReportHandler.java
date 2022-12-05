@@ -33,7 +33,7 @@ public class ShareReportHandler implements View.OnClickListener {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        Report r = new Report(view.getContext(), Storage.currentReportEntityStorage.getName() + ".xls", Storage.currentReportEntityStorage);
+        Report r = new Report(view.getContext(), Storage.currentReportEntityStorage.getName() + ".xlsx", Storage.currentReportEntityStorage);
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -44,7 +44,7 @@ public class ShareReportHandler implements View.OnClickListener {
                     e.printStackTrace();
                 }
                 Context context = view.getContext();
-                File file = new File(context.getExternalFilesDir(null)+ "/" + Storage.currentReportEntityStorage.getName() + ".xls");
+                File file = new File(context.getExternalFilesDir(null)+ "/" + Storage.currentReportEntityStorage.getName() + ".xlsx");
 
                 if (file != null || file.exists()){
                     // Поделиться файлом
@@ -53,7 +53,7 @@ public class ShareReportHandler implements View.OnClickListener {
                     Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file);
                     share.putExtra(Intent.EXTRA_STREAM, contentUri);
                     share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    share.setType("text/plain");
+                    share.setType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
                     context.startActivity(share);
                 }
             }

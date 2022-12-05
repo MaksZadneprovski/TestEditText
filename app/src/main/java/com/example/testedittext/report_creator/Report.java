@@ -6,13 +6,18 @@ import com.example.testedittext.R;
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
+import com.example.testedittext.entities.enums.TypeOfWork;
+import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.ExcelFormula;
+import com.example.testedittext.utils.ExcelStyle;
 
 
+import org.apache.poi.hssf.usermodel.HeaderFooter;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Footer;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
@@ -21,23 +26,23 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.ss.util.RegionUtil;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Report {
 
     Context context;
     private  String fileName;
     ReportEntity report;
-    private static Font font8, font10;
-    CellStyle styleBorderNone;
+
+    private boolean isF0, isInsulation, isGround, isUzo, isMetallicBond, isVizual;
+
+    ExcelStyle excelStyle;
 
     public Report(Context context, String fileName, ReportEntity report) {
         this.context = context;
@@ -45,60 +50,26 @@ public class Report {
         this.report = report;
     }
 
-
-
     public void generate() throws IOException {
 
         Workbook wb;
         wb = WorkbookFactory.create(context.getResources().openRawResource(R.raw.report3));
 
-        // Create a new font and alter it.
-        font8 = wb.createFont();
-        font8.setFontHeightInPoints((short)8);
-        font8.setFontName("Times New Roman");
-        font8.setBold(false);
-
-        // Create a new font and alter it.
-        font10 = wb.createFont();
-        font10.setFontHeightInPoints((short)10);
-        font10.setFontName("Times New Roman");
-        font10.setBold(false);
-
-        // Создаем стиль для создания рамки у ячейки
-        CellStyle style = wb.getCellStyleAt(1);
-        style.setBorderBottom(BorderStyle.THIN);
-        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-        style.setBorderLeft(BorderStyle.THIN);
-        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        //style.setBorderRight(BorderStyle.THIN);
-        //style.setRightBorderColor(IndexedColors.BLACK.getIndex());
-        style.setBorderTop(BorderStyle.THIN);
-        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
-        style.setWrapText(true);
-        style.setFont(font8);
-        style.setAlignment(HorizontalAlignment.CENTER);
-        style.setVerticalAlignment(VerticalAlignment.CENTER);
-
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        // Создаем стиль для данных об объекте
-        styleBorderNone = wb.getCellStyleAt(2);
-        styleBorderNone.setBorderTop(BorderStyle.NONE);
-        styleBorderNone.setBorderBottom(BorderStyle.NONE);
-        styleBorderNone.setBorderLeft(BorderStyle.NONE);
-        styleBorderNone.setBorderRight(BorderStyle.NONE);
-        styleBorderNone.setWrapText(false);
-        styleBorderNone.setFont(font10);
-        styleBorderNone.setAlignment(HorizontalAlignment.RIGHT);
-        styleBorderNone.setVerticalAlignment(VerticalAlignment.CENTER);
-
-
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
 
+        // Определяем необходимость тех или иных протоколов
+        setNecessaryProtocols();
+
+        // Создаем стили
+        excelStyle = new ExcelStyle(wb);
+
+        Sheet sheetInsulation = wb.getSheet("Insulation");
+        Sheet sheetF0 = wb.getSheet("F0");
+
 // Созданиие протокола изоляции
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Sheet sheetInsulation = wb.getSheet("Insulation");
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         // Заполняем строки заказчик, объект, адрес, дата
@@ -135,14 +106,19 @@ public class Report {
                 cell = row.createCell(0);
                 ////////////////////////////////////////////////////////////////////////
                 cell.setCellValue(shield.getName());
-                cell.setCellStyle(style);
+                cell.setCellStyle(excelStyle.style);
 
                 countRow++;
                 // Получаем группы щита
                 ArrayList<Group> shieldGroups = shield.getShieldGroups();
                 // Переменная для автоматической генерации номера автомата (QF1, QF2...)
                 int avtomatCount = 1;
+
                 if (shieldGroups != null) {
+
+                    // Для автоматического заполнения фаз, если не указана конкретная
+                    int numberPhase = 1;
+
                     // Проход по группам
                     for (int j = 0; j < shieldGroups.size(); j++) {
                         // Получаем группу и записываем ее данные в таблицу, если имеется поле адрес
@@ -154,12 +130,12 @@ public class Report {
                             row = sheetInsulation.createRow(countRow);
 
                             //увеличиваем высоту строки, чтобы вместить две строки текста
-                            row.setHeightInPoints((2*sheetInsulation.getDefaultRowHeightInPoints()));
+                            //row.setHeightInPoints((2*sheetInsulation.getDefaultRowHeightInPoints()));
 
                             // Столбец пункт
                             cell = row.createCell(0);
                             cell.setCellValue(paragraph++);
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
 
                             // Столбец наименование линии
                             cell = row.createCell(1);
@@ -169,7 +145,7 @@ public class Report {
                                 avtomatCount++;
                             } else lineName = group.getDesignation() + " - " + group.getAddress();
                             cell.setCellValue(lineName);
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
 
                             // Столбец Марка, кол-во жил, сечение
                             cell = row.createCell(2);
@@ -178,22 +154,35 @@ public class Report {
                                 cell.setCellValue(val);
                             }
 
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
 
                             // Столбец Напряжение мегаомметра
                             cell = row.createCell(3);
                             cell.setCellValue("2500");
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
 
                             // Столбец Допустимое R
                             cell = row.createCell(4);
                             cell.setCellValue("0,5");
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
+
+                            // Столбцы измерений
+
+                            // Автоматическое заполнение А,В,С, елси фаза не заполнена
+                            if (group.getPhases().isEmpty() && !group.getAddress().isEmpty()){
+                                switch (numberPhase){
+                                    case 1: group.setPhases("А"); break;
+                                    case 2: group.setPhases("В"); break;
+                                    case 3: group.setPhases("С"); break;
+                                }
+                                if (numberPhase == 3) numberPhase = 1;
+                                else numberPhase++;
+                            }
 
                             for (int k = 5; k < 16; k++) {
                                 cell = row.createCell(k);
                                 cell.setCellValue("-");
-                                cell.setCellStyle(style);
+                                cell.setCellStyle(excelStyle.style);
                             }
 
                             // Нужно ли заполнять N-PE
@@ -228,12 +217,21 @@ public class Report {
                 }
             }
         }
+
+        //устанавливаем область печати
+        wb.setPrintArea(
+                ExcelData.indexInsulationSheet, // индекс листа
+                0, // начало столбца
+                15, // конец столбца
+                0, //начало строки
+                countRow // конец строки
+        );
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         // Созданиие протокола петли
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Sheet sheetF0 = wb.getSheet("F0");
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         // Заполняем строки заказчик, объект, адрес, дата
@@ -267,7 +265,7 @@ public class Report {
                 cell = row.createCell(0);
                 ////////////////////////////////////////////////////////////////////////
                 cell.setCellValue(shield.getName());
-                cell.setCellStyle(style);
+                cell.setCellStyle(excelStyle.style);
 
                 countRow++;
                 // Получаем группы щита
@@ -275,11 +273,11 @@ public class Report {
                 // Переменная для автоматической генерации номера автомата (QF1, QF2...)
                 int avtomatCount = 1;
                 if (shieldGroups != null) {
-                    // Проход по группам
 
                     // Для автоматического заполнения фаз, если не указана конкретная
                     int numberPhase = 1;
 
+                    // Проход по группам
                     for (int j = 0; j < shieldGroups.size(); j++) {
                         // Получаем группу и записываем ее данные в таблицу, если имеется поле адрес
                         Group group = shieldGroups.get(j);
@@ -295,7 +293,7 @@ public class Report {
                             // Столбец пункт
                             cell = row.createCell(0);
                             cell.setCellValue(paragraph++);
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
 
                             // Столбец наименование линии
                             cell = row.createCell(1);
@@ -305,42 +303,38 @@ public class Report {
                                 avtomatCount++;
                             } else lineName = group.getDesignation() + " - " + group.getAddress();
                             cell.setCellValue(lineName);
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
 
                             // Типовое обозначение автомата
                             cell = row.createCell(2);
                             cell.setCellValue(group.getMachineBrand());
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
 
                             // Столбец Тип расцепителя
                             cell = row.createCell(3);
                             cell.setCellValue(group.getReleaseType());
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
 
                             // Столбец Ном.ток
                             cell = row.createCell(4);
                             cell.setCellValue(group.getRatedCurrent());
-                            cell.setCellStyle(style);
+                            cell.setCellStyle(excelStyle.style);
 
                             // Создаем столбцы измерений и ставим туда "-"
-                            for (int k = 6; k < 12; k++) {
+                            for (int k = 6; k < 15; k++) {
                                 cell = row.createCell(k);
                                 cell.setCellValue("-");
-                                cell.setCellStyle(style);
+                                cell.setCellStyle(excelStyle.style);
                             }
 
                             // Столбец Диапазон тока срабатывания расцепителя
                             cell = row.createCell(5);
-                            String ratedCurrent = group.getRatedCurrent();
-                            if (!ratedCurrent.isEmpty()) {
-                                cell.setCellValue(Integer.parseInt(ratedCurrent) * 10);
-                            }
-                            cell.setCellStyle(style);
+                            cell.setCellFormula(ExcelFormula.getRange(countRow));
+                            cell.setCellStyle(excelStyle.style);
 
                             // Столбцы измерений
 
                             // Автоматическое заполнение А,В,С, елси фаза не заполнена
-
                             if (group.getPhases().isEmpty() && !group.getAddress().isEmpty()){
                                 switch (numberPhase){
                                     case 1: group.setPhases("А"); break;
@@ -351,22 +345,85 @@ public class Report {
                                 else numberPhase++;
                             }
 
+                            // Если в изоляции везде прочерки, "соотв." не заполнится
+                            boolean conformity = false;
+
                             switch (group.getPhases()) {
                                 case "А":
+                                    cell = row.createCell(9);
+                                    cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
+                                    cell.setCellStyle(excelStyle.style);
 
+                                    cell = row.createCell(6);
+                                    cell.setCellFormula(ExcelFormula.getComputeResistA(countRow));
+                                    cell.setCellStyle(excelStyle.style);
+
+                                    conformity = true;
                                     break;
                                 case "В":
+                                    cell = row.createCell(10);
+                                    cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
+                                    cell.setCellStyle(excelStyle.style);
 
+                                    cell = row.createCell(7);
+                                    cell.setCellFormula(ExcelFormula.getComputeResistB(countRow));
+                                    cell.setCellStyle(excelStyle.style);
+
+                                    conformity = true;
                                     break;
                                 case "С":
+                                    cell = row.createCell(11);
+                                    cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
+                                    cell.setCellStyle(excelStyle.style);
 
+                                    cell = row.createCell(8);
+                                    cell.setCellFormula(ExcelFormula.getComputeResistC(countRow));
+                                    cell.setCellStyle(excelStyle.style);
+
+                                    conformity = true;
                                     break;
                                 case "АВС":
+                                    cell = row.createCell(9);
+                                    cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
+                                    cell.setCellStyle(excelStyle.style);
 
+                                    cell = row.createCell(6);
+                                    cell.setCellFormula(ExcelFormula.getComputeResistA(countRow));
+                                    cell.setCellStyle(excelStyle.style);
+
+                                    cell = row.createCell(10);
+                                    cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
+                                    cell.setCellStyle(excelStyle.style);
+
+                                    cell = row.createCell(7);
+                                    cell.setCellFormula(ExcelFormula.getComputeResistB(countRow));
+                                    cell.setCellStyle(excelStyle.style);
+
+                                    cell = row.createCell(11);
+                                    cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
+                                    cell.setCellStyle(excelStyle.style);
+
+                                    cell = row.createCell(8);
+                                    cell.setCellFormula(ExcelFormula.getComputeResistC(countRow));
+                                    cell.setCellStyle(excelStyle.style);
+
+                                    conformity = true;
                                     break;
                             }
 
+                            // Столбец доп время срабатывания. аппарата защиты
+                            cell = row.createCell(12);
+                            cell.setCellValue("0,4");
+                            cell.setCellStyle(excelStyle.style);
+
+                            // Столбец  время срабатывания. аппарата защиты по времятоковой
+                            cell = row.createCell(13);
+                            cell.setCellValue("< 0,4");
+                            cell.setCellStyle(excelStyle.style);
+
                             // Столбец соотв
+                            if (conformity) row.getCell(14).setCellValue("соотв.");
+
                             countRow++;
                         }
                     }
@@ -375,32 +432,68 @@ public class Report {
         }
 
 
+        //устанавливаем область печати
+        wb.setPrintArea(
+                ExcelData.indexF0Sheet, // индекс листа
+                0, // начало столбца
+                14, // конец столбца
+                0, //начать строку
+                countRow // конец строки
+        );
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        // Удаляем ненужные протоколы
+        if (!isF0)wb.removeSheetAt(wb.getSheetIndex(sheetF0));
+        if (!isInsulation)wb.removeSheetAt(wb.getSheetIndex(sheetInsulation));
+
+
 // Создание файла
 ////////////////////////////////////////////////////////////////////////////////////////////////////
         try (FileOutputStream fileOut = new FileOutputStream(getExternalPath())) {
             wb.write(fileOut);
         }
         wb.close();
+
     }
 
     private void setInsulation1Phase(Row row, boolean isPE, int i){
-        row.getCell(i).setCellFormula(ExcelFormula.random);
+
+        Cell cell = row.createCell(i);
+        cell.setCellFormula(ExcelFormula.randomInsulation);
+        cell.setCellStyle(excelStyle.style);
+
         if (isPE) {
-            row.getCell(i+3).setCellFormula(ExcelFormula.random);
-            row.getCell(14).setCellFormula(ExcelFormula.random);
+            cell = row.createCell(i+3);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
+
+            cell = row.createCell(14);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
+
         }
     }
 
     private void setInsulation3Phase(Row row, boolean isPE){
         for (int i = 5; i < 8; i++) {
-            row.getCell(i).setCellFormula(ExcelFormula.random);
-            row.getCell(i+3).setCellFormula(ExcelFormula.random);
+            Cell cell = row.createCell(i);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
+
+            cell = row.createCell(i+3);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
             if (isPE) {
-                row.getCell(i+6).setCellFormula(ExcelFormula.random);
+                cell = row.createCell(i+6);
+                cell.setCellFormula(ExcelFormula.randomInsulation);
+                cell.setCellStyle(excelStyle.style);
             }
         }
         if (isPE) {
-            row.getCell(14).setCellFormula(ExcelFormula.random);
+            Cell cell = row.createCell(14);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
         }
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -424,16 +517,15 @@ public class Report {
         cell_3_15.setCellValue("Адрес: " + report.getAddress());
         cell_4_15.setCellValue("Дата: " + report.getDate());
 
-        cell_1_15.setCellStyle(styleBorderNone);
-        cell_2_15.setCellStyle(styleBorderNone);
-        cell_3_15.setCellStyle(styleBorderNone);
-        cell_4_15.setCellStyle(styleBorderNone);
+        cell_1_15.setCellStyle(excelStyle.styleBorderNoneRight);
+        cell_2_15.setCellStyle(excelStyle.styleBorderNoneRight);
+        cell_3_15.setCellStyle(excelStyle.styleBorderNoneRight);
+        cell_4_15.setCellStyle(excelStyle.styleBorderNoneRight);
     }
 
     private void fillWeather(Sheet sheet,int row, int column){
         Row r = sheet.getRow(row);
         Cell c = r.createCell(column);
-        styleBorderNone.setAlignment(HorizontalAlignment.CENTER);
         String data = "Температура воздуха " +
                 report.getTemperature() +
                 " °С.  Влажность воздуха " +
@@ -442,6 +534,21 @@ public class Report {
                 report.getPressure() +
                 "  мм.рт.ст.";
         c.setCellValue(data);
-        c.setCellStyle(styleBorderNone);
+        c.setCellStyle(excelStyle.styleBorderNoneCenter);
     }
+
+    public void setNecessaryProtocols(){
+        Set<TypeOfWork> type_of_work = report.getType_of_work();
+
+        if (type_of_work != null) {
+            isInsulation = type_of_work.contains(TypeOfWork.Insulation);
+            isF0 = type_of_work.contains(TypeOfWork.PhaseZero);
+            isGround = type_of_work.contains(TypeOfWork.Grounding);
+            isMetallicBond = type_of_work.contains(TypeOfWork.MetallicBond);
+            isUzo = type_of_work.contains(TypeOfWork.Uzo);
+            isVizual = type_of_work.contains(TypeOfWork.Visual);
+        }
+
+    }
+
 }
