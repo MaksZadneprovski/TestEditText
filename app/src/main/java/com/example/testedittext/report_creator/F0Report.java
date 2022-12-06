@@ -30,7 +30,7 @@ public class F0Report {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Заполняем строку погоды
-        Report.fillWeather(sheetF0, 10, 6, report, excelStyle);
+        Report.fillWeather(sheetF0, 10,  report, excelStyle);
 
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы
         int countRow = 28;

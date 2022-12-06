@@ -51,7 +51,6 @@ public class Report {
         // Определяем необходимость тех или иных протоколов
         setNecessaryProtocols();
 
-
         // Удаляем ненужные протоколы
         if (isF0) wb = F0Report.generateF0(wb, report);
         else wb.removeSheetAt(wb.getSheetIndex(sheetF0));
@@ -67,45 +66,7 @@ public class Report {
         wb.close();
     }
 
-    public static void setInsulation1Phase(Row row, boolean isPE, int i, ExcelStyle excelStyle){
 
-        Cell cell = row.createCell(i);
-        cell.setCellFormula(ExcelFormula.randomInsulation);
-        cell.setCellStyle(excelStyle.style);
-
-        if (isPE) {
-            cell = row.createCell(i+3);
-            cell.setCellFormula(ExcelFormula.randomInsulation);
-            cell.setCellStyle(excelStyle.style);
-
-            cell = row.createCell(14);
-            cell.setCellFormula(ExcelFormula.randomInsulation);
-            cell.setCellStyle(excelStyle.style);
-
-        }
-    }
-
-    public static void setInsulation3Phase(Row row, boolean isPE, ExcelStyle excelStyle){
-        for (int i = 5; i < 8; i++) {
-            Cell cell = row.createCell(i);
-            cell.setCellFormula(ExcelFormula.randomInsulation);
-            cell.setCellStyle(excelStyle.style);
-
-            cell = row.createCell(i+3);
-            cell.setCellFormula(ExcelFormula.randomInsulation);
-            cell.setCellStyle(excelStyle.style);
-            if (isPE) {
-                cell = row.createCell(i+6);
-                cell.setCellFormula(ExcelFormula.randomInsulation);
-                cell.setCellStyle(excelStyle.style);
-            }
-        }
-        if (isPE) {
-            Cell cell = row.createCell(14);
-            cell.setCellFormula(ExcelFormula.randomInsulation);
-            cell.setCellStyle(excelStyle.style);
-        }
-    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private File getExternalPath() {
         return new File(context.getExternalFilesDir(null), fileName);
@@ -133,9 +94,9 @@ public class Report {
         cell_4_15.setCellStyle(excelStyle.styleBorderNoneRight);
     }
 
-    public static void fillWeather(Sheet sheet,int row, int column, ReportEntity report, ExcelStyle excelStyle){
+    public static void fillWeather(Sheet sheet,int row, ReportEntity report, ExcelStyle excelStyle){
         Row r = sheet.getRow(row);
-        Cell c = r.createCell(column);
+        Cell c = r.createCell(0);
         String data = "Температура воздуха " +
                 report.getTemperature() +
                 " °С.  Влажность воздуха " +

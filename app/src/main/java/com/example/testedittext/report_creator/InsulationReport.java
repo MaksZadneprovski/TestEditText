@@ -4,6 +4,7 @@ import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.ExcelData;
+import com.example.testedittext.utils.ExcelFormula;
 import com.example.testedittext.utils.ExcelStyle;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -25,13 +26,11 @@ public class InsulationReport {
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
         // Заполняем строки заказчик, объект, адрес, дата
         Report.fillMainData(sheetInsulation, 15, report, excelStyle );
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Заполняем строку погоды
-        Report.fillWeather(sheetInsulation, 13, 4, report, excelStyle);
+        Report.fillWeather(sheetInsulation, 13,  report, excelStyle);
 
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы
         int countRow = 27;
@@ -147,19 +146,19 @@ public class InsulationReport {
                             // Столбцы сопротивления
                             switch (group.getPhases()) {
                                 case "А":
-                                    Report.setInsulation1Phase(row, isPE,8,excelStyle);
+                                    setInsulation1Phase(row, isPE,8,excelStyle);
                                     conformity = true;
                                     break;
                                 case "В":
-                                    Report.setInsulation1Phase(row, isPE,9,excelStyle);
+                                    setInsulation1Phase(row, isPE,9,excelStyle);
                                     conformity = true;
                                     break;
                                 case "С":
-                                    Report.setInsulation1Phase(row, isPE,10,excelStyle);
+                                    setInsulation1Phase(row, isPE,10,excelStyle);
                                     conformity = true;
                                     break;
                                 case "АВС":
-                                    Report.setInsulation3Phase(row, isPE,excelStyle);
+                                    setInsulation3Phase(row, isPE,excelStyle);
                                     conformity = true;
                                     break;
                             }
@@ -182,5 +181,45 @@ public class InsulationReport {
         );
 
         return wb;
+    }
+
+    public static void setInsulation1Phase(Row row, boolean isPE, int i, ExcelStyle excelStyle){
+
+        Cell cell = row.createCell(i);
+        cell.setCellFormula(ExcelFormula.randomInsulation);
+        cell.setCellStyle(excelStyle.style);
+
+        if (isPE) {
+            cell = row.createCell(i+3);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
+
+            cell = row.createCell(14);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
+
+        }
+    }
+
+    public static void setInsulation3Phase(Row row, boolean isPE, ExcelStyle excelStyle){
+        for (int i = 5; i < 8; i++) {
+            Cell cell = row.createCell(i);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
+
+            cell = row.createCell(i+3);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
+            if (isPE) {
+                cell = row.createCell(i+6);
+                cell.setCellFormula(ExcelFormula.randomInsulation);
+                cell.setCellStyle(excelStyle.style);
+            }
+        }
+        if (isPE) {
+            Cell cell = row.createCell(14);
+            cell.setCellFormula(ExcelFormula.randomInsulation);
+            cell.setCellStyle(excelStyle.style);
+        }
     }
 }
