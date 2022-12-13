@@ -2,6 +2,7 @@ package com.example.testedittext.utils;
 
 public class ExcelFormula {
     public static String randomInsulation = "RANDBETWEEN(200,999)";
+    public static String randomMS = "RANDBETWEEN(1,4)/100";
 
     public static String getRandomCurrent(String curr){
         if (curr.isEmpty()) return "0";

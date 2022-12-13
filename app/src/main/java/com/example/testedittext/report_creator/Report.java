@@ -47,6 +47,7 @@ public class Report {
 
         Sheet sheetInsulation = wb.getSheet("Insulation");
         Sheet sheetF0 = wb.getSheet("F0");
+        Sheet sheetMS = wb.getSheet("MS");
 
         // Определяем необходимость тех или иных протоколов
         setNecessaryProtocols();
@@ -57,6 +58,9 @@ public class Report {
 
         if (isInsulation) wb = InsulationReport.generateInsulation(wb, report);
         else wb.removeSheetAt(wb.getSheetIndex(sheetInsulation));
+
+        if (isMetallicBond) wb = MSReport.generateMS(wb, report);
+        else wb.removeSheetAt(wb.getSheetIndex(sheetMS));
 
         // Создание файла
         ////////////////////////////////////////////////////////////////////////////////////////////////////

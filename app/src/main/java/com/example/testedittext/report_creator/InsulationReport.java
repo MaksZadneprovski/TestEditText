@@ -164,6 +164,9 @@ public class InsulationReport {
                             }
                             // Столбец соотв
                             if (conformity) row.getCell(15).setCellValue("соотв.");
+
+
+
                             countRow++;
                         }
                     }
