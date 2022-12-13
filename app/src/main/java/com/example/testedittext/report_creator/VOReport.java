@@ -17,6 +17,7 @@ public class VOReport {
         // Заполняем строки заказчик, объект, адрес, дата
         Report.fillMainData(sheetVO, 23, report, excelStyle);
 
+
         // Заполняем строку погоды
         Report.fillWeather(sheetVO, 14, report, excelStyle);
 
