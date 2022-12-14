@@ -27,7 +27,7 @@ import java.util.Set;
 
 public class BasicInformationActivity extends AppCompatActivity {
 
-    EditText infDate, infCustomer, infObject, infAddress, infCharacteristic, infTemperature,infHumidity,infPressure;
+    EditText infDate, infCustomer, infObject, infAddress, infCharacteristic, infTemperature,infHumidity,infPressure,infNumberReport;
     CheckBox cb1Visual, cb2Met, cb3Insul, cb4Phase, cb5Ground;
     RadioButton infRadio1,infRadio2,infRadio3,infRadio4,infRadio5;
     ReportEntity report;
@@ -45,6 +45,7 @@ public class BasicInformationActivity extends AppCompatActivity {
         //
         DatePicker datePicker = findViewById(R.id.datePicker);
         infDate = findViewById(R.id.infDate);
+        infNumberReport = findViewById(R.id.infNumberReport);
         infCustomer = findViewById(R.id.infCustomer);
         infObject = findViewById(R.id.infObject);
         infAddress = findViewById(R.id.infAddress);
@@ -115,6 +116,7 @@ public class BasicInformationActivity extends AppCompatActivity {
     private void setDataToFieldsFromBd(){
         infDate.setText(report.getDate());
         infCustomer.setText(report.getCustomer());
+        infNumberReport.setText(report.getNumberReport());
         infObject.setText(report.getObject());
         infAddress.setText(report.getAddress());
         infCharacteristic.setText(report.getCharacteristic());
@@ -155,6 +157,7 @@ public class BasicInformationActivity extends AppCompatActivity {
     private void readDataFromFields(){
         report.setDate(infDate.getText().toString());
         report.setCustomer(infCustomer.getText().toString());
+        report.setNumberReport(infNumberReport.getText().toString());
         report.setObject(infObject.getText().toString());
         report.setAddress(infAddress.getText().toString());
         report.setCharacteristic(infCharacteristic.getText().toString());

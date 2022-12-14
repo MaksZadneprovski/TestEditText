@@ -101,12 +101,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/cl2">
 
                 <TextView
+                    android:id="@+id/tv100"
+                    style="@style/TVForTitleInf"
+                    android:text="Номер отчета"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.example.testedittext.visual.InstantAutoComplete
+                    android:id="@+id/infNumberReport"
+                    style="@style/ETForBasicInf"
+                    android:completionThreshold="0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv100"/>
+
+                <TextView
                     android:id="@+id/tv1"
                     style="@style/TVForTitleInf"
                     android:text="Дата испытаний"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/infNumberReport" />
 
                 <DatePicker
                     android:id="@+id/datePicker"

@@ -17,6 +17,7 @@ import java.util.Set;
 public class ReportEntity implements Serializable {
     @NonNull
     private String name;
+    private String numberReport;
     private String date;
     private String customer;
     private String object;
@@ -191,5 +192,11 @@ public class ReportEntity implements Serializable {
         this.shields = shields;
     }
 
+    public String getNumberReport() {
+        return numberReport;
+    }
 
+    public void setNumberReport(String numberReport) {
+        this.numberReport = numberReport;
+    }
 }

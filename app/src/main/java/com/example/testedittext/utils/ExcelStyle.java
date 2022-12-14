@@ -11,7 +11,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 public class ExcelStyle {
     public CellStyle styleBorderNoneRight;
     public CellStyle styleBorderNoneCenter;
-    public Font font8, font10;
+    public CellStyle styleBoldLined;
+    public Font font8, font10, font14UnLined,font14Lined;
     public CellStyle style;
 
     Workbook wb;
@@ -30,6 +31,18 @@ public class ExcelStyle {
         font10.setFontHeightInPoints((short)10);
         font10.setFontName("Times New Roman");
         font10.setBold(false);
+
+        font14UnLined = wb.createFont();
+        font14UnLined.setFontHeightInPoints((short)14);
+        font14UnLined.setFontName("Times New Roman");
+        font14UnLined.setUnderline(Font.U_NONE);
+        font14UnLined.setBold(true);
+
+        font14Lined = wb.createFont();
+        font14Lined.setFontHeightInPoints((short)14);
+        font14Lined.setFontName("Times New Roman");
+        font14Lined.setUnderline(Font.U_SINGLE);
+        font14Lined.setBold(true);
 
         // Создаем стиль для создания рамки у ячейки
         style = wb.getCellStyleAt(1);
@@ -67,5 +80,11 @@ public class ExcelStyle {
         styleBorderNoneCenter.setFont(font10);
         styleBorderNoneCenter.setAlignment(HorizontalAlignment.CENTER);
         styleBorderNoneCenter.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        styleBoldLined = wb.getCellStyleAt(3);
+        styleBoldLined.setWrapText(true);
+        styleBoldLined.setFont(font14Lined);
+        styleBoldLined.setAlignment(HorizontalAlignment.CENTER);
+        styleBoldLined.setVerticalAlignment(VerticalAlignment.CENTER);
     }
 }
