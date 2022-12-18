@@ -3,27 +3,25 @@ package com.example.testedittext.report_creator;
 import android.content.Context;
 
 import com.example.testedittext.R;
-import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.ReportEntity;
-import com.example.testedittext.entities.Shield;
 import com.example.testedittext.entities.enums.TypeOfWork;
-import com.example.testedittext.utils.ExcelData;
-import com.example.testedittext.utils.ExcelFormula;
-import com.example.testedittext.utils.ExcelStyle;
 
 
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.ss.util.CellRangeAddress;
 
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Set;
 
 public class Report {
@@ -83,7 +81,25 @@ public class Report {
         return new File(context.getExternalFilesDir(null), fileName);
     }
 
-    public static void fillMainData(Sheet sheet, int column, ReportEntity report, ExcelStyle excelStyle){
+    public static void fillMainData(Sheet sheet, int column, ReportEntity report, Workbook wb){
+
+        // Create a new font and alter it.
+        Font font10 = wb.createFont();
+        font10.setFontHeightInPoints((short)10);
+        font10.setFontName("Times New Roman");
+        font10.setBold(false);
+
+        // Создаем стиль для данных об объекте
+        CellStyle styleBorderNoneRight = wb.getCellStyleAt(7);
+        styleBorderNoneRight.setBorderTop(BorderStyle.NONE);
+        styleBorderNoneRight.setBorderBottom(BorderStyle.NONE);
+        styleBorderNoneRight.setBorderLeft(BorderStyle.NONE);
+        styleBorderNoneRight.setBorderRight(BorderStyle.NONE);
+        styleBorderNoneRight.setWrapText(false);
+        styleBorderNoneRight.setFont(font10);
+        styleBorderNoneRight.setAlignment(HorizontalAlignment.RIGHT);
+        styleBorderNoneRight.setVerticalAlignment(VerticalAlignment.CENTER);
+
         Row row1 = sheet.getRow(0);
         Row row2 = sheet.getRow(1);
         Row row3 = sheet.getRow(2);
@@ -99,13 +115,32 @@ public class Report {
         cell_3_15.setCellValue("Адрес: " + report.getAddress());
         cell_4_15.setCellValue("Дата: " + report.getDate());
 
-        cell_1_15.setCellStyle(excelStyle.styleBorderNoneRight);
-        cell_2_15.setCellStyle(excelStyle.styleBorderNoneRight);
-        cell_3_15.setCellStyle(excelStyle.styleBorderNoneRight);
-        cell_4_15.setCellStyle(excelStyle.styleBorderNoneRight);
+        cell_1_15.setCellStyle(styleBorderNoneRight);
+        cell_2_15.setCellStyle(styleBorderNoneRight);
+        cell_3_15.setCellStyle(styleBorderNoneRight);
+        cell_4_15.setCellStyle(styleBorderNoneRight);
     }
 
-    public static void fillWeather(Sheet sheet,int row, ReportEntity report, ExcelStyle excelStyle){
+    public static void fillWeather(Sheet sheet,int row, ReportEntity report, Workbook wb){
+
+        // Create a new font and alter it.
+        Font font10 = wb.createFont();
+        font10.setFontHeightInPoints((short)10);
+        font10.setFontName("Times New Roman");
+        font10.setBold(false);
+
+        CellStyle styleBorderNoneCenter;
+        // Создаем стиль для данных об объекте
+        styleBorderNoneCenter = wb.createCellStyle();
+        styleBorderNoneCenter.setBorderTop(BorderStyle.NONE);
+        styleBorderNoneCenter.setBorderBottom(BorderStyle.NONE);
+        styleBorderNoneCenter.setBorderLeft(BorderStyle.NONE);
+        styleBorderNoneCenter.setBorderRight(BorderStyle.NONE);
+        styleBorderNoneCenter.setWrapText(false);
+        styleBorderNoneCenter.setFont(font10);
+        styleBorderNoneCenter.setAlignment(HorizontalAlignment.CENTER);
+        styleBorderNoneCenter.setVerticalAlignment(VerticalAlignment.CENTER);
+
         Row r = sheet.getRow(row);
         Cell c = r.createCell(0);
         String data = "Температура воздуха " +
@@ -116,7 +151,7 @@ public class Report {
                 report.getPressure() +
                 "  мм.рт.ст.";
         c.setCellValue(data);
-        c.setCellStyle(excelStyle.styleBorderNoneCenter);
+        c.setCellStyle(styleBorderNoneCenter);
     }
 
     public void setNecessaryProtocols(){

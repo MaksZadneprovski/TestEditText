@@ -5,11 +5,16 @@ import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.ExcelFormula;
-import com.example.testedittext.utils.ExcelStyle;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
@@ -20,17 +25,38 @@ public class F0Report {
     public static Workbook generateF0(Workbook wb, ReportEntity report){
 
         Sheet sheetF0 = wb.getSheet("F0");
-        ExcelStyle excelStyle = new ExcelStyle(wb);
+
+        // Create a new font and alter it.
+        Font font8 = wb.createFont();
+        font8.setFontHeightInPoints((short)8);
+        font8.setFontName("Times New Roman");
+        font8.setBold(false);
+
+        CellStyle style;
+        // Создаем стиль для создания рамки у ячейки
+        style = wb.createCellStyle();
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        //style.setBorderRight(BorderStyle.THIN);
+        //style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setWrapText(true);
+        style.setFont(font8);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
 
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetF0, 14, report, excelStyle);
+        Report.fillMainData(sheetF0, 14, report, wb);
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Заполняем строку погоды
-        Report.fillWeather(sheetF0, 10,  report, excelStyle);
+        Report.fillWeather(sheetF0, 10,  report, wb);
 
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы
         int countRow = 28;
@@ -57,7 +83,7 @@ public class F0Report {
                 cell = row.createCell(0);
                 ////////////////////////////////////////////////////////////////////////
                 cell.setCellValue(shield.getName());
-                cell.setCellStyle(excelStyle.style);
+                cell.setCellStyle(style);
 
                 countRow++;
                 // Получаем группы щита
@@ -82,7 +108,7 @@ public class F0Report {
                             // Столбец пункт
                             cell = row.createCell(0);
                             cell.setCellValue(paragraph++);
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбец наименование линии
                             cell = row.createCell(1);
@@ -92,34 +118,34 @@ public class F0Report {
                                 avtomatCount++;
                             } else lineName = group.getDesignation() + " - " + group.getAddress();
                             cell.setCellValue(lineName);
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Типовое обозначение автомата
                             cell = row.createCell(2);
                             cell.setCellValue(group.getMachineBrand());
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбец Тип расцепителя
                             cell = row.createCell(3);
                             cell.setCellValue(group.getReleaseType());
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбец Ном.ток
                             cell = row.createCell(4);
                             cell.setCellValue(group.getRatedCurrent());
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Создаем столбцы измерений и ставим туда "-"
                             for (int k = 6; k < 15; k++) {
                                 cell = row.createCell(k);
                                 cell.setCellValue("-");
-                                cell.setCellStyle(excelStyle.style);
+                                cell.setCellStyle(style);
                             }
 
                             // Столбец Диапазон тока срабатывания расцепителя
                             cell = row.createCell(5);
                             cell.setCellFormula(ExcelFormula.getRange(countRow));
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбцы измерений
 
@@ -141,60 +167,60 @@ public class F0Report {
                                 case "А":
                                     cell = row.createCell(9);
                                     cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     cell = row.createCell(6);
                                     cell.setCellFormula(ExcelFormula.getComputeResistA(countRow));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     conformity = true;
                                     break;
                                 case "В":
                                     cell = row.createCell(10);
                                     cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     cell = row.createCell(7);
                                     cell.setCellFormula(ExcelFormula.getComputeResistB(countRow));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     conformity = true;
                                     break;
                                 case "С":
                                     cell = row.createCell(11);
                                     cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     cell = row.createCell(8);
                                     cell.setCellFormula(ExcelFormula.getComputeResistC(countRow));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     conformity = true;
                                     break;
                                 case "АВС":
                                     cell = row.createCell(9);
                                     cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     cell = row.createCell(6);
                                     cell.setCellFormula(ExcelFormula.getComputeResistA(countRow));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     cell = row.createCell(10);
                                     cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     cell = row.createCell(7);
                                     cell.setCellFormula(ExcelFormula.getComputeResistB(countRow));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     cell = row.createCell(11);
                                     cell.setCellFormula(ExcelFormula.getRandomCurrent(group.getRatedCurrent()));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     cell = row.createCell(8);
                                     cell.setCellFormula(ExcelFormula.getComputeResistC(countRow));
-                                    cell.setCellStyle(excelStyle.style);
+                                    cell.setCellStyle(style);
 
                                     conformity = true;
                                     break;
@@ -203,12 +229,12 @@ public class F0Report {
                             // Столбец доп время срабатывания. аппарата защиты
                             cell = row.createCell(12);
                             cell.setCellValue("0,4");
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбец  время срабатывания. аппарата защиты по времятоковой
                             cell = row.createCell(13);
                             cell.setCellValue("< 0,4");
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбец соотв
                             if (conformity) row.getCell(14).setCellValue("соотв.");

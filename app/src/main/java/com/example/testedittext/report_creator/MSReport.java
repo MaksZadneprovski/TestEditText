@@ -5,11 +5,16 @@ import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.ExcelFormula;
-import com.example.testedittext.utils.ExcelStyle;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
@@ -19,16 +24,38 @@ public class MSReport {
 
     public static Workbook generateMS(Workbook wb, ReportEntity report){
         Sheet sheetMS = wb.getSheet("MS");
-        ExcelStyle excelStyle = new ExcelStyle(wb);
+
+        // Create a new font and alter it.
+        Font font8 = wb.createFont();
+        font8.setFontHeightInPoints((short)8);
+        font8.setFontName("Times New Roman");
+        font8.setBold(false);
+
+        CellStyle style;
+        // Создаем стиль для создания рамки у ячейки
+        style = wb.createCellStyle();
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        //style.setBorderRight(BorderStyle.THIN);
+        //style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setWrapText(true);
+        style.setFont(font8);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+
 
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetMS, 5, report, excelStyle );
+        Report.fillMainData(sheetMS, 5, report, wb );
 
         // Заполняем строку погоды
-        Report.fillWeather(sheetMS, 14,  report, excelStyle);
+        Report.fillWeather(sheetMS, 14,  report, wb);
 
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы
         int countRow = 26;
@@ -57,7 +84,7 @@ public class MSReport {
                 cell = row.createCell(1);
                 ////////////////////////////////////////////////////////////////////////
                 cell.setCellValue(shield.getName());
-                cell.setCellStyle(excelStyle.style);
+                cell.setCellStyle(style);
 
                 countRow++;
 
@@ -73,29 +100,29 @@ public class MSReport {
                             // Столбец пункт
                             cell = row.createCell(1);
                             cell.setCellValue(paragraph++);
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбец местоположение и наименование эл.оборудования
                             cell = row.createCell(2);
                             cell.setCellValue(metallicBond.getPeContact());
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбец количество
                             cell = row.createCell(3);
                             cell.setCellValue(metallicBond.getCountElements());
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбец R
                             cell = row.createCell(4);
                             if (metallicBond.isNoPe()) cell.setCellValue(">0,05");
                             else cell.setCellFormula(ExcelFormula.randomMS);
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             // Столбец соотв
                             cell = row.createCell(5);
                             if (metallicBond.isNoPe()) cell.setCellValue("не соотв.");
                             else cell.setCellValue("соотв.");
-                            cell.setCellStyle(excelStyle.style);
+                            cell.setCellStyle(style);
 
                             countRow++;
                         }
