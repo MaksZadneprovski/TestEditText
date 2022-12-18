@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.util.Set;
 
@@ -76,16 +77,35 @@ public class ContentReport {
         Set<TypeOfWork> type_of_work = report.getType_of_work();
 
         // Список прилагаемой технической документации
+
+
+
         row = sheetContent.createRow(countRow);
         cell = row.createCell(0);
         cell.setCellValue("Список прилагаемой технической документации");
         cell.setCellStyle(style);
+
+        for (int i = 1; i < 9; i++) {
+            cell = row.createCell(i);
+            cell.setCellStyle(style);
+        }
+
+        // Объединяем столбцы для вставки названия щита
+        sheetContent.addMergedRegion(new CellRangeAddress(
+                countRow, //first row (0-based)
+                countRow, //last row  (0-based)
+                0, //first column (0-based)
+                8  //last column  (0-based)
+        ));
 
         cell = row.createCell(9);
         cell.setCellStyle(style2);
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
         row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
+
+
+
         countRow++;
 
         // Пояснительная  записка
@@ -93,6 +113,19 @@ public class ContentReport {
         cell = row.createCell(0);
         cell.setCellValue("Пояснительная  записка");
         cell.setCellStyle(style);
+
+        for (int i = 1; i < 9; i++) {
+            cell = row.createCell(i);
+            cell.setCellStyle(style);
+        }
+
+        // Объединяем столбцы для вставки названия щита
+        sheetContent.addMergedRegion(new CellRangeAddress(
+                countRow, //first row (0-based)
+                countRow, //last row  (0-based)
+                0, //first column (0-based)
+                8  //last column  (0-based)
+        ));
 
         cell = row.createCell(9);
         cell.setCellStyle(style2);
@@ -106,6 +139,19 @@ public class ContentReport {
         cell = row.createCell(0);
         cell.setCellValue("Программа испытаний");
         cell.setCellStyle(style);
+
+        for (int i = 1; i < 9; i++) {
+            cell = row.createCell(i);
+            cell.setCellStyle(style);
+        }
+
+        // Объединяем столбцы для вставки названия щита
+        sheetContent.addMergedRegion(new CellRangeAddress(
+                countRow, //first row (0-based)
+                countRow, //last row  (0-based)
+                0, //first column (0-based)
+                8  //last column  (0-based)
+        ));
 
         cell = row.createCell(9);
         cell.setCellStyle(style2);
@@ -121,6 +167,19 @@ public class ContentReport {
             cell = row.createCell(0);
             cell.setCellValue(text + protocolNumber + " Визуального осмотра");
             cell.setCellStyle(style);
+
+            for (int i = 1; i < 9; i++) {
+                cell = row.createCell(i);
+                cell.setCellStyle(style);
+            }
+
+            // Объединяем столбцы для вставки названия щита
+            sheetContent.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    8  //last column  (0-based)
+            ));
 
             cell = row.createCell(9);
             cell.setCellStyle(style2);
@@ -139,6 +198,19 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверки наличия цепи между заземленными установками и элементами заземленной установки");
             cell.setCellStyle(style);
 
+            for (int i = 1; i < 9; i++) {
+                cell = row.createCell(i);
+                cell.setCellStyle(style);
+            }
+
+            // Объединяем столбцы для вставки названия щита
+            sheetContent.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    8  //last column  (0-based)
+            ));
+
             cell = row.createCell(9);
             cell.setCellStyle(style2);
 
@@ -152,12 +224,25 @@ public class ContentReport {
         if (type_of_work.contains(TypeOfWork.Insulation)){
             row = sheetContent.createRow(countRow);
             cell = row.createCell(0);
+            cell.setCellValue(text + protocolNumber + " Проверки сопротивления изоляции проводов, кабелей и обмоток электрических машин");
+            cell.setCellStyle(style);
+
+            for (int i = 1; i < 9; i++) {
+                cell = row.createCell(i);
+                cell.setCellStyle(style);
+            }
+
+            // Объединяем столбцы для вставки названия щита
+            sheetContent.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    8  //last column  (0-based)
+            ));
 
             cell = row.createCell(9);
             cell.setCellStyle(style2);
 
-            cell.setCellValue(text + protocolNumber + " Проверки сопротивления изоляции проводов, кабелей и обмоток электрических машин");
-            cell.setCellStyle(style);
             //увеличиваем высоту строки, чтобы вместить две строки текста
             row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
             countRow++;
@@ -170,6 +255,19 @@ public class ContentReport {
             cell = row.createCell(0);
             cell.setCellValue(text + protocolNumber + " Проверки согласования параметров цепи «фаза – нуль» с характеристиками аппаратов  защиты и непрерывности защитных проводников");
             cell.setCellStyle(style);
+
+            for (int i = 1; i < 9; i++) {
+                cell = row.createCell(i);
+                cell.setCellStyle(style);
+            }
+
+            // Объединяем столбцы для вставки названия щита
+            sheetContent.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    8  //last column  (0-based)
+            ));
 
             cell = row.createCell(9);
             cell.setCellStyle(style2);
@@ -187,6 +285,19 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверки сопротивлений заземлителей и заземляющих устройств");
             cell.setCellStyle(style);
 
+            for (int i = 1; i < 9; i++) {
+                cell = row.createCell(i);
+                cell.setCellStyle(style);
+            }
+
+            // Объединяем столбцы для вставки названия щита
+            sheetContent.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    8  //last column  (0-based)
+            ));
+
             cell = row.createCell(9);
             cell.setCellStyle(style2);
 
@@ -202,6 +313,19 @@ public class ContentReport {
             cell = row.createCell(0);
             cell.setCellValue(text + protocolNumber + " Проверка работы устройства защитного отключения (УЗО)");
             cell.setCellStyle(style);
+
+            for (int i = 1; i < 9; i++) {
+                cell = row.createCell(i);
+                cell.setCellStyle(style);
+            }
+
+            // Объединяем столбцы для вставки названия щита
+            sheetContent.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    8  //last column  (0-based)
+            ));
 
             cell = row.createCell(9);
             cell.setCellStyle(style2);
@@ -219,6 +343,19 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверка действия расцепителей автоматических выключателей до 9000 В");
             cell.setCellStyle(style);
 
+            for (int i = 1; i < 9; i++) {
+                cell = row.createCell(i);
+                cell.setCellStyle(style);
+            }
+
+            // Объединяем столбцы для вставки названия щита
+            sheetContent.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    8  //last column  (0-based)
+            ));
+
             cell = row.createCell(9);
             cell.setCellStyle(style2);
 
@@ -234,6 +371,19 @@ public class ContentReport {
         cell.setCellValue("Ведомость  дефектов");
         cell.setCellStyle(style);
 
+        for (int i = 1; i < 9; i++) {
+            cell = row.createCell(i);
+            cell.setCellStyle(style);
+        }
+
+        // Объединяем столбцы для вставки названия щита
+        sheetContent.addMergedRegion(new CellRangeAddress(
+                countRow, //first row (0-based)
+                countRow, //last row  (0-based)
+                0, //first column (0-based)
+                8  //last column  (0-based)
+        ));
+
         cell = row.createCell(9);
         cell.setCellStyle(style2);
 
@@ -246,6 +396,19 @@ public class ContentReport {
         cell = row.createCell(0);
         cell.setCellValue("Заключение");
         cell.setCellStyle(style);
+
+        for (int i = 1; i < 9; i++) {
+            cell = row.createCell(i);
+            cell.setCellStyle(style);
+        }
+
+        // Объединяем столбцы для вставки названия щита
+        sheetContent.addMergedRegion(new CellRangeAddress(
+                countRow, //first row (0-based)
+                countRow, //last row  (0-based)
+                0, //first column (0-based)
+                8  //last column  (0-based)
+        ));
 
         cell = row.createCell(9);
         cell.setCellStyle(style2);
@@ -260,6 +423,19 @@ public class ContentReport {
         cell.setCellValue("Свидетельства");
         cell.setCellStyle(style);
 
+        for (int i = 1; i < 9; i++) {
+            cell = row.createCell(i);
+            cell.setCellStyle(style);
+        }
+
+        // Объединяем столбцы для вставки названия щита
+        sheetContent.addMergedRegion(new CellRangeAddress(
+                countRow, //first row (0-based)
+                countRow, //last row  (0-based)
+                0, //first column (0-based)
+                8  //last column  (0-based)
+        ));
+
         cell = row.createCell(9);
         cell.setCellStyle(style2);
 
@@ -267,6 +443,15 @@ public class ContentReport {
         row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
         countRow++;
 
+
+        //устанавливаем область печати
+        wb.setPrintArea(
+                wb.getSheetIndex(sheetContent), // индекс листа
+                0, // начало столбца
+                9, // конец столбца
+                0, //начало строки
+                50 // конец строки
+        );
 
         return wb;
 

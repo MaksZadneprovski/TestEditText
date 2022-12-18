@@ -133,7 +133,7 @@ public class MSReport {
 
         //устанавливаем область печати
         wb.setPrintArea(
-                ExcelData.indexInsulationSheet, // индекс листа
+                wb.getSheetIndex(sheetMS), // индекс листа
                 0, // начало столбца
                 5, // конец столбца
                 0, //начало строки

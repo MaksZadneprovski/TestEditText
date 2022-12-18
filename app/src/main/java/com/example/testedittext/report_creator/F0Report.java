@@ -249,7 +249,7 @@ public class F0Report {
 
         //устанавливаем область печати
         wb.setPrintArea(
-                ExcelData.indexF0Sheet, // индекс листа
+                wb.getSheetIndex(sheetF0), // индекс листа
                 0, // начало столбца
                 14, // конец столбца
                 0, //начать строку
