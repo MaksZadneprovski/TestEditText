@@ -65,7 +65,9 @@ public class ContentReport {
         style2.setBorderBottom(BorderStyle.THIN);
         style2.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         style2.setBorderRight(BorderStyle.THIN);
+        style2.setBorderLeft(BorderStyle.THIN);
         style2.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style2.setLeftBorderColor(IndexedColors.BLACK.getIndex());
         style2.setBorderTop(BorderStyle.THIN);
         style2.setTopBorderColor(IndexedColors.BLACK.getIndex());
 
@@ -79,7 +81,7 @@ public class ContentReport {
         cell.setCellValue("Список прилагаемой технической документации");
         cell.setCellStyle(style);
 
-        cell = row.createCell(1);
+        cell = row.createCell(9);
         cell.setCellStyle(style2);
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -92,7 +94,7 @@ public class ContentReport {
         cell.setCellValue("Пояснительная  записка");
         cell.setCellStyle(style);
 
-        cell = row.createCell(1);
+        cell = row.createCell(9);
         cell.setCellStyle(style2);
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -105,7 +107,7 @@ public class ContentReport {
         cell.setCellValue("Программа испытаний");
         cell.setCellStyle(style);
 
-        cell = row.createCell(1);
+        cell = row.createCell(9);
         cell.setCellStyle(style2);
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -120,7 +122,7 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Визуального осмотра");
             cell.setCellStyle(style);
 
-            cell = row.createCell(1);
+            cell = row.createCell(9);
             cell.setCellStyle(style2);
 
             //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -137,7 +139,7 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверки наличия цепи между заземленными установками и элементами заземленной установки");
             cell.setCellStyle(style);
 
-            cell = row.createCell(1);
+            cell = row.createCell(9);
             cell.setCellStyle(style2);
 
             //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -151,7 +153,7 @@ public class ContentReport {
             row = sheetContent.createRow(countRow);
             cell = row.createCell(0);
 
-            cell = row.createCell(1);
+            cell = row.createCell(9);
             cell.setCellStyle(style2);
 
             cell.setCellValue(text + protocolNumber + " Проверки сопротивления изоляции проводов, кабелей и обмоток электрических машин");
@@ -169,7 +171,7 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверки согласования параметров цепи «фаза – нуль» с характеристиками аппаратов  защиты и непрерывности защитных проводников");
             cell.setCellStyle(style);
 
-            cell = row.createCell(1);
+            cell = row.createCell(9);
             cell.setCellStyle(style2);
 
             //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -185,7 +187,7 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверки сопротивлений заземлителей и заземляющих устройств");
             cell.setCellStyle(style);
 
-            cell = row.createCell(1);
+            cell = row.createCell(9);
             cell.setCellStyle(style2);
 
             //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -201,7 +203,7 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверка работы устройства защитного отключения (УЗО)");
             cell.setCellStyle(style);
 
-            cell = row.createCell(1);
+            cell = row.createCell(9);
             cell.setCellStyle(style2);
 
             //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -214,10 +216,10 @@ public class ContentReport {
         if (type_of_work.contains(TypeOfWork.Avtomat)){
             row = sheetContent.createRow(countRow);
             cell = row.createCell(0);
-            cell.setCellValue(text + protocolNumber + " Проверка действия расцепителей автоматических выключателей до 1000 В");
+            cell.setCellValue(text + protocolNumber + " Проверка действия расцепителей автоматических выключателей до 9000 В");
             cell.setCellStyle(style);
 
-            cell = row.createCell(1);
+            cell = row.createCell(9);
             cell.setCellStyle(style2);
 
             //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -232,7 +234,7 @@ public class ContentReport {
         cell.setCellValue("Ведомость  дефектов");
         cell.setCellStyle(style);
 
-        cell = row.createCell(1);
+        cell = row.createCell(9);
         cell.setCellStyle(style2);
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -245,7 +247,7 @@ public class ContentReport {
         cell.setCellValue("Заключение");
         cell.setCellStyle(style);
 
-        cell = row.createCell(1);
+        cell = row.createCell(9);
         cell.setCellStyle(style2);
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
@@ -258,7 +260,7 @@ public class ContentReport {
         cell.setCellValue("Свидетельства");
         cell.setCellStyle(style);
 
-        cell = row.createCell(1);
+        cell = row.createCell(9);
         cell.setCellStyle(style2);
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
