@@ -2,6 +2,7 @@ package com.example.testedittext.report_creator;
 
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.enums.TypeOfWork;
+import com.example.testedittext.utils.ExcelData;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -167,6 +168,8 @@ public class ContentReport {
             cell = row.createCell(0);
             cell.setCellValue(text + protocolNumber + " Визуального осмотра");
             cell.setCellStyle(style);
+            // Присваиваем номер протоколу
+            ExcelData.numberVOProtocol = protocolNumber;
 
             for (int i = 1; i < 9; i++) {
                 cell = row.createCell(i);
@@ -198,6 +201,9 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверки наличия цепи между заземленными установками и элементами заземленной установки");
             cell.setCellStyle(style);
 
+            // Присваиваем номер протоколу
+            ExcelData.numberMSProtocol = protocolNumber;
+
             for (int i = 1; i < 9; i++) {
                 cell = row.createCell(i);
                 cell.setCellStyle(style);
@@ -226,6 +232,9 @@ public class ContentReport {
             cell = row.createCell(0);
             cell.setCellValue(text + protocolNumber + " Проверки сопротивления изоляции проводов, кабелей и обмоток электрических машин");
             cell.setCellStyle(style);
+
+            // Присваиваем номер протоколу
+            ExcelData.numberInsulationProtocol = protocolNumber;
 
             for (int i = 1; i < 9; i++) {
                 cell = row.createCell(i);
@@ -256,6 +265,9 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверки согласования параметров цепи «фаза – нуль» с характеристиками аппаратов  защиты и непрерывности защитных проводников");
             cell.setCellStyle(style);
 
+            // Присваиваем номер протоколу
+            ExcelData.numberF0Protocol = protocolNumber;
+
             for (int i = 1; i < 9; i++) {
                 cell = row.createCell(i);
                 cell.setCellStyle(style);
@@ -284,6 +296,9 @@ public class ContentReport {
             cell = row.createCell(0);
             cell.setCellValue(text + protocolNumber + " Проверки сопротивлений заземлителей и заземляющих устройств");
             cell.setCellStyle(style);
+
+            // Присваиваем номер протоколу
+            ExcelData.numberGroundingProtocol = protocolNumber;
 
             for (int i = 1; i < 9; i++) {
                 cell = row.createCell(i);
@@ -314,6 +329,9 @@ public class ContentReport {
             cell.setCellValue(text + protocolNumber + " Проверка работы устройства защитного отключения (УЗО)");
             cell.setCellStyle(style);
 
+            // Присваиваем номер протоколу
+            ExcelData.numberUzoProtocol = protocolNumber;
+
             for (int i = 1; i < 9; i++) {
                 cell = row.createCell(i);
                 cell.setCellStyle(style);
@@ -342,6 +360,9 @@ public class ContentReport {
             cell = row.createCell(0);
             cell.setCellValue(text + protocolNumber + " Проверка действия расцепителей автоматических выключателей до 9000 В");
             cell.setCellStyle(style);
+
+            // Присваиваем номер протоколу
+            ExcelData.numberAvtomatProtocol = protocolNumber;
 
             for (int i = 1; i < 9; i++) {
                 cell = row.createCell(i);
