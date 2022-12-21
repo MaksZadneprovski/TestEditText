@@ -43,6 +43,7 @@ public class Report {
         Workbook wb;
         wb = WorkbookFactory.create(context.getResources().openRawResource(R.raw.report3));
 
+        Sheet sheetProgram = wb.getSheet("Program");
         Sheet sheetVO = wb.getSheet("VO");
         Sheet sheetInsulation = wb.getSheet("Insulation");
         Sheet sheetF0 = wb.getSheet("F0");
@@ -54,6 +55,7 @@ public class Report {
         // Определяем необходимость тех или иных протоколов
         setNecessaryProtocols();
 
+        ProgramReport.generateVO(wb, report);
         // Удаляем ненужные протоколы
         if (isVizual) wb = VOReport.generateVO(wb, report);
         else wb.removeSheetAt(wb.getSheetIndex(sheetVO));

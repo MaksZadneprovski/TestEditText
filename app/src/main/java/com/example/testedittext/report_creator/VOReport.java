@@ -16,6 +16,9 @@ public class VOReport {
     public static Workbook generateVO (Workbook wb, ReportEntity report) {
         Sheet sheetVO = wb.getSheet("VO");
 
+        // Заполняем строки заказчик, объект, адрес, дата
+        Report.fillMainData(sheetVO, 5, report, wb);
+
         Font fontBig;
         fontBig = wb.createFont();
         fontBig.setFontHeightInPoints((short)18);
@@ -29,15 +32,14 @@ public class VOReport {
         styleTitulReport.setVerticalAlignment(VerticalAlignment.CENTER);
 
         // Заголовок отчета
-        Row row = sheetVO.createRow(9);
+        Row row = sheetVO.createRow(6);
         Cell cell = row.createCell(0);
         //увеличиваем высоту строки, чтобы вместить две строки текста
-        row.setHeightInPoints((3 * sheetVO.getDefaultRowHeightInPoints()));
+        row.setHeightInPoints((2 * sheetVO.getDefaultRowHeightInPoints()));
         cell.setCellValue("ПРОТОКОЛ № "+ ExcelData.numberVOProtocol + " Визуального осмотра");
         cell.setCellStyle(styleTitulReport);
 
-        // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetVO, 23, report, wb);
+
 
 
         return wb;

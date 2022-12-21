@@ -22,6 +22,12 @@ public class TitulReport {
         fontBig.setFontName("Times New Roman");
         fontBig.setBold(true);
 
+        Font font11;
+        font11 = wb.createFont();
+        font11.setFontHeightInPoints((short)11);
+        font11.setFontName("Times New Roman");
+
+
         Font font = wb.createFont();
         font.setUnderline(Font.U_SINGLE);
         font.setFontHeightInPoints((short)14);
@@ -44,6 +50,12 @@ public class TitulReport {
         styleNumberReport.setFont(fontBig);
         styleNumberReport.setAlignment(HorizontalAlignment.CENTER);
         styleNumberReport.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        CellStyle style2= wb.createCellStyle();
+        style2.setWrapText(true);
+        style2.setFont(font11);
+        style2.setAlignment(HorizontalAlignment.RIGHT);
+        style2.setVerticalAlignment(VerticalAlignment.CENTER);
 
         // ТЕХНИЧЕСКИЙ ОТЧЕТ №
         Row row = sheetTitul.createRow(12);
@@ -70,6 +82,12 @@ public class TitulReport {
         cell = row.createCell(0);
         cell.setCellValue(report.getCustomer());
         cell.setCellStyle(style);
+
+        // Дата испытаний
+        row = sheetTitul.createRow(31);
+        cell = row.createCell(0);
+        cell.setCellValue("Испытания проведены: " + report.getDate());
+        cell.setCellStyle(style2);
 
 
 
