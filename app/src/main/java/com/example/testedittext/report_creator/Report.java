@@ -7,10 +7,12 @@ import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.enums.TypeOfWork;
 
 
+import org.apache.poi.hssf.usermodel.HeaderFooter;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Footer;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -22,6 +24,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class Report {
@@ -43,11 +46,21 @@ public class Report {
         Workbook wb;
         wb = WorkbookFactory.create(context.getResources().openRawResource(R.raw.report3));
 
+        ArrayList<Sheet> sheets = new ArrayList<>();
+        
         Sheet sheetProgram = wb.getSheet("Program");
         Sheet sheetVO = wb.getSheet("VO");
         Sheet sheetInsulation = wb.getSheet("Insulation");
         Sheet sheetF0 = wb.getSheet("F0");
         Sheet sheetMS = wb.getSheet("MS");
+        Sheet sheetUzo = wb.getSheet("Uzo");
+
+        sheets.add(sheetProgram);
+        sheets.add(sheetVO);
+        sheets.add(sheetInsulation);
+        sheets.add(sheetF0);
+        sheets.add(sheetMS);
+        sheets.add(sheetUzo);
 
         TitulReport.generateVO(wb, report);
         ContentReport.generateVO(wb,report);
@@ -56,6 +69,7 @@ public class Report {
         setNecessaryProtocols();
 
         ProgramReport.generateVO(wb, report);
+
         // Удаляем ненужные протоколы
         if (isVizual) wb = VOReport.generateVO(wb, report);
         else wb.removeSheetAt(wb.getSheetIndex(sheetVO));
@@ -69,6 +83,12 @@ public class Report {
         if (isMetallicBond) wb = MSReport.generateMS(wb, report);
         else wb.removeSheetAt(wb.getSheetIndex(sheetMS));
 
+        if (isUzo) wb = UzoReport.generateUzo(wb, report);
+        else wb.removeSheetAt(wb.getSheetIndex(sheetUzo));
+
+        // Вставляем нумерацию страниц
+        insertNumeration(sheets);
+
         // Создание файла
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         try (FileOutputStream fileOut = new FileOutputStream(getExternalPath())) {
@@ -81,6 +101,13 @@ public class Report {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private File getExternalPath() {
         return new File(context.getExternalFilesDir(null), fileName);
+    }
+    
+    private void insertNumeration(ArrayList<Sheet> sheets){
+        for (Sheet sheet : sheets) {
+            Footer footer = sheet.getFooter();
+            footer.setRight( "Страниц " + HeaderFooter.page() + " из " + HeaderFooter.numPages() );
+        }
     }
 
     public static void fillMainData(Sheet sheet, int column, ReportEntity report, Workbook wb){

@@ -11,21 +11,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
-import com.example.testedittext.activities.report_list.report.ReportActivity;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
-import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.ReportInDB;
-import com.example.testedittext.utils.DirectoryUtil;
-import com.example.testedittext.utils.Secure;
 import com.example.testedittext.utils.SortReport;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
+
 
 // Класс для отображения списка отчетов
 public class ReportListActivity extends AppCompatActivity {

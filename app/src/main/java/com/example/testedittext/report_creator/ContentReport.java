@@ -358,7 +358,7 @@ public class ContentReport {
         if (type_of_work.contains(TypeOfWork.Avtomat)){
             row = sheetContent.createRow(countRow);
             cell = row.createCell(0);
-            cell.setCellValue(text + protocolNumber + " Проверка действия расцепителей автоматических выключателей до 9000 В");
+            cell.setCellValue(text + protocolNumber + " Проверка действия расцепителей автоматических выключателей до 1000 В");
             cell.setCellStyle(style);
 
             // Присваиваем номер протоколу

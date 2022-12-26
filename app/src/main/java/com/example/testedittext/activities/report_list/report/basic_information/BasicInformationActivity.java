@@ -28,7 +28,7 @@ import java.util.Set;
 public class BasicInformationActivity extends AppCompatActivity {
 
     EditText infDate, infCustomer, infObject, infAddress, infCharacteristic, infTemperature,infHumidity,infPressure,infNumberReport;
-    CheckBox cb1Visual, cb2Met, cb3Insul, cb4Phase, cb5Ground;
+    CheckBox cb1Visual, cb2Met, cb3Insul, cb4Phase, cb5Ground, cb6Uzo, cb7Avtomat;
     RadioButton infRadio1,infRadio2,infRadio3,infRadio4,infRadio5;
     ReportEntity report;
 
@@ -63,6 +63,8 @@ public class BasicInformationActivity extends AppCompatActivity {
          cb3Insul = findViewById(R.id.cb3);
          cb4Phase = findViewById(R.id.cb4);
          cb5Ground = findViewById(R.id.cb5);
+         cb6Uzo = findViewById(R.id.cb6);
+         cb7Avtomat = findViewById(R.id.cb7);
 
 
         // Берем акуальный объект отчета из хранилища
@@ -151,6 +153,8 @@ public class BasicInformationActivity extends AppCompatActivity {
             if (typeOfWorks.contains(TypeOfWork.Insulation)) cb3Insul.toggle();
             if (typeOfWorks.contains(TypeOfWork.PhaseZero)) cb4Phase.toggle();
             if (typeOfWorks.contains(TypeOfWork.Grounding)) cb5Ground.toggle();
+            if (typeOfWorks.contains(TypeOfWork.Uzo)) cb6Uzo.toggle();
+            if (typeOfWorks.contains(TypeOfWork.Avtomat)) cb7Avtomat.toggle();
         }
     }
 
@@ -175,6 +179,8 @@ public class BasicInformationActivity extends AppCompatActivity {
         if (cb3Insul.isChecked()) typeOfWorks.add(TypeOfWork.Insulation);
         if (cb4Phase.isChecked()) typeOfWorks.add(TypeOfWork.PhaseZero);
         if (cb5Ground.isChecked()) typeOfWorks.add(TypeOfWork.Grounding);
+        if (cb6Uzo.isChecked()) typeOfWorks.add(TypeOfWork.Uzo);
+        if (cb7Avtomat.isChecked()) typeOfWorks.add(TypeOfWork.Avtomat);
         if (!typeOfWorks.isEmpty()) report.setType_of_work(typeOfWorks);
 
 

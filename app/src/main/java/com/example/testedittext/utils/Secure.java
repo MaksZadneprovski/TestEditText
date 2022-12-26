@@ -1,13 +1,30 @@
 package com.example.testedittext.utils;
 
-import android.content.Context;
-import android.net.wifi.WifiManager;
+import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
+import android.util.Base64;
+
+import java.io.UnsupportedEncodingException;
 import java.net.NetworkInterface;
 import java.util.Collections;
 import java.util.List;
 
 public class Secure {
+
+    public static String getKey(Context context) throws UnsupportedEncodingException {
+        SharedPreferences sharedPreferences;
+        String APP_PREFERENCES = "mysettings";
+
+        sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+
+        String login = sharedPreferences.getString("login", null);
+        String pass = sharedPreferences.getString("pass", null);
+        String text = login+pass;
+        return Base64.encodeToString(text.getBytes("UTF-8"),Base64.DEFAULT) ;
+    }
 
     public static String getId() {
         try {
