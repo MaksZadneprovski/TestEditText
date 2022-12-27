@@ -2,7 +2,6 @@ package com.example.testedittext.activities.report_list.report.shield_list;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,14 +13,7 @@ import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.ReportInDB;
-import com.example.testedittext.utils.DirectoryUtil;
 import com.example.testedittext.utils.Storage;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class RenameReportHandler implements View.OnClickListener {
 

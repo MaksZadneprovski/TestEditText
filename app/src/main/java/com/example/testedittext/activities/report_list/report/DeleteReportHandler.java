@@ -11,9 +11,6 @@ import com.example.testedittext.utils.Storage;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportInDB;
-import com.example.testedittext.utils.DirectoryUtil;
-
-import java.io.File;
 
 public class DeleteReportHandler implements  AdapterView.OnClickListener{
 

@@ -16,10 +16,8 @@ import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.ReportActivity;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.ReportInDB;
-import com.example.testedittext.utils.DirectoryUtil;
 import com.example.testedittext.utils.Storage;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapter.ViewHolder> {
