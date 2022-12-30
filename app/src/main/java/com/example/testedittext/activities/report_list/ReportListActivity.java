@@ -5,10 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.testedittext.R;
 import com.example.testedittext.db.Bd;
@@ -26,13 +28,14 @@ public class ReportListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList <ReportInDB> reportList;
+    TextView tvOblako;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_list_activity);
 
-        TextView tvOblako =  findViewById(R.id.tvOblako);
+        tvOblako =  findViewById(R.id.tvOblako);
         // Кнопка Создать новый отчет
         FloatingActionButton buttonAddNewReport =  findViewById(R.id.addNewFolder);
         FloatingActionButton sort =  findViewById(R.id.sort);
@@ -56,6 +59,7 @@ public class ReportListActivity extends AppCompatActivity {
         super.onResume();
         setAdapter();
     }
+
 
     private void setAdapter(){
 

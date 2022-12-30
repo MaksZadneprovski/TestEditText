@@ -1,4 +1,6 @@
 package com.example.testedittext.entities;
 
-public class Ground {
+import java.io.Serializable;
+
+public class Ground implements Serializable {
 }

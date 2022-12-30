@@ -1,7 +1,9 @@
 package com.example.testedittext.entities;
 
+import java.io.Serializable;
+
 // Металлосвязь. У щита может быть несколько измерений (РЕ контакт розеток, дверь щита, корпус щита)
-public class MetallicBond {
+public class MetallicBond implements Serializable {
 
     private String peContact;
     private String countElements;

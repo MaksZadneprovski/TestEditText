@@ -19,6 +19,7 @@ public class Storage {
 
     public static boolean isDeleteShield;
     public static boolean isDeleteDefect;
+    public static boolean waitLoad = true;
 
 
     public static void setGroupList(ArrayList<Group> groups) {

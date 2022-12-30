@@ -120,15 +120,11 @@ public class ProgramReport {
         wb.setPrintArea(
                 wb.getSheetIndex(sheetProgram), // индекс листа
                 0, // начало столбца
-                9, // конец столбца
+                5, // конец столбца
                 0, //начало строки
                 50 // конец строки
         );
-
-
-
         return wb;
-
     }
 
     private static void fillProgram(ArrayList<String> list){
@@ -137,7 +133,7 @@ public class ProgramReport {
         Cell cell;
 
         // Высота строки
-        int strokeHeigth = 4;
+        int strokeHeigth = 5;
 
         Font font = wBook.createFont();
         font.setFontHeightInPoints((short)12);
@@ -145,13 +141,13 @@ public class ProgramReport {
 
         CellStyle style;
         style = wBook.createCellStyle();
-        style.setWrapText(true);
         style.setBorderBottom(BorderStyle.THIN);
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderLeft(BorderStyle.THIN);
         style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderTop(BorderStyle.THIN);
         style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setWrapText(true);
         style.setFont(font);
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
@@ -168,6 +164,8 @@ public class ProgramReport {
         style2.setTopBorderColor(IndexedColors.BLACK.getIndex());
         style2.setAlignment(HorizontalAlignment.CENTER);
         style2.setVerticalAlignment(VerticalAlignment.CENTER);
+        style2.setWrapText(true);
+        style2.setFont(font);
 
 
 

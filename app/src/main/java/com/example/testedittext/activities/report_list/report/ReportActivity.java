@@ -3,6 +3,7 @@ package com.example.testedittext.activities.report_list.report;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,9 @@ public class ReportActivity extends AppCompatActivity {
 
     TextView reportTitle;
     ProgressBar progressBar;
+    private SharedPreferences sharedPreferences;
+    public static final String APP_PREFERENCES = "mysettings";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +35,7 @@ public class ReportActivity extends AppCompatActivity {
 
         progressBar =  findViewById(R.id.progressBar2);
 
-        // Кнопка сохранить отчет
+        // Кнопка сохранить отчет на сервер
         FloatingActionButton reportSave =  findViewById(R.id.reportSave);
         reportSave.setColorFilter(Color.argb(255, 255, 255, 255));
         // Кнопка поделиться
@@ -58,6 +62,8 @@ public class ReportActivity extends AppCompatActivity {
         // Устанавливаем в TV название отчета
         changeTitle();
 
+
+
         // Назначаем обработчик кнопке сохранить отчет
         //buttonShare.setOnClickListener(new ShareReportHandler());
         // Назначаем обработчик кнопке поделиться
@@ -74,11 +80,20 @@ public class ReportActivity extends AppCompatActivity {
         ground.setOnClickListener((view -> startActivity(new Intent(view.getContext(), GroundActivity.class))));
         // Назначаем обработчик TV Посмотреть отчет
         viewReport.setOnClickListener(new ViewReportHandler(progressBar));
+        // Назначаем обработчик кнопке сохранить отчет на сервер
+        sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+
+        reportSave.setOnClickListener(new SaveReportOnServerHandler());
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 
 
     }
+
+    public String getreportname(){ return Storage.currentReportEntityStorage.getName().toString();}
+
 
     @Override
     protected void onPause() {

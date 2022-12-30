@@ -31,6 +31,11 @@ public class MSReport {
         font8.setFontName("Times New Roman");
         font8.setBold(false);
 
+        Font font14 = wb.createFont();
+        font14.setFontHeightInPoints((short)16);
+        font14.setFontName("Times New Roman");
+        font14.setBold(true);
+
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
         style = wb.createCellStyle();
@@ -47,6 +52,18 @@ public class MSReport {
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        CellStyle styleTitle;
+        // Создаем стиль для создания рамки у ячейки
+        styleTitle = wb.createCellStyle();
+        styleTitle.setWrapText(true);
+        styleTitle.setFont(font14);
+        styleTitle.setAlignment(HorizontalAlignment.CENTER);
+        styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        Row row = sheetMS.createRow(10);
+        Cell cell = row.createCell(0);
+        cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberMSProtocol + " Проверки наличия цепи между заземленными ");
+        cell.setCellStyle(styleTitle);
 
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
@@ -60,8 +77,6 @@ public class MSReport {
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы
         int countRow = 26;
         int paragraph = 1;
-        Row row;
-
 
         if (shields != null) {
             // Проход по щитам
@@ -69,8 +84,6 @@ public class MSReport {
                 // Получаем щит
                 Shield shield = shields.get(i);
                 row = sheetMS.createRow(countRow);
-
-                Cell cell;
 
                 // Объединяем столбцы для вставки названия щита
                 sheetMS.addMergedRegion(new CellRangeAddress(

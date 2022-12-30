@@ -3,6 +3,7 @@ package com.example.testedittext.activities.report_list;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
+import com.example.testedittext.activities.report_list.server.Server;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements AuthorizeCallback {
 
     private SharedPreferences sharedPreferences;
     public static final String APP_PREFERENCES = "mysettings";
@@ -21,11 +23,15 @@ public class SettingsActivity extends AppCompatActivity {
     private String login, pass;
     private  EditText loginET, passET;
     TextView tvLogin;
+    private Context context;
+    boolean authorize;
+    AuthorizeCallback authorizeCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
+        context = this;
 
         loginET = findViewById(R.id.login);
         passET = findViewById(R.id.pass);
@@ -38,9 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         editor = sharedPreferences.edit();
-
-        login = sharedPreferences.getString("login", null);
-        pass = sharedPreferences.getString("pass", null);
+        authorize = sharedPreferences.getBoolean("authorize", false);
 
         setVisibility();
 
@@ -50,15 +54,14 @@ public class SettingsActivity extends AppCompatActivity {
             editor.putString( "login", login );
             editor.putString( "pass", pass );
             editor.apply();
-            setVisibility();
+            new Server().authorize(context, this);
         });
 
         buttonExit.setOnClickListener(view -> {
             editor.remove( "login" );
             editor.remove( "pass" );
+            editor.remove( "authorize" );
             editor.apply();
-            login = null;
-            pass = null;
             loginET.setText("");
             passET.setText("");
             setVisibility();
@@ -66,15 +69,20 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void   setVisibility(){
-        if (login == null && pass == null){
+        authorize = sharedPreferences.getBoolean("authorize", false);
+        if (!authorize){
             clExit.setVisibility(View.GONE);
             clAuthor.setVisibility(View.VISIBLE);
         }else {
             login = sharedPreferences.getString("login", null);
-            pass = sharedPreferences.getString("pass", null);
             clExit.setVisibility(View.VISIBLE);
             clAuthor.setVisibility(View.GONE);
             tvLogin.setText(login);
         }
+    }
+
+    @Override
+    public void callbackCall() {
+        setVisibility();
     }
 }

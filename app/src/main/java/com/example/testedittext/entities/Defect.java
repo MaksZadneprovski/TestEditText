@@ -1,6 +1,8 @@
 package com.example.testedittext.entities;
 
-public class Defect {
+import java.io.Serializable;
+
+public class Defect implements Serializable {
     private String defectGroup;
     private String defect;
     private String note;

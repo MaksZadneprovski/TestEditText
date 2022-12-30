@@ -1,5 +1,7 @@
 package com.example.testedittext.entities.enums;
 
-public enum ElementsOfElectricalInstallations {
+import java.io.Serializable;
+
+public enum ElementsOfElectricalInstallations implements Serializable {
     e1,e2
 }

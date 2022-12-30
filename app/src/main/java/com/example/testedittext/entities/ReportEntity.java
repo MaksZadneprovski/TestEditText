@@ -15,7 +15,7 @@ import java.util.Set;
 
 
 public class ReportEntity implements Serializable {
-    @NonNull
+
     private String name;
     private String numberReport;
     private String date;
@@ -63,12 +63,12 @@ public class ReportEntity implements Serializable {
                 '}';
     }
 
-    @NonNull
+
     public String getName() {
         return name;
     }
 
-    public void setName(@NonNull String name) {
+    public void setName( String name) {
         this.name = name;
     }
 

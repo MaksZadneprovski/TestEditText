@@ -22,11 +22,11 @@ import java.util.ArrayList;
 
 public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapter.ViewHolder> {
 
-    private final ArrayList<ReportInDB> fileList;
+    private final ArrayList<ReportInDB> reportInDBList;
     Context context;
 
     public ReportListRVAdapter(ArrayList<ReportInDB> fileList) {
-        this.fileList = fileList;
+        this.reportInDBList = fileList;
     }
 
     @NonNull
@@ -42,7 +42,7 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ReportListRVAdapter.ViewHolder holder, int position) {
-        ReportEntity report = fileList.get(position).getReportEntity();
+        ReportEntity report = reportInDBList.get(position).getReportEntity();
         holder.reportName.setText(report.getName());
 
         holder.reportIcon.setImageResource(R.drawable.folder);
@@ -63,7 +63,7 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
 
     @Override
     public int getItemCount() {
-        return fileList.size();
+        return reportInDBList.size();
     }
 
     public class ViewHolder  extends RecyclerView.ViewHolder{

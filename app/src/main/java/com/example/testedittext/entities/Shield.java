@@ -2,16 +2,18 @@ package com.example.testedittext.entities;
 
 import com.example.testedittext.entities.enums.Phases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // Класс, представляющий электрический щит
-public class Shield {
+public class Shield implements Serializable {
     private String name;
     private boolean isPEN;
     private Phases phases;
     private ArrayList<MetallicBond> metallicBonds;
     private ArrayList<Group> shieldGroups;
     private ArrayList<Defect> defects;
+
 
 
     public String getName() {
@@ -65,8 +67,12 @@ public class Shield {
     @Override
     public String toString() {
         return "Shield{" +
-                "name='" + name + '\''
-                //"countGroups= '" + shieldGroups.size() + '\''
-                ;
+                "name='" + name + '\'' +
+                ", isPEN=" + isPEN +
+                ", phases=" + phases +
+                ", metallicBonds=" + metallicBonds +
+                ", shieldGroups=" + shieldGroups +
+                ", defects=" + defects +
+                '}';
     }
 }

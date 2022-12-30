@@ -33,6 +33,11 @@ public class InsulationReport {
         font8.setFontName("Times New Roman");
         font8.setBold(false);
 
+        Font font16 = wb.createFont();
+        font16.setFontHeightInPoints((short)16);
+        font16.setFontName("Times New Roman");
+        font16.setBold(true);
+
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
         style = wb.createCellStyle();
@@ -49,6 +54,19 @@ public class InsulationReport {
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        CellStyle styleTitle;
+        // Создаем стиль для создания рамки у ячейки
+        styleTitle = wb.createCellStyle();
+        styleTitle.setWrapText(true);
+        styleTitle.setFont(font16);
+        styleTitle.setAlignment(HorizontalAlignment.CENTER);
+        styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        Row row = sheetInsulation.createRow(9);
+        Cell cell = row.createCell(0);
+        cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberInsulationProtocol + " Проверки сопротивления изоляции");
+        cell.setCellStyle(styleTitle);
+
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
 
@@ -62,7 +80,6 @@ public class InsulationReport {
         int countRow = 27;
         int paragraph = 1;
 
-        Row row;
         String avtomat = "QF";
         if (shields != null) {
             // Проход по щитам
@@ -70,8 +87,6 @@ public class InsulationReport {
                 // Получаем щит
                 Shield shield = shields.get(i);
                 row = sheetInsulation.createRow(countRow);
-
-                Cell cell;
 
                 // Объединяем столбцы для вставки названия щита
                 sheetInsulation.addMergedRegion(new CellRangeAddress(

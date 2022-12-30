@@ -2,10 +2,11 @@ package com.example.testedittext.entities;
 
 import com.example.testedittext.entities.enums.Phases;
 
+import java.io.Serializable;
 import java.util.Map;
 
 // В щите есть группы, это класс, представляющий их
-public class Group {
+public class Group implements Serializable {
 
     private String designation;
     private String address;
@@ -173,5 +174,29 @@ public class Group {
 
     public void setF0(Map<String, String> f0) {
         this.f0 = f0;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "designation='" + designation + '\'' +
+                ", address='" + address + '\'' +
+                ", phases='" + phases + '\'' +
+                ", cable='" + cable + '\'' +
+                ", numberOfWireCores='" + numberOfWireCores + '\'' +
+                ", wireThickness='" + wireThickness + '\'' +
+                ", defenseApparatus='" + defenseApparatus + '\'' +
+                ", machineBrand='" + machineBrand + '\'' +
+                ", ratedCurrent='" + ratedCurrent + '\'' +
+                ", releaseType='" + releaseType + '\'' +
+                ", f0Range='" + f0Range + '\'' +
+                ", tSrabAvt='" + tSrabAvt + '\'' +
+                ", markaUzo='" + markaUzo + '\'' +
+                ", iNomUzo='" + iNomUzo + '\'' +
+                ", iDifNom='" + iDifNom + '\'' +
+                ", isSetMeasure=" + isSetMeasure +
+                ", insulation=" + insulation +
+                ", f0=" + f0 +
+                '}';
     }
 }

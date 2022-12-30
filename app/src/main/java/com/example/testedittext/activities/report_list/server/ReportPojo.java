@@ -9,11 +9,11 @@ public class ReportPojo {
     @SerializedName("report")
     private String report;
     @SerializedName("userid")
-    private long userid;
+    private String userid;
     @SerializedName("id")
     private long id;
 
-    public ReportPojo(String reportname, String report, long userid, long id) {
+    public ReportPojo(String reportname, String report, String userid, long id) {
         this.reportname = reportname;
         this.report = report;
         this.userid = userid;
@@ -36,11 +36,11 @@ public class ReportPojo {
         this.report = report;
     }
 
-    public long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(long userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 

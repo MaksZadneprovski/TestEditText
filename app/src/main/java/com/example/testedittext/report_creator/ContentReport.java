@@ -326,7 +326,7 @@ public class ContentReport {
         if (type_of_work.contains(TypeOfWork.Uzo)){
             row = sheetContent.createRow(countRow);
             cell = row.createCell(0);
-            cell.setCellValue(text + protocolNumber + " Проверка работы устройства защитного отключения (УЗО)");
+            cell.setCellValue(text + protocolNumber + " Проверки работы устройства защитного отключения (УЗО)");
             cell.setCellStyle(style);
 
             // Присваиваем номер протоколу

@@ -51,10 +51,6 @@ public class VOReport {
         cell.setCellValue("ПРОТОКОЛ № "+ ExcelData.numberVOProtocol + " Визуального осмотра");
         cell.setCellStyle(styleTitulReport);
 
-
-
-
-
         return wb;
 
         }

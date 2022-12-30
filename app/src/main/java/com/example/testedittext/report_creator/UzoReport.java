@@ -4,6 +4,7 @@ import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
+import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.ExcelFormula;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -32,6 +33,11 @@ public class UzoReport {
         font8.setFontName("Times New Roman");
         font8.setBold(false);
 
+        Font font16 = wb.createFont();
+        font16.setFontHeightInPoints((short)16);
+        font16.setFontName("Times New Roman");
+        font16.setBold(true);
+
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
         style = wb.createCellStyle();
@@ -48,6 +54,14 @@ public class UzoReport {
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        CellStyle styleTitle;
+        // Создаем стиль для создания рамки у ячейки
+        styleTitle = wb.createCellStyle();
+        styleTitle.setWrapText(true);
+        styleTitle.setFont(font16);
+        styleTitle.setAlignment(HorizontalAlignment.CENTER);
+        styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
+
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
 
@@ -58,10 +72,14 @@ public class UzoReport {
         // Заполняем строку погоды
         Report.fillWeather(sheetUzo, 10,  report, wb);
 
+        Row row = sheetUzo.createRow(7);
+        Cell cell = row.createCell(0);
+        cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberUzoProtocol + " Проверки работы устройства защитного отключения (УЗО)");
+        cell.setCellStyle(styleTitle);
+
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы
         int countRow = 21;
         int paragraph = 1;
-        Row row;
         String avtomat = "QF";
 
 
@@ -78,7 +96,6 @@ public class UzoReport {
                 ArrayList<Group> shieldGroups = shield.getShieldGroups();
 
                 row = sheetUzo.createRow(countRow);
-                Cell cell;
 
                 // Объединяем столбцы для вставки названия щита
                 sheetUzo.addMergedRegion(new CellRangeAddress(
@@ -102,32 +119,34 @@ public class UzoReport {
                 int avtomatCount = 1;
 
                 if (shields != null) {
-                    // Проход по группам
-                    for (int j = 0; j < shieldGroups.size(); j++) {
-                        Group group = shieldGroups.get(j);
-                        String defenseApparatus = group.getDefenseApparatus();
-                        if (!group.getAddress().isEmpty() && !defenseApparatus.equals("Автомат") && !defenseApparatus.isEmpty()){
+                    if (shieldGroups != null) {
+                        // Проход по группам
+                        for (int j = 0; j < shieldGroups.size(); j++) {
+                            Group group = shieldGroups.get(j);
+                            String defenseApparatus = group.getDefenseApparatus();
+                            if (!group.getAddress().isEmpty() && !defenseApparatus.equals("Автомат") && !defenseApparatus.isEmpty()) {
 
-                            // Строки с узо есть, значит название щита тоже есть в отчете
-                            presenceOfOzo = true;
+                                // Строки с узо есть, значит название щита тоже есть в отчете
+                                presenceOfOzo = true;
 
-                            row = sheetUzo.createRow(countRow);
+                                row = sheetUzo.createRow(countRow);
 
-                            // Столбец пункт
-                            cell = row.createCell(1);
-                            cell.setCellValue(paragraph++);
-                            cell.setCellStyle(style);
+                                // Столбец пункт
+                                cell = row.createCell(1);
+                                cell.setCellValue(paragraph++);
+                                cell.setCellStyle(style);
 
-                            // Столбец местоположение и наименование эл.оборудования
-                            cell = row.createCell(2);
-                            String lineName = "";
-                            if (group.getDesignation().isEmpty()) {
-                                lineName = avtomat + avtomatCount + " - " + group.getAddress();
-                                avtomatCount++;
-                            } else lineName = group.getDesignation() + " - " + group.getAddress();
+                                // Столбец местоположение и наименование эл.оборудования
+                                cell = row.createCell(2);
+                                String lineName = "";
+                                if (group.getDesignation().isEmpty()) {
+                                    lineName = avtomat + avtomatCount + " - " + group.getAddress();
+                                    avtomatCount++;
+                                } else
+                                    lineName = group.getDesignation() + " - " + group.getAddress();
 
-                            cell.setCellValue(lineName);
-                            cell.setCellStyle(style);
+                                cell.setCellValue(lineName);
+                                cell.setCellStyle(style);
 
 //                            // Столбец количество
 //                            cell = row.createCell(3);
@@ -145,9 +164,9 @@ public class UzoReport {
 //                            else cell.setCellValue("соотв.");
 //                            cell.setCellStyle(style);
 
-                            countRow++;
+                                countRow++;
+                            } else avtomatCount++;
                         }
-                        else avtomatCount++;
                     }
                 }
                 if (!presenceOfOzo) {
@@ -161,7 +180,7 @@ public class UzoReport {
         wb.setPrintArea(
                 wb.getSheetIndex(sheetUzo), // индекс листа
                 0, // начало столбца
-                5, // конец столбца
+                11, // конец столбца
                 0, //начало строки
                 countRow - 1 // конец строки
         );

@@ -32,6 +32,11 @@ public class F0Report {
         font8.setFontName("Times New Roman");
         font8.setBold(false);
 
+        Font font12 = wb.createFont();
+        font12.setFontHeightInPoints((short)16);
+        font12.setFontName("Times New Roman");
+        font12.setBold(true);
+
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
         style = wb.createCellStyle();
@@ -48,6 +53,18 @@ public class F0Report {
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        CellStyle styleTitle;
+        styleTitle = wb.createCellStyle();
+        styleTitle.setWrapText(true);
+        styleTitle.setFont(font12);
+        styleTitle.setAlignment(HorizontalAlignment.CENTER);
+        styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+        Row row = sheetF0.createRow(6);
+        Cell cell = row.createCell(0);
+        cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberF0Protocol + " Проверки согласования параметров цепи «фаза – нуль» с характеристиками аппаратов  защиты");
+        cell.setCellStyle(styleTitle);
+
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
 
@@ -63,7 +80,6 @@ public class F0Report {
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы
         int countRow = 28;
         int paragraph = 1;
-        Row row;
         String avtomat = "QF";
         if (shields != null) {
             // Проход по щитам
@@ -71,7 +87,6 @@ public class F0Report {
                 // Получаем щит
                 Shield shield = shields.get(i);
                 row = sheetF0.createRow(countRow);
-                Cell cell;
 
                 // Объединяем столбцы для вставки названия щита
                 sheetF0.addMergedRegion(new CellRangeAddress(

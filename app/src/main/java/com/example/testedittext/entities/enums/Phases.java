@@ -1,5 +1,7 @@
 package com.example.testedittext.entities.enums;
 
-public enum Phases {
+import java.io.Serializable;
+
+public enum Phases implements Serializable {
     A,B,C, EMPTY, ABC
 }
