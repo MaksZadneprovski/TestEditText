@@ -62,6 +62,12 @@ public class UzoReport {
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        // Стиль для рамки в конце таблицы
+        CellStyle styleEndTable;
+        styleEndTable = wb.createCellStyle();
+        styleEndTable.setBorderLeft(BorderStyle.THIN);
+        styleEndTable.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
         // Получаем щиты для составления отчета
         ArrayList<Shield> shields = report.getShields();
 
@@ -90,7 +96,7 @@ public class UzoReport {
                 Shield shield = shields.get(i);
 
                 // Для удаления строки с названием щита, если там не оказалось УЗО
-                boolean presenceOfOzo = false;
+                boolean presenceOfUzo = false;
 
                 // Получаем группы щита
                 ArrayList<Group> shieldGroups = shield.getShieldGroups();
@@ -102,7 +108,7 @@ public class UzoReport {
                         countRow, //first row (0-based)
                         countRow, //last row  (0-based)
                         1, //first column (0-based)
-                        5  //last column  (0-based)
+                        10  //last column  (0-based)
                 ));
 
                 // Вставляем название щита
@@ -111,6 +117,9 @@ public class UzoReport {
                 cell.setCellValue(shield.getName());
                 cell.setCellStyle(style);
 
+                cell = row.createCell(11);
+                cell.setCellStyle(styleEndTable);
+
                 countRow++;
 
 
@@ -118,7 +127,6 @@ public class UzoReport {
                 // Переменная для автоматической генерации номера автомата (QF1, QF2...)
                 int avtomatCount = 1;
 
-                if (shields != null) {
                     if (shieldGroups != null) {
                         // Проход по группам
                         for (int j = 0; j < shieldGroups.size(); j++) {
@@ -127,7 +135,7 @@ public class UzoReport {
                             if (!group.getAddress().isEmpty() && !defenseApparatus.equals("Автомат") && !defenseApparatus.isEmpty()) {
 
                                 // Строки с узо есть, значит название щита тоже есть в отчете
-                                presenceOfOzo = true;
+                                presenceOfUzo = true;
 
                                 row = sheetUzo.createRow(countRow);
 
@@ -148,15 +156,29 @@ public class UzoReport {
                                 cell.setCellValue(lineName);
                                 cell.setCellStyle(style);
 
-//                            // Столбец количество
-//                            cell = row.createCell(3);
-//                            cell.setCellValue(metallicBond.getCountElements());
-//                            cell.setCellStyle(style);
-//
-//                            // Столбец R
-//                            cell = row.createCell(4);
-//                            cell.setCellFormula(ExcelFormula.randomMS);
-//                            cell.setCellStyle(style);
+                            // Столбец Тип УЗО
+                            cell = row.createCell(3);
+                            if (defenseApparatus.equals("Автомат + УЗО") || defenseApparatus.equals("УЗО")) {
+                                cell.setCellValue(group.getMarkaUzo());
+                            }else {
+                                cell.setCellValue(group.getMachineBrand());
+                            }
+                            cell.setCellStyle(style);
+
+                            // Столбец Тип диф тока
+                            cell = row.createCell(4);
+                            cell.setCellValue(group.getTypeDifCurrent());
+                            cell.setCellStyle(style);
+
+                                // Столбец Номин. ток нагрузки In, A
+                                cell = row.createCell(5);
+                                cell.setCellValue(group.getRatedCurrent());
+                                cell.setCellStyle(style);
+
+                                // Столбец Номинальн. не отключ. дифф. ток (15-30)
+                                cell = row.createCell(5);
+                                cell.setCellFormula(ExcelFormula.getRangeUzo(countRow));
+                                cell.setCellStyle(style);
 //
 //                            // Столбец соотв
 //                            cell = row.createCell(5);
@@ -164,13 +186,21 @@ public class UzoReport {
 //                            else cell.setCellValue("соотв.");
 //                            cell.setCellStyle(style);
 
+                                cell = row.createCell(11);
+                                cell.setCellStyle(styleEndTable);
+
                                 countRow++;
                             } else avtomatCount++;
                         }
                     }
-                }
-                if (!presenceOfOzo) {
+
+                if (!presenceOfUzo) {
                     sheetUzo.removeMergedRegion(sheetUzo.getNumMergedRegions()-1);
+                    sheetUzo.createRow(countRow);
+                    row.createCell(1);
+                    cell.setCellValue("");
+                    // Так как в этом стиле нет рамок
+                    cell.setCellStyle(styleTitle);
                     countRow--;
                 }
             }

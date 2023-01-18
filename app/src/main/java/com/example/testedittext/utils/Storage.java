@@ -42,4 +42,5 @@ public class Storage {
         currentReportEntityStorage.getShields().remove(currentNumberSelectedShield);
         currentReportEntityStorage.getShields().add(currentNumberSelectedShield, shield);
     }
+
 }

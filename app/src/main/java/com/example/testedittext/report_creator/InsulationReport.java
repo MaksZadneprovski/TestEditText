@@ -62,6 +62,12 @@ public class InsulationReport {
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        // Стиль для рамки в конце таблицы
+        CellStyle styleEndTable;
+        styleEndTable = wb.createCellStyle();
+        styleEndTable.setBorderLeft(BorderStyle.THIN);
+        styleEndTable.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
         Row row = sheetInsulation.createRow(9);
         Cell cell = row.createCell(0);
         cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberInsulationProtocol + " Проверки сопротивления изоляции");
@@ -102,6 +108,9 @@ public class InsulationReport {
                 cell.setCellValue(shield.getName());
                 cell.setCellStyle(style);
 
+                cell = row.createCell(16);
+                cell.setCellStyle(styleEndTable);
+
                 countRow++;
                 // Получаем группы щита
                 ArrayList<Group> shieldGroups = shield.getShieldGroups();
@@ -122,9 +131,6 @@ public class InsulationReport {
                         if (!group.getAddress().isEmpty()) {
 
                             row = sheetInsulation.createRow(countRow);
-
-                            //увеличиваем высоту строки, чтобы вместить две строки текста
-                            //row.setHeightInPoints((2*sheetInsulation.getDefaultRowHeightInPoints()));
 
                             // Столбец пункт
                             cell = row.createCell(0);
@@ -206,6 +212,9 @@ public class InsulationReport {
                             // Столбец соотв
                             if (conformity) row.getCell(15).setCellValue("соотв.");
 
+                            // Столбец после таблицы
+                            cell = row.createCell(16);
+                            cell.setCellStyle(styleEndTable);
 
 
                             countRow++;

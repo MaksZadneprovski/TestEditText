@@ -166,6 +166,16 @@
         android:id="@+id/buttonRv15"
         style="@style/TVForGroupRVItem" />
 
+    <com.example.testedittext.visual.InstantAutoComplete
+        android:id="@+id/tvRecView16"
+        style="@style/ETForGroupRVItem"
+        android:layout_width="80dp" />
+    <!--        android:hint="Номин. откл. диф. ток" -->
+
+    <TextView
+        android:id="@+id/buttonRv16"
+        style="@style/TVForGroupRVItem" />
+
     <TextView
         android:id="@+id/measure"
         android:background="@color/clickText"

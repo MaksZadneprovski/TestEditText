@@ -118,6 +118,12 @@
                     style="@style/TitleGroupRVItem"
                     android:text="Ном. диф. ток" />
 
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="120dp"
+                    style="@style/TitleGroupRVItem"
+                    android:text="Тип диф. тока" />
+
             </LinearLayout>
 
             <androidx.core.widget.NestedScrollView

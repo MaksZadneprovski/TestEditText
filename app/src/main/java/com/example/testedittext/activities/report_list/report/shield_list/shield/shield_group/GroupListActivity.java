@@ -97,6 +97,12 @@ public class GroupListActivity extends AppCompatActivity {
         String[] apparat = getResources().getStringArray(R.array.apparat);
         String[] markaavtomata = getResources().getStringArray(R.array.markaavtomata);
         String[] nominal = getResources().getStringArray(R.array.nominal);
+        String[] releaseType = getResources().getStringArray(R.array.releaseType);
+        String[] rangeF0 = getResources().getStringArray(R.array.rangeF0);
+        String[] t = getResources().getStringArray(R.array.t);
+        String[] uzo = getResources().getStringArray(R.array.uzo);
+        String[] IdifUzo = getResources().getStringArray(R.array.IdifUzo);
+        String[] typeDifCurrent = getResources().getStringArray(R.array.typeDifCurrent);
 
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
         ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
@@ -106,6 +112,12 @@ public class GroupListActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter5 = new ArrayAdapter (this, R.layout.custom_spinner, apparat);
         ArrayAdapter<String> adapter6 = new ArrayAdapter (this, R.layout.custom_spinner, markaavtomata);
         ArrayAdapter<String> adapter7 = new ArrayAdapter (this, R.layout.custom_spinner, nominal);
+        ArrayAdapter<String> adapter8 = new ArrayAdapter (this, R.layout.custom_spinner, releaseType);
+        ArrayAdapter<String> adapter9 = new ArrayAdapter (this, R.layout.custom_spinner, rangeF0);
+        ArrayAdapter<String> adapter10 = new ArrayAdapter (this, R.layout.custom_spinner, t);
+        ArrayAdapter<String> adapter11 = new ArrayAdapter (this, R.layout.custom_spinner, uzo);
+        ArrayAdapter<String> adapter12 = new ArrayAdapter (this, R.layout.custom_spinner, IdifUzo);
+        ArrayAdapter<String> adapter13 = new ArrayAdapter (this, R.layout.custom_spinner, typeDifCurrent);
 
 
         for (int i = startView; i < groupList.size(); i++) {
@@ -132,6 +144,10 @@ public class GroupListActivity extends AppCompatActivity {
                 ((InstantAutoComplete) linearOfXML.getChildAt(18)).setText(group.getReleaseType());
                 ((InstantAutoComplete) linearOfXML.getChildAt(20)).setText(group.getF0Range());
                 ((InstantAutoComplete) linearOfXML.getChildAt(22)).setText(group.gettSrabAvt());
+                ((InstantAutoComplete) linearOfXML.getChildAt(24)).setText(group.getMarkaUzo());
+                ((InstantAutoComplete) linearOfXML.getChildAt(26)).setText(group.getiNomUzo());
+                ((InstantAutoComplete) linearOfXML.getChildAt(28)).setText(group.getiDifNom());
+                ((InstantAutoComplete) linearOfXML.getChildAt(30)).setText(group.getTypeDifCurrent());
             }
 
 
@@ -152,6 +168,7 @@ public class GroupListActivity extends AppCompatActivity {
             TextView childAt25 = (TextView) linearOfXML.getChildAt(25);
             TextView childAt27 = (TextView) linearOfXML.getChildAt(27);
             TextView childAt29 = (TextView) linearOfXML.getChildAt(29);
+            TextView childAt31 = (TextView) linearOfXML.getChildAt(31);
 
             InstantAutoComplete childAt4 = (InstantAutoComplete) linearOfXML.getChildAt(4);
             InstantAutoComplete childAt6 = (InstantAutoComplete) linearOfXML.getChildAt(6);
@@ -166,6 +183,7 @@ public class GroupListActivity extends AppCompatActivity {
             InstantAutoComplete childAt24 = (InstantAutoComplete) linearOfXML.getChildAt(24);
             InstantAutoComplete childAt26 = (InstantAutoComplete) linearOfXML.getChildAt(26);
             InstantAutoComplete childAt28 = (InstantAutoComplete) linearOfXML.getChildAt(28);
+            InstantAutoComplete childAt30 = (InstantAutoComplete) linearOfXML.getChildAt(30);
 
             childAt1 .setOnClickListener(clk);
             childAt3 .setOnClickListener(clk);
@@ -182,9 +200,11 @@ public class GroupListActivity extends AppCompatActivity {
             childAt25.setOnClickListener(clk);
             childAt27.setOnClickListener(clk);
             childAt29.setOnClickListener(clk);
+            childAt31.setOnClickListener(clk);
+            // Кнопка измерения
+            //((TextView) linearOfXML.getChildAt(32)).setOnClickListener();
             // Кнопка удалить
-            ((TextView) linearOfXML.getChildAt(30)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i));
-            ((TextView) linearOfXML.getChildAt(31)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i));
+            ((TextView) linearOfXML.getChildAt(33)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i, this));
 
             childAt1.setOnLongClickListener(clk);
             childAt3.setOnLongClickListener(clk);
@@ -198,6 +218,10 @@ public class GroupListActivity extends AppCompatActivity {
             childAt19.setOnLongClickListener(clk);
             childAt21.setOnLongClickListener(clk);
             childAt23.setOnLongClickListener(clk);
+            childAt25.setOnLongClickListener(clk);
+            childAt27.setOnLongClickListener(clk);
+            childAt29.setOnLongClickListener(clk);
+            childAt31.setOnLongClickListener(clk);
 
             childAt3.setText(String.valueOf(i+1));
             childAt9.setText(String.valueOf(i+1));
@@ -211,12 +235,13 @@ public class GroupListActivity extends AppCompatActivity {
             childAt12.setAdapter(adapter5);
             childAt14.setAdapter(adapter6);
             childAt16.setAdapter(adapter7);
-            childAt18.setAdapter(adapter1);
-            childAt20.setAdapter(adapter1);
-            childAt22.setAdapter(adapter1);
-            childAt24.setAdapter(adapter1);
-            childAt26.setAdapter(adapter1);
-            childAt28.setAdapter(adapter1);
+            childAt18.setAdapter(adapter8);
+            childAt20.setAdapter(adapter9);
+            childAt22.setAdapter(adapter10);
+            childAt24.setAdapter(adapter11);
+            childAt26.setAdapter(adapter7);
+            childAt28.setAdapter(adapter12);
+            childAt30.setAdapter(adapter13);
 
 //            childAt24.setEnabled(false);
 //            childAt26.setEnabled(false);
@@ -241,8 +266,6 @@ public class GroupListActivity extends AppCompatActivity {
 //                }
 //            });
 
-
-
             linLayout.addView(view);
         }
     }
@@ -264,6 +287,10 @@ public class GroupListActivity extends AppCompatActivity {
             group.setReleaseType(getTextFromEditTextInLinear(linearLayout, 18));
             group.setF0Range(getTextFromEditTextInLinear(linearLayout, 20));
             group.settSrabAvt(getTextFromEditTextInLinear(linearLayout, 22));
+            group.setMarkaUzo(getTextFromEditTextInLinear(linearLayout, 24));
+            group.setiNomUzo(getTextFromEditTextInLinear(linearLayout, 26));
+            group.setiDifNom(getTextFromEditTextInLinear(linearLayout, 28));
+            group.setTypeDifCurrent(getTextFromEditTextInLinear(linearLayout, 30));
 
         }
     }

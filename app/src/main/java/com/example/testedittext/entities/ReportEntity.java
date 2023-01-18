@@ -33,6 +33,7 @@ public class ReportEntity implements Serializable {
     private GroundingSystem groundingSystem;
     private boolean newness;
     private ArrayList<Shield> shields;
+    private Ground ground;
 
 
 
@@ -63,6 +64,13 @@ public class ReportEntity implements Serializable {
                 '}';
     }
 
+    public Ground getGround() {
+        return ground;
+    }
+
+    public void setGround(Ground ground) {
+        this.ground = ground;
+    }
 
     public String getName() {
         return name;

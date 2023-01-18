@@ -60,6 +60,13 @@ public class F0Report {
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        // Стиль для рамки в конце таблицы
+        CellStyle styleEndTable;
+        styleEndTable = wb.createCellStyle();
+        styleEndTable.setBorderLeft(BorderStyle.THIN);
+        styleEndTable.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
+
         Row row = sheetF0.createRow(6);
         Cell cell = row.createCell(0);
         cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberF0Protocol + " Проверки согласования параметров цепи «фаза – нуль» с характеристиками аппаратов  защиты");
@@ -101,6 +108,10 @@ public class F0Report {
                 ////////////////////////////////////////////////////////////////////////
                 cell.setCellValue(shield.getName());
                 cell.setCellStyle(style);
+
+                cell = row.createCell(15);
+                cell.setCellValue("");
+                cell.setCellStyle(styleEndTable);
 
                 countRow++;
                 // Получаем группы щита
@@ -255,6 +266,12 @@ public class F0Report {
 
                             // Столбец соотв
                             if (conformity) row.getCell(14).setCellValue("соотв.");
+
+                            // Столбец  после таблицы
+                            cell = row.createCell(15);
+                            cell.setCellValue("");
+                            cell.setCellStyle(styleEndTable);
+
 
                             countRow++;
                         }

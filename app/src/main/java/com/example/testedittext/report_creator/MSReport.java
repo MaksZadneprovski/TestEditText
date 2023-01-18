@@ -60,6 +60,12 @@ public class MSReport {
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
+        // Стиль для рамки в конце таблицы
+        CellStyle styleEndTable;
+        styleEndTable = wb.createCellStyle();
+        styleEndTable.setBorderLeft(BorderStyle.THIN);
+        styleEndTable.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+
         Row row = sheetMS.createRow(10);
         Cell cell = row.createCell(0);
         cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberMSProtocol + " Проверки наличия цепи между заземленными ");
@@ -98,6 +104,9 @@ public class MSReport {
                 ////////////////////////////////////////////////////////////////////////
                 cell.setCellValue(shield.getName());
                 cell.setCellStyle(style);
+
+                cell = row.createCell(6);
+                cell.setCellStyle(styleEndTable);
 
                 countRow++;
 
@@ -138,6 +147,10 @@ public class MSReport {
                             cell.setCellStyle(style);
 
                             countRow++;
+
+                            // Столбец после таблицы
+                            cell = row.createCell(6);
+                            cell.setCellStyle(styleEndTable);
                         }
                     }
                 }

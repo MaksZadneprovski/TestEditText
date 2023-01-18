@@ -126,7 +126,7 @@ public class MetallicBondActivity extends AppCompatActivity {
             childAt3 .setOnClickListener(clk);
 
             // Кнопка удалить
-            ((TextView) linearOfXML.getChildAt(5)).setOnClickListener(new DeleteViewAndObjectFromList(metallicBondList,i));
+            ((TextView) linearOfXML.getChildAt(5)).setOnClickListener(new DeleteViewAndObjectFromList(metallicBondList,i, this));
 
             childAt1.setOnLongClickListener(clk);
             childAt3.setOnLongClickListener(clk);
@@ -151,7 +151,6 @@ public class MetallicBondActivity extends AppCompatActivity {
             metallicBond.setCountElements(getTextFromEditTextInLinear(linearLayout, 2));
             CheckBox checkBox = (CheckBox) linearLayout.getChildAt(4);
             metallicBond.setNoPe(checkBox.isChecked());
-
 
         }
     }

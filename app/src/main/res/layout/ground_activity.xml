@@ -134,7 +134,7 @@
                         <RadioButton
                             android:id="@+id/groundRadio2_3"
                             style="@style/MyStyleRadio"
-                            android:text="Сухой " />
+                            android:text="Сухой" />
 
 
                     </RadioGroup>
@@ -181,7 +181,7 @@
                         <RadioButton
                             android:id="@+id/groundRadio3_3"
                             style="@style/MyStyleRadio"
-                            android:text="Выше 1000 В " />
+                            android:text="Выше 1000 В" />
 
 
                     </RadioGroup>

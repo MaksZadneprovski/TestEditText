@@ -66,7 +66,6 @@ public class BasicInformationActivity extends AppCompatActivity {
          cb6Uzo = findViewById(R.id.cb6);
          cb7Avtomat = findViewById(R.id.cb7);
 
-
         // Берем акуальный объект отчета из хранилища
         report = Storage.currentReportEntityStorage;
 
@@ -98,20 +97,14 @@ public class BasicInformationActivity extends AppCompatActivity {
 
         setDataToFieldsFromBd();
 
-
-
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         readDataFromFields();
-
         // Обновляем актуальный объект отчета из хранилища
         Storage.currentReportEntityStorage = report;
-
         saveReport();
     }
 

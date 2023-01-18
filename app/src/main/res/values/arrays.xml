@@ -77,6 +77,79 @@
         <item>Дифавтомат</item>
         <item>Автомат + УЗО</item>
         <item>УЗО</item>
+        <item>Предохранитель</item>
+    </string-array>
+
+    <string-array name="releaseType">
+        <item>НВВ; МД</item>
+        <item>ОВВ; МД</item>
+        <item>ОВВ; МД-А</item>
+        <item>ОВВ; МД-B</item>
+        <item>ОВВ; МД-C</item>
+        <item>ОВВ; МД-D</item>
+        <item>ОВВ; МД-K</item>
+        <item>ОВВ; МД-Z</item>
+        <item>ОВВ; МД-L</item>
+        <item>ОВВ; МД-G</item>
+        <item>ОВВ</item>
+        <item> </item>
+    </string-array>
+
+    <string-array name="rangeF0">
+        <item>Auto</item>
+        <item>100~200</item>
+        <item>200~300</item>
+        <item>300~400</item>
+        <item>400~500</item>
+        <item>500~600</item>
+        <item>600~700</item>
+        <item>700~800</item>
+        <item>800~900</item>
+        <item>900~1000</item>
+        <item>1000~1200</item>
+        <item>1200~1400</item>
+        <item>1400~1600</item>
+        <item>1600~1800</item>
+        <item>1800~2000</item>
+        <item>2000~2400</item>
+        <item>2400~2800</item>
+        <item>2800~3200</item>
+        <item>3200~3600</item>
+        <item>3600~4000</item>
+        <item>4000~4500</item>
+        <item>4500~5000</item>
+        <item>5500~6000</item>
+        <item>6000~7000</item>
+        <item>7000~8000</item>
+        <item>8000~9000</item>
+        <item>9000~10000</item>
+    </string-array>
+
+    <string-array name="t">
+        <item></item>
+        <item>-</item>
+        <item>0.4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="uzo">
+        <item>ВДТ-63</item>
+        <item>DS202</item>
+        <item>ВД1-63</item>
+        <item>Legrand</item>
+    </string-array>
+
+    <string-array name="IdifUzo">
+        <item>10</item>
+        <item>30</item>
+        <item>100</item>
+        <item>300</item>
+        <item>500</item>
+    </string-array>
+
+    <string-array name="typeDifCurrent">
+        <item>A</item>
+        <item>AC</item>
     </string-array>
 
     <string-array name="pe">

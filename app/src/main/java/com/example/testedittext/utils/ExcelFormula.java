@@ -24,4 +24,8 @@ public class ExcelFormula {
     public static String getRange(int countRow){
         return "CONCATENATE(E"+ (countRow+1) + "*5,\" - \",E" + (countRow+1) + "*10)";
     }
+
+    public static String getRangeUzo(int countRow){
+        return "CONCATENATE(G"+ (countRow+1) + "/2,\" - \",G" + (countRow+1);
+    }
 }

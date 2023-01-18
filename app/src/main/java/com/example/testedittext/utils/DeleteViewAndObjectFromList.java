@@ -5,16 +5,19 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class DeleteViewAndObjectFromList implements View.OnClickListener{
     ArrayList<? extends Object> list;
     private int position;
+    AppCompatActivity activity;
 
-    public DeleteViewAndObjectFromList(ArrayList<? extends Object> list, int position) {
+    public DeleteViewAndObjectFromList(ArrayList<? extends Object> list, int position, AppCompatActivity activity) {
         this.list = list;
         this.position = position;
+        this.activity = activity;
     }
 
     @Override
@@ -30,6 +33,7 @@ public class DeleteViewAndObjectFromList implements View.OnClickListener{
                 LinearLayout mainLinear = (LinearLayout) ((LinearLayout) view.getParent()).getParent();
                 mainLinear.removeView(linear);
                 list.remove(position);
+                activity.finish();
             }
         });
         builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {

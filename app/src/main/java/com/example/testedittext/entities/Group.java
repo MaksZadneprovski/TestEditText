@@ -23,6 +23,7 @@ public class Group implements Serializable {
     private String markaUzo;
     private String iNomUzo;
     private String iDifNom;
+    private String typeDifCurrent;
     private boolean isSetMeasure = false;
     private Map<String, String> insulation;
     private Map<String, String> f0;
@@ -31,6 +32,13 @@ public class Group implements Serializable {
 
     }
 
+    public String getTypeDifCurrent() {
+        return typeDifCurrent;
+    }
+
+    public void setTypeDifCurrent(String typeDifCurrent) {
+        this.typeDifCurrent = typeDifCurrent;
+    }
 
     public String getPhases() {
         return phases;

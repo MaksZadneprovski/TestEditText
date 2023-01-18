@@ -42,6 +42,8 @@ public class VOReport {
         styleTitulReport.setAlignment(HorizontalAlignment.CENTER);
         styleTitulReport.setVerticalAlignment(VerticalAlignment.CENTER);
 
+
+
         // Заголовок отчета
         Row row = sheetVO.createRow(6);
         Cell cell = row.createCell(0);
