@@ -91,6 +91,9 @@ public class MSReport {
                 Shield shield = shields.get(i);
                 row = sheetMS.createRow(countRow);
 
+                // Для удаления строки с названием щита, если там не оказалось метсвязей
+                boolean presenceOfMS = false;
+
                 // Объединяем столбцы для вставки названия щита
                 sheetMS.addMergedRegion(new CellRangeAddress(
                         countRow, //first row (0-based)
@@ -118,6 +121,9 @@ public class MSReport {
                         MetallicBond metallicBond = metallicBonds.get(j);
                         if (!metallicBond.getPeContact().isEmpty()){
                             row = sheetMS.createRow(countRow);
+
+                            // Строки с метсвязью есть, значит название щита тоже есть в отчете
+                            presenceOfMS = true;
 
                             // Столбец пункт
                             cell = row.createCell(1);
@@ -154,6 +160,17 @@ public class MSReport {
                         }
                     }
                 }
+
+                if (!presenceOfMS) {
+                    sheetMS.removeMergedRegion(sheetMS.getNumMergedRegions() - 1);
+                    sheetMS.createRow(countRow);
+                    row.createCell(1);
+                    cell.setCellValue("");
+                    // Так как в этом стиле нет рамок
+                    cell.setCellStyle(styleTitle);
+                    countRow--;
+                }
+
             }
         }
 

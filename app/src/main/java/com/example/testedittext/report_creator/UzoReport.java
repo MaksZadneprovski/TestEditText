@@ -175,16 +175,32 @@ public class UzoReport {
                                 cell.setCellValue(group.getRatedCurrent());
                                 cell.setCellStyle(style);
 
-                                // Столбец Номинальн. не отключ. дифф. ток (15-30)
-                                cell = row.createCell(5);
-                                cell.setCellFormula(ExcelFormula.getRangeUzo(countRow));
+
+
+                                // Столбец Номинальн.  отключ. дифф. ток (30)
+                                cell = row.createCell(6);
+                                cell.setCellFormula(group.getiDifNom());
                                 cell.setCellStyle(style);
 //
-//                            // Столбец соотв
-//                            cell = row.createCell(5);
-//                            if (metallicBond.isNoPe()) cell.setCellValue("не соотв.");
-//                            else cell.setCellValue("соотв.");
-//                            cell.setCellStyle(style);
+                                // Столбец Номинальн. не отключ. дифф. ток (15-30)
+                                cell = row.createCell(7);
+                                cell.setCellFormula(ExcelFormula.getNeOtklTokUzo(countRow));
+                                cell.setCellStyle(style);
+
+                                // Столбец изм. дифф. ток
+                                cell = row.createCell(8);
+                                cell.setCellFormula(ExcelFormula.getRandomDifCurrent(countRow));
+                                cell.setCellStyle(style);
+
+                                // Столбец изм. время
+                                cell = row.createCell(9);
+                                cell.setCellFormula(ExcelFormula.getRandomDifTime());
+                                cell.setCellStyle(style);
+
+                            // Столбец соотв
+                            cell = row.createCell(10);
+                            cell.setCellValue("соотв.");
+                            cell.setCellStyle(style);
 
                                 cell = row.createCell(11);
                                 cell.setCellStyle(styleEndTable);

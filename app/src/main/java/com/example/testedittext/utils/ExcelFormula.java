@@ -25,7 +25,16 @@ public class ExcelFormula {
         return "CONCATENATE(E"+ (countRow+1) + "*5,\" - \",E" + (countRow+1) + "*10)";
     }
 
-    public static String getRangeUzo(int countRow){
-        return "CONCATENATE(G"+ (countRow+1) + "/2,\" - \",G" + (countRow+1);
+    public static String getNeOtklTokUzo(int countRow){
+        return "G"+ (countRow+1) + "/2";
     }
+
+    public static String getRandomDifCurrent(int countRow){
+        return "CEILING(RANDBETWEEN( H"+ (countRow+1) +  ", G" + (countRow+1) +"),1)";
+    }
+
+    public static String getRandomDifTime(){
+        return "CEILING(RANDBETWEEN(22,43),1)";
+    }
+
 }

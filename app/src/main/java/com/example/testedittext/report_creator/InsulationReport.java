@@ -94,6 +94,9 @@ public class InsulationReport {
                 Shield shield = shields.get(i);
                 row = sheetInsulation.createRow(countRow);
 
+                // Для удаления строки с названием щита, если там не оказалось измерений
+                boolean presenceOfInsulation = false;
+
                 // Объединяем столбцы для вставки названия щита
                 sheetInsulation.addMergedRegion(new CellRangeAddress(
                         countRow, //first row (0-based)
@@ -131,6 +134,9 @@ public class InsulationReport {
                         if (!group.getAddress().isEmpty()) {
 
                             row = sheetInsulation.createRow(countRow);
+
+                            // Строки с измерениями есть, значит название щита тоже есть в отчете
+                            presenceOfInsulation = true;
 
                             // Столбец пункт
                             cell = row.createCell(0);
@@ -220,6 +226,16 @@ public class InsulationReport {
                             countRow++;
                         }
                     }
+                }
+
+                if (!presenceOfInsulation) {
+                    sheetInsulation.removeMergedRegion(sheetInsulation.getNumMergedRegions() - 1);
+                    sheetInsulation.createRow(countRow);
+                    row.createCell(0);
+                    cell.setCellValue("");
+                    // Так как в этом стиле нет рамок
+                    cell.setCellStyle(styleTitle);
+                    countRow--;
                 }
             }
         }

@@ -95,6 +95,9 @@ public class F0Report {
                 Shield shield = shields.get(i);
                 row = sheetF0.createRow(countRow);
 
+                // Для удаления строки с названием щита, если там не оказалось измерений
+                boolean presenceOfF0 = false;
+
                 // Объединяем столбцы для вставки названия щита
                 sheetF0.addMergedRegion(new CellRangeAddress(
                         countRow, //first row (0-based)
@@ -132,6 +135,9 @@ public class F0Report {
                         if (!group.getAddress().isEmpty()) {
 
                             row = sheetF0.createRow(countRow);
+
+                            // Строки с измерениями есть, значит название щита тоже есть в отчете
+                            presenceOfF0 = true;
 
                             // Столбец пункт
                             cell = row.createCell(0);
@@ -276,6 +282,16 @@ public class F0Report {
                             countRow++;
                         }
                     }
+                }
+
+                if (!presenceOfF0) {
+                    sheetF0.removeMergedRegion(sheetF0.getNumMergedRegions() - 1);
+                    sheetF0.createRow(countRow);
+                    row.createCell(0);
+                    cell.setCellValue("");
+                    // Так как в этом стиле нет рамок
+                    cell.setCellStyle(styleTitle);
+                    countRow--;
                 }
             }
         }
