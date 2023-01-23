@@ -83,7 +83,7 @@ public class AvtomatReport {
         cell.setCellStyle(styleTitle);
 
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы
-        int countRow = 21;
+        int countRow = 28;
         int paragraph = 1;
         String avtomat = "QF";
 
@@ -95,7 +95,7 @@ public class AvtomatReport {
                 Shield shield = shields.get(i);
 
                 // Для удаления строки с названием щита, если там не оказалось УЗО
-                boolean presenceOfUzo = false;
+                boolean presenceOfAvtomat = false;
 
                 // Получаем группы щита
                 ArrayList<Group> shieldGroups = shield.getShieldGroups();
@@ -106,8 +106,8 @@ public class AvtomatReport {
                 sheetAvtomat.addMergedRegion(new CellRangeAddress(
                         countRow, //first row (0-based)
                         countRow, //last row  (0-based)
-                        1, //first column (0-based)
-                        10  //last column  (0-based)
+                        0, //first column (0-based)
+                        15  //last column  (0-based)
                 ));
 
                 // Вставляем название щита
@@ -116,7 +116,7 @@ public class AvtomatReport {
                 cell.setCellValue(shield.getName());
                 cell.setCellStyle(style);
 
-                cell = row.createCell(11);
+                cell = row.createCell(16);
                 cell.setCellStyle(styleEndTable);
 
                 countRow++;
@@ -131,20 +131,20 @@ public class AvtomatReport {
                     for (int j = 0; j < shieldGroups.size(); j++) {
                         Group group = shieldGroups.get(j);
                         String defenseApparatus = group.getDefenseApparatus();
-                        if (!group.getAddress().isEmpty() && !defenseApparatus.equals("Автомат") && !defenseApparatus.isEmpty()) {
+                        if (!group.getAddress().isEmpty() && !defenseApparatus.equals("УЗО") && !defenseApparatus.equals("Предохранитель") && !defenseApparatus.isEmpty()) {
 
-                            // Строки с узо есть, значит название щита тоже есть в отчете
-                            presenceOfUzo = true;
+                            // Строки с измерениями есть, значит название щита тоже есть в отчете
+                            presenceOfAvtomat = true;
 
                             row = sheetAvtomat.createRow(countRow);
 
                             // Столбец пункт
-                            cell = row.createCell(1);
+                            cell = row.createCell(0);
                             cell.setCellValue(paragraph++);
                             cell.setCellStyle(style);
 
                             // Столбец местоположение и наименование эл.оборудования
-                            cell = row.createCell(2);
+                            cell = row.createCell(1);
                             String lineName = "";
                             if (group.getDesignation().isEmpty()) {
                                 lineName = avtomat + avtomatCount + " - " + group.getAddress();
@@ -155,53 +155,87 @@ public class AvtomatReport {
                             cell.setCellValue(lineName);
                             cell.setCellStyle(style);
 
-                            // Столбец Тип УЗО
-                            cell = row.createCell(3);
-                            if (defenseApparatus.equals("Автомат + УЗО") || defenseApparatus.equals("УЗО")) {
-                                cell.setCellValue(group.getMarkaUzo());
-                            }else {
-                                cell.setCellValue(group.getMachineBrand());
-                            }
+                            // Столбец Тип Автомата
+                            cell = row.createCell(2);
+                            cell.setCellValue(group.getMachineBrand());
                             cell.setCellStyle(style);
 
-                            // Столбец Тип диф тока
-                            cell = row.createCell(4);
-                            cell.setCellValue(group.getTypeDifCurrent());
+                            // Столбец Тип расцепителя
+                            cell = row.createCell(3);
+                            cell.setCellValue(group.getReleaseType());
                             cell.setCellStyle(style);
 
                             // Столбец Номин. ток нагрузки In, A
-                            cell = row.createCell(5);
+                            cell = row.createCell(4);
                             cell.setCellValue(group.getRatedCurrent());
                             cell.setCellStyle(style);
 
+                            // Столбец Уставка перегрузки (1,45 номинала)
+                            cell = row.createCell(5);
+                            cell.setCellFormula(ExcelFormula.getUstavkaPeregruz(countRow));
+                            cell.setCellStyle(style);
 
-
-                            // Столбец Номинальн.  отключ. дифф. ток (30)
+                            // Столбец Уставка KZ
                             cell = row.createCell(6);
-                            cell.setCellFormula(group.getiDifNom());
+                            cell.setCellFormula(ExcelFormula.getRangeForAvtomat(countRow));
                             cell.setCellStyle(style);
-//
-                            // Столбец Номинальн. не отключ. дифф. ток (15-30)
+
+                            // Столбец испытательный ток перегруза
                             cell = row.createCell(7);
-                            cell.setCellFormula(ExcelFormula.getNeOtklTokUzo(countRow));
+                            cell.setCellFormula(ExcelFormula.getIspTokPeregruz(countRow));
                             cell.setCellStyle(style);
 
-                            // Столбец изм. дифф. ток
+                            // Столбец доп. время откл. перегрузки
                             cell = row.createCell(8);
-                            cell.setCellFormula(ExcelFormula.getRandomDifCurrent(countRow));
+                            String ratedCurrent = group.getRatedCurrent();
+                            if (ratedCurrent!=null && !ratedCurrent.isEmpty()){
+
+                                int nominalTok = Integer.parseInt(ratedCurrent);
+                                if (nominalTok < 32){
+                                    cell.setCellValue("1-60");
+                                }else {
+                                    cell.setCellValue("1-120");
+                                }
+                            }
+
                             cell.setCellStyle(style);
 
-                            // Столбец изм. время
+                            // Столбец изм. время откл. перегрузки
                             cell = row.createCell(9);
-                            cell.setCellFormula(ExcelFormula.getRandomDifTime());
+                            cell.setCellFormula(ExcelFormula.getRandomAvtomatPeregruzTime());
+                            cell.setCellStyle(style);
+
+                            // Столбец Длит-ть приложения испытательного тока
+                            cell = row.createCell(10);
+                            cell.setCellValue("0,1");
+                            cell.setCellStyle(style);
+
+                            // Столбец Испытательный ток несрабатывания
+                            cell = row.createCell(11);
+                            cell.setCellFormula(ExcelFormula.getAvtomatTokNeSrab(countRow));
+                            cell.setCellStyle(style);
+
+                            // Столбец Реакция расцепителя
+                            cell = row.createCell(12);
+                            cell.setCellValue("-");
+                            cell.setCellStyle(style);
+
+                            // Столбец Испытательный ток несрабатывания
+                            cell = row.createCell(13);
+                            cell.setCellFormula(ExcelFormula.getAvtomatTokSrab(countRow));
+                            cell.setCellStyle(style);
+
+                            // Столбец Реакция расцепителя
+                            cell = row.createCell(14);
+                            cell.setCellValue("+");
                             cell.setCellStyle(style);
 
                             // Столбец соотв
-                            cell = row.createCell(10);
+                            cell = row.createCell(15);
                             cell.setCellValue("соотв.");
                             cell.setCellStyle(style);
 
-                            cell = row.createCell(11);
+                            cell = row.createCell(16);
                             cell.setCellStyle(styleEndTable);
 
                             countRow++;
@@ -209,7 +243,7 @@ public class AvtomatReport {
                     }
                 }
 
-                if (!presenceOfUzo) {
+                if (!presenceOfAvtomat) {
                     sheetAvtomat.removeMergedRegion(sheetAvtomat.getNumMergedRegions()-1);
                     sheetAvtomat.createRow(countRow);
                     row.createCell(1);
@@ -225,7 +259,7 @@ public class AvtomatReport {
         wb.setPrintArea(
                 wb.getSheetIndex(sheetAvtomat), // индекс листа
                 0, // начало столбца
-                11, // конец столбца
+                15, // конец столбца
                 0, //начало строки
                 countRow - 1 // конец строки
         );

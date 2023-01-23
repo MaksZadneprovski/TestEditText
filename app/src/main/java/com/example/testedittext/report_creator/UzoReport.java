@@ -179,7 +179,7 @@ public class UzoReport {
 
                                 // Столбец Номинальн.  отключ. дифф. ток (30)
                                 cell = row.createCell(6);
-                                cell.setCellFormula(group.getiDifNom());
+                                cell.setCellValue(group.getiDifNom());
                                 cell.setCellStyle(style);
 //
                                 // Столбец Номинальн. не отключ. дифф. ток (15-30)

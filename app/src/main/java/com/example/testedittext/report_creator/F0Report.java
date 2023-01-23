@@ -169,19 +169,21 @@ public class F0Report {
                             cell.setCellValue(group.getRatedCurrent());
                             cell.setCellStyle(style);
 
+
+
+                            // Столбец Диапазон тока срабатывания расцепителя
+                            cell = row.createCell(5);
+                            cell.setCellFormula(ExcelFormula.getRangeForF0(countRow));
+                            cell.setCellStyle(style);
+
+                            // Столбцы измерений
+
                             // Создаем столбцы измерений и ставим туда "-"
                             for (int k = 6; k < 15; k++) {
                                 cell = row.createCell(k);
                                 cell.setCellValue("-");
                                 cell.setCellStyle(style);
                             }
-
-                            // Столбец Диапазон тока срабатывания расцепителя
-                            cell = row.createCell(5);
-                            cell.setCellFormula(ExcelFormula.getRange(countRow));
-                            cell.setCellStyle(style);
-
-                            // Столбцы измерений
 
                             // Автоматическое заполнение А,В,С, елси фаза не заполнена
                             if (group.getPhases().isEmpty() && !group.getAddress().isEmpty()){

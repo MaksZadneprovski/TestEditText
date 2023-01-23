@@ -33,7 +33,7 @@ public class Report {
     private  String fileName;
     ReportEntity report;
 
-    private boolean isF0, isInsulation, isGround, isUzo, isMetallicBond, isVizual;
+    private boolean isF0, isInsulation, isGround, isUzo, isMetallicBond, isVizual, isAvtomat;
 
     public Report(Context context, String fileName, ReportEntity report) {
         this.context = context;
@@ -46,6 +46,7 @@ public class Report {
         Workbook wb;
         wb = WorkbookFactory.create(context.getResources().openRawResource(R.raw.report3));
 
+        // Для нумерации протоколов
         ArrayList<Sheet> sheets = new ArrayList<>();
         
         Sheet sheetProgram = wb.getSheet("Program");
@@ -54,6 +55,7 @@ public class Report {
         Sheet sheetF0 = wb.getSheet("F0");
         Sheet sheetMS = wb.getSheet("MS");
         Sheet sheetUzo = wb.getSheet("Uzo");
+        Sheet sheetAvtomat = wb.getSheet("Avtomat");
 
         sheets.add(sheetProgram);
         sheets.add(sheetVO);
@@ -61,6 +63,7 @@ public class Report {
         sheets.add(sheetF0);
         sheets.add(sheetMS);
         sheets.add(sheetUzo);
+        sheets.add(sheetAvtomat);
 
         TitulReport.generateVO(wb, report);
         ContentReport.generateVO(wb,report);
@@ -85,6 +88,9 @@ public class Report {
 
         if (isUzo) wb = UzoReport.generateUzo(wb, report);
         else wb.removeSheetAt(wb.getSheetIndex(sheetUzo));
+
+        if (isAvtomat) wb = AvtomatReport.generateAvtomat(wb, report);
+        else wb.removeSheetAt(wb.getSheetIndex(sheetAvtomat));
 
         // Вставляем нумерацию страниц
         insertNumeration(sheets);
@@ -193,6 +199,7 @@ public class Report {
             isMetallicBond = type_of_work.contains(TypeOfWork.MetallicBond);
             isUzo = type_of_work.contains(TypeOfWork.Uzo);
             isVizual = type_of_work.contains(TypeOfWork.Visual);
+            isAvtomat = type_of_work.contains(TypeOfWork.Avtomat);
         }
 
     }

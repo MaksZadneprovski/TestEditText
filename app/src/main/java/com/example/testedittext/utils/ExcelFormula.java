@@ -21,7 +21,11 @@ public class ExcelFormula {
         return "ROUND(230/L" + (countRow+1) + ",2)";
     }
 
-    public static String getRange(int countRow){
+    public static String getRangeForF0(int countRow){
+        return "CONCATENATE(E"+ (countRow+1) + "*5,\" - \",E" + (countRow+1) + "*10)";
+    }
+
+    public static String getRangeForAvtomat(int countRow){
         return "CONCATENATE(E"+ (countRow+1) + "*5,\" - \",E" + (countRow+1) + "*10)";
     }
 
@@ -35,6 +39,26 @@ public class ExcelFormula {
 
     public static String getRandomDifTime(){
         return "CEILING(RANDBETWEEN(22,43),1)";
+    }
+
+    public static String getUstavkaPeregruz(int countRow){
+        return "E"+ (countRow+1) + "* 1.45";
+    }
+
+    public static String getIspTokPeregruz(int countRow){
+        return "E"+ (countRow+1) + "* 2.55";
+    }
+
+    public static String getRandomAvtomatPeregruzTime(){
+        return "CEILING(RANDBETWEEN(5,45),1)";
+    }
+
+    public static String getAvtomatTokNeSrab(int countRow){
+        return "E"+ (countRow+1) + "* 5";
+    }
+
+    public static String getAvtomatTokSrab(int countRow){
+        return "E"+ (countRow+1) + "* 10";
     }
 
 }
