@@ -31,10 +31,10 @@
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:text"></item>
         <item name="android:focusable">false</item>
-        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:focusableInTouchMode">true</item>
         <item name="android:backgroundTint">@color/clickText</item>
         <item name="android:textSize">11sp</item>
-        <item name="android:cursorVisible">false</item>
+        <item name="android:cursorVisible">true</item>
     </style>
 
     <style name="ETForBasicInf" parent="@android:style/Widget.EditText">
@@ -122,12 +122,12 @@
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:background">@color/red</item>
-        <item name="android:text">Удалить</item>
     </style>
 
     <style name="TitleGroupRVItem" parent="@android:style/Widget.TextView">
         <item name="android:layout_height">60dp</item>
         <item name="android:paddingTop">17dp</item>
+        <item name="android:layout_marginBottom">-10dp</item>
         <item name="android:textAlignment">center</item>
 
     </style>
@@ -145,6 +145,14 @@
         <item name="android:elevation">3dp</item>
         <item name="android:paddingRight">20dp</item>
         <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <style name="verticalLine">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">2dp</item>
+        <item name="android:background">#aaabab</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
     </style>
 
 

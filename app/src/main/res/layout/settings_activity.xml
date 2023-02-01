@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:ems="20"
-            android:inputType="textCapCharacters"
+            android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/tv2"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
@@ -85,7 +85,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="90dp"
         android:id="@+id/constraintExit"
         android:elevation="3dp"
         android:paddingLeft="20dp"
@@ -121,5 +121,58 @@
             app:layout_constraintTop_toBottomOf="@+id/tvLogin" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/constraintIngeners"
+        android:elevation="3dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/bg_avtor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintAuthorization">
+
+        <TextView
+            android:id="@+id/tv22"
+            style="@style/TVForTitleInf"
+            android:text="Инженер"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintIngeners" />
+
+        <EditText
+            android:id="@+id/ing"
+            style="@style/ETForBasicInf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:ems="20"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/tv22"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/tv23"
+            style="@style/TVForTitleInf"
+            android:text="Руководитель лаборатории"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ing" />
+
+        <EditText
+            android:id="@+id/boss"
+            style="@style/ETForBasicInf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:ems="20"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/tv23"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

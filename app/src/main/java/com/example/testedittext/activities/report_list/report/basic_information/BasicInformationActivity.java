@@ -1,6 +1,7 @@
 package com.example.testedittext.activities.report_list.report.basic_information;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class BasicInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.basic_information_activity);
+
 
         // Получаем массив строк из ресурсов
         String[] characteristics = getResources().getStringArray(R.array.characteristics);

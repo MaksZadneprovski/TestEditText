@@ -23,7 +23,7 @@ public class VOReport {
     private static  Workbook wBook;
     private static  int countRow = 13;
 
-    public static Workbook generateVO (Workbook wb, ReportEntity report) {
+    public static Workbook generateVO (Workbook wb, ReportEntity report, String ingener, String rukovoditel) {
         sheetVO = wb.getSheet("VO");
 
 

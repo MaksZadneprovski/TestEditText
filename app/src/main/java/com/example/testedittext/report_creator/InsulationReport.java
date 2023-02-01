@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class InsulationReport {
 
 
-    public static Workbook generateInsulation(Workbook wb, ReportEntity report){
+    public static Workbook generateInsulation(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
 
         Sheet sheetInsulation = wb.getSheet("Insulation");
 
@@ -245,7 +245,7 @@ public class InsulationReport {
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 wb.getSheetIndex(sheetInsulation), // индекс листа
                 0, // начало столбца
-                15, // конец столбца
+                16, // конец столбца
                 0, //начало строки
                 countRow - 1 // конец строки
         );

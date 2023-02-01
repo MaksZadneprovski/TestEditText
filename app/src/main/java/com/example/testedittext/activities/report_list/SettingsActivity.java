@@ -21,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
     private SharedPreferences.Editor editor;
     private ConstraintLayout clAuthor, clExit;
     private String login, pass;
-    private  EditText loginET, passET;
+    private  EditText loginET, passET, ing, boss;
     TextView tvLogin;
     private Context context;
     boolean authorize;
@@ -40,6 +40,8 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         clAuthor = findViewById(R.id.constraintAuthorization);
         clExit = findViewById(R.id.constraintExit);
         tvLogin = findViewById(R.id.tvLogin);
+        ing = findViewById(R.id.ing);
+        boss = findViewById(R.id.boss);
 
 
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
@@ -68,15 +70,26 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        String ingener = ing.getText().toString();
+        String rukovoditel = boss.getText().toString();
+        editor.putString( "ingener", ingener );
+        editor.putString( "rukovoditel", rukovoditel );
+        editor.apply();
+    }
+
     private void   setVisibility(){
         authorize = sharedPreferences.getBoolean("authorize", false);
         if (!authorize){
-            clExit.setVisibility(View.GONE);
+            clExit.setVisibility(View.INVISIBLE);
             clAuthor.setVisibility(View.VISIBLE);
         }else {
             login = sharedPreferences.getString("login", null);
             clExit.setVisibility(View.VISIBLE);
-            clAuthor.setVisibility(View.GONE);
+            clAuthor.setVisibility(View.INVISIBLE);
             tvLogin.setText(login);
         }
     }

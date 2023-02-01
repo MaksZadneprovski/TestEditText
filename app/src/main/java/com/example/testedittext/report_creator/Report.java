@@ -1,6 +1,7 @@
 package com.example.testedittext.report_creator;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.example.testedittext.R;
 import com.example.testedittext.entities.ReportEntity;
@@ -33,6 +34,9 @@ public class Report {
     private  String fileName;
     ReportEntity report;
 
+    private SharedPreferences sharedPreferences;
+    public static final String APP_PREFERENCES = "mysettings";
+
     private boolean isF0, isInsulation, isGround, isUzo, isMetallicBond, isVizual, isAvtomat;
 
     public Report(Context context, String fileName, ReportEntity report) {
@@ -45,6 +49,10 @@ public class Report {
 
         Workbook wb;
         wb = WorkbookFactory.create(context.getResources().openRawResource(R.raw.report3));
+
+        sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, context.MODE_PRIVATE);
+        String ingener = sharedPreferences.getString("ingener", null); ;
+        String rukovoditel = sharedPreferences.getString("rukovoditel", null); ;
 
         // Для нумерации протоколов
         ArrayList<Sheet> sheets = new ArrayList<>();
@@ -67,8 +75,8 @@ public class Report {
         sheets.add(sheetAvtomat);
         sheets.add(sheetGround);
 
-        TitulReport.generateVO(wb, report);
-        ContentReport.generateVO(wb,report);
+        TitulReport.generateTitul(wb, report, rukovoditel);
+        ContentReport.generateVO(wb,report, rukovoditel);
 
         // Определяем необходимость тех или иных протоколов
         setNecessaryProtocols();
@@ -76,25 +84,25 @@ public class Report {
         ProgramReport.generateVO(wb, report);
 
         // Удаляем ненужные протоколы
-        if (isVizual) wb = VOReport.generateVO(wb, report);
+        if (isVizual) wb = VOReport.generateVO(wb, report, ingener, rukovoditel);
         else wb.removeSheetAt(wb.getSheetIndex(sheetVO));
 
-        if (isF0) wb = F0Report.generateF0(wb, report);
+        if (isF0) wb = F0Report.generateF0(wb, report, ingener, rukovoditel);
         else wb.removeSheetAt(wb.getSheetIndex(sheetF0));
 
-        if (isInsulation) wb = InsulationReport.generateInsulation(wb, report);
+        if (isInsulation) wb = InsulationReport.generateInsulation(wb, report, ingener, rukovoditel);
         else wb.removeSheetAt(wb.getSheetIndex(sheetInsulation));
 
-        if (isMetallicBond) wb = MSReport.generateMS(wb, report);
+        if (isMetallicBond) wb = MSReport.generateMS(wb, report, ingener, rukovoditel);
         else wb.removeSheetAt(wb.getSheetIndex(sheetMS));
 
-        if (isUzo) wb = UzoReport.generateUzo(wb, report);
+        if (isUzo) wb = UzoReport.generateUzo(wb, report, ingener, rukovoditel);
         else wb.removeSheetAt(wb.getSheetIndex(sheetUzo));
 
-        if (isAvtomat) wb = AvtomatReport.generateAvtomat(wb, report);
+        if (isAvtomat) wb = AvtomatReport.generateAvtomat(wb, report, ingener, rukovoditel);
         else wb.removeSheetAt(wb.getSheetIndex(sheetAvtomat));
 
-        if (isGround) wb = GroundReport.generateGround(wb, report);
+        if (isGround) wb = GroundReport.generateGround(wb, report, ingener, rukovoditel);
         else wb.removeSheetAt(wb.getSheetIndex(sheetGround));
 
         // Вставляем нумерацию страниц

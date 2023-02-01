@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class GroundReport {
 
-    public static Workbook generateGround(Workbook wb, ReportEntity report){
+    public static Workbook generateGround(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
 
         Sheet sheetGround = wb.getSheet("Ground");
 

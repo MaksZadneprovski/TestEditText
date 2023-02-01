@@ -22,7 +22,7 @@ public class ContentReport {
 
 
 
-    public static Workbook generateVO (Workbook wb, ReportEntity report) {
+    public static Workbook generateVO (Workbook wb, ReportEntity report, String rukovoditel) {
         Sheet sheetContent = wb.getSheet("Soderzh");
 
         // Заполняем строки заказчик, объект, адрес, дата

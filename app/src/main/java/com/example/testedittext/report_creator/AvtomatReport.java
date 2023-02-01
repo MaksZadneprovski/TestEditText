@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class AvtomatReport {
 
-    public static Workbook generateAvtomat(Workbook wb, ReportEntity report){
+    public static Workbook generateAvtomat(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
 
         Sheet sheetAvtomat = wb.getSheet("Avtomat");
 
@@ -259,7 +259,7 @@ public class AvtomatReport {
         wb.setPrintArea(
                 wb.getSheetIndex(sheetAvtomat), // индекс листа
                 0, // начало столбца
-                15, // конец столбца
+                16, // конец столбца
                 0, //начало строки
                 countRow - 1 // конец строки
         );

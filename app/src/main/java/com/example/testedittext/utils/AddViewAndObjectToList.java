@@ -7,15 +7,18 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.testedittext.entities.Group;
+
 import java.util.ArrayList;
 
-public class DeleteViewAndObjectFromList implements View.OnClickListener{
-    ArrayList<? extends Object> list;
+public class AddViewAndObjectToList implements View.OnClickListener {
+
+    ArrayList<Group> groupList;
     private int position;
     AppCompatActivity activity;
 
-    public DeleteViewAndObjectFromList(ArrayList<? extends Object> list, int position, AppCompatActivity activity) {
-        this.list = list;
+    public AddViewAndObjectToList(ArrayList<Group> groupList, int position, AppCompatActivity activity) {
+        this.groupList = groupList;
         this.position = position;
         this.activity = activity;
     }
@@ -24,15 +27,15 @@ public class DeleteViewAndObjectFromList implements View.OnClickListener{
     public void onClick(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-        builder.setTitle("Удаление");
-        builder.setMessage("Вы действительно хотите удалить строку?");
+        builder.setTitle("Добавление");
+        builder.setMessage("Добавить строку вниз?");
         builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                LinearLayout linear = (LinearLayout) view.getParent();
+                LinearLayout linear2 = new LinearLayout(view.getContext());
                 LinearLayout mainLinear = (LinearLayout) ((LinearLayout) view.getParent()).getParent();
-                mainLinear.removeView(linear);
-                list.remove(position);
+                mainLinear.addView(linear2, position);
+                groupList.add(position,new Group());
                 activity.finish();
             }
         });

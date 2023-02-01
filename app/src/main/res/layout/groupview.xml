@@ -20,6 +20,10 @@
         android:id="@+id/buttonRv1"
         style="@style/TVForGroupRVItem" />
 
+    <View style="@style/verticalLine" />
+
+
+
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView2"
         style="@style/ETForGroupRVItem"
@@ -31,7 +35,7 @@
     <TextView
         android:id="@+id/buttonRv2"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView3"
         style="@style/ETForGroupRVItem"
@@ -43,7 +47,7 @@
     <TextView
         android:id="@+id/buttonRv3"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView4"
         style="@style/ETForGroupRVItem"
@@ -54,7 +58,7 @@
     <TextView
         android:id="@+id/buttonRv4"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView5"
         style="@style/ETForGroupRVItem"
@@ -65,7 +69,7 @@
     <TextView
         android:id="@+id/buttonRv5"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView6"
         style="@style/ETForGroupRVItem"
@@ -75,7 +79,7 @@
     <TextView
         android:id="@+id/buttonRv6"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView7"
         style="@style/ETForGroupRVItem"
@@ -85,7 +89,7 @@
     <TextView
         android:id="@+id/buttonRv7"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView8"
         style="@style/ETForGroupRVItem"
@@ -95,7 +99,7 @@
     <TextView
         android:id="@+id/buttonRv8"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView9"
         style="@style/ETForGroupRVItem"
@@ -105,7 +109,7 @@
     <TextView
         android:id="@+id/buttonRv9"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView10"
         style="@style/ETForGroupRVItem"
@@ -115,7 +119,7 @@
     <TextView
         android:id="@+id/buttonRv10"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView11"
         style="@style/ETForGroupRVItem"
@@ -125,7 +129,7 @@
     <TextView
         android:id="@+id/buttonRv11"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView12"
         style="@style/ETForGroupRVItem"
@@ -135,7 +139,7 @@
     <TextView
         android:id="@+id/buttonRv12"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView13"
         style="@style/ETForGroupRVItem"
@@ -145,7 +149,7 @@
     <TextView
         android:id="@+id/buttonRv13"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView14"
         style="@style/ETForGroupRVItem"
@@ -155,7 +159,7 @@
     <TextView
         android:id="@+id/buttonRv14"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView15"
         style="@style/ETForGroupRVItem"
@@ -165,7 +169,7 @@
     <TextView
         android:id="@+id/buttonRv15"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView16"
         style="@style/ETForGroupRVItem"
@@ -175,17 +179,23 @@
     <TextView
         android:id="@+id/buttonRv16"
         style="@style/TVForGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <TextView
         android:id="@+id/measure"
         android:background="@color/clickText"
-        android:text="Измерения"
+        android:layout_width="50dp"
+        android:text="  +  "
         style="@style/TVForDelGroupRVItem" />
-
+    <View style="@style/verticalLine" />
     <TextView
         android:id="@+id/buttonDelGroup"
-
+        android:text="  -  "
+        android:layout_width="50dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
         style="@style/TVForDelGroupRVItem" />
+
+
 
 
 </LinearLayout>

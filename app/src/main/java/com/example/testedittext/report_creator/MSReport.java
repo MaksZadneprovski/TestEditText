@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class MSReport {
 
-    public static Workbook generateMS(Workbook wb, ReportEntity report){
+    public static Workbook generateMS(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
         Sheet sheetMS = wb.getSheet("MS");
 
         // Create a new font and alter it.
@@ -178,7 +178,7 @@ public class MSReport {
         wb.setPrintArea(
                 wb.getSheetIndex(sheetMS), // индекс листа
                 0, // начало столбца
-                5, // конец столбца
+                6, // конец столбца
                 0, //начало строки
                 countRow - 1 // конец строки
         );

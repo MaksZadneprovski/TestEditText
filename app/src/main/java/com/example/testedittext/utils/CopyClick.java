@@ -26,14 +26,16 @@ public class CopyClick implements View.OnClickListener, View.OnLongClickListener
             ConstraintLayout main = ((ConstraintLayout) ll.getParent().getParent().getParent().getParent());
 
             // Пробегаемся по RV от кликнутого long , до кликнутого short
-            for (int i = CopyClick.clickedPrevPosition; i < position + 1; i++) {
-
-                LinearLayout linearLayout = (LinearLayout) (ll.getChildAt(i));
-
-
-
-                ((EditText) linearLayout.getChildAt(CopyClick.clickedIndexInLL - 1)).setText(CopyClick.clickedText);
-
+            if (CopyClick.clickedPrevPosition < position) {
+                for (int i = CopyClick.clickedPrevPosition; i < position + 1; i++) {
+                    LinearLayout linearLayout = (LinearLayout) (ll.getChildAt(i));
+                    ((EditText) linearLayout.getChildAt(CopyClick.clickedIndexInLL - 1)).setText(CopyClick.clickedText);
+                }
+            }else {
+                for (int i = CopyClick.clickedPrevPosition; i > position -1 ; i--) {
+                    LinearLayout linearLayout = (LinearLayout) (ll.getChildAt(i));
+                    ((EditText) linearLayout.getChildAt(CopyClick.clickedIndexInLL - 1)).setText(CopyClick.clickedText);
+                }
             }
 
             // Осветляем фон

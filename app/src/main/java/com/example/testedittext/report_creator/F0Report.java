@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class F0Report {
 
-    public static Workbook generateF0(Workbook wb, ReportEntity report){
+    public static Workbook generateF0(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
 
         Sheet sheetF0 = wb.getSheet("F0");
 
@@ -303,7 +303,7 @@ public class F0Report {
         wb.setPrintArea(
                 wb.getSheetIndex(sheetF0), // индекс листа
                 0, // начало столбца
-                14, // конец столбца
+                15, // конец столбца
                 0, //начать строку
                 countRow - 1 // конец строки
         );

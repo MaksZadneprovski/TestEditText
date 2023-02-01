@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class UzoReport {
 
-    public static Workbook generateUzo(Workbook wb, ReportEntity report){
+    public static Workbook generateUzo(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
 
         Sheet sheetUzo = wb.getSheet("Uzo");
 
@@ -202,8 +202,8 @@ public class UzoReport {
                             cell.setCellValue("соотв.");
                             cell.setCellStyle(style);
 
-                                cell = row.createCell(11);
-                                cell.setCellStyle(styleEndTable);
+                            cell = row.createCell(11);
+                            cell.setCellStyle(styleEndTable);
 
                                 countRow++;
                             } else avtomatCount++;

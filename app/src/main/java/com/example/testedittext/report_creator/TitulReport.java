@@ -13,7 +13,7 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 
 public class TitulReport {
-    public static Workbook generateVO (Workbook wb, ReportEntity report) {
+    public static Workbook generateTitul(Workbook wb, ReportEntity report, String rukovoditel) {
         Sheet sheetTitul = wb.getSheet("Titul");
 
         Font fontBig;
@@ -89,8 +89,11 @@ public class TitulReport {
         cell.setCellValue("Испытания проведены: " + report.getDate());
         cell.setCellStyle(style2);
 
-
-
+        // Руков. лаб.
+        row = sheetTitul.createRow(35);
+        cell = row.createCell(0);
+        cell.setCellValue("МП ________" + rukovoditel);
+        cell.setCellStyle(style2);
 
         return wb;
 

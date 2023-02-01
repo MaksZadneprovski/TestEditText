@@ -18,6 +18,7 @@ import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.ReportInDB;
+import com.example.testedittext.utils.AddViewAndObjectToList;
 import com.example.testedittext.utils.DeleteViewAndObjectFromList;
 import com.example.testedittext.utils.CopyClick;
 import com.example.testedittext.utils.Storage;
@@ -133,57 +134,57 @@ public class GroupListActivity extends AppCompatActivity {
             if (group != null) {
                 // Устанавливаем текст в поле таблицы
                 ((EditText) linearOfXML.getChildAt(0)).setText(group.getDesignation());
-                ((EditText) linearOfXML.getChildAt(2)).setText(group.getAddress());
-                ((InstantAutoComplete) linearOfXML.getChildAt(4)).setText(group.getPhases());
-                ((InstantAutoComplete) linearOfXML.getChildAt(6)).setText(group.getCable());
-                ((InstantAutoComplete) linearOfXML.getChildAt(8)).setText(group.getNumberOfWireCores());
-                ((InstantAutoComplete) linearOfXML.getChildAt(10)).setText(group.getWireThickness());
-                ((InstantAutoComplete) linearOfXML.getChildAt(12)).setText(group.getDefenseApparatus());
-                ((InstantAutoComplete) linearOfXML.getChildAt(14)).setText(group.getMachineBrand());
-                ((InstantAutoComplete) linearOfXML.getChildAt(16)).setText(group.getRatedCurrent());
-                ((InstantAutoComplete) linearOfXML.getChildAt(18)).setText(group.getReleaseType());
-                ((InstantAutoComplete) linearOfXML.getChildAt(20)).setText(group.getF0Range());
-                ((InstantAutoComplete) linearOfXML.getChildAt(22)).setText(group.gettSrabAvt());
-                ((InstantAutoComplete) linearOfXML.getChildAt(24)).setText(group.getMarkaUzo());
-                ((InstantAutoComplete) linearOfXML.getChildAt(26)).setText(group.getiNomUzo());
-                ((InstantAutoComplete) linearOfXML.getChildAt(28)).setText(group.getiDifNom());
-                ((InstantAutoComplete) linearOfXML.getChildAt(30)).setText(group.getTypeDifCurrent());
+                ((EditText) linearOfXML.getChildAt(3)).setText(group.getAddress());
+                ((InstantAutoComplete) linearOfXML.getChildAt(6)).setText(group.getPhases());
+                ((InstantAutoComplete) linearOfXML.getChildAt(9)).setText(group.getCable());
+                ((InstantAutoComplete) linearOfXML.getChildAt(12)).setText(group.getNumberOfWireCores());
+                ((InstantAutoComplete) linearOfXML.getChildAt(15)).setText(group.getWireThickness());
+                ((InstantAutoComplete) linearOfXML.getChildAt(18)).setText(group.getDefenseApparatus());
+                ((InstantAutoComplete) linearOfXML.getChildAt(21)).setText(group.getMachineBrand());
+                ((InstantAutoComplete) linearOfXML.getChildAt(24)).setText(group.getRatedCurrent());
+                ((InstantAutoComplete) linearOfXML.getChildAt(27)).setText(group.getReleaseType());
+                ((InstantAutoComplete) linearOfXML.getChildAt(30)).setText(group.getF0Range());
+                ((InstantAutoComplete) linearOfXML.getChildAt(33)).setText(group.gettSrabAvt());
+                ((InstantAutoComplete) linearOfXML.getChildAt(36)).setText(group.getMarkaUzo());
+                ((InstantAutoComplete) linearOfXML.getChildAt(39)).setText(group.getiNomUzo());
+                ((InstantAutoComplete) linearOfXML.getChildAt(42)).setText(group.getiDifNom());
+                ((InstantAutoComplete) linearOfXML.getChildAt(45)).setText(group.getTypeDifCurrent());
             }
 
 
             CopyClick clk = new CopyClick(i);
 
             TextView childAt1 = (TextView) linearOfXML.getChildAt(1);
-            TextView childAt3 = (TextView) linearOfXML.getChildAt(3);
-            TextView childAt5 = (TextView) linearOfXML.getChildAt(5);
-            TextView childAt7 = (TextView) linearOfXML.getChildAt(7);
-            TextView childAt9 = (TextView) linearOfXML.getChildAt(9);
-            TextView childAt11 = (TextView) linearOfXML.getChildAt(11);
-            TextView childAt13 = (TextView) linearOfXML.getChildAt(13);
-            TextView childAt15 = (TextView) linearOfXML.getChildAt(15);
-            TextView childAt17 = (TextView) linearOfXML.getChildAt(17);
-            TextView childAt19 = (TextView) linearOfXML.getChildAt(19);
-            TextView childAt21 = (TextView) linearOfXML.getChildAt(21);
-            TextView childAt23 = (TextView) linearOfXML.getChildAt(23);
-            TextView childAt25 = (TextView) linearOfXML.getChildAt(25);
-            TextView childAt27 = (TextView) linearOfXML.getChildAt(27);
-            TextView childAt29 = (TextView) linearOfXML.getChildAt(29);
-            TextView childAt31 = (TextView) linearOfXML.getChildAt(31);
+            TextView childAt3 = (TextView) linearOfXML.getChildAt(4);
+            TextView childAt5 = (TextView) linearOfXML.getChildAt(7);
+            TextView childAt7 = (TextView) linearOfXML.getChildAt(10);
+            TextView childAt9 = (TextView) linearOfXML.getChildAt(13);
+            TextView childAt11 = (TextView) linearOfXML.getChildAt(16);
+            TextView childAt13 = (TextView) linearOfXML.getChildAt(19);
+            TextView childAt15 = (TextView) linearOfXML.getChildAt(22);
+            TextView childAt17 = (TextView) linearOfXML.getChildAt(25);
+            TextView childAt19 = (TextView) linearOfXML.getChildAt(28);
+            TextView childAt21 = (TextView) linearOfXML.getChildAt(31);
+            TextView childAt23 = (TextView) linearOfXML.getChildAt(34);
+            TextView childAt25 = (TextView) linearOfXML.getChildAt(37);
+            TextView childAt27 = (TextView) linearOfXML.getChildAt(40);
+            TextView childAt29 = (TextView) linearOfXML.getChildAt(43);
+            TextView childAt31 = (TextView) linearOfXML.getChildAt(46);
 
-            InstantAutoComplete childAt4 = (InstantAutoComplete) linearOfXML.getChildAt(4);
-            InstantAutoComplete childAt6 = (InstantAutoComplete) linearOfXML.getChildAt(6);
-            InstantAutoComplete childAt8 = (InstantAutoComplete) linearOfXML.getChildAt(8);
-            InstantAutoComplete childAt10 = (InstantAutoComplete) linearOfXML.getChildAt(10);
-            InstantAutoComplete childAt12 = (InstantAutoComplete) linearOfXML.getChildAt(12);
-            InstantAutoComplete childAt14 = (InstantAutoComplete) linearOfXML.getChildAt(14);
-            InstantAutoComplete childAt16 = (InstantAutoComplete) linearOfXML.getChildAt(16);
-            InstantAutoComplete childAt18 = (InstantAutoComplete) linearOfXML.getChildAt(18);
-            InstantAutoComplete childAt20 = (InstantAutoComplete) linearOfXML.getChildAt(20);
-            InstantAutoComplete childAt22 = (InstantAutoComplete) linearOfXML.getChildAt(22);
-            InstantAutoComplete childAt24 = (InstantAutoComplete) linearOfXML.getChildAt(24);
-            InstantAutoComplete childAt26 = (InstantAutoComplete) linearOfXML.getChildAt(26);
-            InstantAutoComplete childAt28 = (InstantAutoComplete) linearOfXML.getChildAt(28);
-            InstantAutoComplete childAt30 = (InstantAutoComplete) linearOfXML.getChildAt(30);
+            InstantAutoComplete childAt4 = (InstantAutoComplete) linearOfXML.getChildAt(6);
+            InstantAutoComplete childAt6 = (InstantAutoComplete) linearOfXML.getChildAt(9);
+            InstantAutoComplete childAt8 = (InstantAutoComplete) linearOfXML.getChildAt(12);
+            InstantAutoComplete childAt10 = (InstantAutoComplete) linearOfXML.getChildAt(15);
+            InstantAutoComplete childAt12 = (InstantAutoComplete) linearOfXML.getChildAt(18);
+            InstantAutoComplete childAt14 = (InstantAutoComplete) linearOfXML.getChildAt(21);
+            InstantAutoComplete childAt16 = (InstantAutoComplete) linearOfXML.getChildAt(24);
+            InstantAutoComplete childAt18 = (InstantAutoComplete) linearOfXML.getChildAt(27);
+            InstantAutoComplete childAt20 = (InstantAutoComplete) linearOfXML.getChildAt(30);
+            InstantAutoComplete childAt22 = (InstantAutoComplete) linearOfXML.getChildAt(33);
+            InstantAutoComplete childAt24 = (InstantAutoComplete) linearOfXML.getChildAt(36);
+            InstantAutoComplete childAt26 = (InstantAutoComplete) linearOfXML.getChildAt(39);
+            InstantAutoComplete childAt28 = (InstantAutoComplete) linearOfXML.getChildAt(42);
+            InstantAutoComplete childAt30 = (InstantAutoComplete) linearOfXML.getChildAt(45);
 
             childAt1 .setOnClickListener(clk);
             childAt3 .setOnClickListener(clk);
@@ -204,7 +205,8 @@ public class GroupListActivity extends AppCompatActivity {
             // Кнопка измерения
             //((TextView) linearOfXML.getChildAt(32)).setOnClickListener();
             // Кнопка удалить
-            ((TextView) linearOfXML.getChildAt(33)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i, this));
+            ((TextView) linearOfXML.getChildAt(50)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i, this));
+            ((TextView) linearOfXML.getChildAt(48)).setOnClickListener(new AddViewAndObjectToList(groupList,i, this));
 
             childAt1.setOnLongClickListener(clk);
             childAt3.setOnLongClickListener(clk);
@@ -227,6 +229,7 @@ public class GroupListActivity extends AppCompatActivity {
             childAt9.setText(String.valueOf(i+1));
             childAt15.setText(String.valueOf(i+1));
             childAt21.setText(String.valueOf(i+1));
+            childAt27.setText(String.valueOf(i+1));
 
             childAt4.setAdapter(adapter1);
             childAt6.setAdapter(adapter2);
@@ -276,27 +279,32 @@ public class GroupListActivity extends AppCompatActivity {
             LinearLayout linearLayout = ((LinearLayout)  linLayout.getChildAt(i));
             Group group = groupList.get(i);
             group.setDesignation(getTextFromEditTextInLinear(linearLayout, 0));
-            group.setAddress(getTextFromEditTextInLinear(linearLayout, 2));
-            group.setPhases(getTextFromEditTextInLinear(linearLayout, 4));
-            group.setCable(getTextFromEditTextInLinear(linearLayout, 6));
-            group.setNumberOfWireCores(getTextFromEditTextInLinear(linearLayout, 8));
-            group.setWireThickness(getTextFromEditTextInLinear(linearLayout, 10));
-            group.setDefenseApparatus(getTextFromEditTextInLinear(linearLayout, 12));
-            group.setMachineBrand(getTextFromEditTextInLinear(linearLayout, 14));
-            group.setRatedCurrent(getTextFromEditTextInLinear(linearLayout, 16));
-            group.setReleaseType(getTextFromEditTextInLinear(linearLayout, 18));
-            group.setF0Range(getTextFromEditTextInLinear(linearLayout, 20));
-            group.settSrabAvt(getTextFromEditTextInLinear(linearLayout, 22));
-            group.setMarkaUzo(getTextFromEditTextInLinear(linearLayout, 24));
-            group.setiNomUzo(getTextFromEditTextInLinear(linearLayout, 26));
-            group.setiDifNom(getTextFromEditTextInLinear(linearLayout, 28));
-            group.setTypeDifCurrent(getTextFromEditTextInLinear(linearLayout, 30));
+            group.setAddress(getTextFromEditTextInLinear(linearLayout, 3));
+            group.setPhases(getTextFromEditTextInLinear(linearLayout, 6));
+            group.setCable(getTextFromEditTextInLinear(linearLayout, 9));
+            group.setNumberOfWireCores(getTextFromEditTextInLinear(linearLayout, 12));
+            group.setWireThickness(getTextFromEditTextInLinear(linearLayout, 15));
+            group.setDefenseApparatus(getTextFromEditTextInLinear(linearLayout, 18));
+            group.setMachineBrand(getTextFromEditTextInLinear(linearLayout, 21));
+            group.setRatedCurrent(getTextFromEditTextInLinear(linearLayout, 24));
+            group.setReleaseType(getTextFromEditTextInLinear(linearLayout, 27));
+            group.setF0Range(getTextFromEditTextInLinear(linearLayout, 30));
+            group.settSrabAvt(getTextFromEditTextInLinear(linearLayout, 33));
+            group.setMarkaUzo(getTextFromEditTextInLinear(linearLayout, 36));
+            group.setiNomUzo(getTextFromEditTextInLinear(linearLayout, 39));
+            group.setiDifNom(getTextFromEditTextInLinear(linearLayout, 42));
+            group.setTypeDifCurrent(getTextFromEditTextInLinear(linearLayout, 45));
 
         }
     }
 
     private String getTextFromEditTextInLinear(LinearLayout linearLayout, int index) {
-        return  ((EditText) linearLayout.getChildAt(index)).getText().toString();
+        try {
+            return  ((EditText) linearLayout.getChildAt(index)).getText().toString();
+        }catch (Exception e){
+            return "";
+        }
+
     }
 
     private void saveGroupList(){
