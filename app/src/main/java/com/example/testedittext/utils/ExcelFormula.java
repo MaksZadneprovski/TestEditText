@@ -61,4 +61,8 @@ public class ExcelFormula {
         return "E"+ (countRow+1) + "* 10";
     }
 
+    public static String getPrivedSoprotivZazemlen(int countRow){
+        return "G"+ (countRow+1)+ "*" + "I"+ (countRow+1);
+    }
+
 }

@@ -101,6 +101,7 @@
         android:backgroundTint="@color/clickText"
         android:clickable="true"
         android:src="@drawable/delete"
+        android:contentDescription="desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />

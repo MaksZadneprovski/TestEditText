@@ -56,6 +56,7 @@ public class Report {
         Sheet sheetMS = wb.getSheet("MS");
         Sheet sheetUzo = wb.getSheet("Uzo");
         Sheet sheetAvtomat = wb.getSheet("Avtomat");
+        Sheet sheetGround = wb.getSheet("Ground");
 
         sheets.add(sheetProgram);
         sheets.add(sheetVO);
@@ -64,6 +65,7 @@ public class Report {
         sheets.add(sheetMS);
         sheets.add(sheetUzo);
         sheets.add(sheetAvtomat);
+        sheets.add(sheetGround);
 
         TitulReport.generateVO(wb, report);
         ContentReport.generateVO(wb,report);
@@ -91,6 +93,9 @@ public class Report {
 
         if (isAvtomat) wb = AvtomatReport.generateAvtomat(wb, report);
         else wb.removeSheetAt(wb.getSheetIndex(sheetAvtomat));
+
+        if (isGround) wb = GroundReport.generateGround(wb, report);
+        else wb.removeSheetAt(wb.getSheetIndex(sheetGround));
 
         // Вставляем нумерацию страниц
         insertNumeration(sheets);

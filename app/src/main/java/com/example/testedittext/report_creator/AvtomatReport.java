@@ -79,7 +79,7 @@ public class AvtomatReport {
 
         Row row = sheetAvtomat.createRow(8);
         Cell cell = row.createCell(0);
-        cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberUzoProtocol + " Проверки действия расцепителей автоматических выключателей до 1000 В");
+        cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberAvtomatProtocol + " Проверки действия расцепителей автоматических выключателей до 1000 В");
         cell.setCellStyle(styleTitle);
 
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы

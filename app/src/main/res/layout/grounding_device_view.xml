@@ -11,7 +11,7 @@
     <EditText
         android:id="@+id/et1"
         style="@style/ETForGroupRVItem"
-        android:inputType="numberDecimal"
+        android:inputType="textCapSentences"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:layout_width="110dp"
@@ -77,6 +77,7 @@
     <TextView
         android:id="@+id/buttonRv5"
         style="@style/TVForGroupRVItem" />
+
 
     <TextView
         android:layout_marginLeft="30dp"
