@@ -40,6 +40,10 @@ public class ReportInDB {
                 '}';
     }
 
+    public String getNameIgnoreCase() {
+        return name.toLowerCase();
+    }
+
     @NonNull
     public String getName() {
         return name;

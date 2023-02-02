@@ -48,16 +48,16 @@ public class SortReport implements View.OnClickListener{
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.newR:
-                            reportList = (ArrayList<ReportInDB>) reportList.stream().sorted(Comparator.comparingLong(ReportInDB::getDateOfCreate)).collect(Collectors.toList());
-                            break;
-                        case R.id.oldR:
                             reportList = (ArrayList<ReportInDB>) reportList.stream().sorted(Comparator.comparingLong(ReportInDB::getDateOfCreate).reversed()).collect(Collectors.toList());
                             break;
+                        case R.id.oldR:
+                            reportList = (ArrayList<ReportInDB>) reportList.stream().sorted(Comparator.comparingLong(ReportInDB::getDateOfCreate)).collect(Collectors.toList());
+                            break;
                         case R.id.az:
-                            reportList = (ArrayList<ReportInDB>) reportList.stream().sorted(Comparator.comparing(ReportInDB::getName)).collect(Collectors.toList());
+                            reportList = (ArrayList<ReportInDB>) reportList.stream().sorted(Comparator.comparing(ReportInDB::getNameIgnoreCase)).collect(Collectors.toList());
                             break;
                         case R.id.za:
-                            reportList = (ArrayList<ReportInDB>) reportList.stream().sorted(Comparator.comparing(ReportInDB::getName).reversed()).collect(Collectors.toList());
+                            reportList = (ArrayList<ReportInDB>) reportList.stream().sorted(Comparator.comparing(ReportInDB::getNameIgnoreCase).reversed()).collect(Collectors.toList());
                             break;
 
                     }
