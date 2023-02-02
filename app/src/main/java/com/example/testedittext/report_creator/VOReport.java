@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class VOReport {
@@ -23,7 +24,7 @@ public class VOReport {
     private static  Workbook wBook;
     private static  int countRow = 13;
 
-    public static Workbook generateVO (Workbook wb, ReportEntity report, String ingener, String rukovoditel) {
+    public static Workbook generateVO (Workbook wb, ReportEntity report, Map<String, String> param) {
         sheetVO = wb.getSheet("VO");
 
 
@@ -52,6 +53,29 @@ public class VOReport {
         row.setHeightInPoints((2 * sheetVO.getDefaultRowHeightInPoints()));
         cell.setCellValue("ПРОТОКОЛ № "+ ExcelData.numberVOProtocol + " Визуального осмотра");
         cell.setCellStyle(styleTitulReport);
+
+        Font font12 = wb.createFont();
+        font12.setFontHeightInPoints((short)12);
+        font12.setFontName("Times New Roman");
+        font12.setUnderline(Font.U_SINGLE);
+
+        CellStyle style3;
+        style3 = wb.createCellStyle();
+        style3.setFont(font12);
+        style3.setAlignment(HorizontalAlignment.RIGHT);
+        style3.setWrapText(false);
+
+        // Инженер
+        row = sheetVO.getRow(27);
+        cell = row.createCell(4);
+        cell.setCellValue(param.get("ingener"));
+        cell.setCellStyle(style3);
+
+        // Руководитель
+        row = sheetVO.getRow(35);
+        cell = row.createCell(4);
+        cell.setCellValue(param.get("rukovoditel"));
+        cell.setCellStyle(style3);
 
         return wb;
 

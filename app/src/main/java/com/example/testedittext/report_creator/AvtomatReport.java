@@ -19,10 +19,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class AvtomatReport {
 
-    public static Workbook generateAvtomat(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
+    public static Workbook generateAvtomat(Workbook wb, ReportEntity report, Map<String, String> param){
 
         Sheet sheetAvtomat = wb.getSheet("Avtomat");
 

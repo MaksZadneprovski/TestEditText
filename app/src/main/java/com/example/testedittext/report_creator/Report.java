@@ -26,6 +26,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class Report {
@@ -45,14 +47,53 @@ public class Report {
         this.report = report;
     }
 
+    public boolean isBasicInfNorm(){
+        if (report.getCustomer()!=null &&
+                report.getName()!=null &&
+                report.getAddress()!=null &&
+                report.getCharacteristic()!=null &&
+                report.getDate()!=null &&
+                report.getHumidity()!=null &&
+                report.getNumberReport()!=null &&
+                report.getObject()!=null &&
+                report.getPressure()!=null &&
+                report.getTemperature()!=null &&
+                report.getTest_type()!=null
+        ){
+            return !report.getCustomer().isEmpty() &&
+                    !report.getName().isEmpty() &&
+                    !report.getAddress().isEmpty() &&
+                    !report.getCharacteristic().isEmpty() &&
+                    !report.getDate().isEmpty() &&
+                    !report.getHumidity().isEmpty() &&
+                    !report.getNumberReport().isEmpty() &&
+                    !report.getObject().isEmpty() &&
+                    !report.getPressure().isEmpty() &&
+                    !report.getTemperature().isEmpty() &&
+                    !report.getTest_type().isEmpty();
+        }
+        return false;
+    }
+
+    public boolean isDataFromSettingsNorm(){
+        sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, context.MODE_PRIVATE);
+        String ingener = sharedPreferences.getString("ingener", "");
+        String rukovoditel = sharedPreferences.getString("rukovoditel", "");
+        return !ingener.isEmpty() && !rukovoditel.isEmpty();
+    }
+
+
     public void generateReport() throws IOException {
 
         Workbook wb;
         wb = WorkbookFactory.create(context.getResources().openRawResource(R.raw.report3));
 
         sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, context.MODE_PRIVATE);
-        String ingener = sharedPreferences.getString("ingener", null); ;
-        String rukovoditel = sharedPreferences.getString("rukovoditel", null); ;
+        String ingener = sharedPreferences.getString("ingener", null);
+        String rukovoditel = sharedPreferences.getString("rukovoditel", null);
+        Map<String, String> param = new HashMap<>();
+        param.put("ingener", ingener);
+        param.put("rukovoditel", rukovoditel);
 
         // Для нумерации протоколов
         ArrayList<Sheet> sheets = new ArrayList<>();
@@ -75,34 +116,34 @@ public class Report {
         sheets.add(sheetAvtomat);
         sheets.add(sheetGround);
 
-        TitulReport.generateTitul(wb, report, rukovoditel);
-        ContentReport.generateVO(wb,report, rukovoditel);
+        TitulReport.generateTitul(wb, report, param);
+        ContentReport.generateContent(wb,report, param);
 
         // Определяем необходимость тех или иных протоколов
         setNecessaryProtocols();
 
-        ProgramReport.generateVO(wb, report);
+        ProgramReport.generateProgram(wb, report, param);
 
         // Удаляем ненужные протоколы
-        if (isVizual) wb = VOReport.generateVO(wb, report, ingener, rukovoditel);
+        if (isVizual) wb = VOReport.generateVO(wb, report, param);
         else wb.removeSheetAt(wb.getSheetIndex(sheetVO));
 
-        if (isF0) wb = F0Report.generateF0(wb, report, ingener, rukovoditel);
+        if (isF0) wb = F0Report.generateF0(wb, report,  param);
         else wb.removeSheetAt(wb.getSheetIndex(sheetF0));
 
-        if (isInsulation) wb = InsulationReport.generateInsulation(wb, report, ingener, rukovoditel);
+        if (isInsulation) wb = InsulationReport.generateInsulation(wb, report, param);
         else wb.removeSheetAt(wb.getSheetIndex(sheetInsulation));
 
-        if (isMetallicBond) wb = MSReport.generateMS(wb, report, ingener, rukovoditel);
+        if (isMetallicBond) wb = MSReport.generateMS(wb, report, param);
         else wb.removeSheetAt(wb.getSheetIndex(sheetMS));
 
-        if (isUzo) wb = UzoReport.generateUzo(wb, report, ingener, rukovoditel);
+        if (isUzo) wb = UzoReport.generateUzo(wb, report, param);
         else wb.removeSheetAt(wb.getSheetIndex(sheetUzo));
 
-        if (isAvtomat) wb = AvtomatReport.generateAvtomat(wb, report, ingener, rukovoditel);
+        if (isAvtomat) wb = AvtomatReport.generateAvtomat(wb, report, param);
         else wb.removeSheetAt(wb.getSheetIndex(sheetAvtomat));
 
-        if (isGround) wb = GroundReport.generateGround(wb, report, ingener, rukovoditel);
+        if (isGround) wb = GroundReport.generateGround(wb, report, param);
         else wb.removeSheetAt(wb.getSheetIndex(sheetGround));
 
         // Вставляем нумерацию страниц

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
@@ -25,34 +26,44 @@ public class ViewReportHandler implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        progressBar.setVisibility(View.VISIBLE);
 
         Report r = new Report(view.getContext(), Storage.currentReportEntityStorage.getName() + ".xlsx", Storage.currentReportEntityStorage);
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    r.generateReport();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if (r.isBasicInfNorm()){
+            if (r.isDataFromSettingsNorm()){
+                progressBar.setVisibility(View.VISIBLE);
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            r.generateReport();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-                // Открыть файл
-                Context context = view.getContext();
-                File file = new File(context.getExternalFilesDir(null)+ "/" + Storage.currentReportEntityStorage.getName() + ".xlsx");
+                        // Открыть файл
+                        Context context = view.getContext();
+                        File file = new File(context.getExternalFilesDir(null)+ "/" + Storage.currentReportEntityStorage.getName() + ".xlsx");
 
-                Intent share = new Intent();
-                share.setAction(Intent.ACTION_VIEW);
-                Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file);
-                share.putExtra(Intent.EXTRA_STREAM, contentUri);
-                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                //share.setDataAndType(contentUri, "application/vnd.ms-excel");
-                share.setDataAndType(contentUri, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-                //share.setType("text/plain");
-                context.startActivity(share);
+                        Intent share = new Intent();
+                        share.setAction(Intent.ACTION_VIEW);
+                        Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file);
+                        share.putExtra(Intent.EXTRA_STREAM, contentUri);
+                        share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        //share.setDataAndType(contentUri, "application/vnd.ms-excel");
+                        share.setDataAndType(contentUri, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                        //share.setType("text/plain");
+                        context.startActivity(share);
+                    }
+                });
+                thread.start();
+            }else {
+                Toast toast = Toast.makeText(view.getContext(), "Заполните все поля в настройках приложения", Toast.LENGTH_SHORT);
+                toast.show();
             }
-        });
-        thread.start();
+        }else {
+            Toast toast = Toast.makeText(view.getContext(), "Заполните все поля в разделе Основная информация", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }

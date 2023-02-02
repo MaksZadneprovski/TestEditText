@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.AddShieldHandler;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.ShieldActivity;
+import com.example.testedittext.entities.Group;
+import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.Storage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,6 +24,7 @@ public class ShieldListActivity extends AppCompatActivity {
 
     ArrayList<Shield> shieldsList;
     private RecyclerView recyclerView;
+    TextView tvCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class ShieldListActivity extends AppCompatActivity {
         // Кнопка Создать новый щит
         FloatingActionButton buttonAddNewShield =  findViewById(R.id.addNewShield);
         buttonAddNewShield.setColorFilter(Color.argb(255, 255, 255, 255));
+
+        setTvCount();
 
         setAdapter();
 
@@ -42,6 +48,7 @@ public class ShieldListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setTvCount();
         setAdapter();
     }
 
@@ -53,5 +60,29 @@ public class ShieldListActivity extends AppCompatActivity {
         ShieldListRVAdapter adapter = new ShieldListRVAdapter(shieldsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+    }
+
+    private void setTvCount(){
+        tvCount = findViewById(R.id.tvCount);
+        ReportEntity report = Storage.currentReportEntityStorage;
+
+        if (report!=null){
+            ArrayList<Shield> shields = report.getShields();
+            if (shields!=null){
+                int countLine = 0;
+                for (Shield s :shields) {
+                    ArrayList<Group> shieldGroups = s.getShieldGroups();
+                    if (shieldGroups!=null) {
+                        for (Group g : shieldGroups) {
+                            if (!g.getAddress().isEmpty()) {
+                                countLine += 1;
+                            }
+                        }
+                    }
+                }
+                tvCount.setText("Щитов - " + shields.size() + "  Линий - " + countLine);
+            }
+        }
+
     }
 }

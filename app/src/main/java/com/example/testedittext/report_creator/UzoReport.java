@@ -20,10 +20,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class UzoReport {
 
-    public static Workbook generateUzo(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
+    public static Workbook generateUzo(Workbook wb, ReportEntity report, Map<String, String> param){
 
         Sheet sheetUzo = wb.getSheet("Uzo");
 

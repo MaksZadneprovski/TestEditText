@@ -3,12 +3,10 @@ package com.example.testedittext.report_creator;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.enums.TypeOfWork;
 
-import org.apache.poi.hssf.usermodel.HeaderFooter;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Footer;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
@@ -17,6 +15,7 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
 public class ProgramReport {
@@ -26,7 +25,7 @@ public class ProgramReport {
     private static  int countRow = 13;
 
 
-    public static Workbook generateVO (Workbook wb, ReportEntity report) {
+    public static Workbook generateProgram(Workbook wb, ReportEntity report, Map<String, String> param) {
         sheetProgram = wb.getSheet("Program");
         wBook = wb;
 
@@ -115,6 +114,26 @@ public class ProgramReport {
 
             fillProgram(list);
         }
+
+        Row row;
+        Cell cell;
+
+        Font font12 = wb.createFont();
+        font12.setFontHeightInPoints((short)12);
+        font12.setFontName("Times New Roman");
+        font12.setUnderline(Font.U_SINGLE);
+
+        CellStyle style3;
+        style3 = wb.createCellStyle();
+        style3.setFont(font12);
+        style3.setAlignment(HorizontalAlignment.CENTER);
+        style3.setWrapText(false);
+
+        // Руководитель
+        row = sheetProgram.getRow(22);
+        cell = row.createCell(4);
+        cell.setCellValue(param.get("rukovoditel"));
+        cell.setCellStyle(style3);
 
         //устанавливаем область печати
         wb.setPrintArea(

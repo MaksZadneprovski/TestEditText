@@ -83,6 +83,10 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
 
     private void   setVisibility(){
         authorize = sharedPreferences.getBoolean("authorize", false);
+        String ingener  = sharedPreferences.getString("ingener", null);
+        String rukovoditel = sharedPreferences.getString("rukovoditel", null);
+        ing.setText(ingener);
+        boss.setText(rukovoditel);
         if (!authorize){
             clExit.setVisibility(View.INVISIBLE);
             clAuthor.setVisibility(View.VISIBLE);

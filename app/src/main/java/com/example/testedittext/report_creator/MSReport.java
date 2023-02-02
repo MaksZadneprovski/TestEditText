@@ -19,10 +19,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MSReport {
 
-    public static Workbook generateMS(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
+    public static Workbook generateMS(Workbook wb, ReportEntity report, Map<String, String> param){
         Sheet sheetMS = wb.getSheet("MS");
 
         // Create a new font and alter it.

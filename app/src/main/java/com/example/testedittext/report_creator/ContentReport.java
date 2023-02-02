@@ -16,13 +16,14 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
+import java.util.Map;
 import java.util.Set;
 
 public class ContentReport {
 
 
 
-    public static Workbook generateVO (Workbook wb, ReportEntity report, String rukovoditel) {
+    public static Workbook generateContent(Workbook wb, ReportEntity report, Map<String, String> param) {
         Sheet sheetContent = wb.getSheet("Soderzh");
 
         // Заполняем строки заказчик, объект, адрес, дата
@@ -46,6 +47,11 @@ public class ContentReport {
         font.setFontName("Times New Roman");
         font.setUnderline(Font.U_NONE);
         font.setBold(true);
+
+        Font font12 = wb.createFont();
+        font12.setFontHeightInPoints((short)12);
+        font12.setFontName("Times New Roman");
+        font12.setUnderline(Font.U_SINGLE);
 
         CellStyle style;
         style = wb.createCellStyle();
@@ -73,67 +79,15 @@ public class ContentReport {
         style2.setBorderTop(BorderStyle.THIN);
         style2.setTopBorderColor(IndexedColors.BLACK.getIndex());
 
+        CellStyle style3;
+        style3 = wb.createCellStyle();
+        style3.setFont(font12);
+        style3.setAlignment(HorizontalAlignment.CENTER);
+        style3.setWrapText(false);
+
 
 
         Set<TypeOfWork> type_of_work = report.getType_of_work();
-
-        // Список прилагаемой технической документации
-
-
-
-        row = sheetContent.createRow(countRow);
-        cell = row.createCell(0);
-        cell.setCellValue("Список прилагаемой технической документации");
-        cell.setCellStyle(style);
-
-        for (int i = 1; i < 9; i++) {
-            cell = row.createCell(i);
-            cell.setCellStyle(style);
-        }
-
-        // Объединяем столбцы для вставки названия щита
-        sheetContent.addMergedRegion(new CellRangeAddress(
-                countRow, //first row (0-based)
-                countRow, //last row  (0-based)
-                0, //first column (0-based)
-                8  //last column  (0-based)
-        ));
-
-        cell = row.createCell(9);
-        cell.setCellStyle(style2);
-
-        //увеличиваем высоту строки, чтобы вместить две строки текста
-        row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-
-
-
-        countRow++;
-
-        // Пояснительная  записка
-        row = sheetContent.createRow(countRow);
-        cell = row.createCell(0);
-        cell.setCellValue("Пояснительная  записка");
-        cell.setCellStyle(style);
-
-        for (int i = 1; i < 9; i++) {
-            cell = row.createCell(i);
-            cell.setCellStyle(style);
-        }
-
-        // Объединяем столбцы для вставки названия щита
-        sheetContent.addMergedRegion(new CellRangeAddress(
-                countRow, //first row (0-based)
-                countRow, //last row  (0-based)
-                0, //first column (0-based)
-                8  //last column  (0-based)
-        ));
-
-        cell = row.createCell(9);
-        cell.setCellStyle(style2);
-
-        //увеличиваем высоту строки, чтобы вместить две строки текста
-        row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-        countRow++;
 
         // Программа испытаний
         row = sheetContent.createRow(countRow);
@@ -465,8 +419,12 @@ public class ContentReport {
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
         row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-        countRow++;
 
+        // Руководитель
+        row = sheetContent.getRow(40);
+        cell = row.createCell(8);
+        cell.setCellValue(param.get("rukovoditel"));
+        cell.setCellStyle(style3);
 
         //устанавливаем область печати
         wb.setPrintArea(

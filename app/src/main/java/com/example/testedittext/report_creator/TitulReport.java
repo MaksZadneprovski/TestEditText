@@ -12,8 +12,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import java.util.Map;
+
 public class TitulReport {
-    public static Workbook generateTitul(Workbook wb, ReportEntity report, String rukovoditel) {
+    public static Workbook generateTitul(Workbook wb, ReportEntity report, Map<String, String> param) {
         Sheet sheetTitul = wb.getSheet("Titul");
 
         Font fontBig;
@@ -24,6 +26,7 @@ public class TitulReport {
 
         Font font11;
         font11 = wb.createFont();
+        font11.setBold(true);
         font11.setFontHeightInPoints((short)11);
         font11.setFontName("Times New Roman");
 
@@ -92,7 +95,7 @@ public class TitulReport {
         // Руков. лаб.
         row = sheetTitul.createRow(35);
         cell = row.createCell(0);
-        cell.setCellValue("МП ________" + rukovoditel);
+        cell.setCellValue("МП ________" + param.get("rukovoditel"));
         cell.setCellStyle(style2);
 
         return wb;

@@ -21,10 +21,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class GroundReport {
 
-    public static Workbook generateGround(Workbook wb, ReportEntity report, String ingener, String rukovoditel){
+    public static Workbook generateGround(Workbook wb, ReportEntity report, Map<String, String> param){
 
         Sheet sheetGround = wb.getSheet("Ground");
 
