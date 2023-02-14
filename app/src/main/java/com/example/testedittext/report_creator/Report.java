@@ -91,9 +91,28 @@ public class Report {
         sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, context.MODE_PRIVATE);
         String ingener = sharedPreferences.getString("ingener", null);
         String rukovoditel = sharedPreferences.getString("rukovoditel", null);
+
+        String pr_num_attes_s = sharedPreferences.getString("numberSvid", null);
+        String pr_organ_s = sharedPreferences.getString("organ", null);
+        String pr_range_s = sharedPreferences.getString("range", null);
+        String pr_date_pos_s = sharedPreferences.getString("lastDate", null);
+        String pr_date_ocher_s = sharedPreferences.getString("nextDate", null);
+        String pr_class_toch_s = sharedPreferences.getString("class_toch", null);
+        String pr_zav_num_s = sharedPreferences.getString("numberZav", null);
+        String pr_type_s = sharedPreferences.getString("type", null);
+
         Map<String, String> param = new HashMap<>();
         param.put("ingener", ingener);
         param.put("rukovoditel", rukovoditel);
+
+        param.put("numberSvid", pr_num_attes_s);
+        param.put("organ", pr_organ_s);
+        param.put("range", pr_range_s);
+        param.put("lastDate", pr_date_pos_s);
+        param.put("nextDate", pr_date_ocher_s);
+        param.put("class_toch", pr_class_toch_s);
+        param.put("numberZav", pr_zav_num_s);
+        param.put("type", pr_type_s);
 
         // Для нумерации протоколов
         ArrayList<Sheet> sheets = new ArrayList<>();
@@ -106,6 +125,8 @@ public class Report {
         Sheet sheetUzo = wb.getSheet("Uzo");
         Sheet sheetAvtomat = wb.getSheet("Avtomat");
         Sheet sheetGround = wb.getSheet("Ground");
+        Sheet sheetDefects = wb.getSheet("Vedomost");
+        Sheet sheetZakl = wb.getSheet("Zakluchenie");
 
         sheets.add(sheetProgram);
         sheets.add(sheetVO);
@@ -115,6 +136,8 @@ public class Report {
         sheets.add(sheetUzo);
         sheets.add(sheetAvtomat);
         sheets.add(sheetGround);
+        sheets.add(sheetDefects);
+        sheets.add(sheetZakl);
 
         TitulReport.generateTitul(wb, report, param);
         ContentReport.generateContent(wb,report, param);
@@ -145,6 +168,9 @@ public class Report {
 
         if (isGround) wb = GroundReport.generateGround(wb, report, param);
         else wb.removeSheetAt(wb.getSheetIndex(sheetGround));
+
+        DefectsReport.generateDefects(wb, report, param);
+        Zakluchenie.generateZakl(wb, report, param);
 
         // Вставляем нумерацию страниц
         insertNumeration(sheets);

@@ -223,6 +223,109 @@ public class UzoReport {
             }
         }
 
+        // Приборы и закалючение
+        Font font11Bold = wb.createFont();
+        font11Bold.setFontHeightInPoints((short)11);
+        font11Bold.setFontName("Times New Roman");
+        font11Bold.setBold(true);
+
+        Font font11 = wb.createFont();
+        font11.setFontHeightInPoints((short)11);
+        font11.setFontName("Times New Roman");
+
+        CellStyle style4;
+        style4 = wb.createCellStyle();
+        style4.setAlignment(HorizontalAlignment.LEFT);
+        style4.setFont(font11Bold);
+
+        CellStyle style5;
+        style5 = wb.createCellStyle();
+        style5.setAlignment(HorizontalAlignment.LEFT);
+        style5.setFont(font11);
+
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("2. Проверки проведены приборами:");
+        cell.setCellStyle(style4);
+        countRow++;
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("1 :    Тип -  " + param.get("type") +"; ");
+        cell.setCellStyle(style5);
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("        Заводской номер - " + param.get("numberZav") +";");
+        cell.setCellStyle(style5);
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("        Диапазон измерения - " + param.get("range") +";");
+        cell.setCellStyle(style5);
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("        Класс точности - " + param.get("class_toch") +";");
+        cell.setCellStyle(style5);
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("        Дата поверки : последняя - " + param.get("lastDate") + ", очередная - "+ param.get("nextDate") +";");
+        cell.setCellStyle(style5);
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("        № аттестата (св-ва) - " + param.get("numberSvid") +";");
+        cell.setCellStyle(style5);
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("        Орган гос. метрологической службы, проводивший поверку - " + param.get("organ") +".");
+        cell.setCellStyle(style5);
+
+
+        countRow += 2;
+        row = sheetUzo.createRow(countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("Заключение:");
+        cell.setCellStyle(style4);
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(2);
+        cell.setCellValue("Измеренные значения соответствуют требованиям ГОСТ Р 51326.1-99, ГОСТ Р 51327.1-2010,");
+        cell.setCellStyle(style5);
+
+        row = sheetUzo.createRow(++countRow);
+        cell = row.createCell(2);
+        cell.setCellValue("за исключением пунктов указанных в п/п ______");
+        cell.setCellStyle(style5);
+
+        countRow += 2;
+        row = sheetUzo.createRow(countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("Испытания провели:   Инженер");
+        cell.setCellStyle(style5);
+        cell = row.createCell(5);
+        cell.setCellValue("______");
+        cell.setCellStyle(style5);
+        cell = row.createCell(7);
+        cell.setCellValue(param.get("ingener"));
+        cell.setCellStyle(style5);
+
+        countRow += 2;
+        row = sheetUzo.createRow(countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
+        cell.setCellStyle(style5);
+        cell = row.createCell(7);
+        cell.setCellValue("______");
+        cell.setCellStyle(style5);
+        cell = row.createCell(3);
+        cell.setCellValue(param.get("rukovoditel"));
+        cell.setCellStyle(style5);
+
         //устанавливаем область печати
         wb.setPrintArea(
                 wb.getSheetIndex(sheetUzo), // индекс листа

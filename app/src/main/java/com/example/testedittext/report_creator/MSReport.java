@@ -219,12 +219,12 @@ public class MSReport {
 
         row = sheetMS.createRow(++countRow);
         cell = row.createCell(1);
-        cell.setCellValue("        Класс точности - " + param.get("range") +";");
+        cell.setCellValue("        Класс точности - " + param.get("class_toch") +";");
         cell.setCellStyle(style5);
 
         row = sheetMS.createRow(++countRow);
         cell = row.createCell(1);
-        cell.setCellValue("        Дата поверки : последняя - " + param.get("lastDate") + "очередная - "+ param.get("nextDate") +";");
+        cell.setCellValue("        Дата поверки : последняя - " + param.get("lastDate") + ", очередная - "+ param.get("nextDate") +";");
         cell.setCellStyle(style5);
 
         row = sheetMS.createRow(++countRow);
@@ -236,6 +236,49 @@ public class MSReport {
         cell = row.createCell(1);
         cell.setCellValue("        Орган гос. метрологической службы, проводивший поверку - " + param.get("organ") +".");
         cell.setCellStyle(style5);
+
+
+        countRow += 2;
+        row = sheetMS.createRow(countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("Заключение:");
+        cell.setCellStyle(style4);
+
+        row = sheetMS.createRow(++countRow);
+        cell = row.createCell(2);
+        cell.setCellValue("Измеренное сопротивление  заземления соответствует требованием: ПУЭ п.1.7 п.п.100-102; п.1.8.39;");
+        cell.setCellStyle(style5);
+
+        row = sheetMS.createRow(++countRow);
+        cell = row.createCell(2);
+        cell.setCellValue("ПТЭЭП п.26.4.2; п.2.7.10; п.2.7.12, за исключением пунктов указанных в п/п ______");
+        cell.setCellStyle(style5);
+
+        countRow += 2;
+        row = sheetMS.createRow(countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("Испытания провели:   Инженер");
+        cell.setCellStyle(style5);
+        cell = row.createCell(3);
+        cell.setCellValue("______");
+        cell.setCellStyle(style5);
+        cell = row.createCell(4);
+        cell.setCellValue(param.get("ingener"));
+        cell.setCellStyle(style5);
+
+        countRow += 2;
+        row = sheetMS.createRow(countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
+        cell.setCellStyle(style5);
+        cell = row.createCell(3);
+        cell.setCellValue("______");
+        cell.setCellStyle(style5);
+        cell = row.createCell(4);
+        cell.setCellValue(param.get("rukovoditel"));
+        cell.setCellStyle(style5);
+
+
 
 
 
