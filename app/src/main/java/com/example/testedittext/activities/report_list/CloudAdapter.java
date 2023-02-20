@@ -26,11 +26,13 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.ViewHolder>{
     private final List<ReportEntity> reportEntityList;
     Context context;
     CloudActivity cloudActivity;
+    String login;
 
 
-    public CloudAdapter(CloudActivity cloudActivity, List<ReportEntity> reportEntityList) {
+    public CloudAdapter(CloudActivity cloudActivity, List<ReportEntity> reportEntityList, String login) {
         this.reportEntityList = reportEntityList;
         this.cloudActivity = cloudActivity;
+        this.login = login;
     }
 
     @NonNull
@@ -51,7 +53,7 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.ViewHolder>{
 
         holder.reportIcon.setImageResource(R.drawable.folder);
 
-        holder.reportConstraint.setOnClickListener(new CloudRvItemHandler(cloudActivity, report));
+        holder.reportConstraint.setOnClickListener(new CloudRvItemHandler(cloudActivity, report, login));
     }
 
     @Override

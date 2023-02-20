@@ -19,10 +19,11 @@ public class SaveReportOnServerHandler implements View.OnClickListener{
 
         sharedPreferences = view.getContext().getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         boolean authorize = sharedPreferences.getBoolean("authorize", false);
+        String login = sharedPreferences.getString("login", "");
 
         if (authorize) {
             Server server = new Server();
-            server.saveReport("userid");
+            server.saveReport(login);
             Toast toast = Toast.makeText(view.getContext(),
                     "Отчет сохранен в облаке", Toast.LENGTH_SHORT);
             toast.show();

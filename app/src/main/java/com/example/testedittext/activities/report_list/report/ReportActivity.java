@@ -108,12 +108,14 @@ public class ReportActivity extends AppCompatActivity {
         super.onResume();
         setTvCount();
         changeTitle();
+        System.out.println(" RESUME RESUMERESUMERESUMERESUMERESUME RESUME RESUME RESUME ");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         progressBar.setVisibility(View.GONE);
+
     }
 
     public void changeTitle() {

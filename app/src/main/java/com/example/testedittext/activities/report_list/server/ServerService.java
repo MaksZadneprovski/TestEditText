@@ -20,6 +20,9 @@ public interface ServerService {
     @GET("getreports")
     Call<List<ReportPojo>> getreports( @Query("userid") String userid);
 
+    @GET("getusers")
+    Call<List<UserPojo>> getusers();
+
     @GET("deletereport")
     Call<ResponseBody> deletereport( @Query("userid") String userid, @Query("reportname") String reportname);
 
@@ -28,6 +31,15 @@ public interface ServerService {
 
     @GET("checkuser")
     Call<ResponseBody> checkUser(@Query("login") String login,  @Query("password") String password);
+
+    @GET("checkuserbylogin")
+    Call<ResponseBody> checkuserbylogin(@Query("login") String login);
+
+    @GET("createuser")
+    Call<ResponseBody> createUser(@Query("login") String login,  @Query("password") String password);
+
+    @GET("deleteuser")
+    Call<ResponseBody> deleteUser(@Query("login") String login);
 
 }
 

@@ -17,10 +17,12 @@ public class CloudRvItemHandler  implements View.OnClickListener{
 
     CloudActivity cloudActivity;
     ReportEntity report;
+    String login;
 
-    public CloudRvItemHandler(CloudActivity cloudActivity, ReportEntity report) {
+    public CloudRvItemHandler(CloudActivity cloudActivity, ReportEntity report, String login) {
         this.cloudActivity = cloudActivity;
         this.report = report;
+        this.login = login;
     }
 
     @Override
@@ -45,7 +47,7 @@ public class CloudRvItemHandler  implements View.OnClickListener{
         builder.setNegativeButton("Удалить", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                new Server().deleteReport("userid", report);
+                new Server().deleteReport(login, report);
                 cloudActivity.finish();
             }
         });

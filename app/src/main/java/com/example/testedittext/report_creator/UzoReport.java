@@ -34,10 +34,10 @@ public class UzoReport {
         font8.setFontName("Times New Roman");
         font8.setBold(false);
 
-        Font font16 = wb.createFont();
-        font16.setFontHeightInPoints((short)16);
-        font16.setFontName("Times New Roman");
-        font16.setBold(true);
+        Font font12 = wb.createFont();
+        font12.setFontHeightInPoints((short)12);
+        font12.setFontName("Times New Roman");
+        font12.setBold(true);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -59,7 +59,7 @@ public class UzoReport {
         // Создаем стиль для создания рамки у ячейки
         styleTitle = wb.createCellStyle();
         styleTitle.setWrapText(true);
-        styleTitle.setFont(font16);
+        styleTitle.setFont(font12);
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -294,7 +294,7 @@ public class UzoReport {
 
         row = sheetUzo.createRow(++countRow);
         cell = row.createCell(2);
-        cell.setCellValue("Измеренные значения соответствуют требованиям ГОСТ Р 51326.1-99, ГОСТ Р 51327.1-2010,");
+        cell.setCellValue("Измеренные значения соответствуют требованиям ГОСТ Р 51327.1-2010,");
         cell.setCellStyle(style5);
 
         row = sheetUzo.createRow(++countRow);
@@ -310,7 +310,7 @@ public class UzoReport {
         cell = row.createCell(5);
         cell.setCellValue("______");
         cell.setCellStyle(style5);
-        cell = row.createCell(7);
+        cell = row.createCell(8);
         cell.setCellValue(param.get("ingener"));
         cell.setCellStyle(style5);
 
@@ -319,10 +319,10 @@ public class UzoReport {
         cell = row.createCell(1);
         cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
         cell.setCellStyle(style5);
-        cell = row.createCell(7);
+        cell = row.createCell(5);
         cell.setCellValue("______");
         cell.setCellStyle(style5);
-        cell = row.createCell(3);
+        cell = row.createCell(8);
         cell.setCellValue(param.get("rukovoditel"));
         cell.setCellStyle(style5);
 
@@ -332,7 +332,7 @@ public class UzoReport {
                 0, // начало столбца
                 11, // конец столбца
                 0, //начало строки
-                countRow - 1 // конец строки
+                countRow  // конец строки
         );
 
         return wb;

@@ -368,7 +368,7 @@ public class AvtomatReport {
                 0, // начало столбца
                 16, // конец столбца
                 0, //начало строки
-                countRow - 1 // конец строки
+                countRow // конец строки
         );
 
         return wb;

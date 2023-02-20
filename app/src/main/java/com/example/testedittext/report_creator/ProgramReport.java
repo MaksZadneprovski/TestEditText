@@ -126,7 +126,7 @@ public class ProgramReport {
         CellStyle style3;
         style3 = wb.createCellStyle();
         style3.setFont(font12);
-        style3.setAlignment(HorizontalAlignment.CENTER);
+        style3.setAlignment(HorizontalAlignment.LEFT);
         style3.setWrapText(false);
 
         // Руководитель
@@ -147,7 +147,6 @@ public class ProgramReport {
     }
 
     private static void fillProgram(ArrayList<String> list){
-
         Row row;
         Cell cell;
 

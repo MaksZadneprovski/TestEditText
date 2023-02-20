@@ -57,11 +57,11 @@ public class ShareReportHandler implements View.OnClickListener {
                 });
                 thread.start();
             }else {
-                Toast toast = Toast.makeText(view.getContext(), "Заполните все поля в настройках приложения", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(view.getContext(), "Заполните поля в настройках приложения", Toast.LENGTH_SHORT);
                 toast.show();
             }
         }else {
-            Toast toast = Toast.makeText(view.getContext(), "Заполните все поля в разделе Основная информация", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(view.getContext(), "Заполните поля в разделе Основная информация", Toast.LENGTH_SHORT);
             toast.show();
         }
 

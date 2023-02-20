@@ -34,7 +34,7 @@ public class F0Report {
         font8.setBold(false);
 
         Font font12 = wb.createFont();
-        font12.setFontHeightInPoints((short)16);
+        font12.setFontHeightInPoints((short)12);
         font12.setFontName("Times New Roman");
         font12.setBold(true);
 
@@ -371,12 +371,12 @@ public class F0Report {
 
         row = sheetF0.createRow(++countRow);
         cell = row.createCell(1);
-        cell.setCellValue("        Сопротивление петли «фаза-нуль» соответствует требованиям ПУЭ п.3.1.8; п.1.7.79; п.1.8.39 п.п.4; ГОСТ Р 50571.5-94, измеренные величины ожидаемого тока КЗ");
+        cell.setCellValue("        Сопротивление петли «фаза-нуль» соответствует требованиям ПТЭЭП прил. 3 п. 28.4; ГОСТ Р 50571.4.43-2012; ГОСТ Р 50571.5.54-2013,");
         cell.setCellStyle(style5);
 
         row = sheetF0.createRow(++countRow);
         cell = row.createCell(1);
-        cell.setCellValue("        соответствует требованиям НТД, за исключением пунктов указанных в п/п ______");
+        cell.setCellValue("        за исключением пунктов указанных в п/п ______");
         cell.setCellStyle(style5);
 
         countRow += 2;
@@ -384,10 +384,10 @@ public class F0Report {
         cell = row.createCell(1);
         cell.setCellValue("Испытания провели:   Инженер");
         cell.setCellStyle(style5);
-        cell = row.createCell(4);
+        cell = row.createCell(6);
         cell.setCellValue("______");
         cell.setCellStyle(style5);
-        cell = row.createCell(10);
+        cell = row.createCell(12);
         cell.setCellValue(param.get("ingener"));
         cell.setCellStyle(style5);
 
@@ -396,10 +396,10 @@ public class F0Report {
         cell = row.createCell(1);
         cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
         cell.setCellStyle(style5);
-        cell = row.createCell(4);
-        cell.setCellValue(param.get("______"));
+        cell = row.createCell(6);
+        cell.setCellValue("______");
         cell.setCellStyle(style5);
-        cell = row.createCell(10);
+        cell = row.createCell(12);
         cell.setCellValue(param.get("rukovoditel"));
         cell.setCellStyle(style5);
 
@@ -410,7 +410,7 @@ public class F0Report {
                 0, // начало столбца
                 15, // конец столбца
                 0, //начать строку
-                countRow - 1 // конец строки
+                countRow// конец строки
         );
 
         return wb;

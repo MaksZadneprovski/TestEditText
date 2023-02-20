@@ -40,10 +40,10 @@ public class GroundReport {
         font11.setFontName("Times New Roman");
         font11.setBold(true);
 
-        Font font16 = wb.createFont();
-        font16.setFontHeightInPoints((short)16);
-        font16.setFontName("Times New Roman");
-        font16.setBold(true);
+        Font font12 = wb.createFont();
+        font12.setFontHeightInPoints((short)12);
+        font12.setFontName("Times New Roman");
+        font12.setBold(true);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -65,7 +65,7 @@ public class GroundReport {
         // Создаем стиль для создания рамки у ячейки
         styleTitle = wb.createCellStyle();
         styleTitle.setWrapText(false);
-        styleTitle.setFont(font16);
+        styleTitle.setFont(font12);
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -201,9 +201,9 @@ public class GroundReport {
             font11Bold.setFontName("Times New Roman");
             font11Bold.setBold(true);
 
-            Font font12 = wb.createFont();
-            font12.setFontHeightInPoints((short)11);
-            font12.setFontName("Times New Roman");
+            Font font12N = wb.createFont();
+            font12N.setFontHeightInPoints((short)12);
+            font12N.setFontName("Times New Roman");
 
             CellStyle style4;
             style4 = wb.createCellStyle();
@@ -213,12 +213,12 @@ public class GroundReport {
             CellStyle style5;
             style5 = wb.createCellStyle();
             style5.setAlignment(HorizontalAlignment.LEFT);
-            style5.setFont(font12);
+            style5.setFont(font12N);
 
 
             row = sheetGround.createRow(++countRow);
             cell = row.createCell(1);
-            cell.setCellValue("2. Проверки проведены приборами:");
+            cell.setCellValue("6. Проверки проведены приборами:");
             cell.setCellStyle(style4);
             countRow++;
 
@@ -266,12 +266,12 @@ public class GroundReport {
 
             row = sheetGround.createRow(++countRow);
             cell = row.createCell(1);
-            cell.setCellValue("        Низковольтные автоматические выключатели соответствуют  требованиям ГОСТов и заводской документации,");
+            cell.setCellValue("        Сопротивление заземляющих устройств соответствуют  требованиям ПТЭЭП прил. 3 п. 26.4.2;");
             cell.setCellStyle(style5);
 
             row = sheetGround.createRow(++countRow);
             cell = row.createCell(1);
-            cell.setCellValue("        за исключением пунктов указанных в п/п ______");
+            cell.setCellValue("        п. 2.7.10; п. 2.7.12, за исключением пунктов указанных в п/п ______");
             cell.setCellStyle(style5);
 
             countRow += 2;
@@ -279,10 +279,10 @@ public class GroundReport {
             cell = row.createCell(1);
             cell.setCellValue("Испытания провели:   Инженер");
             cell.setCellStyle(style5);
-            cell = row.createCell(3);
+            cell = row.createCell(5);
             cell.setCellValue("______");
             cell.setCellStyle(style5);
-            cell = row.createCell(6);
+            cell = row.createCell(7);
             cell.setCellValue(param.get("ingener"));
             cell.setCellStyle(style5);
 
@@ -291,10 +291,10 @@ public class GroundReport {
             cell = row.createCell(1);
             cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
             cell.setCellStyle(style5);
-            cell = row.createCell(3);
-            cell.setCellValue(param.get("______"));
+            cell = row.createCell(5);
+            cell.setCellValue("______");
             cell.setCellStyle(style5);
-            cell = row.createCell(6);
+            cell = row.createCell(7);
             cell.setCellValue(param.get("rukovoditel"));
             cell.setCellStyle(style5);
 
@@ -304,9 +304,9 @@ public class GroundReport {
             wb.setPrintArea(
                     wb.getSheetIndex(sheetGround), // индекс листа
                     0, // начало столбца
-                    9, // конец столбца
+                    10, // конец столбца
                     0, //начало строки
-                    countRow - 1 // конец строки
+                    countRow  // конец строки
             );
         }
 

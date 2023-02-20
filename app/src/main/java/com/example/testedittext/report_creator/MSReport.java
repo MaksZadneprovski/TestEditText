@@ -32,10 +32,10 @@ public class MSReport {
         font8.setFontName("Times New Roman");
         font8.setBold(false);
 
-        Font font14 = wb.createFont();
-        font14.setFontHeightInPoints((short)16);
-        font14.setFontName("Times New Roman");
-        font14.setBold(true);
+        Font font12 = wb.createFont();
+        font12.setFontHeightInPoints((short)12);
+        font12.setFontName("Times New Roman");
+        font12.setBold(true);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -57,7 +57,7 @@ public class MSReport {
         // Создаем стиль для создания рамки у ячейки
         styleTitle = wb.createCellStyle();
         styleTitle.setWrapText(true);
-        styleTitle.setFont(font14);
+        styleTitle.setFont(font12);
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -246,12 +246,12 @@ public class MSReport {
 
         row = sheetMS.createRow(++countRow);
         cell = row.createCell(2);
-        cell.setCellValue("Измеренное сопротивление  заземления соответствует требованием: ПУЭ п.1.7 п.п.100-102; п.1.8.39;");
+        cell.setCellValue("Измеренное сопротивление  заземления соответствует требованием: ПТЭЭП, прил. 3 п. 26.1, п. 28.5;");
         cell.setCellStyle(style5);
 
         row = sheetMS.createRow(++countRow);
         cell = row.createCell(2);
-        cell.setCellValue("ПТЭЭП п.26.4.2; п.2.7.10; п.2.7.12, за исключением пунктов указанных в п/п ______");
+        cell.setCellValue("ГОСТ Р 50571.5.54-2013, за исключением пунктов указанных в п/п ______");
         cell.setCellStyle(style5);
 
         countRow += 2;
@@ -288,7 +288,7 @@ public class MSReport {
                 0, // начало столбца
                 6, // конец столбца
                 0, //начало строки
-                countRow - 1 // конец строки
+                countRow // конец строки
         );
 
         return wb;

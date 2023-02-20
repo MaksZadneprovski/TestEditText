@@ -8,25 +8,25 @@ import java.util.Map;
 // В щите есть группы, это класс, представляющий их
 public class Group implements Serializable {
 
-    private String designation;
-    private String address;
-    private String phases;
-    private String cable;
-    private String numberOfWireCores;
-    private String wireThickness;
-    private String defenseApparatus;
-    private String machineBrand;
-    private String ratedCurrent;
-    private String releaseType;
-    private String f0Range;
-    private String tSrabAvt;
-    private String markaUzo;
-    private String iNomUzo;
-    private String iDifNom;
-    private String typeDifCurrent;
-    private boolean isSetMeasure = false;
-    private Map<String, String> insulation;
-    private Map<String, String> f0;
+    public String designation;
+    public String address;
+    public String phases;
+    public String cable;
+    public String numberOfWireCores;
+    public String wireThickness;
+    public String defenseApparatus;
+    public String machineBrand;
+    public String ratedCurrent;
+    public String releaseType;
+    public String f0Range;
+    public String tSrabAvt;
+    public String markaUzo;
+    public String iNomUzo;
+    public String iDifNom;
+    public String typeDifCurrent;
+    public boolean isSetMeasure = false;
+    public Map<String, String> insulation;
+    public Map<String, String> f0;
 
     public Group() {
 

@@ -25,7 +25,6 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
     TextView tvLogin;
     private Context context;
     boolean authorize;
-    AuthorizeCallback authorizeCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

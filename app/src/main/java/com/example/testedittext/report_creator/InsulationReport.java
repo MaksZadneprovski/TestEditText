@@ -312,7 +312,7 @@ public class InsulationReport {
 
         row = sheetInsulation.createRow(++countRow);
         cell = row.createCell(1);
-        cell.setCellValue("        Сопротивление изоляции проводов и кабелей соответствует требованиям ПУЭ и ПТЭЭП,");
+        cell.setCellValue("        Сопротивление изоляции проводов и кабелей соответствует требованиям ПТЭЭП прил. 3.1 табл. 37; ГОСТ Р 50571.16-2019,");
         cell.setCellStyle(style5);
 
         row = sheetInsulation.createRow(++countRow);
@@ -351,7 +351,7 @@ public class InsulationReport {
                 0, // начало столбца
                 16, // конец столбца
                 0, //начало строки
-                countRow - 1 // конец строки
+                countRow// конец строки
         );
 
         return wb;

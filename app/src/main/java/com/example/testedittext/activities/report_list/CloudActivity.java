@@ -45,19 +45,24 @@ public class CloudActivity extends AppCompatActivity implements ResponseReportLi
 
         progressBar.setVisibility(View.VISIBLE);
 
-        getRequest();
+
+        Bundle arguments = getIntent().getExtras();
+        String login = arguments.get("login").toString();
+        doRequest(login);
 
     }
 
-    public void getRequest(){
-        new Server().getReportEntityList("userid", this);
+    public void doRequest(String login){
+        new Server().getReportEntityList(login, this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.VISIBLE);
-        getRequest();
+        Bundle arguments = getIntent().getExtras();
+        String login = arguments.get("login").toString();
+        doRequest(login);
     }
 
 
@@ -65,8 +70,11 @@ public class CloudActivity extends AppCompatActivity implements ResponseReportLi
         progressBar.setVisibility(View.GONE);
         if (recyclerView == null)  recyclerView = findViewById(R.id.cloudrv);
         Collections.reverse(reportEntities);
+
+        Bundle arguments = getIntent().getExtras();
+        String login = arguments.get("login").toString();
         // Создаем адаптер и назначаем его  recyclerView
-        CloudAdapter adapter = new CloudAdapter(this, reportEntities);
+        CloudAdapter adapter = new CloudAdapter(this, reportEntities, login);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }

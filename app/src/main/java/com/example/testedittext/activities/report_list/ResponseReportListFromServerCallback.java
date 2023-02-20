@@ -7,3 +7,4 @@ import java.util.ArrayList;
 public interface ResponseReportListFromServerCallback {
     void callbackCall(ArrayList<ReportEntity> reportEntities);
 }
+

@@ -33,7 +33,7 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
     @Override
     public ReportListRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.report_rv_item, parent, false);
+                    .inflate(R.layout.report_rv_item, parent, false);
 
         if (context == null) context = parent.getContext();
 
@@ -63,7 +63,9 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
 
     @Override
     public int getItemCount() {
-        return reportInDBList.size();
+        if (reportInDBList!=null) {
+            return reportInDBList.size();
+        }else return 0;
     }
 
     public class ViewHolder  extends RecyclerView.ViewHolder{
