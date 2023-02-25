@@ -21,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
     private SharedPreferences.Editor editor;
     private ConstraintLayout clAuthor, clExit;
     private String login, pass;
-    private  EditText loginET, passET, ing, boss, pr_type, pr_zav_num, pr_range, pr_class_toch, pr_date_pos, pr_date_ocher, pr_num_attes, pr_organ;
+    private  EditText loginET, passET, ing, ing2, boss, pr_type, pr_zav_num, pr_range, pr_class_toch, pr_date_pos, pr_date_ocher, pr_num_attes, pr_organ;
     TextView tvLogin;
     private Context context;
     boolean authorize;
@@ -40,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         clExit = findViewById(R.id.constraintExit);
         tvLogin = findViewById(R.id.tvLogin);
         ing = findViewById(R.id.ing);
+        ing2 = findViewById(R.id.ing2);
         boss = findViewById(R.id.boss);
 
 
@@ -84,6 +85,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         super.onPause();
 
         String ingener = ing.getText().toString();
+        String ingener2 = ing2.getText().toString();
         String rukovoditel = boss.getText().toString();
 
         String  pr_num_attes_s= pr_num_attes.getText().toString();
@@ -96,6 +98,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         String pr_type_s = pr_type.getText().toString();
 
         editor.putString( "ingener", ingener );
+        editor.putString( "ingener2", ingener2 );
         editor.putString( "rukovoditel", rukovoditel );
 
         editor.putString( "numberSvid", pr_num_attes_s );
@@ -114,6 +117,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         authorize = sharedPreferences.getBoolean("authorize", false);
 
         String ingener  = sharedPreferences.getString("ingener", null);
+        String ingener2  = sharedPreferences.getString("ingener2", null);
         String rukovoditel = sharedPreferences.getString("rukovoditel", null);
 
         String pr_num_attes_s = sharedPreferences.getString("numberSvid", null);
@@ -125,6 +129,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         String pr_zav_num_s = sharedPreferences.getString("numberZav", null);
         String pr_type_s = sharedPreferences.getString("type", null);
         ing.setText(ingener);
+        ing2.setText(ingener2);
         boss.setText(rukovoditel);
 
         pr_num_attes.setText(pr_num_attes_s);

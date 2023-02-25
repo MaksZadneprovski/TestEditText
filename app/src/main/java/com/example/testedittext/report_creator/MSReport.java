@@ -266,6 +266,20 @@ public class MSReport {
         cell.setCellValue(param.get("ingener"));
         cell.setCellStyle(style5);
 
+        if (!param.get("ingener2").isEmpty()){
+            countRow += 2;
+            row = sheetMS.createRow(countRow);
+            cell = row.createCell(1);
+            cell.setCellValue("                                     Инженер");
+            cell.setCellStyle(style5);
+            cell = row.createCell(3);
+            cell.setCellValue("______");
+            cell.setCellStyle(style5);
+            cell = row.createCell(4);
+            cell.setCellValue(param.get("ingener2"));
+            cell.setCellStyle(style5);
+        }
+
         countRow += 2;
         row = sheetMS.createRow(countRow);
         cell = row.createCell(1);

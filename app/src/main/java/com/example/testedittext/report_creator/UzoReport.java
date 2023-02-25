@@ -305,7 +305,10 @@ public class UzoReport {
         countRow += 2;
         row = sheetUzo.createRow(countRow);
         cell = row.createCell(1);
-        cell.setCellValue("Испытания провели:   Инженер");
+        cell.setCellValue("Испытания провели:");
+        cell.setCellStyle(style5);
+        cell = row.createCell(2);
+        cell.setCellValue("Инженер");
         cell.setCellStyle(style5);
         cell = row.createCell(5);
         cell.setCellValue("______");
@@ -313,6 +316,20 @@ public class UzoReport {
         cell = row.createCell(8);
         cell.setCellValue(param.get("ingener"));
         cell.setCellStyle(style5);
+
+        if (!param.get("ingener2").isEmpty()){
+            countRow += 2;
+            row = sheetUzo.createRow(countRow);
+            cell = row.createCell(2);
+            cell.setCellValue("Инженер");
+            cell.setCellStyle(style5);
+            cell = row.createCell(5);
+            cell.setCellValue("______");
+            cell.setCellStyle(style5);
+            cell = row.createCell(8);
+            cell.setCellValue(param.get("ingener"));
+            cell.setCellStyle(style5);
+        }
 
         countRow += 2;
         row = sheetUzo.createRow(countRow);

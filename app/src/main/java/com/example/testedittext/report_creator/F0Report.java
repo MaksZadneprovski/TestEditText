@@ -1,5 +1,6 @@
 package com.example.testedittext.report_creator;
 
+import com.example.testedittext.R;
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
@@ -19,11 +20,15 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 public class F0Report {
 
+
     public static Workbook generateF0(Workbook wb, ReportEntity report, Map<String, String> param){
+
+        ArrayList<String> apparats = new ArrayList<>(Arrays.asList("Рубильник", "От шин"));
 
         Sheet sheetF0 = wb.getSheet("F0");
 
@@ -133,7 +138,7 @@ public class F0Report {
                         Group group = shieldGroups.get(j);
                         ////////////////////////////////////////////////////////////////////////
 
-                        if (!group.getAddress().isEmpty()) {
+                        if (!group.getAddress().isEmpty() && !apparats.contains(group.defenseApparatus)) {
 
                             row = sheetF0.createRow(countRow);
 
@@ -382,7 +387,10 @@ public class F0Report {
         countRow += 2;
         row = sheetF0.createRow(countRow);
         cell = row.createCell(1);
-        cell.setCellValue("Испытания провели:   Инженер");
+        cell.setCellValue("Испытания провели:");
+        cell.setCellStyle(style5);
+        cell = row.createCell(2);
+        cell.setCellValue("Инженер");
         cell.setCellStyle(style5);
         cell = row.createCell(6);
         cell.setCellValue("______");
@@ -391,10 +399,27 @@ public class F0Report {
         cell.setCellValue(param.get("ingener"));
         cell.setCellStyle(style5);
 
+        if (!param.get("ingener2").isEmpty()){
+            countRow += 2;
+            row = sheetF0.createRow(countRow);
+            cell = row.createCell(2);
+            cell.setCellValue("Инженер");
+            cell.setCellStyle(style5);
+            cell = row.createCell(6);
+            cell.setCellValue("______");
+            cell.setCellStyle(style5);
+            cell = row.createCell(12);
+            cell.setCellValue(param.get("ingener2"));
+            cell.setCellStyle(style5);
+        }
+
         countRow += 2;
         row = sheetF0.createRow(countRow);
         cell = row.createCell(1);
-        cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
+        cell.setCellValue("Протокол проверил:");
+        cell.setCellStyle(style5);
+        cell = row.createCell(2);
+        cell.setCellValue("Руководитель  лаборатории");
         cell.setCellStyle(style5);
         cell = row.createCell(6);
         cell.setCellValue("______");

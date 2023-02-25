@@ -89,20 +89,22 @@ public class Report {
         wb = WorkbookFactory.create(context.getResources().openRawResource(R.raw.report3));
 
         sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, context.MODE_PRIVATE);
-        String ingener = sharedPreferences.getString("ingener", null);
-        String rukovoditel = sharedPreferences.getString("rukovoditel", null);
+        String ingener = sharedPreferences.getString("ingener", "");
+        String ingener2 = sharedPreferences.getString("ingener2", "");
+        String rukovoditel = sharedPreferences.getString("rukovoditel", "");
 
-        String pr_num_attes_s = sharedPreferences.getString("numberSvid", null);
-        String pr_organ_s = sharedPreferences.getString("organ", null);
-        String pr_range_s = sharedPreferences.getString("range", null);
-        String pr_date_pos_s = sharedPreferences.getString("lastDate", null);
-        String pr_date_ocher_s = sharedPreferences.getString("nextDate", null);
-        String pr_class_toch_s = sharedPreferences.getString("class_toch", null);
-        String pr_zav_num_s = sharedPreferences.getString("numberZav", null);
-        String pr_type_s = sharedPreferences.getString("type", null);
+        String pr_num_attes_s = sharedPreferences.getString("numberSvid", "");
+        String pr_organ_s = sharedPreferences.getString("organ", "");
+        String pr_range_s = sharedPreferences.getString("range", "");
+        String pr_date_pos_s = sharedPreferences.getString("lastDate", "");
+        String pr_date_ocher_s = sharedPreferences.getString("nextDate", "");
+        String pr_class_toch_s = sharedPreferences.getString("class_toch", "");
+        String pr_zav_num_s = sharedPreferences.getString("numberZav", "");
+        String pr_type_s = sharedPreferences.getString("type", ""   );
 
         Map<String, String> param = new HashMap<>();
         param.put("ingener", ingener);
+        param.put("ingener2", ingener2);
         param.put("rukovoditel", rukovoditel);
 
         param.put("numberSvid", pr_num_attes_s);

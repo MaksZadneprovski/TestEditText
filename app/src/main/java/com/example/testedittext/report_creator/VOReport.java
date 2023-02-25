@@ -71,6 +71,11 @@ public class VOReport {
         cell.setCellValue(param.get("ingener"));
         cell.setCellStyle(style3);
 
+        row = sheetVO.getRow(30);
+        cell = row.createCell(4);
+        cell.setCellValue(param.get("ingener2"));
+        cell.setCellStyle(style3);
+
         // Руководитель
         row = sheetVO.getRow(35);
         cell = row.createCell(4);

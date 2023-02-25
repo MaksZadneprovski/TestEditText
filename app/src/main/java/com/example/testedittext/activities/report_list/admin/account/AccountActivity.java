@@ -25,7 +25,7 @@ public class AccountActivity extends AppCompatActivity implements ResponseUserLi
 
         FloatingActionButton addNewAccount =  findViewById(R.id.addNewAccount);
         addNewAccount.setColorFilter(Color.argb(255, 255, 255, 255));
-        addNewAccount.setOnClickListener(new NewAccountAdder());
+        addNewAccount.setOnClickListener(new NewAccountAdder(this));
         rv =  findViewById(R.id.rv);
 
         setAdapter();
@@ -41,7 +41,7 @@ public class AccountActivity extends AppCompatActivity implements ResponseUserLi
         if (rv == null)  rv = findViewById(R.id.report_rv);
 
         // Создаем адаптер и назначаем его  recyclerView
-        UserListRVAdapter adapter = new UserListRVAdapter(userList);
+        UserListRVAdapter adapter = new UserListRVAdapter(userList, this);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
     }
@@ -49,5 +49,10 @@ public class AccountActivity extends AppCompatActivity implements ResponseUserLi
     @Override
     public void callbackCall(List<UserPojo> userPojos) {
         changeAdapter(userPojos);
+    }
+
+
+    public void updateList() {
+        new Server().getUserEntityList(this);
     }
 }

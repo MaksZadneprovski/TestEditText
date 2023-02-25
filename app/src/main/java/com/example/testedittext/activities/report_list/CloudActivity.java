@@ -39,9 +39,9 @@ public class CloudActivity extends AppCompatActivity implements ResponseReportLi
             this.finish();
         }
 
-        TextView tvLocal =  findViewById(R.id.tvLocal);
+        //TextView tvLocal =  findViewById(R.id.tvLocal);
         progressBar =  findViewById(R.id.progressBar);
-        tvLocal.setOnClickListener(view -> finish());
+        //tvLocal.setOnClickListener(view -> finish());
 
         progressBar.setVisibility(View.VISIBLE);
 

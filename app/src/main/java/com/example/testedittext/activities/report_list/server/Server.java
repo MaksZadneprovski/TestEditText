@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import com.example.testedittext.activities.report_list.AuthorizeCallback;
 import com.example.testedittext.activities.report_list.ResponseReportListFromServerCallback;
 import com.example.testedittext.activities.report_list.ResponseUserListFromServerCallback;
+import com.example.testedittext.activities.report_list.admin.account.AccountActivity;
 import com.example.testedittext.entities.Pojo;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.utils.Storage;
@@ -127,11 +128,13 @@ public class Server {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    String result = response.body().string();
-                    if (result.equals("ok")) {
-                        editor.putBoolean("authorize", true);
-                        editor.apply();
-                        authorizeCallback.callbackCall();
+                    if (response.body()!=null){
+                        String result = response.body().string();
+                        if (result.equals("ok")) {
+                            editor.putBoolean("authorize", true);
+                            editor.apply();
+                            authorizeCallback.callbackCall();
+                        }
                     }
                 } catch (IOException e) {e.printStackTrace();}
             }
@@ -151,7 +154,7 @@ public class Server {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     String result = response.body().string();
-                    if (result.equals("ok")) {
+                    if (result!=null && result.equals("ok")) {
                         setResult(true);
                     }
                 } catch (IOException e) {e.printStackTrace();}
@@ -164,7 +167,7 @@ public class Server {
         return result;
     }
 
-    public  boolean createUser(String login, String pass) {
+    public  boolean createUser(String login, String pass, AccountActivity accountActivity) {
 
         Call<ResponseBody> call = getServerService().createUser(login, pass);
         call.enqueue(new Callback<ResponseBody>() {
@@ -173,7 +176,7 @@ public class Server {
                 try {
                     String result = response.body().string();
                     if (result.equals("saved")) {
-
+                        accountActivity.updateList();
                     }
                 } catch (IOException e) {e.printStackTrace();}
             }
@@ -185,16 +188,19 @@ public class Server {
         return result;
     }
 
-    public  boolean deleteUser(String login) {
+    public  boolean deleteUser(String login,AccountActivity accountActivity ) {
 
         Call<ResponseBody> call = getServerService().deleteUser(login);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    String result = response.body().string();
-                    if (result.equals("deleted")) {
-
+                    if (response.body()!=null){
+                        String s = response.body().string();
+                        if (s!= null && s.equals("deleted")) {
+                            result = true;
+                            accountActivity.updateList();
+                        }
                     }
                 } catch (IOException e) {e.printStackTrace();}
             }

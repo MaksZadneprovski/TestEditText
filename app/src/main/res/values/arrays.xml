@@ -78,6 +78,8 @@
         <item>Автомат + УЗО</item>
         <item>УЗО</item>
         <item>Предохранитель</item>
+        <item>Рубильник</item>
+        <item>От шин</item>
     </string-array>
 
     <string-array name="releaseType">

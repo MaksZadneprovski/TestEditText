@@ -342,6 +342,9 @@ public class AvtomatReport {
         cell = row.createCell(1);
         cell.setCellValue("Испытания провели:   Инженер");
         cell.setCellStyle(style5);
+        cell = row.createCell(2);
+        cell.setCellValue("Инженер");
+        cell.setCellStyle(style5);
         cell = row.createCell(7);
         cell.setCellValue("______");
         cell.setCellStyle(style5);
@@ -349,10 +352,27 @@ public class AvtomatReport {
         cell.setCellValue(param.get("ingener"));
         cell.setCellStyle(style5);
 
+        if (!param.get("ingener2").isEmpty()){
+            countRow += 2;
+            row = sheetAvtomat.createRow(countRow);
+            cell = row.createCell(2);
+            cell.setCellValue("Инженер");
+            cell.setCellStyle(style5);
+            cell = row.createCell(7);
+            cell.setCellValue("______");
+            cell.setCellStyle(style5);
+            cell = row.createCell(13);
+            cell.setCellValue(param.get("ingener2"));
+            cell.setCellStyle(style5);
+        }
+
         countRow += 2;
         row = sheetAvtomat.createRow(countRow);
         cell = row.createCell(1);
-        cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
+        cell.setCellValue("Протокол проверил:");
+        cell.setCellStyle(style5);
+        cell = row.createCell(2);
+        cell.setCellValue("Руководитель  лаборатории");
         cell.setCellStyle(style5);
         cell = row.createCell(7);
         cell.setCellValue("______");

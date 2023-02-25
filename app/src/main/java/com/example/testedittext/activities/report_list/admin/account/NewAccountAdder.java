@@ -14,6 +14,12 @@ import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.server.Server;
 
 public class NewAccountAdder implements View.OnClickListener {
+    AccountActivity accountActivity;
+
+    public NewAccountAdder(AccountActivity accountActivity) {
+        this.accountActivity = accountActivity;
+    }
+
     @Override
     public void onClick(View view) {
 
@@ -38,7 +44,8 @@ public class NewAccountAdder implements View.OnClickListener {
                     boolean checkuserbylogin = new Server().checkuserbylogin(login);
 
                     if (!checkuserbylogin) {
-                        new Server().createUser(login, pass);
+                        new Server().createUser(login, pass,accountActivity) ;
+
                     }else {
                         Toast toast = Toast.makeText(view.getContext(), "Пользователь с таким именем уже существует!",Toast.LENGTH_LONG);
                         toast.show();

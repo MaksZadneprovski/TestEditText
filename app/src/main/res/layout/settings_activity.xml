@@ -179,12 +179,30 @@
                     tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
                 <TextView
+                    android:id="@+id/tv221"
+                    style="@style/TVForTitleInf"
+                    android:text="Инженер"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ing" />
+
+                <EditText
+                    android:id="@+id/ing2"
+                    style="@style/ETForBasicInf"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:ems="20"
+                    android:inputType="text"
+                    app:layout_constraintTop_toBottomOf="@+id/tv221"
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                <TextView
                     android:id="@+id/tv23"
                     style="@style/TVForTitleInf"
                     android:text="Руководитель лаборатории"
                     android:layout_marginTop="15dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ing" />
+                    app:layout_constraintTop_toBottomOf="@+id/ing2" />
 
                 <EditText
                     android:id="@+id/boss"
