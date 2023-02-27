@@ -55,8 +55,14 @@ public class ReportListActivity extends AppCompatActivity {
         sort.setColorFilter(Color.argb(255, 255, 255, 255));
         settings.setColorFilter(Color.argb(255, 255, 255, 255));
 
-        if (!login.equals("Admin")) admin.setVisibility(View.VISIBLE);
+        String adminName = getResources().getString(R.string.admin);
+
+        if (login.equals(adminName)) {
+            admin.setVisibility(View.VISIBLE);
+        }
         else admin.setVisibility(View.INVISIBLE);
+
+
 
         setAdapter();
 
@@ -86,8 +92,9 @@ public class ReportListActivity extends AppCompatActivity {
         setAdapter();
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         String login = sharedPreferences.getString("login", "");
+        String adminName = getResources().getString(R.string.admin);
         FloatingActionButton admin =  findViewById(R.id.admin);
-        if (!login.equals("Admin")) admin.setVisibility(View.VISIBLE);
+        if (login.equals(adminName)) admin.setVisibility(View.VISIBLE);
         else admin.setVisibility(View.INVISIBLE);
     }
 

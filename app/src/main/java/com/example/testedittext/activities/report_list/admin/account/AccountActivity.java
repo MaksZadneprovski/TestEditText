@@ -14,6 +14,7 @@ import com.example.testedittext.activities.report_list.server.UserPojo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountActivity extends AppCompatActivity implements ResponseUserListFromServerCallback {
     RecyclerView rv;
@@ -40,8 +41,11 @@ public class AccountActivity extends AppCompatActivity implements ResponseUserLi
 
         if (rv == null)  rv = findViewById(R.id.report_rv);
 
+        String admin = getResources().getString(R.string.admin);
+        List<UserPojo> filtredUserList = userList.stream().filter(x -> !x.getLogin().equals(admin)).collect(Collectors.toList());
+
         // Создаем адаптер и назначаем его  recyclerView
-        UserListRVAdapter adapter = new UserListRVAdapter(userList, this);
+        UserListRVAdapter adapter = new UserListRVAdapter(filtredUserList, this);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
     }
