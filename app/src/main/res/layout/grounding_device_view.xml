@@ -25,7 +25,7 @@
     <EditText
         android:id="@+id/et2"
         style="@style/ETForGroupRVItem"
-        android:inputType="numberDecimal"
+        android:inputType="textCapSentences"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:layout_width="90dp"

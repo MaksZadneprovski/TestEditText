@@ -7,8 +7,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
@@ -25,6 +28,8 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
     TextView tvLogin;
     private Context context;
     boolean authorize;
+    Spinner spinner;
+    String[] variants = { "Без сопровождения", "Божественная симфония Бориса","Бандитская","Рэп", "Татарская", "Добрая"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         pr_range = findViewById(R.id.pr_range);
         pr_organ = findViewById(R.id.pr_organ);
         pr_num_attes = findViewById(R.id.pr_num_attes);
+        spinner = findViewById(R.id.spinner);
 
 
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
@@ -78,6 +84,29 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
             passET.setText("");
             setVisibility();
         });
+
+
+
+
+
+
+
+        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                // Получаем выбранный объект
+                String item = (String)parent.getItemAtPosition(position);
+                editor.putString( "music", item );
+                editor.putInt( "musicNum", position );
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        };
+        spinner.setOnItemSelectedListener(itemSelectedListener);
     }
 
     @Override
@@ -128,6 +157,9 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         String pr_class_toch_s = sharedPreferences.getString("class_toch", null);
         String pr_zav_num_s = sharedPreferences.getString("numberZav", null);
         String pr_type_s = sharedPreferences.getString("type", null);
+
+        int musicNum = sharedPreferences.getInt("musicNum", 0);
+
         ing.setText(ingener);
         ing2.setText(ingener2);
         boss.setText(rukovoditel);
@@ -140,6 +172,17 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         pr_class_toch.setText(pr_class_toch_s);
         pr_zav_num.setText(pr_zav_num_s);
         pr_type.setText(pr_type_s);
+
+
+
+        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, variants);
+        // Определяем разметку для использования при выборе элемента
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Применяем адаптер к элементу spinner
+        spinner.setAdapter(adapter);
+        spinner.setSelection(musicNum);
+
         if (!authorize){
             clExit.setVisibility(View.INVISIBLE);
             clAuthor.setVisibility(View.VISIBLE);

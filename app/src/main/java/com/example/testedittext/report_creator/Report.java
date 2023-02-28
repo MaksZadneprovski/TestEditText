@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.testedittext.R;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.enums.TypeOfWork;
+import com.example.testedittext.utils.MusicPlayer;
 
 
 import org.apache.poi.hssf.usermodel.HeaderFooter;
@@ -84,6 +85,10 @@ public class Report {
 
 
     public void generateReport() throws IOException {
+
+        MusicPlayer musicPlayer = new MusicPlayer(context);
+        musicPlayer.play();
+
 
         Workbook wb;
         wb = WorkbookFactory.create(context.getResources().openRawResource(R.raw.report3));
@@ -183,6 +188,7 @@ public class Report {
             wb.write(fileOut);
         }
         wb.close();
+
     }
 
 

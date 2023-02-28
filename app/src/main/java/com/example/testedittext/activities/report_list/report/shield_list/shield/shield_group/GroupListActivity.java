@@ -21,6 +21,7 @@ import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.utils.AddViewAndObjectToList;
 import com.example.testedittext.utils.DeleteViewAndObjectFromList;
 import com.example.testedittext.utils.CopyClick;
+import com.example.testedittext.utils.MusicPlayer;
 import com.example.testedittext.utils.Storage;
 import com.example.testedittext.visual.InstantAutoComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,6 +38,9 @@ public class GroupListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_list_activity);
+
+        MusicPlayer musicPlayer = new MusicPlayer(this);
+        musicPlayer.play();
 
         // Кнопка Добавить группы
         FloatingActionButton addGroup =  findViewById(R.id.addGroup);

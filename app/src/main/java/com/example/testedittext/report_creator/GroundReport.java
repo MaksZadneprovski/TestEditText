@@ -132,66 +132,69 @@ public class GroundReport {
 
                         GroundingDevice groundingDevice = groundingDevices.get(i);
 
-                        row = sheetGround.createRow(countRow);
+                        if (!groundingDevice.getDestination().isEmpty() && !groundingDevice.getPlace().isEmpty()){
 
-                        // Столбец пункт
-                        cell = row.createCell(1);
-                        cell.setCellValue(paragraph++);
-                        cell.setCellStyle(style);
+                            row = sheetGround.createRow(countRow);
 
-                        // Столбец Назначение заземлителя
-                        cell = row.createCell(2);
-                        cell.setCellValue(groundingDevice.getDestination());
-                        cell.setCellStyle(style);
+                            // Столбец пункт
+                            cell = row.createCell(1);
+                            cell.setCellValue(paragraph++);
+                            cell.setCellStyle(style);
 
-                        // Столбец Место проверки
-                        cell = row.createCell(3);
-                        cell.setCellValue(groundingDevice.getPlace());
-                        cell.setCellStyle(style);
+                            // Столбец Назначение заземлителя
+                            cell = row.createCell(2);
+                            cell.setCellValue(groundingDevice.getDestination());
+                            cell.setCellStyle(style);
 
-                        // Столбец Расстояние до потенциальных и токовых электродов
-                        cell = row.createCell(4);
-                        if (groundingDevice.getDistanceToElectrodes().isEmpty()) {
-                            cell.setCellValue("20");
-                        } else {
-                            cell.setCellValue(groundingDevice.getDistanceToElectrodes());
+                            // Столбец Место проверки
+                            cell = row.createCell(3);
+                            cell.setCellValue(groundingDevice.getPlace());
+                            cell.setCellStyle(style);
+
+                            // Столбец Расстояние до потенциальных и токовых электродов
+                            cell = row.createCell(4);
+                            if (groundingDevice.getDistanceToElectrodes().isEmpty()) {
+                                cell.setCellValue("20");
+                            } else {
+                                cell.setCellValue(groundingDevice.getDistanceToElectrodes());
+                            }
+                            cell.setCellStyle(style);
+
+                            // Столбец Доп.
+                            cell = row.createCell(5);
+
+                            if (groundingDevice.getDopustR().isEmpty()) {
+                                cell.setCellValue("4");
+                            } else {
+                                cell.setCellValue(groundingDevice.getDopustR());
+                            }
+                            cell.setCellStyle(style);
+
+                            // Столбец Изм.
+                            cell = row.createCell(6);
+                            cell.setCellValue(groundingDevice.getIzmerR());
+                            cell.setCellStyle(style);
+
+                            // Столбец Привед.
+                            cell = row.createCell(7);
+                            cell.setCellFormula(ExcelFormula.getPrivedSoprotivZazemlen(countRow));
+                            cell.setCellStyle(style);
+
+                            // Столбец Коэф. сезонности
+                            cell = row.createCell(8);
+                            cell.setCellValue(ground.getSeazonKoef());
+                            cell.setCellStyle(style);
+
+                            // Столбец соотв
+                            cell = row.createCell(9);
+                            cell.setCellValue("соотв.");
+                            cell.setCellStyle(style);
+
+                            cell = row.createCell(10);
+                            cell.setCellStyle(styleEndTable);
+
+                            countRow++;
                         }
-                        cell.setCellStyle(style);
-
-                        // Столбец Доп.
-                        cell = row.createCell(5);
-
-                        if (groundingDevice.getDopustR().isEmpty()) {
-                            cell.setCellValue("4");
-                        } else {
-                            cell.setCellValue(groundingDevice.getDopustR());
-                        }
-                        cell.setCellStyle(style);
-
-                        // Столбец Изм.
-                        cell = row.createCell(6);
-                        cell.setCellValue(groundingDevice.getIzmerR());
-                        cell.setCellStyle(style);
-
-                        // Столбец Привед.
-                        cell = row.createCell(7);
-                        cell.setCellFormula(ExcelFormula.getPrivedSoprotivZazemlen(countRow));
-                        cell.setCellStyle(style);
-
-                        // Столбец Коэф. сезонности
-                        cell = row.createCell(8);
-                        cell.setCellValue(ground.getSeazonKoef());
-                        cell.setCellStyle(style);
-
-                        // Столбец соотв
-                        cell = row.createCell(9);
-                        cell.setCellValue("соотв.");
-                        cell.setCellStyle(style);
-
-                        cell = row.createCell(10);
-                        cell.setCellStyle(styleEndTable);
-
-                        countRow++;
                     }
                 }
 
