@@ -3,6 +3,7 @@ package com.example.testedittext.report_creator;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.enums.TypeOfWork;
 import com.example.testedittext.utils.ExcelData;
+import com.example.testedittext.utils.Storage;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -21,7 +22,12 @@ import java.util.Set;
 
 public class ContentReport {
 
+    static int countRow = 13;
+    static Row row;
+    static Cell cell;
 
+    // Высота строки
+    static int strokeHeigth = 3;
 
     public static Workbook generateContent(Workbook wb, ReportEntity report, Map<String, String> param) {
         Sheet sheetContent = wb.getSheet("Soderzh");
@@ -29,15 +35,6 @@ public class ContentReport {
         // Заполняем строки заказчик, объект, адрес, дата
         Report.fillMainData(sheetContent, 9, report, wb);
 
-
-        Row row;
-        Cell cell;
-
-        // Высота строки
-        int strokeHeigth = 3;
-
-        int protocolNumber = 1;
-        int countRow = 13;
         String text = "ПРОТОКОЛ № ";
 
 
@@ -52,6 +49,21 @@ public class ContentReport {
         font12.setFontHeightInPoints((short)12);
         font12.setFontName("Times New Roman");
         font12.setUnderline(Font.U_SINGLE);
+
+        Font font18 = wb.createFont();
+        font12.setFontHeightInPoints((short)18);
+        font12.setFontName("Times New Roman");
+
+
+        Font fontForSurname = wb.createFont();
+        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontName("Times New Roman");
+        fontForSurname.setUnderline((byte) 1);
+
+        CellStyle styleForSurname;
+        styleForSurname = wb.createCellStyle();
+        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
+        styleForSurname.setFont(fontForSurname);
 
         CellStyle style;
         style = wb.createCellStyle();
@@ -78,6 +90,9 @@ public class ContentReport {
         style2.setLeftBorderColor(IndexedColors.BLACK.getIndex());
         style2.setBorderTop(BorderStyle.THIN);
         style2.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style2.setFont(font18);
+        style2.setAlignment(HorizontalAlignment.CENTER);
+        style2.setVerticalAlignment(VerticalAlignment.CENTER);
 
         CellStyle style3;
         style3 = wb.createCellStyle();
@@ -86,342 +101,61 @@ public class ContentReport {
         style3.setWrapText(false);
 
 
-
         Set<TypeOfWork> type_of_work = report.getType_of_work();
 
+
         // Программа испытаний
-        row = sheetContent.createRow(countRow);
-        cell = row.createCell(0);
-        cell.setCellValue("Программа испытаний");
-        cell.setCellStyle(style);
-
-        for (int i = 1; i < 9; i++) {
-            cell = row.createCell(i);
-            cell.setCellStyle(style);
-        }
-
-        // Объединяем столбцы для вставки названия щита
-        sheetContent.addMergedRegion(new CellRangeAddress(
-                countRow, //first row (0-based)
-                countRow, //last row  (0-based)
-                0, //first column (0-based)
-                8  //last column  (0-based)
-        ));
-
-        cell = row.createCell(9);
-        cell.setCellStyle(style2);
-
-        //увеличиваем высоту строки, чтобы вместить две строки текста
-        row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-        countRow++;
+        generateStroke(sheetContent, 1,style,style2, "Программа испытаний");
 
         // Визуальный осмотр
         if (type_of_work!=null) {
             if (type_of_work.contains(TypeOfWork.Visual)) {
-
-                row = sheetContent.createRow(countRow);
-                cell = row.createCell(0);
-                cell.setCellValue(text + protocolNumber + " Визуального осмотра");
-                cell.setCellStyle(style);
-                // Присваиваем номер протоколу
-                ExcelData.numberVOProtocol = protocolNumber;
-
-                for (int i = 1; i < 9; i++) {
-                    cell = row.createCell(i);
-                    cell.setCellStyle(style);
-                }
-
-                // Объединяем столбцы для вставки названия щита
-                sheetContent.addMergedRegion(new CellRangeAddress(
-                        countRow, //first row (0-based)
-                        countRow, //last row  (0-based)
-                        0, //first column (0-based)
-                        8  //last column  (0-based)
-                ));
-
-                cell = row.createCell(9);
-                cell.setCellStyle(style2);
-
-                //увеличиваем высоту строки, чтобы вместить две строки текста
-                row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-                countRow++;
-                protocolNumber++;
+                generateStroke(sheetContent, 1,style,style2, text + ExcelData.numberVOProtocol + " Визуального осмотра" );
             }
 
             // Метсвязь
-            if (type_of_work.contains(TypeOfWork.Visual)) {
-
-                row = sheetContent.createRow(countRow);
-                cell = row.createCell(0);
-                cell.setCellValue(text + protocolNumber + " Проверки наличия цепи между заземленными установками и элементами заземленной установки");
-                cell.setCellStyle(style);
-
-                // Присваиваем номер протоколу
-                ExcelData.numberMSProtocol = protocolNumber;
-
-                for (int i = 1; i < 9; i++) {
-                    cell = row.createCell(i);
-                    cell.setCellStyle(style);
-                }
-
-                // Объединяем столбцы для вставки названия щита
-                sheetContent.addMergedRegion(new CellRangeAddress(
-                        countRow, //first row (0-based)
-                        countRow, //last row  (0-based)
-                        0, //first column (0-based)
-                        8  //last column  (0-based)
-                ));
-
-                cell = row.createCell(9);
-                cell.setCellStyle(style2);
-
-                //увеличиваем высоту строки, чтобы вместить две строки текста
-                row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-                countRow++;
-                protocolNumber++;
+            if (type_of_work.contains(TypeOfWork.MetallicBond)) {
+                generateStroke(sheetContent, Storage.pagesCountMS,style,style2, text + ExcelData.numberMSProtocol + " Проверки наличия цепи между заземленными установками и элементами заземленной установки" );
             }
 
             // Изоляция
             if (type_of_work.contains(TypeOfWork.Insulation)) {
-                row = sheetContent.createRow(countRow);
-                cell = row.createCell(0);
-                cell.setCellValue(text + protocolNumber + " Проверки сопротивления изоляции проводов, кабелей и обмоток электрических машин");
-                cell.setCellStyle(style);
-
-                // Присваиваем номер протоколу
-                ExcelData.numberInsulationProtocol = protocolNumber;
-
-                for (int i = 1; i < 9; i++) {
-                    cell = row.createCell(i);
-                    cell.setCellStyle(style);
-                }
-
-                // Объединяем столбцы для вставки названия щита
-                sheetContent.addMergedRegion(new CellRangeAddress(
-                        countRow, //first row (0-based)
-                        countRow, //last row  (0-based)
-                        0, //first column (0-based)
-                        8  //last column  (0-based)
-                ));
-
-                cell = row.createCell(9);
-                cell.setCellStyle(style2);
-
-                //увеличиваем высоту строки, чтобы вместить две строки текста
-                row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-                countRow++;
-                protocolNumber++;
+                generateStroke(sheetContent, Storage.pagesCountInsulation,style,style2, text + ExcelData.numberInsulationProtocol + " Проверки сопротивления изоляции проводов, кабелей и обмоток электрических машин" );
             }
 
             // Петля
             if (type_of_work.contains(TypeOfWork.PhaseZero)) {
-                row = sheetContent.createRow(countRow);
-                cell = row.createCell(0);
-                cell.setCellValue(text + protocolNumber + " Проверки согласования параметров цепи «фаза – нуль» с характеристиками аппаратов  защиты и непрерывности защитных проводников");
-                cell.setCellStyle(style);
-
-                // Присваиваем номер протоколу
-                ExcelData.numberF0Protocol = protocolNumber;
-
-                for (int i = 1; i < 9; i++) {
-                    cell = row.createCell(i);
-                    cell.setCellStyle(style);
-                }
-
-                // Объединяем столбцы для вставки названия щита
-                sheetContent.addMergedRegion(new CellRangeAddress(
-                        countRow, //first row (0-based)
-                        countRow, //last row  (0-based)
-                        0, //first column (0-based)
-                        8  //last column  (0-based)
-                ));
-
-                cell = row.createCell(9);
-                cell.setCellStyle(style2);
-
-                //увеличиваем высоту строки, чтобы вместить две строки текста
-                row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-                countRow++;
-                protocolNumber++;
+                generateStroke(sheetContent, Storage.pagesCountF0,style,style2, text + ExcelData.numberF0Protocol + " Проверки согласования параметров цепи «фаза – нуль» с характеристиками аппаратов  защиты и непрерывности защитных проводников" );
             }
-
 
             // УЗО
             if (type_of_work.contains(TypeOfWork.Uzo)) {
-                row = sheetContent.createRow(countRow);
-                cell = row.createCell(0);
-                cell.setCellValue(text + protocolNumber + " Проверки работы устройства защитного отключения (УЗО)");
-                cell.setCellStyle(style);
-
-                // Присваиваем номер протоколу
-                ExcelData.numberUzoProtocol = protocolNumber;
-
-                for (int i = 1; i < 9; i++) {
-                    cell = row.createCell(i);
-                    cell.setCellStyle(style);
-                }
-
-                // Объединяем столбцы для вставки названия щита
-                sheetContent.addMergedRegion(new CellRangeAddress(
-                        countRow, //first row (0-based)
-                        countRow, //last row  (0-based)
-                        0, //first column (0-based)
-                        8  //last column  (0-based)
-                ));
-
-                cell = row.createCell(9);
-                cell.setCellStyle(style2);
-
-                //увеличиваем высоту строки, чтобы вместить две строки текста
-                row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-                countRow++;
-                protocolNumber++;
+                generateStroke(sheetContent, Storage.pagesCountUzo,style,style2, text + ExcelData.numberUzoProtocol + " Проверки работы устройства защитного отключения (УЗО)" );
             }
 
             // Прогрузка
             if (type_of_work.contains(TypeOfWork.Avtomat)) {
-                row = sheetContent.createRow(countRow);
-                cell = row.createCell(0);
-                cell.setCellValue(text + protocolNumber + " Проверка действия расцепителей автоматических выключателей до 1000 В");
-                cell.setCellStyle(style);
-
-                // Присваиваем номер протоколу
-                ExcelData.numberAvtomatProtocol = protocolNumber;
-
-                for (int i = 1; i < 9; i++) {
-                    cell = row.createCell(i);
-                    cell.setCellStyle(style);
-                }
-
-                // Объединяем столбцы для вставки названия щита
-                sheetContent.addMergedRegion(new CellRangeAddress(
-                        countRow, //first row (0-based)
-                        countRow, //last row  (0-based)
-                        0, //first column (0-based)
-                        8  //last column  (0-based)
-                ));
-
-                cell = row.createCell(9);
-                cell.setCellStyle(style2);
-
-                //увеличиваем высоту строки, чтобы вместить две строки текста
-                row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-                countRow++;
-                protocolNumber++;
+                generateStroke(sheetContent, Storage.pagesCountAvtomat,style,style2, text + ExcelData.numberAvtomatProtocol + " Проверка действия расцепителей автоматических выключателей до 1000 В" );
             }
 
             // Заземление
             if (type_of_work.contains(TypeOfWork.Grounding)) {
-                row = sheetContent.createRow(countRow);
-                cell = row.createCell(0);
-                cell.setCellValue(text + protocolNumber + " Проверка сопротивлений заземлителей и заземляющих устройств");
-                cell.setCellStyle(style);
-
-                // Присваиваем номер протоколу
-                ExcelData.numberGroundingProtocol = protocolNumber;
-
-                for (int i = 1; i < 9; i++) {
-                    cell = row.createCell(i);
-                    cell.setCellStyle(style);
-                }
-
-                // Объединяем столбцы для вставки названия щита
-                sheetContent.addMergedRegion(new CellRangeAddress(
-                        countRow, //first row (0-based)
-                        countRow, //last row  (0-based)
-                        0, //first column (0-based)
-                        8  //last column  (0-based)
-                ));
-
-                cell = row.createCell(9);
-                cell.setCellStyle(style2);
-
-                //увеличиваем высоту строки, чтобы вместить две строки текста
-                row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-                countRow++;
-                protocolNumber++;
+                generateStroke(sheetContent, Storage.pagesCountGround,style,style2, text + ExcelData.numberGroundingProtocol + " Проверка сопротивлений заземлителей и заземляющих устройств" );
             }
         }
 
         // Ведомость  дефектов
-        row = sheetContent.createRow(countRow);
-        cell = row.createCell(0);
-        cell.setCellValue("Ведомость  дефектов");
-        cell.setCellStyle(style);
-
-        for (int i = 1; i < 9; i++) {
-            cell = row.createCell(i);
-            cell.setCellStyle(style);
-        }
-
-        // Объединяем столбцы для вставки названия щита
-        sheetContent.addMergedRegion(new CellRangeAddress(
-                countRow, //first row (0-based)
-                countRow, //last row  (0-based)
-                0, //first column (0-based)
-                8  //last column  (0-based)
-        ));
-
-        cell = row.createCell(9);
-        cell.setCellStyle(style2);
-
-        //увеличиваем высоту строки, чтобы вместить две строки текста
-        row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-        countRow++;
+        generateStroke(sheetContent, 1,style,style2, "Ведомость  дефектов" );
 
         // Заключение
-        row = sheetContent.createRow(countRow);
-        cell = row.createCell(0);
-        cell.setCellValue("Заключение");
-        cell.setCellStyle(style);
-
-        for (int i = 1; i < 9; i++) {
-            cell = row.createCell(i);
-            cell.setCellStyle(style);
-        }
-
-        // Объединяем столбцы для вставки названия щита
-        sheetContent.addMergedRegion(new CellRangeAddress(
-                countRow, //first row (0-based)
-                countRow, //last row  (0-based)
-                0, //first column (0-based)
-                8  //last column  (0-based)
-        ));
-
-        cell = row.createCell(9);
-        cell.setCellStyle(style2);
-
-        //увеличиваем высоту строки, чтобы вместить две строки текста
-        row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
-        countRow++;
+        generateStroke(sheetContent, 1,style,style2, "Заключение" );
 
         // Свидетельства
-        row = sheetContent.createRow(countRow);
-        cell = row.createCell(0);
-        cell.setCellValue("Свидетельства");
-        cell.setCellStyle(style);
+        generateStroke(sheetContent, 2,style,style2, "Свидетельства" );
 
-        for (int i = 1; i < 9; i++) {
-            cell = row.createCell(i);
-            cell.setCellStyle(style);
-        }
-
-        // Объединяем столбцы для вставки названия щита
-        sheetContent.addMergedRegion(new CellRangeAddress(
-                countRow, //first row (0-based)
-                countRow, //last row  (0-based)
-                0, //first column (0-based)
-                8  //last column  (0-based)
-        ));
-
-        cell = row.createCell(9);
-        cell.setCellStyle(style2);
-
-        //увеличиваем высоту строки, чтобы вместить две строки текста
-        row.setHeightInPoints((strokeHeigth * sheetContent.getDefaultRowHeightInPoints()));
 
         // Руководитель
-        row = sheetContent.getRow(40);
+        row = sheetContent.getRow(57);
         cell = row.createCell(8);
         cell.setCellValue(param.get("rukovoditel"));
         cell.setCellStyle(style3);
@@ -437,5 +171,43 @@ public class ContentReport {
 
         return wb;
 
+    }
+
+    static void generateStroke(Sheet sheet, int pagesCount, CellStyle style, CellStyle style2, String text){
+
+        row = sheet.createRow(countRow);
+        cell = row.createCell(0);
+        cell.setCellValue(text);
+        cell.setCellStyle(style);
+
+        // Пробегаемся по ячейкам в строке, которые будут объединены, дабы их создать и не ловить налпоинтер
+        for (int i = 1; i < 9; i++) {
+            cell = row.createCell(i);
+            cell.setCellStyle(style);
+        }
+
+        // Объединяем столбцы в строке
+        sheet.addMergedRegion(new CellRangeAddress(
+                countRow, //first row (0-based)
+                countRow, //last row  (0-based)
+                0, //first column (0-based)
+                8  //last column  (0-based)
+        ));
+
+        // Создаем ячейку, чтобы вставить номер страницы
+        cell = row.createCell(9);
+
+        //Вставляем номер страницы, с которой начинается протокол. То есть сумма предыдущих страниц
+        cell.setCellValue(Storage.pagesCountTotal);
+
+        // Плюсуем к сумме страниц, кол-во стр. в этом протоколе
+        Storage.pagesCountTotal += pagesCount;
+
+        cell.setCellStyle(style2);
+
+        //увеличиваем высоту строки, чтобы вместить две строки текста
+        row.setHeightInPoints((strokeHeigth * sheet.getDefaultRowHeightInPoints()));
+
+        countRow++;
     }
 }

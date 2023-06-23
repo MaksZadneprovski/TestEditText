@@ -15,14 +15,11 @@ import com.example.testedittext.activities.report_list.report.basic_information.
 import com.example.testedittext.activities.report_list.report.ground.GroundActivity;
 import com.example.testedittext.activities.report_list.report.shield_list.RenameReportHandler;
 import com.example.testedittext.activities.report_list.report.shield_list.ShieldListActivity;
-import com.example.testedittext.entities.Group;
-import com.example.testedittext.entities.MetallicBond;
+import com.example.testedittext.entities.Efficiency;
 import com.example.testedittext.entities.ReportEntity;
-import com.example.testedittext.entities.Shield;
+import com.example.testedittext.utils.Calculator;
 import com.example.testedittext.utils.Storage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
 
 
 // Класс для редактирования отчета
@@ -32,7 +29,7 @@ public class ReportActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
     public static final String APP_PREFERENCES = "mysettings";
-    TextView tvCount1,tvCount2,tvCount3;
+    TextView tvCount1,tvCount2,tvCount3,tvCount4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +105,6 @@ public class ReportActivity extends AppCompatActivity {
         super.onResume();
         setTvCount();
         changeTitle();
-        System.out.println(" RESUME RESUMERESUMERESUMERESUMERESUME RESUME RESUME RESUME ");
     }
 
     @Override
@@ -127,38 +123,18 @@ public class ReportActivity extends AppCompatActivity {
         tvCount1 = findViewById(R.id.tvCount1);
         tvCount2 = findViewById(R.id.tvCount2);
         tvCount3 = findViewById(R.id.tvCount3);
+        tvCount4 = findViewById(R.id.tvCount4);
+
         ReportEntity report = Storage.currentReportEntityStorage;
 
-        if (report!=null){
-            ArrayList<Shield> shields = report.getShields();
-            int shieldsSize = 0;
-            int countLine = 0;
-            int metsvyaz = 0;
-            if (shields!=null){
-                shieldsSize = shields.size();
-                for (Shield s :shields) {
-                    ArrayList<Group> shieldGroups = s.getShieldGroups();
-                    ArrayList<MetallicBond> metallicBonds = s.getMetallicBonds();
-                    if (shieldGroups!=null) {
-                        for (Group g : shieldGroups) {
-                            if (!g.getAddress().isEmpty()) {
-                                countLine += 1;
-                            }
-                        }
-                    }
-                    if (metallicBonds!=null) {
-                        for (MetallicBond b : metallicBonds) {
-                            if (!b.getPeContact().isEmpty()) {
-                                metsvyaz += 1;
-                            }
-                        }
-                    }
-                }
-                tvCount1.setText("Щитов - " + shieldsSize);
-                tvCount2.setText("Групп - " + countLine);
-                tvCount3.setText("Наличия цепи - " + metsvyaz);
-            }
-        }
+        Efficiency efficiency = Calculator.getEfficiency(report);
+
+        tvCount1.setText("Щиты - " + efficiency.getShieldsSize());
+        tvCount2.setText("Группы - " + efficiency.getCountLine());
+        tvCount3.setText("Метсвязь - " + efficiency.getMetsvyaz());
+        tvCount4.setText("Заземлители - " + efficiency.getZazeml());
+
+
 
     }
 

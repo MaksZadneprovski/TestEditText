@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.testedittext.R;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.enums.TypeOfWork;
+import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.MusicPlayer;
 
 
@@ -147,40 +148,73 @@ public class Report {
         sheets.add(sheetZakl);
 
         TitulReport.generateTitul(wb, report, param);
-        ContentReport.generateContent(wb,report, param);
 
         // Определяем необходимость тех или иных протоколов
         setNecessaryProtocols();
 
         ProgramReport.generateProgram(wb, report, param);
 
+        int protocolNumber = 1;
+
         // Удаляем ненужные протоколы
-        if (isVizual) wb = VOReport.generateVO(wb, report, param);
+        if (isVizual) {
+            // Присваиваем номер протоколу
+            ExcelData.numberVOProtocol = protocolNumber++;
+            wb = VOReport.generateVO(wb, report, param);
+        }
         else wb.removeSheetAt(wb.getSheetIndex(sheetVO));
 
-        if (isF0) wb = F0Report.generateF0(wb, report,  param);
-        else wb.removeSheetAt(wb.getSheetIndex(sheetF0));
-
-        if (isInsulation) wb = InsulationReport.generateInsulation(wb, report, param);
-        else wb.removeSheetAt(wb.getSheetIndex(sheetInsulation));
-
-        if (isMetallicBond) wb = MSReport.generateMS(wb, report, param);
+        if (isMetallicBond){
+            // Присваиваем номер протоколу
+            ExcelData.numberMSProtocol = protocolNumber++;
+            wb = MSReport.generateMS(wb, report, param);
+        }
         else wb.removeSheetAt(wb.getSheetIndex(sheetMS));
 
-        if (isUzo) wb = UzoReport.generateUzo(wb, report, param);
+        if (isInsulation) {
+            // Присваиваем номер протоколу
+            ExcelData.numberInsulationProtocol = protocolNumber++;
+            wb = InsulationReport.generateInsulation(wb, report, param);
+        }
+        else wb.removeSheetAt(wb.getSheetIndex(sheetInsulation));
+
+        if (isF0) {
+            // Присваиваем номер протоколу
+            ExcelData.numberF0Protocol = protocolNumber++;
+            wb = F0Report.generateF0(wb, report,  param);
+        }
+        else wb.removeSheetAt(wb.getSheetIndex(sheetF0));
+
+
+        if (isUzo) {
+            // Присваиваем номер протоколу
+            ExcelData.numberUzoProtocol = protocolNumber++;
+            wb = UzoReport.generateUzo(wb, report, param);
+        }
         else wb.removeSheetAt(wb.getSheetIndex(sheetUzo));
 
-        if (isAvtomat) wb = AvtomatReport.generateAvtomat(wb, report, param);
+        if (isAvtomat){
+            // Присваиваем номер протоколу
+            ExcelData.numberAvtomatProtocol = protocolNumber++;
+            wb = AvtomatReport.generateAvtomat(wb, report, param);
+        }
         else wb.removeSheetAt(wb.getSheetIndex(sheetAvtomat));
 
-        if (isGround) wb = GroundReport.generateGround(wb, report, param);
+        if (isGround){
+            // Присваиваем номер протоколу
+            ExcelData.numberGroundingProtocol = protocolNumber;
+            wb = GroundReport.generateGround(wb, report, param);
+        }
         else wb.removeSheetAt(wb.getSheetIndex(sheetGround));
 
         DefectsReport.generateDefects(wb, report, param);
         Zakluchenie.generateZakl(wb, report, param);
 
+        // Содержание в конце, чтобы посчитать сначала сколько страниц
+        ContentReport.generateContent(wb,report, param);
+
         // Вставляем нумерацию страниц
-        insertNumeration(sheets);
+        //insertNumeration(sheets);
 
         // Создание файла
         ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -200,8 +234,119 @@ public class Report {
     private void insertNumeration(ArrayList<Sheet> sheets){
         for (Sheet sheet : sheets) {
             Footer footer = sheet.getFooter();
-            footer.setRight( "Страниц " + HeaderFooter.page() + " из " + HeaderFooter.numPages() );
+            footer.setRight( "Страница " + HeaderFooter.page() + " из " + HeaderFooter.numPages() );
         }
+    }
+
+    static int fillRekvizity(int countRow, Sheet sheet, Workbook wb, Map<String, String> param, int i1, int i2,int i3){
+
+        Font font11 = wb.createFont();
+        font11.setFontHeightInPoints((short)11);
+        font11.setFontName("Times New Roman");
+
+        Font fontForSurname = wb.createFont();
+        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontName("Times New Roman");
+        fontForSurname.setUnderline((byte) 1);
+
+        CellStyle style5;
+        style5 = wb.createCellStyle();
+        style5.setAlignment(HorizontalAlignment.LEFT);
+        style5.setFont(font11);
+
+        CellStyle style5Center;
+        style5Center = wb.createCellStyle();
+        style5Center.setAlignment(HorizontalAlignment.CENTER);
+        style5Center.setFont(font11);
+
+        CellStyle styleForSurname;
+        styleForSurname = wb.createCellStyle();
+        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
+        styleForSurname.setFont(fontForSurname);
+
+        Row row = sheet.createRow(countRow);
+        Cell cell = row.createCell(i1);
+        cell.setCellValue("Испытания провели:");
+        cell.setCellStyle(styleForSurname);
+
+        countRow+=2;
+        row = sheet.createRow(countRow);
+
+        cell = row.createCell(i1);
+        cell.setCellValue("Инженер");
+        cell.setCellStyle(styleForSurname);
+        cell = row.createCell(i2);
+        cell.setCellValue("____________");
+        cell.setCellStyle(style5Center);
+        cell = row.createCell(i3);
+        cell.setCellValue(param.get("ingener"));
+        cell.setCellStyle(styleForSurname);
+
+        countRow+=1;
+        row = sheet.createRow(countRow);
+        fillDescription(row, i1, i2, i3, style5, style5Center);
+
+
+
+
+
+        if (!param.get("ingener2").isEmpty()){
+            countRow += 2;
+            row = sheet.createRow(countRow);
+            cell = row.createCell(i1);
+            cell.setCellValue("Инженер");
+            cell.setCellStyle(styleForSurname);
+            cell = row.createCell(i2);
+            cell.setCellValue("____________");
+            cell.setCellStyle(style5Center);
+            cell = row.createCell(i3);
+            cell.setCellValue(param.get("ingener2"));
+            cell.setCellStyle(styleForSurname);
+
+            countRow+=1;
+            row = sheet.createRow(countRow);
+            fillDescription(row, i1, i2, i3, style5, style5Center);
+
+        }
+
+
+        countRow += 2;
+        row = sheet.createRow(countRow);
+        cell = row.createCell(i1);
+        cell.setCellValue("Протокол проверил:");
+        cell.setCellStyle(styleForSurname);
+
+        countRow+=2;
+
+        row = sheet.createRow(countRow);
+
+        cell = row.createCell(i1);
+        cell.setCellValue("Руководитель  лаборатории");
+        cell.setCellStyle(styleForSurname);
+        cell = row.createCell(i2);
+        cell.setCellValue("____________");
+        cell.setCellStyle(style5Center);
+        cell = row.createCell(i3);
+        cell.setCellValue(param.get("rukovoditel"));
+        cell.setCellStyle(styleForSurname);
+
+        countRow+=1;
+        row = sheet.createRow(countRow);
+        fillDescription(row, i1, i2, i3, style5, style5Center);
+
+        return countRow;
+    }
+
+    static  void fillDescription(Row row, int i1, int i2, int i3, CellStyle style5, CellStyle style5Center){
+        Cell cell = row.createCell(i1);
+        cell.setCellValue("(должность)");
+        cell.setCellStyle(style5);
+        cell = row.createCell(i2);
+        cell.setCellValue("(подпись)");
+        cell.setCellStyle(style5Center);
+        cell = row.createCell(i3);
+        cell.setCellValue("(ФИО)");
+        cell.setCellStyle(style5);
     }
 
     public static void fillMainData(Sheet sheet, int column, ReportEntity report, Workbook wb){

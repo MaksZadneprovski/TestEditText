@@ -132,7 +132,8 @@ public class GroundingDeviceActivity extends AppCompatActivity {
             }
 
 
-            CopyClick clk = new CopyClick(i);
+            CopyClick clk = new CopyClick(i, false);
+            CopyClick clkIncrement = new CopyClick(i, true);
 
             TextView childAt1 = (TextView) linearOfXML.getChildAt(1);
             TextView childAt3 = (TextView) linearOfXML.getChildAt(3);
@@ -141,7 +142,7 @@ public class GroundingDeviceActivity extends AppCompatActivity {
             TextView childAt9 = (TextView) linearOfXML.getChildAt(9);
 
 
-            childAt1 .setOnClickListener(clk);
+            childAt1 .setOnClickListener(clkIncrement);
             childAt3 .setOnClickListener(clk);
             childAt5 .setOnClickListener(clk);
             childAt7 .setOnClickListener(clk);

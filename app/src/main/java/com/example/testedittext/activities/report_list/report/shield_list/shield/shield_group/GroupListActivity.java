@@ -27,6 +27,8 @@ import com.example.testedittext.visual.InstantAutoComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class GroupListActivity extends AppCompatActivity {
@@ -39,8 +41,6 @@ public class GroupListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_list_activity);
 
-        MusicPlayer musicPlayer = new MusicPlayer(this);
-        musicPlayer.play();
 
         // Кнопка Добавить группы
         FloatingActionButton addGroup =  findViewById(R.id.addGroup);
@@ -108,6 +108,7 @@ public class GroupListActivity extends AppCompatActivity {
         String[] uzo = getResources().getStringArray(R.array.uzo);
         String[] IdifUzo = getResources().getStringArray(R.array.IdifUzo);
         String[] typeDifCurrent = getResources().getStringArray(R.array.typeDifCurrent);
+        String[] potrebiteli = getResources().getStringArray(R.array.potrebiteli);
 
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
         ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, phases);
@@ -123,6 +124,7 @@ public class GroupListActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter11 = new ArrayAdapter (this, R.layout.custom_spinner, uzo);
         ArrayAdapter<String> adapter12 = new ArrayAdapter (this, R.layout.custom_spinner, IdifUzo);
         ArrayAdapter<String> adapter13 = new ArrayAdapter (this, R.layout.custom_spinner, typeDifCurrent);
+        ArrayAdapter<String> adapter14 = new ArrayAdapter (this, R.layout.custom_spinner, potrebiteli);
 
         TextView childAt1;
         TextView childAt3;
@@ -141,6 +143,7 @@ public class GroupListActivity extends AppCompatActivity {
         TextView childAt29;
         TextView childAt31;
 
+        InstantAutoComplete childAt2;
         InstantAutoComplete childAt4;
         InstantAutoComplete childAt6;
         InstantAutoComplete childAt8;
@@ -170,7 +173,7 @@ public class GroupListActivity extends AppCompatActivity {
             if (group != null) {
                 // Устанавливаем текст в поле таблицы
                 ((EditText) linearOfXML.getChildAt(0)).setText(group.designation);
-                ((EditText) linearOfXML.getChildAt(3)).setText(group.address);
+                ((InstantAutoComplete) linearOfXML.getChildAt(3)).setText(group.address);
                 ((InstantAutoComplete) linearOfXML.getChildAt(6)).setText(group.phases);
                 ((InstantAutoComplete) linearOfXML.getChildAt(9)).setText(group.cable);
                 ((InstantAutoComplete) linearOfXML.getChildAt(12)).setText(group.numberOfWireCores);
@@ -188,7 +191,8 @@ public class GroupListActivity extends AppCompatActivity {
             }
 
 
-            CopyClick clk = new CopyClick(i);
+            CopyClick clk = new CopyClick(i,false);
+            CopyClick clkIncrement = new CopyClick(i,true);
 
              childAt1 = (TextView) linearOfXML.getChildAt(1);
              childAt3 = (TextView) linearOfXML.getChildAt(4);
@@ -207,6 +211,7 @@ public class GroupListActivity extends AppCompatActivity {
              childAt29 = (TextView) linearOfXML.getChildAt(43);
              childAt31 = (TextView) linearOfXML.getChildAt(46);
 
+            childAt2 = (InstantAutoComplete) linearOfXML.getChildAt(3);
             childAt4 = (InstantAutoComplete) linearOfXML.getChildAt(6);
             childAt6 = (InstantAutoComplete) linearOfXML.getChildAt(9);
             childAt8 = (InstantAutoComplete) linearOfXML.getChildAt(12);
@@ -222,8 +227,8 @@ public class GroupListActivity extends AppCompatActivity {
             childAt28 = (InstantAutoComplete) linearOfXML.getChildAt(42);
             childAt30 = (InstantAutoComplete) linearOfXML.getChildAt(45);
 
-            childAt1 .setOnClickListener(clk);
-            childAt3 .setOnClickListener(clk);
+            childAt1 .setOnClickListener(clkIncrement);
+            childAt3 .setOnClickListener(clkIncrement);
             childAt5 .setOnClickListener(clk);
             childAt7 .setOnClickListener(clk);
             childAt9 .setOnClickListener(clk);
@@ -238,10 +243,10 @@ public class GroupListActivity extends AppCompatActivity {
             childAt27.setOnClickListener(clk);
             childAt29.setOnClickListener(clk);
             childAt31.setOnClickListener(clk);
-            // Кнопка измерения
-            //((TextView) linearOfXML.getChildAt(32)).setOnClickListener();
+
             // Кнопка удалить
             ((TextView) linearOfXML.getChildAt(50)).setOnClickListener(new DeleteViewAndObjectFromList(groupList,i, this));
+            // Кнопка добавить
             ((TextView) linearOfXML.getChildAt(48)).setOnClickListener(new AddViewAndObjectToList(groupList,i, this));
 
             childAt1.setOnLongClickListener(clk);
@@ -281,33 +286,16 @@ public class GroupListActivity extends AppCompatActivity {
             childAt26.setAdapter(adapter7);
             childAt28.setAdapter(adapter12);
             childAt30.setAdapter(adapter13);
+            childAt2.setAdapter(adapter14);
 
-//            childAt24.setEnabled(false);
-//            childAt26.setEnabled(false);
-//            childAt28.setEnabled(false);
 
-//            childAt12.addTextChangedListener(new TextWatcher() {
-//                @Override
-//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                }
-//
-//                @Override
-//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                }
-//
-//                @Override
-//                public void afterTextChanged(Editable editable) {
-//                    if (editable.toString().trim().equalsIgnoreCase("дифавтомат")){
-//
-//                    }
-//                }
-//            });
 
             linLayout.addView(view);
         }
     }
+
+
+
 
     private void readDataFromFields() {
         // Пробегаемся по RecyclerView
@@ -347,6 +335,7 @@ public class GroupListActivity extends AppCompatActivity {
         // Создание  объекта DAO для работы с БД
         ReportDAO reportDAO = Bd.getAppDatabaseClass(getApplicationContext()).getReportDao();
 
+        System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyooooooooooooooooooooooooooooooooooooo");
         Storage.setGroupList(groupList);
         reportDAO.insertReport(new ReportInDB(Storage.currentReportEntityStorage));
     }

@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="cables">
+        <item>2ПВ</item>
+        <item>2хВВГ</item>
+        <item>2хВВГнг</item>
+        <item>2хПВ</item>
+        <item>3хВВГ</item>
+        <item>NYM</item>
+        <item>АВБбШв</item>
+        <item>АВВГ</item>
+        <item>АВРГ</item>
+        <item>АНРГ</item>
+        <item>АПВ</item>
+        <item>АППВ</item>
+        <item>АППР</item>
+        <item>АПР</item>
+        <item>АПРН</item>
+        <item>ВВГ</item>
+        <item>ВВГз</item>
         <item>ВВГнг</item>
-        <item>АВВГнг</item>
-        <item>ВВГнг(А)LS</item>
+        <item>ВВГнг(А)-LSLTx</item>
+        <item>ВВГнг-LS</item>
+        <item>ВВГп</item>
+        <item>ВРГ</item>
+        <item>КГ</item>
+        <item>МГШ</item>
+        <item>МГШВ</item>
+        <item>НРГ</item>
+        <item>ПБПП</item>
+        <item>ПБППг</item>
+        <item>ПВ</item>
+        <item>ПВ1</item>
+        <item>ПВ-1</item>
+        <item>ПВ-2</item>
+        <item>ПВС</item>
+        <item>ППВ</item>
+        <item>ПР</item>
+        <item>ПРС</item>
+        <item>ПУГНП</item>
+        <item>ПУНП</item>
+        <item>ТРП</item>
+        <item>ШВВП</item>
+
     </string-array>
 
     <string-array name="numCores">
@@ -30,8 +68,121 @@
     </string-array>
 
     <string-array name="markaavtomata">
+        <item>ABB DSH941-AC</item>
+        <item>ABB SH203L</item>
+        <item>ABB SH263</item>
+        <item>AE47-29</item>
+        <item>AE5246</item>
+        <item>AN10D3</item>
+        <item>AN16D3</item>
+        <item>AS-32E3</item>
+        <item>BA47-29</item>
+        <item>BA47-63</item>
+        <item>BA52-37</item>
+        <item>BA52-39</item>
+        <item>BA77-29</item>
+        <item>BA77-29-3</item>
+        <item>C120N</item>
+        <item>C60N</item>
+        <item>DEKraft</item>
+        <item>DX3-E</item>
+        <item>Easy9</item>
+        <item>Hager</item>
+        <item>iC60N</item>
+        <item>IEK BA47-29</item>
+        <item>IEK ВД1-63</item>
+        <item>iK60N</item>
+        <item>KEAZ BM63-3</item>
+        <item>KEAZ ВМ63-3</item>
+        <item>Legrand</item>
+        <item>Legrand  </item>
+        <item>Legrand DX3-E</item>
+        <item>MAK.ELL</item>
+        <item>Merlin Gerin</item>
+        <item>Merlin Gerin DPN N vigi</item>
+        <item>NB1-63</item>
+        <item>NBI-63</item>
+        <item>NG125L</item>
+        <item>NSX160F</item>
         <item>S201</item>
+        <item>S202</item>
         <item>S203</item>
+        <item>S231</item>
+        <item>SERIES E</item>
+        <item>Susol</item>
+        <item>TD100N</item>
+        <item>TDM</item>
+        <item>TS1000L</item>
+        <item>TS100L</item>
+        <item>TS250L</item>
+        <item>TS400L</item>
+        <item>TS630L</item>
+        <item>А3144</item>
+        <item>А3161</item>
+        <item>А3722</item>
+        <item>АД12</item>
+        <item>АД63</item>
+        <item>АЕ</item>
+        <item>АЕ10-31</item>
+        <item>АЕ2046 10Б</item>
+        <item>АЕ2016М</item>
+        <item>АЕ2040</item>
+        <item>АЕ2043</item>
+        <item>АЕ2046</item>
+        <item>АЕ2046М</item>
+        <item>АЕ2046М-100</item>
+        <item>АЕ2046МП</item>
+        <item>АЕ2048М</item>
+        <item>АЕ2053</item>
+        <item>АЕ2056</item>
+        <item>АЕ2063</item>
+        <item>АЕ2066</item>
+        <item>АЕ3120</item>
+        <item>АЕ3124</item>
+        <item>АЗ124</item>
+        <item>АК63</item>
+        <item>АК63-2М</item>
+        <item>ВА 101</item>
+        <item>ВА 103</item>
+        <item>ВА 53-43</item>
+        <item>ВА 55-41</item>
+        <item>ВА04-31</item>
+        <item>ВА04-35</item>
+        <item>ВА04-36</item>
+        <item>ВА04-41</item>
+        <item>ВА101</item>
+        <item>ВА3716</item>
+        <item>ВА47-063</item>
+        <item>ВА47-100</item>
+        <item>ВА47-29</item>
+        <item>ВА47-29-3</item>
+        <item>ВА50-39</item>
+        <item>ВА5135М</item>
+        <item>ВА51-35М</item>
+        <item>ВА51-35М1</item>
+        <item>ВА51-35М2</item>
+        <item>ВА51-35М3</item>
+        <item>ВА57-31</item>
+        <item>ВА57-35</item>
+        <item>ВА5739</item>
+        <item>ВА57-39</item>
+        <item>ВА-57-39</item>
+        <item>ВА57Ф35</item>
+        <item>ВА63</item>
+        <item>ВА88-32</item>
+        <item>ВА-99</item>
+        <item>ВД1-63</item>
+        <item>ВМ40-1Х</item>
+        <item>ВМ40-1Х-УХЛ3</item>
+        <item>ВН-32</item>
+        <item>ДЭК ВА101М</item>
+        <item>КЕАЗ ВА47-29-1</item>
+        <item>ПН</item>
+        <item>ПН-2</item>
+        <item>ППНИ</item>
+        <item>ПФН</item>
+        <item>С60N</item>
+
     </string-array>
 
     <string-array name="nominal">
@@ -135,10 +286,34 @@
     </string-array>
 
     <string-array name="uzo">
-        <item>ВДТ-63</item>
-        <item>DS202</item>
+        <item>ABB DS201 L</item>
+        <item>ABB FH204AC</item>
+        <item>CHINT NXBLE-63Y</item>
+        <item>CHINT NXL-63</item>
+        <item>D63</item>
+        <item>DEKRAFT ВДТ</item>
+        <item>DEKRAFT ДИФ-101</item>
+        <item>DEKRAFT ДИФ-102</item>
+        <item>DM63</item>
+        <item>EKF BASIC АД-12</item>
+        <item>EKF BASIC ВДT-40</item>
+        <item>EKF PROXIMA АВДТ-63</item>
+        <item>EKF PROXIMA АД-2</item>
+        <item>EKF PROXIMA АД-32</item>
+        <item>EKF PROXIMA АД-4</item>
+        <item>IEK ARMAT B06S</item>
+        <item>IEK ARMAT R10N</item>
+        <item>LEGRAND DX3</item>
+        <item>LEGRAND RX3</item>
+        <item>АВДТ32</item>
+        <item>АД</item>
         <item>ВД1-63</item>
-        <item>Legrand</item>
+        <item>ВДТ</item>
+        <item>КЭАЗ АВДТ OPTIDIN D63-21</item>
+        <item>КЭАЗ АВДТ OPTIDIN D63-22</item>
+        <item>КЭАЗ АВДТ АВДТ32-22</item>
+        <item>КЭАЗ ВДТ ВД1-63</item>
+
     </string-array>
 
     <string-array name="IdifUzo">
@@ -205,7 +380,7 @@
         <item>Жилые помещения (квартира,апартаменты и тд.)</item>
         <item>Общественные жилые помещения (гостиницы, хостел, общежитие)</item>
         <item>Офисные помещения ( бизнес центр, офис)</item>
-        <item> производственные (завод, фабрика)</item>
+        <item>Производственные (завод, фабрика)</item>
         <item>Торговые помещения (торговый центр,магазин) </item>
         <item>Нежилые помещения многоквартирных домов (электрощитовая, этажные щиты)</item>
         <item>Детские сады</item>
@@ -230,6 +405,544 @@
         <item>Предприятия общественного питания</item>
         <item>Складские здания и помещения</item>
 
+
+    </string-array>
+
+    <string-array name="defects">
+
+
+    </string-array>
+
+    <string-array name="potrebiteli">
+
+        <item>ИБП</item>
+        <item>Ав. освещ.</item>
+        <item>Розетки </item>
+        <item>Резерв</item>
+        <item>Группа</item>
+        <item>Потребитель</item>
+        <item>Питание домофона</item>
+        <item>Ав. освещ. Лифт. Холла</item>
+        <item>Эв. освещ.</item>
+        <item>ЩР-</item>
+        <item>ЩС-</item>
+        <item>ЩО-</item>
+        <item>Лифт пасс.</item>
+        <item>Лифт груз.</item>
+        <item>Квартиры 2 сек.</item>
+        <item>Квартиры 1 сек.</item>
+        <item>Ввод ЩР</item>
+        <item>Ввод ЩО</item>
+        <item>Ввод ЩС</item>
+        <item>Ввод ЩО-1</item>
+        <item>Ввод ЩС-1</item>
+        <item>Кондиционер</item>
+        <item>Кондиционер серверная</item>
+        <item>Лифт правый</item>
+        <item>Лифт левый</item>
+        <item>Магистраль квартир №1</item>
+        <item>Магистраль квартир №2</item>
+        <item>Магистраль квартир №3</item>
+        <item>Магистраль квартир №4</item>
+        <item>Ввод ЩО-2</item>
+        <item>Ввод ЩО-3</item>
+        <item>Ввод ЩО-4</item>
+        <item>Ввод ЩО-5</item>
+        <item>Ввод ЩО-6</item>
+        <item>Ввод ЩО-7</item>
+        <item>Ввод ЩО-8</item>
+        <item>Ввод ЩО-9</item>
+        <item>Ввод ЩО-10</item>
+        <item>Ввод ЩО-11</item>
+        <item>Ввод ЩО-12</item>
+        <item>Ввод ЩО-13</item>
+        <item>Ввод ЩО-14</item>
+        <item>Ввод ЩО-15</item>
+        <item>Ввод ЩО-16</item>
+        <item>Ввод ЩО-17</item>
+        <item>Ввод ЩО-18</item>
+        <item>Ввод ЩО-19</item>
+        <item>Ввод ЩО-20</item>
+        <item>Ввод ЩО-21</item>
+        <item>Ввод ЩО-22</item>
+        <item>Ввод ЩО-23</item>
+        <item>Ввод ЩО-24</item>
+        <item>Ввод ЩО-25</item>
+        <item>Ввод ЩО-26</item>
+        <item>Ввод ЩО-27</item>
+        <item>Ввод ЩО-28</item>
+        <item>Ввод ЩО-29</item>
+        <item>Ввод ЩО-30</item>
+        <item>Ввод ЩС-2</item>
+        <item>Ввод ЩС-3</item>
+        <item>Ввод ЩС-4</item>
+        <item>Ввод ЩС-5</item>
+        <item>Ввод ЩС-6</item>
+        <item>Ввод ЩС-7</item>
+        <item>Ввод ЩС-8</item>
+        <item>Ввод ЩС-9</item>
+        <item>Ввод ЩС-10</item>
+        <item>Ввод ЩС-11</item>
+        <item>Ввод ЩС-12</item>
+        <item>Ввод ЩС-13</item>
+        <item>Ввод ЩС-14</item>
+        <item>Ввод ЩС-15</item>
+        <item>Ввод ЩС-16</item>
+        <item>Ввод ЩС-17</item>
+        <item>Ввод ЩС-18</item>
+        <item>Ввод ЩС-19</item>
+        <item>Ввод ЩС-20</item>
+        <item>Ввод ЩС-21</item>
+        <item>Ввод ЩС-22</item>
+        <item>Ввод ЩС-23</item>
+        <item>Ввод ЩС-24</item>
+        <item>Ввод ЩС-25</item>
+        <item>Ввод ЩС-26</item>
+        <item>Ввод ЩС-27</item>
+        <item>Ввод ЩС-28</item>
+        <item>Ввод ЩС-29</item>
+        <item>Ввод ЩС-30</item>
+        <item>ЩО-1</item>
+        <item>ЩО-2</item>
+        <item>ЩО-3</item>
+        <item>ЩО-4</item>
+        <item>ЩО-5</item>
+        <item>ЩО-6</item>
+        <item>ЩО-7</item>
+        <item>ЩО-8</item>
+        <item>ЩО-9</item>
+        <item>ЩО-10</item>
+        <item>ЩО-11</item>
+        <item>ЩО-12</item>
+        <item>ЩО-13</item>
+        <item>ЩО-14</item>
+        <item>ЩО-15</item>
+        <item>ЩО-16</item>
+        <item>ЩО-17</item>
+        <item>ЩО-18</item>
+        <item>ЩО-19</item>
+        <item>ЩО-20</item>
+        <item>ЩО-21</item>
+        <item>ЩО-22</item>
+        <item>ЩО-23</item>
+        <item>ЩО-24</item>
+        <item>ЩО-25</item>
+        <item>ЩО-26</item>
+        <item>ЩО-27</item>
+        <item>ЩО-28</item>
+        <item>ЩО-29</item>
+        <item>ЩО-30</item>
+        <item>ЩС-1</item>
+        <item>ЩС-2</item>
+        <item>ЩС-3</item>
+        <item>ЩС-4</item>
+        <item>ЩС-5</item>
+        <item>ЩС-6</item>
+        <item>ЩС-7</item>
+        <item>ЩС-8</item>
+        <item>ЩС-9</item>
+        <item>ЩС-10</item>
+        <item>ЩС-11</item>
+        <item>ЩС-12</item>
+        <item>ЩС-13</item>
+        <item>ЩС-14</item>
+        <item>ЩС-15</item>
+        <item>ЩС-16</item>
+        <item>ЩС-17</item>
+        <item>ЩС-18</item>
+        <item>ЩС-19</item>
+        <item>ЩС-20</item>
+        <item>ЩС-21</item>
+        <item>ЩС-22</item>
+        <item>ЩС-23</item>
+        <item>ЩС-24</item>
+        <item>ЩС-25</item>
+        <item>ЩС-26</item>
+        <item>ЩС-27</item>
+        <item>ЩС-28</item>
+        <item>ЩС-29</item>
+        <item>ЩС-30</item>
+        <item>ЩР-1</item>
+        <item>ЩР-2</item>
+        <item>ЩР-3</item>
+        <item>ЩР-4</item>
+        <item>ЩР-5</item>
+        <item>ЩР-6</item>
+        <item>ЩР-7</item>
+        <item>ЩР-8</item>
+        <item>ЩР-9</item>
+        <item>ЩР-10</item>
+        <item>ЩР-11</item>
+        <item>ЩР-12</item>
+        <item>ЩР-13</item>
+        <item>ЩР-14</item>
+        <item>ЩР-15</item>
+        <item>ЩР-16</item>
+        <item>ЩР-17</item>
+        <item>ЩР-18</item>
+        <item>ЩР-19</item>
+        <item>ЩР-20</item>
+        <item>ЩР-21</item>
+        <item>ЩР-22</item>
+        <item>ЩР-23</item>
+        <item>ЩР-24</item>
+        <item>ЩР-25</item>
+        <item>ЩР-26</item>
+        <item>ЩР-27</item>
+        <item>ЩР-28</item>
+        <item>ЩР-29</item>
+        <item>ЩР-30</item>
+        <item>Освещение</item>
+        <item>ЩАО 1 (эл. щитовая)</item>
+        <item>ЩСВ-2 (венткамера, тех этаж)</item>
+        <item>ЩО помещения механика</item>
+        <item>ЩО-5, 7, 9</item>
+        <item>ЩО-6, 8</item>
+        <item>ВРУ убежтща</item>
+        <item>Ввод на панель 6</item>
+        <item>ЩО 10, ЩС (терр. стоянки)</item>
+        <item>ЩС-2 в здравпункте</item>
+        <item>Ввод на панель 5</item>
+        <item>ЩР АД</item>
+        <item>ЩР АД 300.1</item>
+        <item>ЩР АД 300.2</item>
+        <item>Питание группы</item>
+        <item>Холл</item>
+        <item>ЩО 4</item>
+        <item>ЩСТ 5</item>
+        <item>Лифт</item>
+        <item>ЩСТ 1</item>
+        <item>ЩСТ 6</item>
+        <item>ЩО 1, 2, 3</item>
+        <item>Холл, подвал</item>
+        <item>ЩО АВР Столовая</item>
+        <item>ЩСТ 2</item>
+        <item>ЩСТ 3</item>
+        <item>ЩСТ 4</item>
+        <item>Ввод</item>
+        <item>Освещение мойки буфета</item>
+        <item>Освещение щитовой</item>
+        <item>Освещение мужской раздевалки, пристройки</item>
+        <item>Освещение коридора</item>
+        <item>Освещение инвентарной, помещения перед лифтом</item>
+        <item>Освещение и розетки комнаты напротив щитовой</item>
+        <item>Освещение с/у</item>
+        <item>Освещение и розетки бухгалтерии, столовой</item>
+        <item>Освещение обеденного зала, с/у, тамбура буфета</item>
+        <item>Освещение лестничной клетки</item>
+        <item>Освещение кладовой буфета, коридора, женской раздевалик</item>
+        <item>Аварийное освещение</item>
+        <item>Кипятильник</item>
+        <item>Розетка 220В</item>
+        <item>Прилавок-витрина</item>
+        <item>Эл. плита</item>
+        <item>Розетки кабинетов стамотолога и заведующей</item>
+        <item>Розетка перевязочной</item>
+        <item>Розетка к. гинеколога (у окна), розетка кассы</item>
+        <item>Линия в с/у</item>
+        <item>Розетка гинеколога</item>
+        <item>Бакт. лампа</item>
+        <item>Сушильные шкафы</item>
+        <item>Предрейсовый</item>
+        <item>Освещение и розетки зап. выхода, коридора</item>
+        <item>Розетка кабинета стоматолога</item>
+        <item>Указатель «ВЫХОД», звонок</item>
+        <item>Стерилизатор</item>
+        <item>Розетки кабинета терапевта</item>
+        <item>Дистиллятор</item>
+        <item>Указатели «ВЫХОД»</item>
+        <item>Освещение помещений</item>
+        <item>Освещение козырька, входа с улицы</item>
+        <item>ЩО на охране</item>
+        <item>Розетки 380 и 220В в ЩО</item>
+        <item>Освещение п. уборщиц</item>
+        <item>Розетки кабинетов</item>
+        <item>Освещение и розетки к. терапевта</item>
+        <item>Розетки 380 и 220В в щите</item>
+        <item>ПС</item>
+        <item>Освещение архива 4</item>
+        <item>Освещение холла к. 202</item>
+        <item>Освещение склада спецодежды</item>
+        <item>Освещение обеденного зала столовой</item>
+        <item>Розетки обеденного зала столовой</item>
+        <item>Розетки 380 в архиве 4</item>
+        <item>Розетка коридора</item>
+        <item>АВ на стене хранилища</item>
+        <item>Розетка на щите</item>
+        <item>Розетки комнат 301, 303</item>
+        <item>Розетки комнаты 302</item>
+        <item>Розетки комнат 305, 309</item>
+        <item>Розетки комнаты 307</item>
+        <item>Розетки комнат 304, 306</item>
+        <item>Розетки комнаты 308</item>
+        <item>Розетки комнат 311, 2Р 1</item>
+        <item>Розетки комнат 311, 2Р 2</item>
+        <item>Кондиционер к. 302</item>
+        <item>Кондиционер к. 311 гр.1</item>
+        <item>Кондиционер к. 311 гр.2</item>
+        <item>Кондиционер к. 311 гр.3</item>
+        <item>Освещение к. 311</item>
+        <item>Лестница</item>
+        <item>Освещение к. 301, 303</item>
+        <item>Освещение к. 302</item>
+        <item>Освещение к. 304, 306</item>
+        <item>Освещение к. 305</item>
+        <item>Освещение к. 307</item>
+        <item>Освещение к. 309</item>
+        <item>Освещение к. 308</item>
+        <item>Розетки комнат</item>
+        <item>Розетки комнат 316</item>
+        <item>Розетки комнат 313</item>
+        <item>Розетки комнат 314, 312</item>
+        <item>Часы, табло</item>
+        <item>Освещение комнаты 316</item>
+        <item>Освещение комнат 310, 312</item>
+        <item>Освещение комнат 317, 318</item>
+        <item>Освещение комнат</item>
+        <item>Освещение комнат 312, 314</item>
+        <item>Охрана</item>
+        <item>Кондиционер к. 328</item>
+        <item>Розетки к. 401-405</item>
+        <item>Освещение к. 401-405</item>
+        <item>Розетки к. 404, 406, 410</item>
+        <item>Освещение и розетки к. 403, 405</item>
+        <item>Освещение и розетки операторской, конф. зала, комнаты 405</item>
+        <item>Аварийное освещение коридора</item>
+        <item>Освещение эл. полотеца с/у</item>
+        <item>Освещение и розетки к. 410</item>
+        <item>Освещение и розетки к. 406, 408, 404</item>
+        <item>Розетки к. 202</item>
+        <item>Освещение к. 404, розетки 401</item>
+        <item>Освещение и розетки к. 401</item>
+        <item>Розетки 2-3 зоны</item>
+        <item>Розетки 1 зоны</item>
+        <item>Розетки 4 зоны</item>
+        <item>Освещение 2-3 зоны</item>
+        <item>Коридор</item>
+        <item>БРА на сцене</item>
+        <item>Освещение холла</item>
+        <item>Освещение и розетки зала, оф. делигаций</item>
+        <item>Освещение и розетки подсоб.</item>
+        <item>Освещение и розетки музея</item>
+        <item>ЩОсвещение и розетки АХО, конд. зала делигаций</item>
+        <item>Кондиционер конференц зал</item>
+        <item>ЩО конф. зала</item>
+        <item>Прилавок складских блюд</item>
+        <item>Транспортер</item>
+        <item>Розетки кассы 220</item>
+        <item>Посудомоечная машина</item>
+        <item>Эл. титан</item>
+        <item>Прилавок 2-х блюд</item>
+        <item>Мармит и осв. раздачи</item>
+        <item>Прилавок 1 блюд</item>
+        <item>Сковорода</item>
+        <item>Котел 1</item>
+        <item>Розетка 380</item>
+        <item>Протирочная машина</item>
+        <item>Пароконвектомат</item>
+        <item>Шкаф пароварочный</item>
+        <item>Водонагреватель</item>
+        <item>Эл. мясорубка</item>
+        <item>Роззетки РЩ-30</item>
+        <item>Картофелечистка</item>
+        <item>Тельфер, вытяжной вентилятор</item>
+        <item>Вытяжной вентилятор</item>
+        <item>Тр-р 220/12</item>
+        <item>Сварка</item>
+        <item>Зар. У</item>
+        <item>Вытяжной вентилятор рем.</item>
+        <item>Приточный вентилятор</item>
+        <item>ЩУ 8, 9</item>
+        <item>Вытяжной вентилятор акк.</item>
+        <item>ЩС 9</item>
+        <item>ЩС цеха рем.</item>
+        <item>ЩУ 11, 10</item>
+        <item>Выпрямитель акк.</item>
+        <item>ЩУ 14</item>
+        <item>ЩС 18</item>
+        <item>ЩС 13</item>
+        <item>ЩС 16</item>
+        <item>ЩС 10</item>
+        <item>Наждак</item>
+        <item>ЩС 11</item>
+        <item>Кран балка</item>
+        <item>Освещение пневмоцеха</item>
+        <item>Освещение комнаты мастеров</item>
+        <item>Освещение цеха шлифовки</item>
+        <item>Освещение малярной</item>
+        <item>Освещение ремонта ГМП</item>
+        <item>Освещение шиномонтажного уч.</item>
+        <item>Освещение РТИ</item>
+        <item>Освещение наждака</item>
+        <item>Освещение венткамеры</item>
+        <item>Вытяжной вентилятор, ЩС изг. цеха</item>
+        <item>Розетка раздевалки</item>
+        <item>Шиномонтажный станок</item>
+        <item>Вентилятор, шиномонт. тр-р 220/36</item>
+        <item>Двор, шином. цех, вытяж. вент.</item>
+        <item>Компрессор (шин. цех)</item>
+        <item>ЩУ 15</item>
+        <item>Станция катодной защиты</item>
+        <item>Сверлильный станок, розетки 380 и 220В</item>
+        <item>Сверлильный станок</item>
+        <item>Освещение гаража</item>
+        <item>Токарный станок</item>
+        <item>Наждак 3К634, токарный станок ИЖ 95ТС1</item>
+        <item>ЗА622Д</item>
+        <item>Освещение цеха</item>
+        <item>ЩО 2, 3, 4</item>
+        <item>Розетки к. 214, 215</item>
+        <item>Розетки к. 211, 212</item>
+        <item>Розетки к. 208</item>
+        <item>Розетки к. 216-218</item>
+        <item>Розетки к. 313</item>
+        <item>Розетки к. сборов</item>
+        <item>Розетки кассы</item>
+        <item>Розетки комнаты</item>
+        <item>Розетки каб.</item>
+        <item>Розетки отдела сборов</item>
+        <item>Освещение к. начальника</item>
+        <item>Освещение кассы</item>
+        <item>Розетка сервера</item>
+        <item>Освещение тамбура</item>
+        <item>Освещение поста пб</item>
+        <item>Стенд проверочный</item>
+        <item>Точильно-шлифовальный станок</item>
+        <item>Освещение складов</item>
+        <item>ЩС 40</item>
+        <item>Розктки 380В</item>
+        <item>Уличное освещение</item>
+        <item>Освещение и розетки электроцеха</item>
+        <item>Розктка 380В на улице</item>
+        <item>Осв. улчиное ТРАБВ</item>
+        <item>Осв. улчиное 12 колонн</item>
+        <item>Освещение левой линии</item>
+        <item>Освещение правой линии</item>
+        <item>Калорифер справа</item>
+        <item>Калорифер слева</item>
+        <item>ДРЛ перед щетками, осв. насосной</item>
+        <item>ДРЛ над воротами</item>
+        <item>ДОК сикьюрити</item>
+        <item>ОПС</item>
+        <item>НГВ1</item>
+        <item>НПВ1</item>
+        <item>НПВ3</item>
+        <item>Вода слева</item>
+        <item>ОПРА</item>
+        <item>Вода справа</item>
+        <item>АЭР</item>
+        <item>Б 1</item>
+        <item>Б 2</item>
+        <item>Ро</item>
+        <item>ЩС 38</item>
+        <item>ЩУ тепловой завесы прав.</item>
+        <item>ЩУ тепловой завесы лев.</item>
+        <item>Освещение мойки</item>
+        <item>Лестница, пролет спортзала</item>
+        <item>Цех отоп. и конд.</item>
+        <item>Освещение суш. пом.</item>
+        <item>Вытяжка с/у</item>
+        <item>Катюша</item>
+        <item>ДРЛ освещение</item>
+        <item>Освещение склада 2</item>
+        <item>Насос антифриза</item>
+        <item>ЩУ 50</item>
+        <item>ЩУ 51</item>
+        <item>Вытяжной вентилятор маслосклада 2</item>
+        <item>ЩУ 28</item>
+        <item>Вытяжной вентилятор склада 2</item>
+        <item>ЩУ маслосклада</item>
+        <item>ЩУ ПС</item>
+        <item>ЩО 11</item>
+        <item>Общеобменная вытяжная вент.</item>
+        <item>ЩУ 21</item>
+        <item>ЦПУ</item>
+        <item>Тормозной стенд</item>
+        <item>Вытяжные вентиляторы</item>
+        <item>Розетка 380В</item>
+        <item>Розетка 380В возле склада 2</item>
+        <item>АП 50 на стене</item>
+        <item>Освещение ТО 1</item>
+        <item>Освещение бытовки</item>
+        <item>Розетка 36В</item>
+        <item>Левая линия</item>
+        <item>Средняя линия</item>
+        <item>Правая линия</item>
+        <item>Дежурное освещение</item>
+        <item>Стенды испытаний</item>
+        <item>Аппарат газировки</item>
+        <item>Управление вентиляцией</item>
+        <item>Местная вытяжная вентиляция</item>
+        <item>Вент. общеобменной вытяжной вентиляции, осв. бытовки уч. тех. обсл. и ремонта</item>
+        <item>Вент. общеобменной вытяжной вентиляции</item>
+        <item>Вент. местной вытяжной вентиляции (3 шт.)</item>
+        <item>ЩО канав №2, 3</item>
+        <item>ЩУ-41</item>
+        <item>Осв. участка слесарных работ</item>
+        <item>Осв. помещений (комн. мастеров, сварочный пост)</item>
+        <item>ЩУ-19, осв. канавы №1</item>
+        <item>Роз. 380В канавы №3</item>
+        <item>Роз. 380В канавы №2</item>
+        <item>ЩУ-19, осв. верхнее зоны ТР</item>
+        <item>ЩУ-20 вытяжная вентиляция</item>
+        <item>ЩУ-19, ввод на тепловые завесы</item>
+        <item>Сварочный выпрямитель</item>
+        <item>Верхнее освещение</item>
+        <item>Смотровая канава</item>
+        <item>Сл. мастерская, малярн. склад, сварочн. пом., гардероб</item>
+        <item>Тепловая завеса</item>
+        <item>ЩУ-42</item>
+        <item>ЩУ-43</item>
+        <item>ЩУ-44</item>
+        <item>Роз. 380В на щите и в канаве</item>
+        <item>Осв. 1 канавы (правая сторона)</item>
+        <item>Осв. 1 канавы (левая сторона)</item>
+        <item>Верхнее освещение левая сторона</item>
+        <item>ЩУ-45</item>
+        <item>ЩУ-46</item>
+        <item>ЩУ-47</item>
+        <item>Осв. канав</item>
+        <item>Роз. 380В на щите</item>
+        <item>ЩУ компрессора №2300 (компрессорная)</item>
+        <item>ЩУ компрессоров №2599, 1385 (компрессорная)</item>
+        <item>Ввод №1</item>
+        <item>УКРМ</item>
+        <item>ЩС оздоровительного комплекса</item>
+        <item>ЩС-33 (мойка автобусов)</item>
+        <item>ЩС-29 (зона текущего ремонта)</item>
+        <item>ТО-1 СП-4</item>
+        <item>ТО-2</item>
+        <item>ТО-1 СП-3</item>
+        <item>ЩС-34 (мойка)</item>
+        <item>Электроподогрев</item>
+        <item>ЩС 28</item>
+        <item>ЩС 36</item>
+        <item>ЩС 26</item>
+        <item>Освещение адм. корпуса</item>
+        <item>ТО 2 ул. осв</item>
+        <item>Сварочный цех, котельн.</item>
+        <item>Компрессор</item>
+        <item>Мех. цех</item>
+        <item>Компенсац. уст.</item>
+        <item>ТО 2, ЩС 12</item>
+        <item>Освещение ТО-1</item>
+        <item>ТО 2, ЩС 6</item>
+        <item>Освещение адм. коридора</item>
+        <item>Пристройка ЩС 1</item>
+        <item>Пристройка ЩС 3</item>
+        <item>Новый корпус СП2</item>
+        <item>Новый корпус СП3</item>
+        <item>Пристройка ЩС 2</item>
+        <item>Пристройка ЩО</item>
+        <item>«Треугольник»</item>
+        <item>СП 1</item>
+        <item>Уличное осв. ТО-2</item>
+        <item>ЩО</item>
+        <item>ЩС на заборе 1 колонны</item>
+        <item>ЩС подогрева</item>
+        <item>Конвектор</item>
+        <item>ИБП МАП</item>
+        <item>Ввод КПП тип2</item>
 
     </string-array>
 

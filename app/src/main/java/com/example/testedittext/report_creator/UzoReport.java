@@ -1,11 +1,14 @@
 package com.example.testedittext.report_creator;
 
+import static com.example.testedittext.report_creator.Report.fillRekvizity;
+
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.ExcelFormula;
+import com.example.testedittext.utils.Storage;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -38,6 +41,16 @@ public class UzoReport {
         font12.setFontHeightInPoints((short)12);
         font12.setFontName("Times New Roman");
         font12.setBold(true);
+
+        Font fontForSurname = wb.createFont();
+        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontName("Times New Roman");
+        fontForSurname.setUnderline((byte) 1);
+
+        CellStyle styleForSurname;
+        styleForSurname = wb.createCellStyle();
+        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
+        styleForSurname.setFont(fontForSurname);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -294,7 +307,7 @@ public class UzoReport {
 
         row = sheetUzo.createRow(++countRow);
         cell = row.createCell(2);
-        cell.setCellValue("Измеренные значения соответствуют требованиям ГОСТ Р 51327.1-2010,");
+        cell.setCellValue("Измеренные значения соответствуют требованиям ГОСТ IEC 61009-1-2014; СТО 34.01-23.1-001-2017,");
         cell.setCellStyle(style5);
 
         row = sheetUzo.createRow(++countRow);
@@ -303,45 +316,12 @@ public class UzoReport {
         cell.setCellStyle(style5);
 
         countRow += 2;
-        row = sheetUzo.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Испытания провели:");
-        cell.setCellStyle(style5);
-        cell = row.createCell(2);
-        cell.setCellValue("Инженер");
-        cell.setCellStyle(style5);
-        cell = row.createCell(5);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(8);
-        cell.setCellValue(param.get("ingener"));
-        cell.setCellStyle(style5);
+        // Заполняем Фамилии, Должности и т.д.
+        countRow = fillRekvizity(countRow, sheetUzo, wb, param, 2,5,8);
 
-        if (!param.get("ingener2").isEmpty()){
-            countRow += 2;
-            row = sheetUzo.createRow(countRow);
-            cell = row.createCell(2);
-            cell.setCellValue("Инженер");
-            cell.setCellStyle(style5);
-            cell = row.createCell(5);
-            cell.setCellValue("______");
-            cell.setCellStyle(style5);
-            cell = row.createCell(8);
-            cell.setCellValue(param.get("ingener"));
-            cell.setCellStyle(style5);
-        }
-
-        countRow += 2;
-        row = sheetUzo.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
-        cell.setCellStyle(style5);
-        cell = row.createCell(5);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(8);
-        cell.setCellValue(param.get("rukovoditel"));
-        cell.setCellStyle(style5);
+        // Получаем количество страниц (Значение неточное, может быть посчитано неточно)
+        int countRowInList = 62;
+        Storage.pagesCountUzo = (int) Math.ceil((double) countRow / countRowInList);
 
         //устанавливаем область печати
         wb.setPrintArea(

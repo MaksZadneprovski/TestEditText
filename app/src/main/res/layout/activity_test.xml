@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.report_list.report.shield_list.shield.shield_group.test">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Верхняя строка -->
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text=" " />
+
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 1" />
+
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 2" />
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 2" />
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 2" />
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 2" />
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 2" />
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 2" />
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 2" />
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 2" />
+            <TextView
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="Заголовок 2" />
+            <!-- Добавьте дополнительные заголовки столбцов по необходимости -->
+        </TableRow>
+
+        <!-- Основная таблица -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <!-- Данные таблицы -->
+                    <TableRow>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="Заголовок 1" />
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="Данные 1" />
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="Данные 2" />
+                        <TextView
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="Данные 1" />
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="Данные 2" />
+                        <TextView
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="Данные 1" />
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="Данные 2" />
+                        <TextView
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="Данные 1" />
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="Данные 2" />
+                        <!-- Добавьте дополнительные данные таблицы по необходимости -->
+                    </TableRow>
+
+                    <!-- Добавьте дополнительные строки и данные таблицы по необходимости -->
+
+                </TableLayout>
+            </ScrollView>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

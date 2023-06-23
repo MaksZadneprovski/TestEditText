@@ -30,11 +30,10 @@ public class Server {
 
    private boolean result = false;
 
-
     private SharedPreferences sharedPreferences;
     private static final String APP_PREFERENCES = "mysettings";
     private SharedPreferences.Editor editor;
-    public static final String BASE_URL = "http://195.133.196.115:8080/";
+    public static final String BASE_URL = "http://194.87.214.82:8080/";
     private  List<ReportPojo> reportPojoList;
     private  List<UserPojo> userPojoList;
     ResponseReportListFromServerCallback reportListFromServerCallback;
@@ -227,5 +226,20 @@ public class Server {
 
     public void setResult(boolean result) {
         this.result = result;
+    }
+
+    public  void saveEfficiency(){
+        String login = sharedPreferences.getString("login", "");
+        ReportEntity reportEntityStorage = Storage.currentReportEntityStorage;
+
+        Call<ResponseBody> call = getServerService().;
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {}
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+            }
+        });
     }
 }

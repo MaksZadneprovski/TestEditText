@@ -29,7 +29,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
     private Context context;
     boolean authorize;
     Spinner spinner;
-    String[] variants = { "Без сопровождения", "Божественная симфония Бориса","Бандитская","Рэп", "Татарская", "Добрая"};
+    String[] variants = { "Без сопровождения", "Божественная симфония Бориса","Бандитская","Рэп", "Татарская","Бодрящая", "Добрая"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

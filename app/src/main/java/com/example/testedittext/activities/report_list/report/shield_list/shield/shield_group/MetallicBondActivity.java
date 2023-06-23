@@ -114,7 +114,8 @@ public class MetallicBondActivity extends AppCompatActivity {
             }
 
 
-            CopyClick clk = new CopyClick(i);
+            CopyClick clk = new CopyClick(i, false);
+            CopyClick clkIncrement = new CopyClick(i, true);
 
             TextView childAt1 = (TextView) linearOfXML.getChildAt(1);
             TextView childAt3 = (TextView) linearOfXML.getChildAt(3);
@@ -122,7 +123,7 @@ public class MetallicBondActivity extends AppCompatActivity {
 
             InstantAutoComplete childAt0 = (InstantAutoComplete) linearOfXML.getChildAt(0);
 
-            childAt1 .setOnClickListener(clk);
+            childAt1 .setOnClickListener(clkIncrement);
             childAt3 .setOnClickListener(clk);
 
             // Кнопка удалить

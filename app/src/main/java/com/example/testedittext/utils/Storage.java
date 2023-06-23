@@ -21,6 +21,14 @@ public class Storage {
     public static boolean isDeleteDefect;
     public static boolean waitLoad = true;
 
+    public static int pagesCountVO = 0;
+    public static int pagesCountMS = 0;
+    public static int pagesCountInsulation = 0;
+    public static int pagesCountF0 = 0;
+    public static int pagesCountUzo = 0;
+    public static int pagesCountAvtomat = 0;
+    public static int pagesCountGround = 0;
+    public static int pagesCountTotal = 3;
 
     public static void setGroupList(ArrayList<Group> groups) {
         Shield shield = currentReportEntityStorage.getShields().get(currentNumberSelectedShield);

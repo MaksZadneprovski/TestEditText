@@ -40,6 +40,9 @@ public class MusicPlayer {
             case "Добрая":
                 mPlayer = MediaPlayer.create(context, R.raw.kind);
                 break;
+            case "Бодрящая":
+                mPlayer = MediaPlayer.create(context, R.raw.bodr);
+                break;
         }
         if (mPlayer!=null){
             mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

@@ -1,11 +1,10 @@
 package com.example.testedittext.report_creator;
 
+import static com.example.testedittext.report_creator.Report.fillDescription;
+
 import com.example.testedittext.entities.Defect;
-import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
-import com.example.testedittext.utils.ExcelData;
-import com.example.testedittext.utils.ExcelFormula;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -37,6 +36,16 @@ public class DefectsReport {
         font14.setFontHeightInPoints((short)16);
         font14.setFontName("Times New Roman");
         font14.setBold(true);
+
+        Font fontForSurname = wb.createFont();
+        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontName("Times New Roman");
+        fontForSurname.setUnderline((byte) 1);
+
+        CellStyle styleForSurname;
+        styleForSurname = wb.createCellStyle();
+        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
+        styleForSurname.setFont(fontForSurname);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -119,7 +128,7 @@ public class DefectsReport {
                         if (!defect.getDefect().isEmpty()){
                             row = sheetDefects.createRow(countRow);
 
-                            // Строки с метсвязью есть, значит название щита тоже есть в отчете
+                            // Строка с дефектом есть, значит название щита тоже есть в отчете
                             presenceOfDefects = true;
 
                             // Столбец пункт
@@ -183,6 +192,12 @@ public class DefectsReport {
         style5.setAlignment(HorizontalAlignment.LEFT);
         style5.setFont(font11);
 
+        CellStyle style5Center;
+        style5Center = wb.createCellStyle();
+        style5Center.setAlignment(HorizontalAlignment.CENTER);
+        style5Center.setFont(font11);
+
+
         countRow += 2;
         row = sheetDefects.createRow(countRow);
         cell = row.createCell(1);
@@ -199,16 +214,28 @@ public class DefectsReport {
         countRow += 2;
         row = sheetDefects.createRow(countRow);
         cell = row.createCell(1);
-        cell.setCellValue("Ведомость составил:   Руководитель  лаборатории");
-        cell.setCellStyle(style5);
+        cell.setCellValue("Ведомость составил:");
+        cell.setCellStyle(styleForSurname);
+        countRow += 1;
+        row = sheetDefects.createRow(countRow);
+        cell = row.createCell(1);
+        cell.setCellValue("Руководитель  лаборатории");
+        cell.setCellStyle(styleForSurname);
         cell = row.createCell(3);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
+        cell.setCellValue("____________");
+        cell.setCellStyle(style5Center);
         cell = row.createCell(4);
         cell.setCellValue(param.get("rukovoditel"));
-        cell.setCellStyle(style5);
+        cell.setCellStyle(styleForSurname);
+
+        countRow+=1;
+        row = sheetDefects.createRow(countRow);
+
+        // Заполняем долж. подп. ФИО
+        fillDescription(row,1,3,4, style5, style4);
 
         countRow += 2;
+
         sheetDefects.addMergedRegion(new CellRangeAddress(
                 countRow, //first row (0-based)
                 countRow, //last row  (0-based)

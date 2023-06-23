@@ -1,10 +1,13 @@
 package com.example.testedittext.report_creator;
 
+import static com.example.testedittext.report_creator.Report.fillRekvizity;
+
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.ExcelFormula;
+import com.example.testedittext.utils.Storage;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -38,6 +41,16 @@ public class InsulationReport {
         font16.setFontHeightInPoints((short)16);
         font16.setFontName("Times New Roman");
         font16.setBold(true);
+
+        Font fontForSurname = wb.createFont();
+        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontName("Times New Roman");
+        fontForSurname.setUnderline((byte) 1);
+
+        CellStyle styleForSurname;
+        styleForSurname = wb.createCellStyle();
+        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
+        styleForSurname.setFont(fontForSurname);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -116,6 +129,7 @@ public class InsulationReport {
                 cell.setCellStyle(styleEndTable);
 
                 countRow++;
+
                 // Получаем группы щита
                 ArrayList<Group> shieldGroups = shield.getShieldGroups();
                 // Переменная для автоматической генерации номера автомата (QF1, QF2...)
@@ -176,7 +190,7 @@ public class InsulationReport {
                             // Столбцы измерений
 
                             // Автоматическое заполнение А,В,С, елси фаза не заполнена
-                            if (group.getPhases().isEmpty() && !group.getAddress().isEmpty()){
+                            if (group.getPhases().isEmpty()){
                                 switch (numberPhase){
                                     case 1: group.setPhases("А"); break;
                                     case 2: group.setPhases("В"); break;
@@ -186,6 +200,7 @@ public class InsulationReport {
                                 else numberPhase++;
                             }
 
+                            // Заполняем все ячейки прочерками
                             for (int k = 5; k < 16; k++) {
                                 cell = row.createCell(k);
                                 cell.setCellValue("-");
@@ -193,29 +208,42 @@ public class InsulationReport {
                             }
 
                             // Нужно ли заполнять N-PE
-                            boolean isPE = group.getNumberOfWireCores().equals("3") || group.getNumberOfWireCores().equals("5");
+                            boolean isPE;
+
                             // Если в изоляции везде прочерки, "соотв." не заполнится
                             boolean conformity = false;
 
                             // Столбцы сопротивления
-                            switch (group.getPhases()) {
-                                case "А":
-                                    setInsulation1Phase(row, isPE,8,style);
-                                    conformity = true;
-                                    break;
-                                case "В":
-                                    setInsulation1Phase(row, isPE,9,style);
-                                    conformity = true;
-                                    break;
-                                case "С":
-                                    setInsulation1Phase(row, isPE,10,style);
-                                    conformity = true;
-                                    break;
-                                case "АВС":
-                                    setInsulation3Phase(row, isPE,style);
-                                    conformity = true;
-                                    break;
+
+                            if (!group.getAddress().contains("Резерв") && !group.getAddress().contains("резерв")){
+                                switch (group.getPhases()) {
+                                    case "А":
+                                        // Если 3 жилы, значит есть РЕ
+                                        isPE = group.getNumberOfWireCores().equals("3");
+                                        //  Заполняем формулами генерации числа нужные ячейки
+                                        setInsulation1Phase(row, isPE,8,style);
+                                        // Для того чтобы в столбце соотв. написалось
+                                        conformity = true;
+                                        break;
+                                    case "В":
+                                        isPE = group.getNumberOfWireCores().equals("3");
+                                        setInsulation1Phase(row, isPE,9,style);
+                                        conformity = true;
+                                        break;
+                                    case "С":
+                                        isPE = group.getNumberOfWireCores().equals("3");
+                                        setInsulation1Phase(row, isPE,10,style);
+                                        conformity = true;
+                                        break;
+                                    case "АВС":
+                                        // Если 5 жил, значит есть РЕ
+                                        isPE = group.getNumberOfWireCores().equals("5");
+                                        setInsulation3Phase(row, isPE,style);
+                                        conformity = true;
+                                        break;
+                                }
                             }
+
                             // Столбец соотв
                             if (conformity) row.getCell(15).setCellValue("соотв.");
 
@@ -312,7 +340,7 @@ public class InsulationReport {
 
         row = sheetInsulation.createRow(++countRow);
         cell = row.createCell(1);
-        cell.setCellValue("        Сопротивление изоляции проводов и кабелей соответствует требованиям ПТЭЭП прил. 3.1 табл. 37; ГОСТ Р 50571.16-2019,");
+        cell.setCellValue("        Сопротивление изоляции проводов и кабелей соответствует требованиям п. 6.4.3.3 ГОСТ Р 50571.16—2019, табл. 6.1; СТО 34.01-23.1-001-2017,");
         cell.setCellStyle(style5);
 
         row = sheetInsulation.createRow(++countRow);
@@ -321,45 +349,12 @@ public class InsulationReport {
         cell.setCellStyle(style5);
 
         countRow += 2;
-        row = sheetInsulation.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Испытания провели:");
-        cell.setCellStyle(style5);
-        cell = row.createCell(2);
-        cell.setCellValue("Инженер");
-        cell.setCellStyle(style5);
-        cell = row.createCell(4);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(9);
-        cell.setCellValue(param.get("ingener"));
-        cell.setCellStyle(style5);
+        // Заполняем Фамилии, Должности и т.д.
+        countRow = fillRekvizity(countRow, sheetInsulation, wb, param, 1,4,9);
 
-        if (!param.get("ingener2").isEmpty()){
-            countRow += 2;
-            row = sheetInsulation.createRow(countRow);
-            cell = row.createCell(2);
-            cell.setCellValue("Инженер");
-            cell.setCellStyle(style5);
-            cell = row.createCell(4);
-            cell.setCellValue("______");
-            cell.setCellStyle(style5);
-            cell = row.createCell(9);
-            cell.setCellValue(param.get("ingener2"));
-            cell.setCellStyle(style5);
-        }
-
-        countRow += 2;
-        row = sheetInsulation.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
-        cell.setCellStyle(style5);
-        cell = row.createCell(4);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(9);
-        cell.setCellValue(param.get("rukovoditel"));
-        cell.setCellStyle(style5);
+        // Получаем количество страниц (Значение неточное, может быть посчитано неточно)
+        int countRowInList = 89;
+        Storage.pagesCountInsulation = (int) Math.ceil((double) countRow / countRowInList);
 
         //устанавливаем область печати
         wb.setPrintArea(

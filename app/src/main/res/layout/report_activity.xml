@@ -120,7 +120,7 @@
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></TextView>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tvCount1"
@@ -129,10 +129,10 @@
                         android:paddingLeft="20dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:text="Щитов"
+                        android:text="Щиты"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv5"></TextView>
+                        app:layout_constraintTop_toBottomOf="@id/tv5" />
 
                     <TextView
                         android:id="@+id/tvCount2"
@@ -141,10 +141,10 @@
                         android:paddingLeft="20dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:text="Групп"
+                        android:text="Группы"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvCount1"></TextView>
+                        app:layout_constraintTop_toBottomOf="@id/tvCount1" />
 
                     <TextView
                         android:id="@+id/tvCount3"
@@ -153,10 +153,22 @@
                         android:paddingLeft="20dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:text="Наличия цепи"
+                        android:text="Метсвязь"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvCount2"></TextView>
+                        app:layout_constraintTop_toBottomOf="@id/tvCount2" />
+
+                    <TextView
+                        android:id="@+id/tvCount4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Заземлители"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvCount3" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

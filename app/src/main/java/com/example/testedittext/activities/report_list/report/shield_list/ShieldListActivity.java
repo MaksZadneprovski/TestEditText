@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.AddShieldHandler;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.ShieldActivity;
+import com.example.testedittext.activities.report_list.server.Server;
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
@@ -48,6 +49,10 @@ public class ShieldListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setAdapter();
+
+        // Тут нужно отправить данные эффективности
+        Server server = new Server();
+        server.saveEfficiency();
     }
 
     private void setAdapter(){

@@ -1,10 +1,13 @@
 package com.example.testedittext.report_creator;
 
+import static com.example.testedittext.report_creator.Report.fillRekvizity;
+
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.ExcelFormula;
+import com.example.testedittext.utils.Storage;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -83,7 +86,7 @@ public class AvtomatReport {
         cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberAvtomatProtocol + " Проверки действия расцепителей автоматических выключателей до 1000 В");
         cell.setCellStyle(styleTitle);
 
-        // Начинаем с 29 строки, первые 28 занимает шапка таблицы
+        // Начинаем с 28 строки, первые 27 занимает шапка таблицы
         int countRow = 28;
         int paragraph = 1;
         String avtomat = "QF";
@@ -98,8 +101,6 @@ public class AvtomatReport {
                 // Для удаления строки с названием щита, если там не оказалось УЗО
                 boolean presenceOfAvtomat = false;
 
-                // Получаем группы щита
-                ArrayList<Group> shieldGroups = shield.getShieldGroups();
 
                 row = sheetAvtomat.createRow(countRow);
 
@@ -117,11 +118,13 @@ public class AvtomatReport {
                 cell.setCellValue(shield.getName());
                 cell.setCellStyle(style);
 
-                cell = row.createCell(16);
-                cell.setCellStyle(styleEndTable);
+                Cell cell2 = row.createCell(16);
+                cell2.setCellStyle(styleEndTable);
 
                 countRow++;
 
+                // Получаем группы щита
+                ArrayList<Group> shieldGroups = shield.getShieldGroups();
 
 
                 // Переменная для автоматической генерации номера автомата (QF1, QF2...)
@@ -268,6 +271,17 @@ public class AvtomatReport {
         font11.setFontHeightInPoints((short)11);
         font11.setFontName("Times New Roman");
 
+        Font fontForSurname = wb.createFont();
+        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontName("Times New Roman");
+        fontForSurname.setUnderline((byte) 1);
+
+        CellStyle styleForSurname;
+        styleForSurname = wb.createCellStyle();
+        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
+        styleForSurname.setFont(fontForSurname);
+
+
         CellStyle style4;
         style4 = wb.createCellStyle();
         style4.setAlignment(HorizontalAlignment.LEFT);
@@ -337,49 +351,15 @@ public class AvtomatReport {
         cell.setCellValue("        за исключением пунктов указанных в п/п ______");
         cell.setCellStyle(style5);
 
-        countRow += 2;
-        row = sheetAvtomat.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Испытания провели:   Инженер");
-        cell.setCellStyle(style5);
-        cell = row.createCell(2);
-        cell.setCellValue("Инженер");
-        cell.setCellStyle(style5);
-        cell = row.createCell(7);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(13);
-        cell.setCellValue(param.get("ingener"));
-        cell.setCellStyle(style5);
-
-        if (!param.get("ingener2").isEmpty()){
-            countRow += 2;
-            row = sheetAvtomat.createRow(countRow);
-            cell = row.createCell(2);
-            cell.setCellValue("Инженер");
-            cell.setCellStyle(style5);
-            cell = row.createCell(7);
-            cell.setCellValue("______");
-            cell.setCellStyle(style5);
-            cell = row.createCell(13);
-            cell.setCellValue(param.get("ingener2"));
-            cell.setCellStyle(style5);
-        }
 
         countRow += 2;
-        row = sheetAvtomat.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Протокол проверил:");
-        cell.setCellStyle(style5);
-        cell = row.createCell(2);
-        cell.setCellValue("Руководитель  лаборатории");
-        cell.setCellStyle(style5);
-        cell = row.createCell(7);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(13);
-        cell.setCellValue(param.get("rukovoditel"));
-        cell.setCellStyle(style5);
+
+        // Заполняем Фамилии, Должности и т.д.
+        countRow =  fillRekvizity(countRow, sheetAvtomat, wb, param, 1,7,13);
+
+        // Получаем количество страниц (Значение неточное, может быть посчитано неточно)
+        int countRowInList = 42;
+        Storage.pagesCountAvtomat = (int) Math.ceil((double) countRow / countRowInList);
         
         
         //устанавливаем область печати

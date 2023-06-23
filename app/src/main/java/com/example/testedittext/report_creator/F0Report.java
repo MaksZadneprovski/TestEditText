@@ -1,11 +1,13 @@
 package com.example.testedittext.report_creator;
 
-import com.example.testedittext.R;
+import static com.example.testedittext.report_creator.Report.fillRekvizity;
+
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.ExcelFormula;
+import com.example.testedittext.utils.Storage;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -42,6 +44,16 @@ public class F0Report {
         font12.setFontHeightInPoints((short)12);
         font12.setFontName("Times New Roman");
         font12.setBold(true);
+
+        Font fontForSurname = wb.createFont();
+        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontName("Times New Roman");
+        fontForSurname.setUnderline((byte) 1);
+
+        CellStyle styleForSurname;
+        styleForSurname = wb.createCellStyle();
+        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
+        styleForSurname.setFont(fontForSurname);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -376,7 +388,7 @@ public class F0Report {
 
         row = sheetF0.createRow(++countRow);
         cell = row.createCell(1);
-        cell.setCellValue("        Сопротивление петли «фаза-нуль» соответствует требованиям ПТЭЭП прил. 3 п. 28.4; ГОСТ Р 50571.4.43-2012; ГОСТ Р 50571.5.54-2013,");
+        cell.setCellValue("        Сопротивление петли «фаза-нуль» соответствует требованиям п. 6.4.3.7.3 ГОСТ Р 50571.16—2019; п. 411.4.4 ГОСТ Р 50571.3— 2009; СТО 34.01-23.1-001-2017,");
         cell.setCellStyle(style5);
 
         row = sheetF0.createRow(++countRow);
@@ -384,50 +396,14 @@ public class F0Report {
         cell.setCellValue("        за исключением пунктов указанных в п/п ______");
         cell.setCellStyle(style5);
 
-        countRow += 2;
-        row = sheetF0.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Испытания провели:");
-        cell.setCellStyle(style5);
-        cell = row.createCell(2);
-        cell.setCellValue("Инженер");
-        cell.setCellStyle(style5);
-        cell = row.createCell(6);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(12);
-        cell.setCellValue(param.get("ingener"));
-        cell.setCellStyle(style5);
-
-        if (!param.get("ingener2").isEmpty()){
-            countRow += 2;
-            row = sheetF0.createRow(countRow);
-            cell = row.createCell(2);
-            cell.setCellValue("Инженер");
-            cell.setCellStyle(style5);
-            cell = row.createCell(6);
-            cell.setCellValue("______");
-            cell.setCellStyle(style5);
-            cell = row.createCell(12);
-            cell.setCellValue(param.get("ingener2"));
-            cell.setCellStyle(style5);
-        }
 
         countRow += 2;
-        row = sheetF0.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Протокол проверил:");
-        cell.setCellStyle(style5);
-        cell = row.createCell(2);
-        cell.setCellValue("Руководитель  лаборатории");
-        cell.setCellStyle(style5);
-        cell = row.createCell(6);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(12);
-        cell.setCellValue(param.get("rukovoditel"));
-        cell.setCellStyle(style5);
+        // Заполняем Фамилии, Должности и т.д.
+        countRow = fillRekvizity(countRow, sheetF0, wb, param, 1,6,12);
 
+        // Получаем количество страниц (Значение неточное, может быть посчитано неточно)
+        int countRowInList = 90;
+        Storage.pagesCountF0 = (int) Math.ceil((double) countRow / countRowInList);
 
         //устанавливаем область печати
         wb.setPrintArea(

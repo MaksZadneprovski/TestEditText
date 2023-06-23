@@ -1,10 +1,13 @@
 package com.example.testedittext.report_creator;
 
+import static com.example.testedittext.report_creator.Report.fillRekvizity;
+
 import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.ExcelFormula;
+import com.example.testedittext.utils.Storage;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -36,6 +39,16 @@ public class MSReport {
         font12.setFontHeightInPoints((short)12);
         font12.setFontName("Times New Roman");
         font12.setBold(true);
+
+        Font fontForSurname = wb.createFont();
+        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontName("Times New Roman");
+        fontForSurname.setUnderline((byte) 1);
+
+        CellStyle styleForSurname;
+        styleForSurname = wb.createCellStyle();
+        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
+        styleForSurname.setFont(fontForSurname);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -246,7 +259,7 @@ public class MSReport {
 
         row = sheetMS.createRow(++countRow);
         cell = row.createCell(2);
-        cell.setCellValue("Измеренное сопротивление  заземления соответствует требованием: ПТЭЭП, прил. 3 п. 26.1, п. 28.5;");
+        cell.setCellValue("Измеренное сопротивление  заземления соответствует требованием:  СТО 34.01-23.1-001-2017;");
         cell.setCellStyle(style5);
 
         row = sheetMS.createRow(++countRow);
@@ -255,43 +268,15 @@ public class MSReport {
         cell.setCellStyle(style5);
 
         countRow += 2;
-        row = sheetMS.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Испытания провели:   Инженер");
-        cell.setCellStyle(style5);
-        cell = row.createCell(3);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(4);
-        cell.setCellValue(param.get("ingener"));
-        cell.setCellStyle(style5);
+        // Заполняем Фамилии, Должности и т.д.
+        countRow = fillRekvizity(countRow, sheetMS, wb, param, 1,3,5);
 
-        if (!param.get("ingener2").isEmpty()){
-            countRow += 2;
-            row = sheetMS.createRow(countRow);
-            cell = row.createCell(1);
-            cell.setCellValue("                                     Инженер");
-            cell.setCellStyle(style5);
-            cell = row.createCell(3);
-            cell.setCellValue("______");
-            cell.setCellStyle(style5);
-            cell = row.createCell(4);
-            cell.setCellValue(param.get("ingener2"));
-            cell.setCellStyle(style5);
-        }
 
-        countRow += 2;
-        row = sheetMS.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Протокол проверил:   Руководитель  лаборатории");
-        cell.setCellStyle(style5);
-        cell = row.createCell(3);
-        cell.setCellValue("______");
-        cell.setCellStyle(style5);
-        cell = row.createCell(4);
-        cell.setCellValue(param.get("rukovoditel"));
-        cell.setCellStyle(style5);
 
+
+        // Получаем количество страниц (Значение неточное, может быть посчитано неточно)
+        int countRowInList = 54;
+        Storage.pagesCountMS = (int) Math.ceil((double) countRow / countRowInList);
 
 
 
