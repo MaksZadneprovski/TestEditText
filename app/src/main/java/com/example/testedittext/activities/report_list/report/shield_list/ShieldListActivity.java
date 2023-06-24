@@ -17,6 +17,7 @@ import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
+import com.example.testedittext.utils.Calculator;
 import com.example.testedittext.utils.Storage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -52,7 +53,7 @@ public class ShieldListActivity extends AppCompatActivity {
 
         // Тут нужно отправить данные эффективности
         Server server = new Server();
-        server.saveEfficiency();
+        server.saveEfficiency(this, Calculator.getEfficiency(Storage.currentReportEntityStorage));
     }
 
     private void setAdapter(){

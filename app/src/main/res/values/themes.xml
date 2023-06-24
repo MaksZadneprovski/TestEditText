@@ -13,7 +13,13 @@
         <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
 
+
     </style>
+
+    <style name="Buttons" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/clickText</item>
+    </style>
+
 
     <style name="Theme.TestEditText.NoActionBar">
         <item name="windowActionBar">false</item>

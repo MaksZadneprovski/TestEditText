@@ -1,6 +1,7 @@
 package com.example.testedittext.activities.report_list.server;
 
 
+import com.example.testedittext.entities.Efficiency;
 import com.example.testedittext.entities.Pojo;
 import com.example.testedittext.utils.Storage;
 
@@ -40,6 +41,18 @@ public interface ServerService {
 
     @GET("deleteuser")
     Call<ResponseBody> deleteUser(@Query("login") String login);
+
+    @POST("saveefficiency")
+    Call<ResponseBody> saveEfficiency(@Body Efficiency efficiency);
+
+    @GET("getefficiency")
+    Call<List<Efficiency>> getEfficiency(@Query("login") String login);
+
+    @GET("getallefficiency")
+    Call<List<Efficiency>> getAllEfficiency();
+
+    @GET("getallefficiencybyloginin")
+    Call<List<Efficiency>> getEfficiencyByLoginIn(@Query("logins") List<String> logins);
 
 }
 

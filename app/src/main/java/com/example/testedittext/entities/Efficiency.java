@@ -1,17 +1,38 @@
 package com.example.testedittext.entities;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 public class Efficiency {
+    @SerializedName("shieldsSize")
     private int shieldsSize;
+    @SerializedName("countLine")
     private int countLine;
+    @SerializedName("metsvyaz")
     private int metsvyaz;
+    @SerializedName("zazeml")
     private int zazeml;
+    @SerializedName("reportName")
     private String reportName;
+    @SerializedName("login")
+    private String login;
+    @SerializedName("timestamp")
+    private String timestamp;
 
     public Efficiency() {
     }
 
     public int getShieldsSize() {
         return shieldsSize;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public void setShieldsSize(int shieldsSize) {
@@ -48,5 +69,13 @@ public class Efficiency {
 
     public void setReportName(String reportName) {
         this.reportName = reportName;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

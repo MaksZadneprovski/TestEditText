@@ -8,7 +8,10 @@ import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Calculator {
 
@@ -17,6 +20,13 @@ public class Calculator {
         int countLine = 0;
         int metsvyaz = 0;
         int zazeml = 0;
+        // Получение текущей даты и времени
+        Date currentTime = Calendar.getInstance().getTime();
+        // Создание экземпляра SimpleDateFormat с выбранным форматом даты
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+
+        // Преобразование объекта Date в строку с использованием выбранного формата
+        String formattedDate = dateFormat.format(currentTime);
 
         if (report!=null) {
             ArrayList<Shield> shields = report.getShields();
@@ -65,6 +75,7 @@ public class Calculator {
         efficiency.setCountLine(countLine);
         efficiency.setMetsvyaz(metsvyaz);
         efficiency.setZazeml(zazeml);
+        efficiency.setTimestamp(formattedDate);
 
         return efficiency;
     }

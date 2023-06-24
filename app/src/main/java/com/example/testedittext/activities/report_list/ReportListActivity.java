@@ -50,17 +50,23 @@ public class ReportListActivity extends AppCompatActivity {
         FloatingActionButton admin = findViewById(R.id.admin);
         FloatingActionButton sort = findViewById(R.id.sort);
         FloatingActionButton settings = findViewById(R.id.settings);
+        FloatingActionButton statistics = findViewById(R.id.statistics);
         admin.setColorFilter(Color.argb(255, 255, 255, 255));
         buttonAddNewReport.setColorFilter(Color.argb(255, 255, 255, 255));
         sort.setColorFilter(Color.argb(255, 255, 255, 255));
         settings.setColorFilter(Color.argb(255, 255, 255, 255));
+        statistics.setColorFilter(Color.argb(255, 255, 255, 255));
 
         String adminName = getResources().getString(R.string.admin);
 
         if (login.equals(adminName)) {
             admin.setVisibility(View.VISIBLE);
+            statistics.setVisibility(View.VISIBLE);
         }
-        else admin.setVisibility(View.INVISIBLE);
+        else {
+            admin.setVisibility(View.INVISIBLE);
+            statistics.setVisibility(View.INVISIBLE);
+        }
 
 
 
@@ -79,6 +85,7 @@ public class ReportListActivity extends AppCompatActivity {
         });
 
         settings.setOnClickListener(view -> startActivity(new Intent(view.getContext(), SettingsActivity.class)));
+        statistics.setOnClickListener(view -> startActivity(new Intent(view.getContext(), StatisticsActivity.class)));
 
     }
 

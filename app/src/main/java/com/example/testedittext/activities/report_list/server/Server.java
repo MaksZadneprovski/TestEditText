@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.testedittext.activities.report_list.AuthorizeCallback;
+import com.example.testedittext.activities.report_list.ResponseEfficiencyListFromServerCallback;
 import com.example.testedittext.activities.report_list.ResponseReportListFromServerCallback;
 import com.example.testedittext.activities.report_list.ResponseUserListFromServerCallback;
 import com.example.testedittext.activities.report_list.admin.account.AccountActivity;
+import com.example.testedittext.entities.Efficiency;
 import com.example.testedittext.entities.Pojo;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.utils.Storage;
@@ -36,9 +38,13 @@ public class Server {
     public static final String BASE_URL = "http://194.87.214.82:8080/";
     private  List<ReportPojo> reportPojoList;
     private  List<UserPojo> userPojoList;
+    private  List<Efficiency> efficiencyList;
+
     ResponseReportListFromServerCallback reportListFromServerCallback;
     ResponseUserListFromServerCallback userListFromServerCallback;
+    ResponseEfficiencyListFromServerCallback efficiencyListFromServerCallback;
     AuthorizeCallback authorizeCallback;
+
     ServerService serverService;
 
     public  void getReportEntityList(String login, ResponseReportListFromServerCallback callback){
@@ -228,18 +234,84 @@ public class Server {
         this.result = result;
     }
 
-    public  void saveEfficiency(){
+    public  void saveEfficiency(Context context, Efficiency efficiency){
+        sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         String login = sharedPreferences.getString("login", "");
-        ReportEntity reportEntityStorage = Storage.currentReportEntityStorage;
 
-        Call<ResponseBody> call = getServerService().;
+        efficiency.setLogin(login);
+        Call<ResponseBody> call = getServerService().saveEfficiency(efficiency);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {}
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 call.cancel();
             }
         });
     }
+
+    public  void getEfficiencyByLogin(ResponseEfficiencyListFromServerCallback callback, String login){
+
+        this.efficiencyListFromServerCallback = callback;
+        Call<List<Efficiency>> efficiencyCall = getServerService().getEfficiency(login);
+
+        efficiencyCall.enqueue(new Callback<List<Efficiency>>() {
+            @Override
+            public void onResponse(Call<List<Efficiency>> call, Response<List<Efficiency>> response) {
+
+                efficiencyList = response.body();
+
+                efficiencyListFromServerCallback.callbackCall(efficiencyList);
+            }
+
+            @Override
+            public void onFailure(Call<List<Efficiency>> call, Throwable t) {
+                call.cancel();
+            }
+        });
+    }
+
+    public  void getEfficiency(ResponseEfficiencyListFromServerCallback callback){
+
+        this.efficiencyListFromServerCallback = callback;
+        Call<List<Efficiency>> efficiencyCall = getServerService().getAllEfficiency();
+
+        efficiencyCall.enqueue(new Callback<List<Efficiency>>() {
+            @Override
+            public void onResponse(Call<List<Efficiency>> call, Response<List<Efficiency>> response) {
+
+                efficiencyList = response.body();
+
+                efficiencyListFromServerCallback.callbackCall(efficiencyList);
+            }
+
+            @Override
+            public void onFailure(Call<List<Efficiency>> call, Throwable t) {
+                call.cancel();
+            }
+        });
+    }
+
+    public  void getEfficiencyByLoginIn(ResponseEfficiencyListFromServerCallback callback, List<String> logins){
+
+        this.efficiencyListFromServerCallback = callback;
+        Call<List<Efficiency>> efficiencyCall = getServerService().getEfficiencyByLoginIn(logins);
+
+        efficiencyCall.enqueue(new Callback<List<Efficiency>>() {
+            @Override
+            public void onResponse(Call<List<Efficiency>> call, Response<List<Efficiency>> response) {
+
+                efficiencyList = response.body();
+
+                efficiencyListFromServerCallback.callbackCall(efficiencyList);
+            }
+
+            @Override
+            public void onFailure(Call<List<Efficiency>> call, Throwable t) {
+                call.cancel();
+            }
+        });
+    }
+
 }
