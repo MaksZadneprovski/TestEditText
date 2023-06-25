@@ -21,6 +21,7 @@
     </style>
 
 
+
     <style name="Theme.TestEditText.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

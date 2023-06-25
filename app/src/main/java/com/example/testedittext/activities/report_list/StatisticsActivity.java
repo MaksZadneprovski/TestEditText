@@ -4,6 +4,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -18,15 +19,21 @@ import androidx.core.util.Pair;
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.server.Server;
 import com.example.testedittext.entities.Efficiency;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -49,12 +56,19 @@ import java.util.stream.Collectors;
 public class StatisticsActivity extends AppCompatActivity implements ResponseEfficiencyListFromServerCallback {
 
     LineChart lineChart;
+    BarChart barChart;
+
     private Button selectDateButton;
     private Button selectTimeButton;
     private Button selectPeople;
     private Button selectLineWidthButton ;
-    Button showButton;
+    private Button selectGraphic ;
+    private Button showButton;
+    private Button selectGraphicTotal;
     private SimpleDateFormat dateFormat;
+
+    private boolean isLineGraphic = true;
+    private boolean isTotalBarData = true;
 
     ResponseEfficiencyListFromServerCallback responseEfficiencyListFromServerCallback;
 
@@ -72,11 +86,14 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
 
         responseEfficiencyListFromServerCallback = this;
         lineChart = findViewById(R.id.lineChart);
+        barChart = findViewById(R.id.barChart);
         selectDateButton = findViewById(R.id.selectDateButton);
         selectTimeButton = findViewById(R.id.selectTimeButton);
         showButton = findViewById(R.id.showButton);
+        selectGraphic = findViewById(R.id.selectGraphic);
         selectPeople = findViewById(R.id.selectPeople);
         selectLineWidthButton = findViewById(R.id.selectLineWidth);
+        selectGraphicTotal = findViewById(R.id.selectGraphicTotal);
 
         logins = new ArrayList<>();
 
@@ -118,28 +135,69 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                 }
             }
         });
+
+        // Установите обработчик событий для корневого макета, чтобы кнопки исчезали при нажатии на любое место экрана
+        barChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectDateButton.getVisibility() == View.VISIBLE) {
+                    hideButtons();
+                }
+            }
+        });
+
     }
 
 
     private void setData() {
 
-        LineData lineData = new LineData(getILineDataSet());
-        lineChart.setData(lineData);
+        if (isLineGraphic) {
+            lineChart.setVisibility(View.VISIBLE);
+            barChart.setVisibility(View.GONE);
+            LineData lineData = new LineData(getILineDataSet());
+            lineChart.setData(lineData);
 
-        // Customize the appearance of the chart
-        lineChart.getDescription().setText("График количества линий");
-        //lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-        lineChart.getLegend().setEnabled(true);
-        // Refresh the chart
-        lineChart.invalidate();
+            // Customize the appearance of the chart
+            lineChart.getDescription().setText("График количества линий");
+            lineChart.getDescription().setTextSize(13);
+            lineChart.getDescription().setXOffset(4);
+            lineChart.getDescription().setYOffset(4);
+            lineChart.getDescription().setTextColor(Color.BLACK);
+            //lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
+            lineChart.setDrawBorders(true);
+            lineChart.setBorderColor(Color.BLACK);
+            lineChart.setBorderWidth(1);
+
+            lineChart.getLegend().setEnabled(true);
+            lineChart.getLegend().setForm(Legend.LegendForm.CIRCLE);
+            // Refresh the chart
+            lineChart.invalidate();
+
+        }else {
+            barChart.setVisibility(View.VISIBLE);
+            lineChart.setVisibility(View.GONE);
+            BarData barData = null;
+
+            if (isTotalBarData){
+                barData = new BarData(getTotalIBarDataSet());
+            }else {
+                barData = new BarData(getIBarDataSet());
+            }
+
+            barChart.getDescription().setText(" ");
+            barChart.setData(barData);
+            barChart.getLegend().setEnabled(true);
+            barChart.setDrawBorders(true);
+            barChart.setBorderColor(Color.BLACK);
+            barChart.setBorderWidth(1);
+            barChart.invalidate();
+        }
+
+
     }
 
-    // Метод возвращает список линий графика, разделенные по логинам и названиям отчетов
-    public List<ILineDataSet> getILineDataSet() {
-
-        // Его возвращаем в итоге
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-
+    public Map<String, Map<String, List<Efficiency>>> getGroupedEfficiency(){
+        // Map<Логин, Map< Название отчета, List<Efficiency>>>
         Map<String, Map<String, List<Efficiency>>> groupedEfficiency = new HashMap<>();
 
         for (Efficiency data : efficiencyEntities) {
@@ -163,6 +221,163 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                 groupedEfficiency.put(login, innerMap);
             }
         }
+        return groupedEfficiency;
+    }
+
+    public List<IBarDataSet> getTotalIBarDataSet() {
+        // Его возвращаем в итоге
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        Map<String, Map<String, List<Efficiency>>> groupedEfficiency = getGroupedEfficiency();
+
+        // Создайте список разных цветов для каждого DataSet
+        List<Integer> colors = generateRandomColors(efficiencyEntities.size());
+
+        // Для рандомного цвета
+        int index = 0;
+        float xValue = 1;
+        // Проход по элементам HashMap с использованием entrySet()
+        // Проходим по HashMap по каждому логину и формируем List<Entry> entries для каждого логина (Это набор точек x, y координат)
+        // После этого каждый List<Entry> формируем в LineDataSet lineDataSet, а каждый lineDataSet добавляем в  ArrayList<ILineDataSet> dataSets
+        // Плюс тут они сразу фильтруются по дате и времени
+        for (Map.Entry<String, Map<String, List<Efficiency>>> entry : groupedEfficiency.entrySet()) {
+            String login = entry.getKey();
+
+            // Добавляем логин в список, чтобы потом использовать в фильтре
+            if (!logins.contains(login)) {
+                logins.add(login);
+            }
+
+            int countLineTotal = 0;
+            List<BarEntry> entries = new ArrayList<>();
+
+            for (Map.Entry<String, List<Efficiency>> entryInner : entry.getValue().entrySet()) {
+
+                List<Efficiency> efficiencyList = entryInner.getValue();
+
+                try {
+                    int countLine = 0;
+                    int preCountLine = 0;
+                    for (int i = 0; i < efficiencyList.size(); i++) {
+
+                        String timestampString = efficiencyList.get(i).getTimestamp();
+
+                        Date timestamp = dateFormat.parse(timestampString);
+
+                        // Filter data based on the selected date range
+                        if (timestamp.after(startDate) && timestamp.before(endDate)) {
+
+                            countLine = efficiencyList.get(i).getCountLine();
+                            if (countLine > preCountLine) preCountLine = countLine;
+                        }
+                    }
+                    countLineTotal += countLine;
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+            if (countLineTotal > 0) entries.add(new BarEntry(xValue, countLineTotal));
+            BarDataSet barDataSet = new BarDataSet(entries,login );
+            int colorIndex = index % colors.size(); // Индекс цвета из списка
+            int color = colors.get(colorIndex);
+            barDataSet.setColor(color);
+
+
+            barDataSet.setDrawValues(false);
+
+            barDataSet.setValueTextColor(Color.BLACK);
+
+            dataSets.add(barDataSet);
+            index +=1;
+            xValue +=1;
+        }
+        logins = logins.stream().sorted().collect(Collectors.toList());
+
+        return dataSets;
+    }
+
+    public List<IBarDataSet> getIBarDataSet() {
+        // Его возвращаем в итоге
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        Map<String, Map<String, List<Efficiency>>> groupedEfficiency = getGroupedEfficiency();
+
+        // Создайте список разных цветов для каждого DataSet
+        List<Integer> colors = generateRandomColors(efficiencyEntities.size());
+
+        // Для рандомного цвета
+        int index = 0;
+        float xValue = 1;
+        // Проход по элементам HashMap с использованием entrySet()
+        // Проходим по HashMap по каждому логину и формируем List<Entry> entries для каждого логина (Это набор точек x, y координат)
+        // После этого каждый List<Entry> формируем в LineDataSet lineDataSet, а каждый lineDataSet добавляем в  ArrayList<ILineDataSet> dataSets
+        // Плюс тут они сразу фильтруются по дате и времени
+        for (Map.Entry<String, Map<String, List<Efficiency>>> entry : groupedEfficiency.entrySet()) {
+            String login = entry.getKey();
+
+            // Добавляем логин в список, чтобы потом использовать в фильтре
+            if (!logins.contains(login)) {
+                logins.add(login);
+            }
+
+            int reportCount = 1;
+            for (Map.Entry<String, List<Efficiency>> entryInner : entry.getValue().entrySet()) {
+
+                List<Efficiency> efficiencyList = entryInner.getValue();
+
+                List<BarEntry> entries = new ArrayList<>();
+
+                try {
+                    int countLine = 0;
+                    int preCountLine = 0;
+                    for (int i = 0; i < efficiencyList.size(); i++) {
+
+                        String timestampString = efficiencyList.get(i).getTimestamp();
+
+                        Date timestamp = dateFormat.parse(timestampString);
+
+                        // Filter data based on the selected date range
+                        if (timestamp.after(startDate) && timestamp.before(endDate)) {
+
+                            countLine = efficiencyList.get(i).getCountLine();
+                            if (countLine > preCountLine) preCountLine = countLine;
+                        }
+                    }
+                    if (countLine > 0) entries.add(new BarEntry(xValue, countLine));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                BarDataSet barDataSet = new BarDataSet(entries,login +" "+reportCount);
+                int colorIndex = index % colors.size(); // Индекс цвета из списка
+                int color = colors.get(colorIndex);
+                barDataSet.setColor(color);
+
+
+                barDataSet.setDrawValues(false);
+
+                barDataSet.setValueTextColor(Color.BLACK);
+
+                dataSets.add(barDataSet);
+                index +=1;
+                reportCount +=1;
+                xValue +=1;
+            }
+
+        }
+        logins = logins.stream().sorted().collect(Collectors.toList());
+
+        return dataSets;
+    }
+
+    // Метод возвращает список линий графика, разделенные по логинам и названиям отчетов
+    public List<ILineDataSet> getILineDataSet() {
+
+        // Его возвращаем в итоге
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+
+        Map<String, Map<String, List<Efficiency>>> groupedEfficiency = getGroupedEfficiency();
 
         // Создайте список разных цветов для каждого DataSet
         List<Integer> colors = generateRandomColors(efficiencyEntities.size());
@@ -212,6 +427,11 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                 int colorIndex = index % colors.size(); // Индекс цвета из списка
                 int color = colors.get(colorIndex);
                 lineDataSet.setColor(color);
+
+                lineDataSet.setDrawCircleHole(false);
+                lineDataSet.setDrawCircles(false);
+                lineDataSet.setDrawValues(false);
+
                 lineDataSet.setValueTextColor(Color.BLACK);
                 // Установите толщину линии
                 lineDataSet.setLineWidth(lineWidth); // Здесь 2f - это значение толщины линии (в пикселях)
@@ -226,20 +446,24 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
 
     public void drawGraphic() {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault());
-        startDate = new Date();
-        endDate = new Date();
 
-        // Set the time of the start date to 00:00
-        Calendar startCalendar = Calendar.getInstance();
-        startCalendar.setTime(startDate);
-        startCalendar.set(Calendar.YEAR, 1900);
-        startDate = startCalendar.getTime();
+        if (startDate == null && endDate == null ){
+            startDate = new Date();
+            endDate = new Date();
 
-        // Set the time of the end date to 00:00
-        Calendar endCalendar = Calendar.getInstance();
-        endCalendar.setTime(endDate);
-        startCalendar.set(Calendar.YEAR, 2040);
-        endDate = endCalendar.getTime();
+            // Set the time of the start date to 00:00
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTime(startDate);
+            startCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            startDate = startCalendar.getTime();
+
+            // Set the time of the end date to 00:00
+            Calendar endCalendar = Calendar.getInstance();
+            endCalendar.setTime(endDate);
+            startCalendar.set(Calendar.HOUR_OF_DAY, 23);
+            startCalendar.set(Calendar.MINUTE, 59);
+            endDate = endCalendar.getTime();
+        }
 
         setData();
 
@@ -247,6 +471,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
             @Override
             public void onClick(View v) {
                 showDateRangePicker();
+                hideButtons();
             }
         });
 
@@ -254,6 +479,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
             @Override
             public void onClick(View v) {
                 showTimeRangePicker();
+                hideButtons();
             }
         });
 
@@ -262,6 +488,24 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
             @Override
             public void onClick(View v) {
                 showPeopleSelectionDialog();
+            }
+        });
+
+        // Обработчик нажатия на кнопку selectGraphic
+        selectGraphic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeGraphic();
+                hideButtons();
+            }
+        });
+
+        // Обработчик нажатия на кнопку selectGraphic
+        selectGraphicTotal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeGraphicTotalOrNot();
+                hideButtons();
             }
         });
 
@@ -373,21 +617,24 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
     }
 
 
-    public void setLineWidth(float lineWidth) {
-        this.lineWidth = lineWidth;
-    }
-
-
     private void showButtons() {
         // Показать кнопки с помощью анимации
+        if (isTotalBarData) selectGraphicTotal.setText("Раздельно");
+        else selectGraphicTotal.setText("Суммарно");
         selectDateButton.setVisibility(View.VISIBLE);
         selectTimeButton.setVisibility(View.VISIBLE);
-        selectLineWidthButton.setVisibility(View.VISIBLE);
+        if (isLineGraphic) selectLineWidthButton.setVisibility(View.VISIBLE);
+        else selectLineWidthButton.setVisibility(View.GONE);
+        if (!isLineGraphic) selectGraphicTotal.setVisibility(View.VISIBLE);
+        else selectGraphicTotal.setVisibility(View.GONE);
         selectPeople.setVisibility(View.VISIBLE);
+        selectGraphic.setVisibility(View.VISIBLE);
         selectDateButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         selectTimeButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
-        selectLineWidthButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
+        if (isLineGraphic) selectLineWidthButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
+        if (!isLineGraphic) selectGraphicTotal.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         selectPeople.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
+        selectGraphic.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         showButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         showButton.setVisibility(View.GONE);
 
@@ -399,10 +646,13 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         selectDateButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         selectLineWidthButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         selectPeople.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
+        selectGraphic.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         selectDateButton.setVisibility(View.GONE);
         selectTimeButton.setVisibility(View.GONE);
         selectLineWidthButton.setVisibility(View.GONE);
         selectPeople.setVisibility(View.GONE);
+        selectGraphic.setVisibility(View.GONE);
+        selectGraphicTotal.setVisibility(View.GONE);
         showButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         showButton.setVisibility(View.VISIBLE);
 
@@ -421,7 +671,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String[] finalPeopleList = peopleList;
 
-        builder.setTitle("Выберите аккаунты для отображения на графике")
+        builder.setTitle("Выберите аккаунты,статистика которых будет отображена на графике")
                 .setMultiChoiceItems(peopleList, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
@@ -444,6 +694,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                         }
                         // Выполнение нужных действий с выбранными элементами списка
                         new Server().getEfficiencyByLoginIn(responseEfficiencyListFromServerCallback, selectedPeople);
+                        hideButtons();
                     }
                 })
                 .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
@@ -451,10 +702,21 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                     public void onClick(DialogInterface dialog, int id) {
                         // Обработка нажатия кнопки "Отмена"
                         dialog.dismiss();
+                        hideButtons();
                     }
                 });
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void changeGraphic(){
+        isLineGraphic = !isLineGraphic;
+        setData();
+    }
+
+    public void changeGraphicTotalOrNot(){
+        isTotalBarData = !isTotalBarData;
+        setData();
     }
 }

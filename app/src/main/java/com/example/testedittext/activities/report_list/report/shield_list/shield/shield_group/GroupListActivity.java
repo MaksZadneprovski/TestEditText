@@ -335,7 +335,6 @@ public class GroupListActivity extends AppCompatActivity {
         // Создание  объекта DAO для работы с БД
         ReportDAO reportDAO = Bd.getAppDatabaseClass(getApplicationContext()).getReportDao();
 
-        System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyooooooooooooooooooooooooooooooooooooo");
         Storage.setGroupList(groupList);
         reportDAO.insertReport(new ReportInDB(Storage.currentReportEntityStorage));
     }

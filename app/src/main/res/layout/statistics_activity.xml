@@ -17,6 +17,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/selectDateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/selectTimeButton"
         android:layout_width="wrap_content"
@@ -55,12 +66,34 @@
         android:id="@+id/selectPeople"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Люди"
+        android:text="Аккаунты"
         android:width="200dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/selectLineWidth"
         app:layout_constraintStart_toStartOf="@+id/selectLineWidth"
         app:layout_constraintTop_toBottomOf="@+id/selectLineWidth" />
+
+    <Button
+        android:id="@+id/selectGraphic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Смена графика"
+        android:width="200dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/selectPeople"
+        app:layout_constraintStart_toStartOf="@+id/selectPeople"
+        app:layout_constraintTop_toBottomOf="@+id/selectPeople" />
+
+    <Button
+        android:id="@+id/selectGraphicTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Раздельно"
+        android:width="200dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/selectGraphic"
+        app:layout_constraintStart_toStartOf="@+id/selectGraphic"
+        app:layout_constraintTop_toBottomOf="@+id/selectGraphic" />
 
     <Button
         android:id="@+id/showButton"
