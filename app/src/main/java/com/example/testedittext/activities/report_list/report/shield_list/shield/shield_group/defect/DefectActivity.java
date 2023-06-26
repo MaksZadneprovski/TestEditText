@@ -19,6 +19,10 @@ import com.example.testedittext.visual.InstantAutoComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DefectActivity extends AppCompatActivity {
     private int numberOfPressedDefect;
@@ -72,12 +76,38 @@ public class DefectActivity extends AppCompatActivity {
         setDataToFieldsFromBd();
 
         // Получаем массив строк из ресурсов
-        String[] defectGroup = getResources().getStringArray(R.array.defectGroup);
+//        String[] defectGroup = getResources().getStringArray(R.array.defectGroup);
+//        String[] defects = getResources().getStringArray(R.array.defects);
+
+        Map<String, List<Map<String, String>>> defectsMap = Storage.defects;
+        Set<String> keySet = defectsMap.keySet();
+        String[]  defectGroup = new String[keySet.size()];
+
+        int i =0;
+        for (String s :keySet) {
+            defectGroup[i++] = s;
+        }
+
+        ArrayList<String> defectsArrayList = new ArrayList<>();
+        for (Map.Entry entry :defectsMap.entrySet()) {
+            ArrayList<Map<String, String>> list = (ArrayList<Map<String, String>>) entry.getValue();
+            for (Map<String, String> map: list){
+                defectsArrayList.addAll(map.keySet());
+            }
+        }
+
+        String[] defects = new String[defectsArrayList.size()];
+        i =0;
+        for (String s :defectsArrayList) {
+            defects[i++] = s;
+        }
+
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
-        ArrayAdapter<String> adapter1 = new ArrayAdapter (this, R.layout.custom_spinner, defectGroup);
-        defGroup.setAdapter(adapter1);
-        def.setAdapter(adapter1);
-        note.setAdapter(adapter1);
+        ArrayAdapter<String> adapterDefectGroups = new ArrayAdapter (this, R.layout.custom_spinner, defectGroup);
+        ArrayAdapter<String> adapterDefects = new ArrayAdapter (this, R.layout.custom_spinner, defects);
+        defGroup.setAdapter(adapterDefectGroups);
+        def.setAdapter(adapterDefects);
+        note.setAdapter(adapterDefectGroups);
 
     }
 

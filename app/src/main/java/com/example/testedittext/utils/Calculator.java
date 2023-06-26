@@ -70,12 +70,22 @@ public class Calculator {
             }
         }
         Efficiency efficiency = new Efficiency();
-        efficiency.setReportName(report.getName());
-        efficiency.setShieldsSize(shieldsSize);
-        efficiency.setCountLine(countLine);
-        efficiency.setMetsvyaz(metsvyaz);
-        efficiency.setZazeml(zazeml);
-        efficiency.setTimestamp(formattedDate);
+        if (report != null) {
+            efficiency.setReportName(report.getName());
+            efficiency.setShieldsSize(shieldsSize);
+            efficiency.setCountLine(countLine);
+            efficiency.setMetsvyaz(metsvyaz);
+            efficiency.setZazeml(zazeml);
+            efficiency.setTimestamp(formattedDate);
+        }else{
+            efficiency.setReportName(" ");
+            efficiency.setShieldsSize(0);
+            efficiency.setCountLine(0);
+            efficiency.setMetsvyaz(0);
+            efficiency.setZazeml(0);
+            efficiency.setTimestamp(formattedDate);
+        }
+
 
         return efficiency;
     }

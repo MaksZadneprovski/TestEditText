@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.AlertDialog;
@@ -41,13 +42,16 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -65,6 +69,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
     private Button selectGraphic ;
     private Button showButton;
     private Button selectGraphicTotal;
+    private TextView title;
     private SimpleDateFormat dateFormat;
 
     private boolean isLineGraphic = true;
@@ -94,6 +99,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         selectPeople = findViewById(R.id.selectPeople);
         selectLineWidthButton = findViewById(R.id.selectLineWidth);
         selectGraphicTotal = findViewById(R.id.selectGraphicTotal);
+        title = findViewById(R.id.title);
 
         logins = new ArrayList<>();
 
@@ -152,13 +158,14 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
     private void setData() {
 
         if (isLineGraphic) {
+            title.setText("Кол-во линий за выбранный период");
             lineChart.setVisibility(View.VISIBLE);
             barChart.setVisibility(View.GONE);
             LineData lineData = new LineData(getILineDataSet());
             lineChart.setData(lineData);
 
             // Customize the appearance of the chart
-            lineChart.getDescription().setText("График количества линий");
+            lineChart.getDescription().setText(" ");
             lineChart.getDescription().setTextSize(13);
             lineChart.getDescription().setXOffset(4);
             lineChart.getDescription().setYOffset(4);
@@ -174,6 +181,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
             lineChart.invalidate();
 
         }else {
+            title.setText("Прирост линий за выбранный период");
             barChart.setVisibility(View.VISIBLE);
             lineChart.setVisibility(View.GONE);
             BarData barData = null;
@@ -206,12 +214,15 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
 
             if (groupedEfficiency.containsKey(login)) {
                 Map<String, List<Efficiency>> innerMap = groupedEfficiency.get(login);
-                if (innerMap.containsKey(reportname)) {
-                    innerMap.get(reportname).add(data);
+
+                if (innerMap != null && innerMap.containsKey(reportname)) {
+                    Objects.requireNonNull(innerMap.get(reportname)).add(data);
                 } else {
                     List<Efficiency> newList = new ArrayList<>();
                     newList.add(data);
-                    innerMap.put(reportname, newList);
+                    if (innerMap != null) {
+                        innerMap.put(reportname, newList);
+                    }
                 }
             } else {
                 List<Efficiency> newList = new ArrayList<>();
@@ -225,78 +236,77 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
     }
 
     public List<IBarDataSet> getTotalIBarDataSet() {
-        // Его возвращаем в итоге
-        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        List<IBarDataSet> barDataSets = new ArrayList<>();
+        Map<String, Integer> loginCountMap = new HashMap<>();
         Map<String, Map<String, List<Efficiency>>> groupedEfficiency = getGroupedEfficiency();
-
         // Создайте список разных цветов для каждого DataSet
         List<Integer> colors = generateRandomColors(efficiencyEntities.size());
-
         // Для рандомного цвета
         int index = 0;
-        float xValue = 1;
-        // Проход по элементам HashMap с использованием entrySet()
-        // Проходим по HashMap по каждому логину и формируем List<Entry> entries для каждого логина (Это набор точек x, y координат)
-        // После этого каждый List<Entry> формируем в LineDataSet lineDataSet, а каждый lineDataSet добавляем в  ArrayList<ILineDataSet> dataSets
-        // Плюс тут они сразу фильтруются по дате и времени
+
         for (Map.Entry<String, Map<String, List<Efficiency>>> entry : groupedEfficiency.entrySet()) {
             String login = entry.getKey();
+            Map<String, List<Efficiency>> reportMap = entry.getValue();
 
-            // Добавляем логин в список, чтобы потом использовать в фильтре
-            if (!logins.contains(login)) {
-                logins.add(login);
-            }
+            int totalLoginCount = 0; // Общее суммарное значение countLine для каждого логина
 
-            int countLineTotal = 0;
-            List<BarEntry> entries = new ArrayList<>();
+            for (Map.Entry<String, List<Efficiency>> reportEntry : reportMap.entrySet()) {
+                String reportName = reportEntry.getKey();
+                List<Efficiency> efficiencyList = reportEntry.getValue();
 
-            for (Map.Entry<String, List<Efficiency>> entryInner : entry.getValue().entrySet()) {
+                int maxPreviousCountLine = 0;
+                int maxCurrentCountLine = 0;
+                for (Efficiency efficiency : efficiencyList) {
+                    String timestampString = efficiency.getTimestamp();
 
-                List<Efficiency> efficiencyList = entryInner.getValue();
-
-                try {
-                    int countLine = 0;
-                    int preCountLine = 0;
-                    for (int i = 0; i < efficiencyList.size(); i++) {
-
-                        String timestampString = efficiencyList.get(i).getTimestamp();
-
-                        Date timestamp = dateFormat.parse(timestampString);
-
-                        // Filter data based on the selected date range
-                        if (timestamp.after(startDate) && timestamp.before(endDate)) {
-
-                            countLine = efficiencyList.get(i).getCountLine();
-                            if (countLine > preCountLine) preCountLine = countLine;
-                        }
+                    Date timestamp = null;
+                    try {
+                        timestamp = dateFormat.parse(timestampString);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
-                    countLineTotal += countLine;
-                } catch (ParseException e) {
-                    e.printStackTrace();
+
+                    // Проверяем, попадает ли в заданный период
+                    if (!timestamp.before(startDate) && !timestamp.after(endDate)) {
+                        int currentCountLine = efficiency.getCountLine();
+                        if (currentCountLine>maxCurrentCountLine) maxCurrentCountLine = currentCountLine;
+
+                    }
+                    if (timestamp.before(startDate)){
+                        int previousCountLine = efficiency.getCountLine();
+                        if (previousCountLine>maxPreviousCountLine) maxPreviousCountLine = previousCountLine;
+                    }
                 }
 
-
-
+                // Вычисляем прирост как разницу между текущим и предыдущим значением countLine
+                if (maxCurrentCountLine> maxPreviousCountLine) {
+                    int growth = maxCurrentCountLine - maxPreviousCountLine;
+                    totalLoginCount += growth; // Добавляем прирост к общему суммарному значению для логина
+                }
             }
-            if (countLineTotal > 0) entries.add(new BarEntry(xValue, countLineTotal));
-            BarDataSet barDataSet = new BarDataSet(entries,login );
+            loginCountMap.put(login, totalLoginCount); // Добавляем суммарное значение countLine для текущего логина в Map
+        }
+
+        // Создаем объекты BarEntry и добавляем их в список IBarDataSet для каждого логина
+        int reportCount  = 0;
+        for (Map.Entry<String, Integer> loginEntry : loginCountMap.entrySet()) {
+            String login = loginEntry.getKey();
+            int countLine = loginEntry.getValue();
+
+            BarEntry barEntry = new BarEntry(reportCount, countLine);
+            BarDataSet barDataSet = new BarDataSet(Collections.singletonList(barEntry), login);
             int colorIndex = index % colors.size(); // Индекс цвета из списка
             int color = colors.get(colorIndex);
             barDataSet.setColor(color);
-
-
-            barDataSet.setDrawValues(false);
-
-            barDataSet.setValueTextColor(Color.BLACK);
-
-            dataSets.add(barDataSet);
+            barDataSets.add(barDataSet);
+            reportCount +=1;
             index +=1;
-            xValue +=1;
         }
-        logins = logins.stream().sorted().collect(Collectors.toList());
 
-        return dataSets;
+        return barDataSets;
     }
+
+
 
     public List<IBarDataSet> getIBarDataSet() {
         // Его возвращаем в итоге
@@ -308,11 +318,11 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
 
         // Для рандомного цвета
         int index = 0;
-        float xValue = 1;
-        // Проход по элементам HashMap с использованием entrySet()
-        // Проходим по HashMap по каждому логину и формируем List<Entry> entries для каждого логина (Это набор точек x, y координат)
-        // После этого каждый List<Entry> формируем в LineDataSet lineDataSet, а каждый lineDataSet добавляем в  ArrayList<ILineDataSet> dataSets
-        // Плюс тут они сразу фильтруются по дате и времени
+
+        int reportCount = 1;
+
+        // Map<Логин, Map< Название отчета, List<Efficiency>>>
+        // Проход по логинам
         for (Map.Entry<String, Map<String, List<Efficiency>>> entry : groupedEfficiency.entrySet()) {
             String login = entry.getKey();
 
@@ -321,30 +331,49 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                 logins.add(login);
             }
 
-            int reportCount = 1;
-            for (Map.Entry<String, List<Efficiency>> entryInner : entry.getValue().entrySet()) {
 
+
+            // Проход по отчетам
+            for (Map.Entry<String, List <Efficiency>> entryInner : entry.getValue().entrySet()) {
+                boolean isReportCountIterate = false;
+                String reportName = entryInner.getKey();
                 List<Efficiency> efficiencyList = entryInner.getValue();
 
                 List<BarEntry> entries = new ArrayList<>();
 
                 try {
-                    int countLine = 0;
-                    int preCountLine = 0;
+                    // Для хранения максимального количества строк в отчете нужной даты
+                    int maxCurrentCountLine = 0;
+                    // Для хранения макс. кол-во строк отчета даты, до указанной, чтобы потом вычесть это число
+                    int maxCountLineBeforeDate = 0;
+
+                    int countLineBeforeDate = 0;
+
+                    // Проход по объектам эффективности
                     for (int i = 0; i < efficiencyList.size(); i++) {
 
                         String timestampString = efficiencyList.get(i).getTimestamp();
 
                         Date timestamp = dateFormat.parse(timestampString);
-
+                        int currentCountLine = efficiencyList.get(i).getCountLine();
                         // Filter data based on the selected date range
-                        if (timestamp.after(startDate) && timestamp.before(endDate)) {
-
-                            countLine = efficiencyList.get(i).getCountLine();
-                            if (countLine > preCountLine) preCountLine = countLine;
+                        if (timestamp != null && timestamp.before(endDate)) {
+                            if (currentCountLine > maxCurrentCountLine) maxCurrentCountLine = currentCountLine;
                         }
+                        if (timestamp != null && timestamp.before(startDate)){
+                            countLineBeforeDate = efficiencyList.get(i).getCountLine();
+                            if (countLineBeforeDate > maxCountLineBeforeDate){
+                                maxCountLineBeforeDate = countLineBeforeDate;
+                            }
+                        }
+
                     }
-                    if (countLine > 0) entries.add(new BarEntry(xValue, countLine));
+
+                    if (maxCurrentCountLine - maxCountLineBeforeDate > 0) {
+                        // Добавляем в ентриес количество линий за выбранную дату - количество линий до этой даты
+                        entries.add(new BarEntry(reportCount, maxCurrentCountLine - maxCountLineBeforeDate));
+                        isReportCountIterate = true;
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -354,15 +383,11 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                 int color = colors.get(colorIndex);
                 barDataSet.setColor(color);
 
-
-                barDataSet.setDrawValues(false);
-
-                barDataSet.setValueTextColor(Color.BLACK);
-
                 dataSets.add(barDataSet);
                 index +=1;
-                reportCount +=1;
-                xValue +=1;
+                if (isReportCountIterate) {
+                    reportCount +=1;
+                }
             }
 
         }
@@ -398,8 +423,9 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
             }
 
             int reportCount = 1;
-            for (Map.Entry<String, List<Efficiency>> entryInner : entry.getValue().entrySet()) {
 
+            for (Map.Entry<String, List<Efficiency>> entryInner : entry.getValue().entrySet()) {
+                boolean isReportCountIterate = false;
                 List<Efficiency> efficiencyList = entryInner.getValue();
 
                 List<Entry> entries = new ArrayList<>();
@@ -413,10 +439,11 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                         Date timestamp = dateFormat.parse(timestampString);
 
                         // Filter data based on the selected date range
-                        if (timestamp.after(startDate) && timestamp.before(endDate)) {
+                        if ((timestamp != null && timestamp.after(startDate)) && timestamp.before(endDate)) {
                             float xValue = timestamp.getHours(); // x-axis value as timestamp in milliseconds
                             int countLine = efficiencyList.get(i).getCountLine();
                             entries.add(new Entry(xValue, countLine));
+                            isReportCountIterate = true;
                         }
                     }
                 } catch (ParseException e) {
@@ -437,7 +464,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                 lineDataSet.setLineWidth(lineWidth); // Здесь 2f - это значение толщины линии (в пикселях)
                 dataSets.add(lineDataSet);
                 index +=1;
-                reportCount +=1;
+                if (isReportCountIterate) reportCount +=1;
             }
         }
         logins = logins.stream().sorted().collect(Collectors.toList());
@@ -450,11 +477,13 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         if (startDate == null && endDate == null ){
             startDate = new Date();
             endDate = new Date();
+            System.out.println(startDate.toString());
 
             // Set the time of the start date to 00:00
             Calendar startCalendar = Calendar.getInstance();
             startCalendar.setTime(startDate);
             startCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            startCalendar.set(Calendar.MINUTE, 0);
             startDate = startCalendar.getTime();
 
             // Set the time of the end date to 00:00
@@ -619,7 +648,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
 
     private void showButtons() {
         // Показать кнопки с помощью анимации
-        if (isTotalBarData) selectGraphicTotal.setText("Раздельно");
+        if (isTotalBarData) selectGraphicTotal.setText("По отчетам");
         else selectGraphicTotal.setText("Суммарно");
         selectDateButton.setVisibility(View.VISIBLE);
         selectTimeButton.setVisibility(View.VISIBLE);
@@ -642,6 +671,8 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
 
     private void hideButtons() {
         // Скрыть кнопки с помощью анимации
+        showButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
+        showButton.setVisibility(View.VISIBLE);
         selectTimeButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         selectDateButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         selectLineWidthButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
@@ -653,8 +684,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         selectPeople.setVisibility(View.GONE);
         selectGraphic.setVisibility(View.GONE);
         selectGraphicTotal.setVisibility(View.GONE);
-        showButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
-        showButton.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -719,4 +749,5 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         isTotalBarData = !isTotalBarData;
         setData();
     }
+
 }

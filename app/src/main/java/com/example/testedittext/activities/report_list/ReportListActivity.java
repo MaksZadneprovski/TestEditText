@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
@@ -18,7 +20,9 @@ import com.example.testedittext.activities.report_list.admin.account.AccountActi
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportInDB;
+import com.example.testedittext.utils.DefectsParser;
 import com.example.testedittext.utils.SortReport;
+import com.example.testedittext.utils.Storage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -30,10 +34,16 @@ public class ReportListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<ReportInDB> reportList;
-    TextView tvOblako;
     private SharedPreferences sharedPreferences;
     public static final String APP_PREFERENCES = "mysettings";
     Context context;
+    FloatingActionButton buttonAddNewReport;
+    FloatingActionButton admin;
+    FloatingActionButton sort;
+    FloatingActionButton settings;
+    FloatingActionButton statistics;
+    FloatingActionButton cloud;
+    private boolean areButtonsVisible = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +51,26 @@ public class ReportListActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.report_list_activity);
 
+        // Создаем объект, так как там есть метод, вызываемый в конструкторе, который парсит дефекты из файла
+        new Storage(this).parseDefects();
+
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         String login = sharedPreferences.getString("login", "");
 
-        tvOblako = findViewById(R.id.tvOblako);
         // Кнопка Создать новый отчет
-        FloatingActionButton buttonAddNewReport = findViewById(R.id.addNewFolder);
-        FloatingActionButton admin = findViewById(R.id.admin);
-        FloatingActionButton sort = findViewById(R.id.sort);
-        FloatingActionButton settings = findViewById(R.id.settings);
-        FloatingActionButton statistics = findViewById(R.id.statistics);
+        buttonAddNewReport = findViewById(R.id.addNewFolder);
+        admin = findViewById(R.id.admin);
+        sort = findViewById(R.id.sort);
+        settings = findViewById(R.id.settings);
+        statistics = findViewById(R.id.statistics);
+        cloud = findViewById(R.id.cloud);
         admin.setColorFilter(Color.argb(255, 255, 255, 255));
         buttonAddNewReport.setColorFilter(Color.argb(255, 255, 255, 255));
         sort.setColorFilter(Color.argb(255, 255, 255, 255));
         settings.setColorFilter(Color.argb(255, 255, 255, 255));
         statistics.setColorFilter(Color.argb(255, 255, 255, 255));
+        cloud.setColorFilter(Color.argb(255, 255, 255, 255));
+
 
         String adminName = getResources().getString(R.string.admin);
 
@@ -78,7 +93,7 @@ public class ReportListActivity extends AppCompatActivity {
         sort.setOnClickListener(new SortReport(this, recyclerView));
 
 
-        tvOblako.setOnClickListener(view -> {
+        cloud.setOnClickListener(view -> {
             Intent intent = new Intent(this, CloudActivity.class);
             intent.putExtra("login", login);
             startActivity(intent);
@@ -88,9 +103,6 @@ public class ReportListActivity extends AppCompatActivity {
         statistics.setOnClickListener(view -> startActivity(new Intent(view.getContext(), StatisticsActivity.class)));
 
     }
-
-
-
 
 
     @Override
@@ -127,4 +139,5 @@ public class ReportListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
+
 }
