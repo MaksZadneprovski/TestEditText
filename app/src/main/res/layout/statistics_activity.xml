@@ -7,11 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".activities.report_list.StatisticsActivity">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Кол-во линий за выбранный период"
+        android:text="Количество групп в отчёте"
+        android:textAlignment="center"
         android:textSize="14sp"
         android:textColor="@color/black"
         android:paddingTop="10dp"
@@ -23,24 +35,28 @@
         android:id="@+id/lineChart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toTopOf="@+id/selectDateButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toTopOf="@+id/selectDateButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="64dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/selectDateButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/selectTimeButton"
@@ -48,7 +64,7 @@
         android:layout_height="wrap_content"
         android:width="200dp"
         android:text="Время"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/selectDateButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -59,7 +75,7 @@
         android:layout_height="wrap_content"
         android:width="200dp"
         android:text="Дата"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/selectLineWidth"
         app:layout_constraintEnd_toEndOf="@+id/selectTimeButton"
         app:layout_constraintStart_toStartOf="@+id/selectTimeButton" />
@@ -70,10 +86,21 @@
         android:layout_height="wrap_content"
         android:width="200dp"
         android:text="Толщина"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/selectPeople"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/selectGraphicTotal"
         app:layout_constraintEnd_toEndOf="@+id/selectDateButton"
         app:layout_constraintStart_toStartOf="@+id/selectDateButton" />
+
+        <Button
+            android:id="@+id/selectGraphicTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="200dp"
+            android:text="По отчетам"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/selectPeople"
+            app:layout_constraintEnd_toEndOf="@+id/selectLineWidth"
+            app:layout_constraintStart_toStartOf="@+id/selectLineWidth" />
 
     <Button
         android:id="@+id/selectPeople"
@@ -81,42 +108,47 @@
         android:layout_height="wrap_content"
         android:width="200dp"
         android:text="Аккаунты"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/selectGraphic"
-        app:layout_constraintEnd_toEndOf="@+id/selectLineWidth"
-        app:layout_constraintStart_toStartOf="@+id/selectLineWidth" />
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/showButton"
+        app:layout_constraintEnd_toEndOf="@+id/selectGraphicTotal"
+        app:layout_constraintStart_toStartOf="@+id/selectGraphicTotal" />
 
-    <Button
-        android:id="@+id/selectGraphic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="200dp"
-        android:text="Смена графика"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/selectGraphicTotal"
-        app:layout_constraintEnd_toEndOf="@+id/selectPeople"
-        app:layout_constraintStart_toStartOf="@+id/selectPeople"
-        tools:layout_editor_absoluteY="683dp" />
 
-    <Button
-        android:id="@+id/selectGraphicTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:width="200dp"
-        android:text="По отчетам"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/showButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Меню"
-        android:width="200dp"
+        android:width="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/showMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="←"
+            android:textSize="20sp"
+            android:width="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/showButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/selectGraphicPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="→"
+            android:textSize="20sp"
+            android:width="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/showButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,11 @@
 package com.example.testedittext.activities.report_list;
 
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -14,15 +14,14 @@ import android.widget.TimePicker;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.util.Pair;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.server.Server;
 import com.example.testedittext.entities.Efficiency;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -31,9 +30,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -42,22 +38,25 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 // Тут колбэком вызывается метод drawGraphic() и сразу efficiencyEntities присваивается список статистики всех логинов
 
-public class StatisticsActivity extends AppCompatActivity implements ResponseEfficiencyListFromServerCallback {
+public class StatisticsActivity extends AppCompatActivity implements ResponseEfficiencyListFromServerCallback, SwipeRefreshLayout.OnRefreshListener  {
 
     LineChart lineChart;
     BarChart barChart;
@@ -66,14 +65,18 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
     private Button selectTimeButton;
     private Button selectPeople;
     private Button selectLineWidthButton ;
-    private Button selectGraphic ;
+    private Button selectGraphicPlus;
     private Button showButton;
     private Button selectGraphicTotal;
     private TextView title;
     private SimpleDateFormat dateFormat;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private GestureDetector gestureDetector;
 
     private boolean isLineGraphic = true;
     private boolean isTotalBarData = true;
+
+    private int durationOfAnim = 500;
 
     ResponseEfficiencyListFromServerCallback responseEfficiencyListFromServerCallback;
 
@@ -95,11 +98,16 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         selectDateButton = findViewById(R.id.selectDateButton);
         selectTimeButton = findViewById(R.id.selectTimeButton);
         showButton = findViewById(R.id.showButton);
-        selectGraphic = findViewById(R.id.selectGraphic);
+        selectGraphicPlus = findViewById(R.id.selectGraphicPlus);
         selectPeople = findViewById(R.id.selectPeople);
         selectLineWidthButton = findViewById(R.id.selectLineWidth);
         selectGraphicTotal = findViewById(R.id.selectGraphicTotal);
         title = findViewById(R.id.title);
+
+        //Для обновления при свайпе
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        gestureDetector = new GestureDetector(this, new SwipeGestureListener());
 
         logins = new ArrayList<>();
 
@@ -156,9 +164,14 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
 
 
     private void setData() {
+        // Создаем форматтер даты и времени
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        // Получаем отформатированную строку с датой и временем
+        String startDateString = dateFormat.format(startDate);
+        String endDateString = dateFormat.format(endDate);
 
         if (isLineGraphic) {
-            title.setText("Кол-во линий за выбранный период");
+            title.setText("Количество групп в отчёте\nc "+ startDateString + "   по   " + endDateString);
             lineChart.setVisibility(View.VISIBLE);
             barChart.setVisibility(View.GONE);
             LineData lineData = new LineData(getILineDataSet());
@@ -175,13 +188,49 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
             lineChart.setBorderColor(Color.BLACK);
             lineChart.setBorderWidth(1);
 
-            lineChart.getLegend().setEnabled(true);
-            lineChart.getLegend().setForm(Legend.LegendForm.CIRCLE);
+
+            // Получите ссылку на легенду вашего графика
+            Legend legend = lineChart.getLegend();
+            // Включите перенос текста в легенде на новую строку
+            legend.setWordWrapEnabled(true);
+            legend.setEnabled(true);
+            legend.setForm(Legend.LegendForm.CIRCLE);
+
+
+            // Получите ссылку на ось X вашего графика
+            XAxis xAxis = lineChart.getXAxis();
+
+
+            // Находим максимум и минимум по Х
+            float axisMaximum = Float.NEGATIVE_INFINITY;
+            float axisMinimum = Float.POSITIVE_INFINITY;
+            List<ILineDataSet> dataSets = lineData.getDataSets();
+
+            for (ILineDataSet dataSet : dataSets) {
+                for (int j = 0; j < dataSet.getEntryCount(); j++) {
+                    Entry entry = dataSet.getEntryForIndex(j);
+                    float x = entry.getX();
+                    if (x > axisMaximum) {
+                        axisMaximum = x;
+                    }
+                    if (x < axisMinimum) {
+                        axisMinimum = x;
+                    }
+                }
+            }
+
+            // Установите максимальное значение оси X на значение последней точки плюс некоторое смещение
+             axisMaximum += 0.5f; // Пример: смещение на 0.5
+             axisMinimum -= 0.5f; // Пример: смещение на 0.5
+
+            xAxis.setAxisMaximum(axisMaximum);
+            xAxis.setAxisMinimum(axisMinimum);
+
             // Refresh the chart
             lineChart.invalidate();
 
         }else {
-            title.setText("Прирост линий за выбранный период");
+            title.setText("Количество внесенных групп\nc "+ startDateString + "   по   " + endDateString);
             barChart.setVisibility(View.VISIBLE);
             lineChart.setVisibility(View.GONE);
             BarData barData = null;
@@ -198,15 +247,21 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
             barChart.setDrawBorders(true);
             barChart.setBorderColor(Color.BLACK);
             barChart.setBorderWidth(1);
+            barChart.animateY(durationOfAnim);
+
+            Legend legend = barChart.getLegend();
+            // Включите перенос текста в легенде на новую строку
+            legend.setWordWrapEnabled(true);
+            legend.setEnabled(true);
+            legend.setForm(Legend.LegendForm.CIRCLE);
+
             barChart.invalidate();
         }
-
-
     }
 
     public Map<String, Map<String, List<Efficiency>>> getGroupedEfficiency(){
         // Map<Логин, Map< Название отчета, List<Efficiency>>>
-        Map<String, Map<String, List<Efficiency>>> groupedEfficiency = new HashMap<>();
+        Map<String, Map<String, List<Efficiency>>> groupedEfficiency = new LinkedHashMap<>();
 
         for (Efficiency data : efficiencyEntities) {
             String login = data.getLogin();
@@ -400,7 +455,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
     public List<ILineDataSet> getILineDataSet() {
 
         // Его возвращаем в итоге
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        List <ILineDataSet> dataSets = new ArrayList<>();
 
         Map<String, Map<String, List<Efficiency>>> groupedEfficiency = getGroupedEfficiency();
 
@@ -430,24 +485,35 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
 
                 List<Entry> entries = new ArrayList<>();
 
-                try {
+                // Находим наименьшую дату, для того чтобы организовать переполнение часов
+                Optional<Long> minMilliSecondsSinceStartOptional = efficiencyList.stream()
+                        .map(e -> {
+                            try {
+                                Date timestamp = dateFormat.parse(e.getTimestamp());
+                                return timestamp.after(startDate) ? timestamp.getTime() : Long.MAX_VALUE;
+                            } catch (ParseException ex) {
+                                ex.printStackTrace();
+                                return null;
+                            }
+                        })
+                        .min(Comparator.naturalOrder());
 
-                    for (int i = 0; i < efficiencyList.size(); i++) {
+                long minMilliSecondsSinceStart = minMilliSecondsSinceStartOptional.orElseThrow(() -> new RuntimeException("minHoursSinceStartOptional is empty"));
 
-                        String timestampString = efficiencyList.get(i).getTimestamp();
-
+                for (Efficiency efficiency : efficiencyList) {
+                    String timestampString = efficiency.getTimestamp();
+                    try {
                         Date timestamp = dateFormat.parse(timestampString);
+                        if (timestamp != null && timestamp.after(startDate) && timestamp.before(endDate)) {
 
-                        // Filter data based on the selected date range
-                        if ((timestamp != null && timestamp.after(startDate)) && timestamp.before(endDate)) {
-                            float xValue = timestamp.getHours(); // x-axis value as timestamp in milliseconds
-                            int countLine = efficiencyList.get(i).getCountLine();
-                            entries.add(new Entry(xValue, countLine));
+                            int hoursSinceMinimalTime = (int)(((int)(timestamp.getTime() - minMilliSecondsSinceStart)) / (1000 * 60 * 60));
+                            int countLine = efficiency.getCountLine();
+                            entries.add(new Entry((float)(hoursSinceMinimalTime) , countLine));
                             isReportCountIterate = true;
                         }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
-                } catch (ParseException e) {
-                    e.printStackTrace();
                 }
 
                 LineDataSet lineDataSet = new LineDataSet(entries,login +" "+reportCount);
@@ -460,6 +526,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
                 lineDataSet.setDrawValues(false);
 
                 lineDataSet.setValueTextColor(Color.BLACK);
+
                 // Установите толщину линии
                 lineDataSet.setLineWidth(lineWidth); // Здесь 2f - это значение толщины линии (в пикселях)
                 dataSets.add(lineDataSet);
@@ -521,11 +588,10 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         });
 
         // Обработчик нажатия на кнопку selectGraphic
-        selectGraphic.setOnClickListener(new View.OnClickListener() {
+        selectGraphicPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeGraphic();
-                hideButtons();
             }
         });
 
@@ -653,19 +719,17 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         selectDateButton.setVisibility(View.VISIBLE);
         selectTimeButton.setVisibility(View.VISIBLE);
         if (isLineGraphic) selectLineWidthButton.setVisibility(View.VISIBLE);
-        else selectLineWidthButton.setVisibility(View.GONE);
+        else selectLineWidthButton.setVisibility(View.INVISIBLE);
         if (!isLineGraphic) selectGraphicTotal.setVisibility(View.VISIBLE);
-        else selectGraphicTotal.setVisibility(View.GONE);
+        else selectGraphicTotal.setVisibility(View.INVISIBLE);
         selectPeople.setVisibility(View.VISIBLE);
-        selectGraphic.setVisibility(View.VISIBLE);
         selectDateButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         selectTimeButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         if (isLineGraphic) selectLineWidthButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         if (!isLineGraphic) selectGraphicTotal.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         selectPeople.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
-        selectGraphic.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         showButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
-        showButton.setVisibility(View.GONE);
+        showButton.setVisibility(View.INVISIBLE);
 
     }
 
@@ -677,13 +741,11 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         selectDateButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         selectLineWidthButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         selectPeople.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
-        selectGraphic.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
-        selectDateButton.setVisibility(View.GONE);
-        selectTimeButton.setVisibility(View.GONE);
-        selectLineWidthButton.setVisibility(View.GONE);
-        selectPeople.setVisibility(View.GONE);
-        selectGraphic.setVisibility(View.GONE);
-        selectGraphicTotal.setVisibility(View.GONE);
+        selectDateButton.setVisibility(View.INVISIBLE);
+        selectTimeButton.setVisibility(View.INVISIBLE);
+        selectLineWidthButton.setVisibility(View.INVISIBLE);
+        selectPeople.setVisibility(View.INVISIBLE);
+        selectGraphicTotal.setVisibility(View.INVISIBLE);
 
 
     }
@@ -748,6 +810,49 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
     public void changeGraphicTotalOrNot(){
         isTotalBarData = !isTotalBarData;
         setData();
+    }
+
+
+    // Для обновления при свайпе
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public void onRefresh() {
+        // Метод, который будет вызываться при свайпе вниз
+        setData();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final int SWIPE_THRESHOLD = 100;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
+            boolean result = false;
+            float diffY = event2.getY() - event1.getY();
+            float diffX = event2.getX() - event1.getX();
+            if (Math.abs(diffX) < Math.abs(diffY) && event1.getY() < swipeRefreshLayout.getTop()) {
+                if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffY > 0) {
+                        // Свайп вниз
+                        onRefresh();
+                    }
+                    result = true;
+                }
+            }
+            return result;
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.testedittext.activities.report_list.report;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -44,14 +45,15 @@ public class ViewReportHandler implements View.OnClickListener{
                         // Открыть файл
                         Context context = view.getContext();
                         File file = new File(context.getExternalFilesDir(null)+ "/" + Storage.currentReportEntityStorage.getName() + ".xlsx");
+                        //File file = new File(getExternalPath() + ".pdf");
 
                         Intent share = new Intent();
                         share.setAction(Intent.ACTION_VIEW);
                         Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider",file);
                         share.putExtra(Intent.EXTRA_STREAM, contentUri);
                         share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        //share.setDataAndType(contentUri, "application/vnd.ms-excel");
                         share.setDataAndType(contentUri, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                        //share.setDataAndType(contentUri, "application/pdf");
                         //share.setType("text/plain");
                         context.startActivity(share);
                     }
@@ -66,4 +68,10 @@ public class ViewReportHandler implements View.OnClickListener{
             toast.show();
         }
     }
+
+    // Сохранять в загрузки
+//    private File getExternalPath() {
+//        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+//        return new File(downloadsDir, Storage.currentReportEntityStorage.getName());
+//    }
 }

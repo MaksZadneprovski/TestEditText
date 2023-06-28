@@ -6,6 +6,7 @@ public class Statistics {
 
     private String login;
     private String reportname;
+    private int intgr;
     private Date date;
 
 }

@@ -1,6 +1,16 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
-    <translate
-        android:duration="300"
-        android:fromYDelta="100%p"
-        android:toYDelta="0" />
+
+    <scale
+        android:duration="100"
+        android:fromXScale="0.3"
+        android:fromYScale="0.3"
+        android:toXScale="1.0"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="100%"/>
 </set>
+
+
+
+
+
