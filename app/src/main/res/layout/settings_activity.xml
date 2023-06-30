@@ -22,15 +22,12 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                style="@style/Constraint2"
                 android:id="@+id/constraintAuthorization"
-                android:elevation="3dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                android:visibility="visible"
                 android:paddingBottom="20dp"
-                android:background="@drawable/bg_avtor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -98,40 +95,27 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Constraint2"
                 android:layout_marginTop="90dp"
                 android:id="@+id/constraintExit"
-                android:elevation="3dp"
                 android:paddingLeft="60dp"
                 android:paddingRight="60dp"
                 android:paddingBottom="20dp"
-                android:background="@drawable/bg_avtor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/tvLog"
-                    style="@style/TVForTitleInf"
-                    android:text="Логин"
-                    android:textSize="22sp"
-                    android:textColor="@color/clickText"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+
 
                 <TextView
                     android:id="@+id/tvLogin"
                     style="@style/TVForTitleInf"
                     android:text="Логин"
                     android:textSize="22sp"
-                    android:textColor="@color/clickText"
                     android:layout_marginTop="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvLog" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/buttonExit"
@@ -149,15 +133,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                style="@style/Constraint2"
                 android:id="@+id/constraintIngeners"
-                android:elevation="3dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="20dp"
-                android:background="@drawable/bg_avtor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintAuthorization">
@@ -218,178 +198,28 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintPribor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_avtor"
-                android:elevation="3dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingBottom="20dp"
+                android:id="@+id/constraintInstruments"
+                style="@style/Constraint2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintIngeners">
 
                 <TextView
-                    android:id="@+id/tv30"
-                    style="@style/TVForTitleInf"
-                    android:layout_marginTop="30dp"
-                    android:text="Прибор"
+                    android:id="@+id/addInf"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:paddingLeft="0dp"
                     android:textColor="@color/clickText"
-                    android:textSize="22sp"
+                    android:text="Приборы"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv32"
-                    style="@style/TVForTitleInf"
-                    android:layout_marginTop="15dp"
-                    android:text="Тип"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv30" />
-
-                <EditText
-                    android:id="@+id/pr_type"
-                    style="@style/ETForBasicInf"
-                    android:ems="20"
-                    android:inputType="text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv32"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:id="@+id/tv33"
-                    style="@style/TVForTitleInf"
-                    android:layout_marginTop="15dp"
-                    android:text="Заводской номер"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pr_type" />
-
-                <EditText
-                    android:id="@+id/pr_zav_num"
-                    style="@style/ETForBasicInf"
-                    android:ems="20"
-                    android:inputType="text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv33"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:id="@+id/tv34"
-                    style="@style/TVForTitleInf"
-                    android:layout_marginTop="15dp"
-                    android:text="Диапазон измерения"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pr_zav_num" />
-
-                <EditText
-                    android:id="@+id/pr_range"
-                    style="@style/ETForBasicInf"
-                    android:ems="20"
-                    android:inputType="text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv34"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:id="@+id/tv35"
-                    style="@style/TVForTitleInf"
-                    android:layout_marginTop="15dp"
-                    android:text="Класс точности"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pr_range" />
-
-                <EditText
-                    android:id="@+id/pr_class_toch"
-                    style="@style/ETForBasicInf"
-                    android:ems="20"
-                    android:inputType="text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv35"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:id="@+id/tv36"
-                    style="@style/TVForTitleInf"
-                    android:layout_marginTop="15dp"
-                    android:text="Последняя дата поверки"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pr_class_toch" />
-
-                <EditText
-                    android:id="@+id/pr_date_pos"
-                    style="@style/ETForBasicInf"
-                    android:ems="20"
-                    android:inputType="text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv36"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:id="@+id/tv37"
-                    style="@style/TVForTitleInf"
-                    android:layout_marginTop="15dp"
-                    android:text="Очередная дата поверки"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pr_date_pos" />
-
-                <EditText
-                    android:id="@+id/pr_date_ocher"
-                    style="@style/ETForBasicInf"
-                    android:ems="20"
-                    android:inputType="text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv37"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:id="@+id/tv38"
-                    style="@style/TVForTitleInf"
-                    android:layout_marginTop="15dp"
-                    android:text="№ аттестата"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pr_date_ocher" />
-
-                <EditText
-                    android:id="@+id/pr_num_attes"
-                    style="@style/ETForBasicInf"
-                    android:ems="20"
-                    android:inputType="text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv38"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-
-                <TextView
-                    android:id="@+id/tv39"
-                    style="@style/TVForTitleInf"
-                    android:layout_marginTop="15dp"
-                    android:text="Орган гос. метрологической службы"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pr_num_attes" />
-
-                <EditText
-                    android:id="@+id/pr_organ"
-                    style="@style/ETForBasicInf"
-                    android:ems="20"
-                    android:inputType="text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv39"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <TextView
                 android:id="@+id/tv31"
@@ -400,7 +230,7 @@
                 android:textSize="21sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintPribor" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintInstruments" />
 
             <Spinner
                 android:id="@+id/spinner"

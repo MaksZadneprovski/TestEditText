@@ -123,6 +123,15 @@ public class DefectsParser {
         return map;
     }
 
-
+    public static String getString3FromMap(Map<String, List<Map<String, String>>> inputMap, String string2) {
+        for (List<Map<String, String>> innerList : inputMap.values()) {
+            for (Map<String, String> innerMap : innerList) {
+                if (innerMap.containsKey(string2)) {
+                    return innerMap.get(string2);
+                }
+            }
+        }
+        return null; // Если значение не найдено, возвращаем null или можно выбрать другое значение по умолчанию
+    }
 
 }

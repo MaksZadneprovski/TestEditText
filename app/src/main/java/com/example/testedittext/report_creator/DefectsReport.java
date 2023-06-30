@@ -5,6 +5,8 @@ import static com.example.testedittext.report_creator.Report.fillDescription;
 import com.example.testedittext.entities.Defect;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
+import com.example.testedittext.utils.DefectsParser;
+import com.example.testedittext.utils.Storage;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -77,6 +79,31 @@ public class DefectsReport {
         styleEndTable.setBorderLeft(BorderStyle.THIN);
         styleEndTable.setLeftBorderColor(IndexedColors.BLACK.getIndex());
 
+
+        Font font11Bold = wb.createFont();
+        font11Bold.setFontHeightInPoints((short)11);
+        font11Bold.setFontName("Times New Roman");
+        font11Bold.setBold(true);
+
+        Font font11 = wb.createFont();
+        font11.setFontHeightInPoints((short)11);
+        font11.setFontName("Times New Roman");
+
+        CellStyle style4;
+        style4 = wb.createCellStyle();
+        style4.setAlignment(HorizontalAlignment.CENTER);
+        style4.setFont(font11);
+
+        CellStyle style5;
+        style5 = wb.createCellStyle();
+        style5.setAlignment(HorizontalAlignment.LEFT);
+        style5.setFont(font11);
+
+        CellStyle style5Center;
+        style5Center = wb.createCellStyle();
+        style5Center.setAlignment(HorizontalAlignment.CENTER);
+        style5Center.setFont(font11);
+
         Row row ;
         Cell cell;
 
@@ -90,6 +117,9 @@ public class DefectsReport {
         int countRow = 8;
         int paragraph = 1;
 
+        // Если дефектов нет, то таблицу нужно удалить
+        boolean presenceOfDefectsTable = false;
+
         if (shields != null) {
             // Проход по щитам
             for (int i = 0; i < shields.size(); i++) {
@@ -98,7 +128,7 @@ public class DefectsReport {
                 row = sheetDefects.createRow(countRow);
 
                 // Для удаления строки с названием щита, если там не оказалось дефектов
-                boolean presenceOfDefects = false;
+                Storage.presenceOfDefects = false;
 
                 // Объединяем столбцы для вставки названия щита
                 sheetDefects.addMergedRegion(new CellRangeAddress(
@@ -128,8 +158,9 @@ public class DefectsReport {
                         if (!defect.getDefect().isEmpty()){
                             row = sheetDefects.createRow(countRow);
 
-                            // Строка с дефектом есть, значит название щита тоже есть в отчете
-                            presenceOfDefects = true;
+                            // Строка с дефектом есть, значит название щита тоже есть в отчете и таблицу удалять не нужно
+                            Storage.presenceOfDefects = true;
+                            presenceOfDefectsTable = true;
 
                             // Столбец пункт
                             cell = row.createCell(1);
@@ -143,7 +174,7 @@ public class DefectsReport {
 
                             // Столбец Основание
                             cell = row.createCell(3);
-                            cell.setCellValue(defect.getDefectGroup());
+                            cell.setCellValue(DefectsParser.getString3FromMap(Storage.defects, defect.getDefect()));
                             cell.setCellStyle(style);
 
                             // Столбец Примечание
@@ -160,7 +191,7 @@ public class DefectsReport {
                     }
                 }
 
-                if (!presenceOfDefects) {
+                if (!Storage.presenceOfDefects) {
                     sheetDefects.removeMergedRegion(sheetDefects.getNumMergedRegions() - 1);
                     sheetDefects.createRow(countRow);
                     row.createCell(1);
@@ -172,32 +203,26 @@ public class DefectsReport {
             }
         }
 
+        // Удаление ттаблицы
+        if (!presenceOfDefectsTable){
+            countRow = 7;
+            row = sheetDefects.createRow(countRow);
+
+            for (int i = 1; i < 5; i++) {
+                cell = row.createCell(1);
+                cell.setCellValue(" ");
+                cell.setCellStyle(style5);
+            }
+
+
+            row = sheetDefects.createRow(countRow);
+            cell = row.createCell(1);
+            cell.setCellValue("В ходе проведения проверок и испытаний дефектов не обнаружено");
+            cell.setCellStyle(style5);
+
+        }
+
         // закалючение
-        Font font11Bold = wb.createFont();
-        font11Bold.setFontHeightInPoints((short)11);
-        font11Bold.setFontName("Times New Roman");
-        font11Bold.setBold(true);
-
-        Font font11 = wb.createFont();
-        font11.setFontHeightInPoints((short)11);
-        font11.setFontName("Times New Roman");
-
-        CellStyle style4;
-        style4 = wb.createCellStyle();
-        style4.setAlignment(HorizontalAlignment.CENTER);
-        style4.setFont(font11);
-
-        CellStyle style5;
-        style5 = wb.createCellStyle();
-        style5.setAlignment(HorizontalAlignment.LEFT);
-        style5.setFont(font11);
-
-        CellStyle style5Center;
-        style5Center = wb.createCellStyle();
-        style5Center.setAlignment(HorizontalAlignment.CENTER);
-        style5Center.setFont(font11);
-
-
         countRow += 2;
         row = sheetDefects.createRow(countRow);
         cell = row.createCell(1);
@@ -236,40 +261,45 @@ public class DefectsReport {
 
         countRow += 2;
 
-        sheetDefects.addMergedRegion(new CellRangeAddress(
-                countRow, //first row (0-based)
-                countRow, //last row  (0-based)
-                0, //first column (0-based)
-                7  //last column  (0-based)
-        ));
-        row = sheetDefects.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Дефекты и недостатки, выявленные электроизмерительной лабораторией, устранены «___» ___________202__г.");
-        cell.setCellStyle(style4);
+        if (presenceOfDefectsTable){
 
-        countRow += 2;
-        sheetDefects.addMergedRegion(new CellRangeAddress(
-                countRow, //first row (0-based)
-                countRow, //last row  (0-based)
-                0, //first column (0-based)
-                7  //last column  (0-based)
-        ));
-        row = sheetDefects.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Ответственный представитель «Заказчика» ____________________");
-        cell.setCellStyle(style4);
+            sheetDefects.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    7  //last column  (0-based)
+            ));
 
-        countRow += 3;
-        sheetDefects.addMergedRegion(new CellRangeAddress(
-                countRow, //first row (0-based)
-                countRow, //last row  (0-based)
-                0, //first column (0-based)
-                7  //last column  (0-based)
-        ));
-        row = sheetDefects.createRow(countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("Устранение дефектов проверено «___» _____________ 202__ г. _________________ м.п.");
-        cell.setCellStyle(style4);
+            row = sheetDefects.createRow(countRow);
+            cell = row.createCell(1);
+            cell.setCellValue("Дефекты и недостатки, выявленные электроизмерительной лабораторией, устранены «___» ___________202__г.");
+            cell.setCellStyle(style4);
+
+            countRow += 2;
+            sheetDefects.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    7  //last column  (0-based)
+            ));
+            row = sheetDefects.createRow(countRow);
+            cell = row.createCell(1);
+            cell.setCellValue("Ответственный представитель «Заказчика» ____________________");
+            cell.setCellStyle(style4);
+
+            countRow += 3;
+            sheetDefects.addMergedRegion(new CellRangeAddress(
+                    countRow, //first row (0-based)
+                    countRow, //last row  (0-based)
+                    0, //first column (0-based)
+                    7  //last column  (0-based)
+            ));
+            row = sheetDefects.createRow(countRow);
+            cell = row.createCell(1);
+            cell.setCellValue("Устранение дефектов проверено «___» _____________ 202__ г. _________________ м.п.");
+            cell.setCellStyle(style4);
+        }
+
 
         countRow += 2;
         sheetDefects.addMergedRegion(new CellRangeAddress(

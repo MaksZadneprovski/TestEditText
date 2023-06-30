@@ -9,18 +9,12 @@ import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.enums.TypeOfWork;
 import com.example.testedittext.utils.ExcelData;
 import com.example.testedittext.utils.MusicPlayer;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
 
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HeaderFooter;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Footer;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -29,8 +23,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 import java.io.File;
@@ -233,7 +225,6 @@ public class Report {
 
         wb.close();
 
-
     }
 
 
@@ -243,10 +234,10 @@ public class Report {
     }
 
     // Сохранять в загрузки
-//    private File getExternalPath() {
-//        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-//        return new File(downloadsDir, fileName);
-//    }
+    private File getDownloadsPath() {
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        return new File(downloadsDir, fileName);
+    }
     
     private void insertNumeration(ArrayList<Sheet> sheets){
         for (Sheet sheet : sheets) {

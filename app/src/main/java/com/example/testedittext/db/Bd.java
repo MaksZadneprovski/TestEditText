@@ -11,7 +11,7 @@ public class Bd  {
 
     public static AppDatabaseClass getAppDatabaseClass(Context context) {
         if (appDatabaseClass == null){
-            appDatabaseClass = Room.databaseBuilder(context.getApplicationContext(), AppDatabaseClass.class, "reports5")
+            appDatabaseClass = Room.databaseBuilder(context.getApplicationContext(), AppDatabaseClass.class, "reports7")
                     .allowMainThreadQueries()
                     .build();
         }

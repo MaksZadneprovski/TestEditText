@@ -211,84 +211,98 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/deleteReport"
             style="@style/MyStyleFloating"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="24dp"
             android:src="@drawable/delete"
-            app:layout_constraintBottom_toTopOf="@+id/showButton"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/renameReport"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            style="@style/MyStyleFloatingText"
-            android:text="Удалить отчёт"
             android:id="@+id/deleteReportText"
-            app:layout_constraintEnd_toStartOf="@+id/deleteReport"
-            app:layout_constraintTop_toTopOf="@+id/deleteReport"
-            app:layout_constraintBottom_toBottomOf="@+id/deleteReport" />
+            style="@style/MyStyleFloatingText"
+            android:layout_marginBottom="32dp"
+            android:text="Удалить"
+            android:rotation="-45"
+            app:layout_constraintBottom_toTopOf="@+id/deleteReport"
+            app:layout_constraintEnd_toEndOf="@+id/deleteReport"
+            app:layout_constraintStart_toStartOf="@+id/deleteReport" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/renameReport"
             style="@style/MyStyleFloating"
-            app:layout_constraintBottom_toTopOf="@+id/deleteReport"
-            app:layout_constraintEnd_toEndOf="@+id/deleteReport"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/shareReport"
             app:srcCompat="@drawable/rename"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            style="@style/MyStyleFloatingText"
-            android:text="Переименовать отчёт"
             android:id="@+id/renameReportText"
-            app:layout_constraintEnd_toStartOf="@+id/renameReport"
-            app:layout_constraintTop_toTopOf="@+id/renameReport"
-            app:layout_constraintBottom_toBottomOf="@+id/renameReport" />
+            style="@style/MyStyleFloatingText"
+            android:layout_marginBottom="32dp"
+            android:rotation="-45"
+            android:text="Переименовать"
+            app:layout_constraintBottom_toTopOf="@+id/renameReport"
+            app:layout_constraintEnd_toEndOf="@+id/renameReport"
+            app:layout_constraintStart_toStartOf="@+id/renameReport" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/shareReport"
             style="@style/MyStyleFloating"
-            app:layout_constraintBottom_toTopOf="@+id/renameReport"
-            app:layout_constraintEnd_toEndOf="@+id/renameReport"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/reportCreate"
             app:srcCompat="@drawable/share"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             style="@style/MyStyleFloatingText"
-            android:text="Поделиться отчётом"
+            android:text="Поделиться"
             android:id="@+id/shareReportText"
-            app:layout_constraintEnd_toStartOf="@+id/shareReport"
-            app:layout_constraintTop_toTopOf="@+id/shareReport"
-            app:layout_constraintBottom_toBottomOf="@+id/shareReport" />
+            android:layout_marginBottom="32dp"
+            android:rotation="-45"
+            app:layout_constraintBottom_toTopOf="@+id/shareReport"
+            app:layout_constraintEnd_toEndOf="@+id/shareReport"
+            app:layout_constraintStart_toStartOf="@+id/shareReport" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/reportCreate"
             style="@style/MyStyleFloating"
+            android:layout_marginEnd="24dp"
             android:src="@drawable/createreport"
-            app:layout_constraintBottom_toTopOf="@+id/shareReport"
-            app:layout_constraintEnd_toEndOf="@+id/shareReport"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/reportSave"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             style="@style/MyStyleFloatingText"
-            android:text="Посмотреть отчёт"
+            android:text="Посмотреть"
             android:id="@+id/reportCreateText"
-            app:layout_constraintEnd_toStartOf="@+id/reportCreate"
-            app:layout_constraintTop_toTopOf="@+id/reportCreate"
-            app:layout_constraintBottom_toBottomOf="@+id/reportCreate" />
+            android:layout_marginBottom="32dp"
+            android:rotation="-45"
+            app:layout_constraintBottom_toTopOf="@+id/reportCreate"
+            app:layout_constraintEnd_toEndOf="@+id/reportCreate"
+            app:layout_constraintStart_toStartOf="@+id/reportCreate" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/reportSave"
             style="@style/MyStyleFloating"
+            android:layout_marginEnd="24dp"
             android:src="@drawable/save"
-            app:layout_constraintBottom_toTopOf="@+id/reportCreate"
-            app:layout_constraintEnd_toEndOf="@+id/reportCreate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/showButton"
             tools:ignore="SpeakableTextPresentCheck" />
 
 
         <TextView
             style="@style/MyStyleFloatingText"
-            android:text="Сохранить отчёт в облаке"
+            android:text="Сохранить"
             android:id="@+id/reportSaveText"
-            app:layout_constraintEnd_toStartOf="@+id/reportSave"
-            app:layout_constraintTop_toTopOf="@+id/reportSave"
-            app:layout_constraintBottom_toBottomOf="@+id/reportSave" />
+            android:layout_marginBottom="32dp"
+            android:rotation="-45"
+            app:layout_constraintBottom_toTopOf="@+id/reportSave"
+            app:layout_constraintEnd_toEndOf="@+id/reportSave"
+            app:layout_constraintStart_toStartOf="@+id/reportSave" />
 
         <ProgressBar
             android:id="@+id/progressBar2"

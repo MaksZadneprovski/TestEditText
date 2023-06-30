@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.testedittext.R;
+import com.example.testedittext.activities.report_list.instruments.InstrumentListActivity;
+import com.example.testedittext.activities.report_list.report.ground.GroundActivity;
 import com.example.testedittext.activities.report_list.server.Server;
 
 public class SettingsActivity extends AppCompatActivity implements AuthorizeCallback {
@@ -24,9 +27,10 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
     private SharedPreferences.Editor editor;
     private ConstraintLayout clAuthor, clExit;
     private String login, pass;
-    private  EditText loginET, passET, ing, ing2, boss, pr_type, pr_zav_num, pr_range, pr_class_toch, pr_date_pos, pr_date_ocher, pr_num_attes, pr_organ;
+    private  EditText loginET, passET, ing, ing2, boss;
     TextView tvLogin;
     private Context context;
+    private ConstraintLayout constraintInstruments;
     boolean authorize;
     Spinner spinner;
     String[] variants = { "Без сопровождения", "Божественная симфония Бориса","Бандитская","Рэп", "Татарская","Бодрящая", "Добрая"};
@@ -47,22 +51,18 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         ing = findViewById(R.id.ing);
         ing2 = findViewById(R.id.ing2);
         boss = findViewById(R.id.boss);
+        constraintInstruments = findViewById(R.id.constraintInstruments);
 
 
-        pr_type = findViewById(R.id.pr_type);
-        pr_zav_num = findViewById(R.id.pr_zav_num);
-        pr_class_toch = findViewById(R.id.pr_class_toch);
-        pr_date_ocher = findViewById(R.id.pr_date_ocher);
-        pr_date_pos = findViewById(R.id.pr_date_pos);
-        pr_range = findViewById(R.id.pr_range);
-        pr_organ = findViewById(R.id.pr_organ);
-        pr_num_attes = findViewById(R.id.pr_num_attes);
+
         spinner = findViewById(R.id.spinner);
 
 
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         editor = sharedPreferences.edit();
         authorize = sharedPreferences.getBoolean("authorize", false);
+
+        constraintInstruments.setOnClickListener((view -> startActivity(new Intent(view.getContext(), InstrumentListActivity.class))));
 
         setVisibility();
 
@@ -84,11 +84,6 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
             passET.setText("");
             setVisibility();
         });
-
-
-
-
-
 
 
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
@@ -117,27 +112,11 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         String ingener2 = ing2.getText().toString();
         String rukovoditel = boss.getText().toString();
 
-        String  pr_num_attes_s= pr_num_attes.getText().toString();
-        String  pr_organ_s = pr_organ.getText().toString();
-        String  pr_range_s = pr_range.getText().toString();
-        String  pr_date_pos_s = pr_date_pos.getText().toString();
-        String pr_date_ocher_s = pr_date_ocher.getText().toString();
-        String pr_class_toch_s = pr_class_toch.getText().toString();
-        String pr_zav_num_s = pr_zav_num.getText().toString();
-        String pr_type_s = pr_type.getText().toString();
+
 
         editor.putString( "ingener", ingener );
         editor.putString( "ingener2", ingener2 );
         editor.putString( "rukovoditel", rukovoditel );
-
-        editor.putString( "numberSvid", pr_num_attes_s );
-        editor.putString( "organ", pr_organ_s );
-        editor.putString( "range", pr_range_s );
-        editor.putString( "lastDate", pr_date_pos_s );
-        editor.putString( "nextDate", pr_date_ocher_s );
-        editor.putString( "class_toch", pr_class_toch_s );
-        editor.putString( "numberZav", pr_zav_num_s );
-        editor.putString( "type", pr_type_s );
 
         editor.apply();
     }
@@ -149,14 +128,6 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         String ingener2  = sharedPreferences.getString("ingener2", null);
         String rukovoditel = sharedPreferences.getString("rukovoditel", null);
 
-        String pr_num_attes_s = sharedPreferences.getString("numberSvid", null);
-        String pr_organ_s = sharedPreferences.getString("organ", null);
-        String pr_range_s = sharedPreferences.getString("range", null);
-        String pr_date_pos_s = sharedPreferences.getString("lastDate", null);
-        String pr_date_ocher_s = sharedPreferences.getString("nextDate", null);
-        String pr_class_toch_s = sharedPreferences.getString("class_toch", null);
-        String pr_zav_num_s = sharedPreferences.getString("numberZav", null);
-        String pr_type_s = sharedPreferences.getString("type", null);
 
         int musicNum = sharedPreferences.getInt("musicNum", 0);
 
@@ -164,14 +135,7 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         ing2.setText(ingener2);
         boss.setText(rukovoditel);
 
-        pr_num_attes.setText(pr_num_attes_s);
-        pr_organ.setText(pr_organ_s);
-        pr_range.setText(pr_range_s);
-        pr_date_pos.setText(pr_date_pos_s);
-        pr_date_ocher.setText(pr_date_ocher_s);
-        pr_class_toch.setText(pr_class_toch_s);
-        pr_zav_num.setText(pr_zav_num_s);
-        pr_type.setText(pr_type_s);
+
 
 
 

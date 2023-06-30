@@ -23,10 +23,13 @@ import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.utils.DefectsParser;
 import com.example.testedittext.utils.SortReport;
 import com.example.testedittext.utils.Storage;
+import com.example.testedittext.utils.ViewEditor;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 
 // Класс для отображения списка отчетов
@@ -42,8 +45,11 @@ public class ReportListActivity extends AppCompatActivity {
     FloatingActionButton sort;
     FloatingActionButton settings;
     FloatingActionButton statistics;
-    FloatingActionButton cloud;
-    private boolean areButtonsVisible = true;
+    FloatingActionButton cloud,  showbutton;
+    List<View> viewList;
+    TextView  tv1, tv2, tv3, tv4, tv5 ,tv6;
+    private boolean isBtnHide = true;
+    View dimView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +70,22 @@ public class ReportListActivity extends AppCompatActivity {
         settings = findViewById(R.id.settings);
         statistics = findViewById(R.id.statistics);
         cloud = findViewById(R.id.cloud);
+        showbutton = findViewById(R.id.showButton);
+        dimView = findViewById(R.id.dimView);
+        tv1 = findViewById(R.id.tv1);
+        tv2 = findViewById(R.id.tv2);
+        tv3 = findViewById(R.id.tv3);
+        tv4 = findViewById(R.id.tv4);
+        tv5 = findViewById(R.id.tv5);
+        tv6 = findViewById(R.id.tv6);
+
         admin.setColorFilter(Color.argb(255, 255, 255, 255));
         buttonAddNewReport.setColorFilter(Color.argb(255, 255, 255, 255));
         sort.setColorFilter(Color.argb(255, 255, 255, 255));
         settings.setColorFilter(Color.argb(255, 255, 255, 255));
         statistics.setColorFilter(Color.argb(255, 255, 255, 255));
         cloud.setColorFilter(Color.argb(255, 255, 255, 255));
+        showbutton.setColorFilter(Color.argb(255, 255, 255, 255));
 
 
         String adminName = getResources().getString(R.string.admin);
@@ -98,9 +114,11 @@ public class ReportListActivity extends AppCompatActivity {
             intent.putExtra("login", login);
             startActivity(intent);
         });
-
+        showbutton.setOnClickListener(view -> setVisibilityButtons());
         settings.setOnClickListener(view -> startActivity(new Intent(view.getContext(), SettingsActivity.class)));
         statistics.setOnClickListener(view -> startActivity(new Intent(view.getContext(), StatisticsActivity.class)));
+
+        viewList = new ArrayList<>(Arrays.asList(admin,buttonAddNewReport, sort, cloud, settings,statistics, tv1, tv2, tv3, tv4, tv5, tv6));
 
     }
 
@@ -109,12 +127,25 @@ public class ReportListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setAdapter();
+        setAdminPrivelegions();
+    }
+
+    private void setAdminPrivelegions() {
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         String login = sharedPreferences.getString("login", "");
         String adminName = getResources().getString(R.string.admin);
-        FloatingActionButton admin =  findViewById(R.id.admin);
-        if (login.equals(adminName)) admin.setVisibility(View.VISIBLE);
-        else admin.setVisibility(View.INVISIBLE);
+        if (login.equals(adminName)) {
+            admin.setVisibility(View.VISIBLE);
+            statistics.setVisibility(View.VISIBLE);
+            tv1.setVisibility(View.VISIBLE);
+            tv2.setVisibility(View.VISIBLE);
+
+        } else {
+            admin.setVisibility(View.GONE);
+            statistics.setVisibility(View.GONE);
+            tv1.setVisibility(View.GONE);
+            tv2.setVisibility(View.GONE);
+        }
     }
 
 
@@ -138,6 +169,18 @@ public class ReportListActivity extends AppCompatActivity {
         ReportListRVAdapter adapter = new ReportListRVAdapter(reportList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+    }
+
+    public void setVisibilityButtons(){
+        if (isBtnHide) {
+            ViewEditor.showButtons(viewList, dimView) ;
+            setAdminPrivelegions();
+            isBtnHide = false;
+        }
+        else{
+            ViewEditor.hideButtons(viewList, dimView);
+            isBtnHide = true;
+        }
     }
 
 }

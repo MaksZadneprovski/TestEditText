@@ -11,4 +11,5 @@
     <color name="blue">#F1F5FD</color>
     <color name="clickText">#4873B8</color>
     <color name="red">#FFC6473E</color>
+    <color name="whiteAlpha">#E1FFFFFF</color>
 </resources>

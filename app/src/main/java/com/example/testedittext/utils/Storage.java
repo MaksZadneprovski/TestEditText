@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.testedittext.entities.Defect;
 import com.example.testedittext.entities.Group;
+import com.example.testedittext.entities.InstrumentInDB;
 import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
@@ -16,15 +17,19 @@ import java.util.Map;
 public class Storage {
     // Текущий отчет
     public static ReportEntity currentReportEntityStorage;
+    public static List<InstrumentInDB> instrumentInDBList;
     public static Map <String, List<Map<String, String>>> defects;
 
     public static int currentNumberSelectedShield;
     public static int currentNumberOfPressedDefect;
+    public static int numberOfPressedInstrument;
 
 
     public static boolean isDeleteShield;
     public static boolean isDeleteDefect;
-    public static boolean waitLoad = true;
+    public static boolean isDeleteInstrument;
+    // Для хранения инф о наличии дефектов
+    public static boolean presenceOfDefects;
 
     public static int pagesCountVO = 0;
     public static int pagesCountMS = 0;

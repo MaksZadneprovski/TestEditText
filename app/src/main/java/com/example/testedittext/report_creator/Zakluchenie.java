@@ -3,6 +3,7 @@ package com.example.testedittext.report_creator;
 import static com.example.testedittext.report_creator.Report.fillRekvizity;
 
 import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.utils.Storage;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -80,11 +81,24 @@ public class Zakluchenie {
         cell.setCellStyle(style);
 
 
+        if (Storage.presenceOfDefects){
+            // Не соотв.
+            row = sheetZakl.createRow(13);
+            cell = row.createCell(0);
+            cell.setCellValue("соответствует требованиям нормативной документации,");
+            cell.setCellStyle(style);
+            row = sheetZakl.createRow(15);
+            cell = row.createCell(0);
+            cell.setCellValue("за исключением пунктов, указанных в дефектной ведомости");
+            cell.setCellStyle(style);
+
+            countRow+=2;
+        }
+
         countRow+=4;
 
         // Заполняем Фамилии, Должности и т.д.
         fillRekvizity(countRow, sheetZakl, wb, param, 2,5,8);
-
 
         return wb;
     }

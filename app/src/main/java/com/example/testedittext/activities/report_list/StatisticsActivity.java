@@ -719,9 +719,9 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         selectDateButton.setVisibility(View.VISIBLE);
         selectTimeButton.setVisibility(View.VISIBLE);
         if (isLineGraphic) selectLineWidthButton.setVisibility(View.VISIBLE);
-        else selectLineWidthButton.setVisibility(View.INVISIBLE);
+        else selectLineWidthButton.setVisibility(View.GONE);
         if (!isLineGraphic) selectGraphicTotal.setVisibility(View.VISIBLE);
-        else selectGraphicTotal.setVisibility(View.INVISIBLE);
+        else selectGraphicTotal.setVisibility(View.GONE);
         selectPeople.setVisibility(View.VISIBLE);
         selectDateButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
         selectTimeButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in));
@@ -741,11 +741,11 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         selectDateButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         selectLineWidthButton.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
         selectPeople.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out));
-        selectDateButton.setVisibility(View.INVISIBLE);
-        selectTimeButton.setVisibility(View.INVISIBLE);
-        selectLineWidthButton.setVisibility(View.INVISIBLE);
-        selectPeople.setVisibility(View.INVISIBLE);
-        selectGraphicTotal.setVisibility(View.INVISIBLE);
+        selectDateButton.setVisibility(View.GONE);
+        selectTimeButton.setVisibility(View.GONE);
+        selectLineWidthButton.setVisibility(View.GONE);
+        selectPeople.setVisibility(View.GONE);
+        selectGraphicTotal.setVisibility(View.GONE);
 
 
     }

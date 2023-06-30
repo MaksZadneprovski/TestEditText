@@ -60,12 +60,14 @@
                 <com.example.testedittext.visual.InstantAutoComplete
                     android:id="@+id/defect"
                     style="@style/ETForBasicInf"
-                    android:completionThreshold="0"
+                    android:layout_width="match_parent"
                     android:ems="20"
+                    android:maxLines="4"
                     android:inputType="textMultiLine|textCapWords"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv2" />
+
 
                 <TextView
                     android:id="@+id/tv3"

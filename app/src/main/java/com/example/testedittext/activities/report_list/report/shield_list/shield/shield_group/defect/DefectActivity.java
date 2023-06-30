@@ -2,9 +2,13 @@ package com.example.testedittext.activities.report_list.report.shield_list.shiel
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.DeleteShieldHandler;
@@ -17,6 +21,8 @@ import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.Storage;
 import com.example.testedittext.visual.InstantAutoComplete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,8 +50,12 @@ public class DefectActivity extends AppCompatActivity {
         def = findViewById(R.id.defect);
         note = findViewById(R.id.note);
 
+
         report = Storage.currentReportEntityStorage;
         defectArrayList = report.getShields().get(Storage.currentNumberSelectedShield).getDefects();
+
+
+
 
         // Если нажали на элемент RV, получаем индекс элемента через Intent и объект дефекта из хранилища
         // Если нажали на кнопку новый щит, он создается
@@ -75,36 +85,16 @@ public class DefectActivity extends AppCompatActivity {
 
         setDataToFieldsFromBd();
 
-        // Получаем массив строк из ресурсов
-//        String[] defectGroup = getResources().getStringArray(R.array.defectGroup);
-//        String[] defects = getResources().getStringArray(R.array.defects);
 
-        Map<String, List<Map<String, String>>> defectsMap = Storage.defects;
-        Set<String> keySet = defectsMap.keySet();
-        String[]  defectGroup = new String[keySet.size()];
 
-        int i =0;
-        for (String s :keySet) {
-            defectGroup[i++] = s;
-        }
 
-        ArrayList<String> defectsArrayList = new ArrayList<>();
-        for (Map.Entry entry :defectsMap.entrySet()) {
-            ArrayList<Map<String, String>> list = (ArrayList<Map<String, String>>) entry.getValue();
-            for (Map<String, String> map: list){
-                defectsArrayList.addAll(map.keySet());
-            }
-        }
 
-        String[] defects = new String[defectsArrayList.size()];
-        i =0;
-        for (String s :defectsArrayList) {
-            defects[i++] = s;
-        }
 
         // Создаем адаптер для автозаполнения элемента AutoCompleteTextView
-        ArrayAdapter<String> adapterDefectGroups = new ArrayAdapter (this, R.layout.custom_spinner, defectGroup);
-        ArrayAdapter<String> adapterDefects = new ArrayAdapter (this, R.layout.custom_spinner, defects);
+        ArrayAdapter<String> adapterDefectGroups = new ArrayAdapter (this, R.layout.custom_spinner, getDefectGroupArray());
+
+        ArrayAdapter<String> adapterDefects = new ArrayAdapter (this,  R.layout.item_autocomplete, R.id.textViewItem, getDefectsList());
+
         defGroup.setAdapter(adapterDefectGroups);
         def.setAdapter(adapterDefects);
         note.setAdapter(adapterDefectGroups);
@@ -140,4 +130,37 @@ public class DefectActivity extends AppCompatActivity {
         def.setText(defect.getDefect());
         note.setText(defect.getNote());
     }
+
+    public String[] getDefectGroupArray(){
+        Map<String, List<Map<String, String>>> defectsMap = Storage.defects;
+        Set<String> keySet = defectsMap.keySet();
+        String[]  defectGroup = new String[keySet.size()];
+
+        int i =0;
+        for (String s :keySet) {
+            defectGroup[i++] = s;
+        }
+        return defectGroup;
+    }
+
+    public ArrayList<String> getDefectsList(){
+        Map<String, List<Map<String, String>>> defectsMap = Storage.defects;
+
+        ArrayList<String> defectsArrayList = new ArrayList<>();
+        for (Map.Entry entry :defectsMap.entrySet()) {
+            ArrayList<Map<String, String>> list = (ArrayList<Map<String, String>>) entry.getValue();
+            for (Map<String, String> map: list){
+                defectsArrayList.addAll(map.keySet());
+            }
+        }
+
+        String[] defects = new String[defectsArrayList.size()];
+        int i =0;
+        for (String s :defectsArrayList) {
+            defects[i++] = s;
+        }
+
+        return defectsArrayList;
+    }
+
 }
