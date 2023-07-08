@@ -23,22 +23,25 @@ import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.entities.Shield;
 import com.example.testedittext.entities.enums.Phases;
 import com.example.testedittext.utils.Storage;
+import com.example.testedittext.utils.ViewEditor;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ShieldActivity extends AppCompatActivity {
 
     EditText shieldName;
-    TextView tvShieldGroups, tvShieldDefects, tvMetallicBond;
+    TextView tvShieldGroups, tvShieldDefects, tvMetallicBond, tvf1,tvf2,tvf3;
     RadioButton shieldRadio1_1,shieldRadio1_2,shieldRadio2_1,shieldRadio2_2,shieldRadio2_3 ,shieldRadio2_4;
     ProgressBar progressBar;
-
-
+    List<View> viewList;
+    private boolean isBtnHide = true;
+    View dimView;
     Shield shield;
     ArrayList<Shield> shieldArrayList;
     ReportEntity report;
-    int numberOfPressedShield;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,13 @@ public class ShieldActivity extends AppCompatActivity {
 
         // Кнопка удалить щит
         FloatingActionButton deleteShield =  findViewById(R.id.deleteShield);
+        FloatingActionButton copyShield =  findViewById(R.id.copyShield);
+        FloatingActionButton replaceShield =  findViewById(R.id.replaceShield);
+        FloatingActionButton showButton =  findViewById(R.id.showButton);
         deleteShield.setColorFilter(Color.argb(255, 255, 255, 255));
+        copyShield.setColorFilter(Color.argb(255, 255, 255, 255));
+        replaceShield.setColorFilter(Color.argb(255, 255, 255, 255));
+        showButton.setColorFilter(Color.argb(255, 255, 255, 255));
 
         progressBar = findViewById(R.id.progressBar3);
 
@@ -61,6 +70,10 @@ public class ShieldActivity extends AppCompatActivity {
         shieldRadio2_2 = findViewById(R.id.shieldRadio2_2);
         shieldRadio2_3 = findViewById(R.id.shieldRadio2_3);
         shieldRadio2_4 = findViewById(R.id.shieldRadio2_4);
+        dimView = findViewById(R.id.dimView);
+        tvf1 = findViewById(R.id.tvf1);
+        tvf2 = findViewById(R.id.tvf2);
+        tvf3 = findViewById(R.id.tvf3);
 
         // Берем акуальный объект отчета из хранилища
         report = Storage.currentReportEntityStorage;
@@ -81,8 +94,7 @@ public class ShieldActivity extends AppCompatActivity {
         // Если нажали на кнопку новый щит, он создается
         Bundle arguments = getIntent().getExtras();
         if (arguments != null) {
-            numberOfPressedShield = (int) arguments.get("numberOfPressedShield");
-            Storage.currentNumberSelectedShield = numberOfPressedShield;
+            Storage.currentNumberSelectedShield = (int) arguments.get("numberOfPressedShield");
 
             if (shieldArrayList == null){
                 shieldArrayList = new ArrayList<>();
@@ -91,16 +103,23 @@ public class ShieldActivity extends AppCompatActivity {
             }
 
             // Если создали новый щит, то передается его номер в обработчике AddShieldHandler, но он еще не создан в отчете, и поэтому нужно его сначала создать
-            if (numberOfPressedShield == shieldArrayList.size()){
+            if (Storage.currentNumberSelectedShield == shieldArrayList.size()){
                 shieldArrayList.add(new Shield());
             }
 
-            shield = shieldArrayList.get(numberOfPressedShield);
+            shield = shieldArrayList.get(Storage.currentNumberSelectedShield);
         }
 
 
         // Нажатие на кнопку удалить щит
-        deleteShield.setOnClickListener(new DeleteShieldHandler(this, numberOfPressedShield));
+        deleteShield.setOnClickListener(new DeleteShieldHandler(this, Storage.currentNumberSelectedShield));
+        copyShield.setOnClickListener(new CopyShieldHandler(shieldArrayList, shield));
+        replaceShield.setOnClickListener(new ReplaceShieldHandler(shieldArrayList, this));
+
+        dimView.setOnClickListener(view -> setVisibilityButtons());
+        showButton.setOnClickListener(view -> setVisibilityButtons());
+
+        viewList = new ArrayList<>(Arrays.asList(deleteShield, copyShield,replaceShield, tvf1,tvf2,tvf3));
 
         setDataToFieldsFromBd();
 
@@ -109,12 +128,18 @@ public class ShieldActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Берем акуальный объект отчета из хранилища
+        report = Storage.currentReportEntityStorage;
+        shieldArrayList = report.getShields();
         progressBar.setVisibility(View.GONE);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        // Берем акуальный объект отчета из хранилища
+        report = Storage.currentReportEntityStorage;
+        shieldArrayList = report.getShields();
         if (!Storage.isDeleteShield) {
             readDataFromFields();
             saveReport();
@@ -150,10 +175,13 @@ public class ShieldActivity extends AppCompatActivity {
     public void saveReport(){
         // Создание  объекта DAO для работы с БД
         ReportDAO reportDAO = Bd.getAppDatabaseClass(getApplicationContext()).getReportDao();
+        // Берем акуальный объект отчета из хранилища
+        report = Storage.currentReportEntityStorage;
+        shieldArrayList = report.getShields();
 
         if (!shieldArrayList.isEmpty()) {
-            shieldArrayList.remove(numberOfPressedShield);
-            shieldArrayList.add(numberOfPressedShield,shield);
+            shieldArrayList.remove(Storage.currentNumberSelectedShield);
+            shieldArrayList.add(Storage.currentNumberSelectedShield,shield);
         }else {
             shieldArrayList.add(shield);
         }
@@ -162,6 +190,17 @@ public class ShieldActivity extends AppCompatActivity {
         Storage.currentReportEntityStorage = report;
         reportDAO.insertReport(new ReportInDB(report));
 
+    }
+
+    public void setVisibilityButtons(){
+        if (isBtnHide) {
+            ViewEditor.showButtons(viewList, dimView) ;
+            isBtnHide = false;
+        }
+        else{
+            ViewEditor.hideButtons(viewList, dimView);
+            isBtnHide = true;
+        }
     }
 
 }

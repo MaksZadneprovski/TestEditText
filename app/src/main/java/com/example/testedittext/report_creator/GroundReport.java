@@ -2,10 +2,13 @@ package com.example.testedittext.report_creator;
 
 import static com.example.testedittext.report_creator.Report.fillRekvizity;
 
+import android.content.Context;
+
 import com.example.testedittext.entities.Ground;
 import com.example.testedittext.entities.GroundingDevice;
 import com.example.testedittext.entities.ReportEntity;
-import com.example.testedittext.utils.ExcelData;
+import com.example.testedittext.entities.enums.TypeOfWork;
+import com.example.testedittext.utils.Excel;
 import com.example.testedittext.utils.ExcelFormula;
 import com.example.testedittext.utils.Storage;
 
@@ -25,7 +28,7 @@ import java.util.Map;
 
 public class GroundReport {
 
-    public static Workbook generateGround(Workbook wb, ReportEntity report, Map<String, String> param){
+    public static Workbook generateGround(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
 
         Sheet sheetGround = wb.getSheet("Ground");
 
@@ -102,7 +105,7 @@ public class GroundReport {
 
         Row row = sheetGround.createRow(7);
         Cell cell = row.createCell(0);
-        cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberGroundingProtocol + " Проверки сопротивлений заземлителей и заземляющих устройств");
+        cell.setCellValue("ПРОТОКОЛ № " + Excel.numberGroundingProtocol + " Проверки сопротивлений заземлителей и заземляющих устройств");
         cell.setCellStyle(styleTitle);
 
         Ground ground = report.getGround();
@@ -229,46 +232,7 @@ public class GroundReport {
             style5.setFont(font12N);
 
 
-            row = sheetGround.createRow(++countRow);
-            cell = row.createCell(1);
-            cell.setCellValue("6. Проверки проведены приборами:");
-            cell.setCellStyle(style4);
-            countRow++;
-
-            row = sheetGround.createRow(++countRow);
-            cell = row.createCell(1);
-            cell.setCellValue("1 :    Тип -  " + param.get("type") +"; ");
-            cell.setCellStyle(style5);
-
-            row = sheetGround.createRow(++countRow);
-            cell = row.createCell(1);
-            cell.setCellValue("        Заводской номер - " + param.get("numberZav") +";");
-            cell.setCellStyle(style5);
-
-            row = sheetGround.createRow(++countRow);
-            cell = row.createCell(1);
-            cell.setCellValue("        Диапазон измерения - " + param.get("range") +";");
-            cell.setCellStyle(style5);
-
-            row = sheetGround.createRow(++countRow);
-            cell = row.createCell(1);
-            cell.setCellValue("        Класс точности - " + param.get("class_toch") +";");
-            cell.setCellStyle(style5);
-
-            row = sheetGround.createRow(++countRow);
-            cell = row.createCell(1);
-            cell.setCellValue("        Дата поверки : последняя - " + param.get("lastDate") + ", очередная - "+ param.get("nextDate") +";");
-            cell.setCellStyle(style5);
-
-            row = sheetGround.createRow(++countRow);
-            cell = row.createCell(1);
-            cell.setCellValue("        № аттестата (св-ва) - " + param.get("numberSvid") +";");
-            cell.setCellStyle(style5);
-
-            row = sheetGround.createRow(++countRow);
-            cell = row.createCell(1);
-            cell.setCellValue("        Орган гос. метрологической службы, проводивший поверку - " + param.get("organ") +".");
-            cell.setCellStyle(style5);
+            countRow = Excel.printInstruments(context, sheetGround, countRow, style5, TypeOfWork.Grounding.toString());
 
 
             countRow += 2;

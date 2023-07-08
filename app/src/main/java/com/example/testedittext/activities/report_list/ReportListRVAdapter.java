@@ -44,6 +44,7 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
     public void onBindViewHolder(@NonNull ReportListRVAdapter.ViewHolder holder, int position) {
         ReportEntity report = reportInDBList.get(position).getReportEntity();
         holder.reportName.setText(report.getName());
+        holder.reportCount.setText(position+1 + ".");
 
         holder.reportIcon.setImageResource(R.drawable.folder);
 
@@ -72,12 +73,14 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
 
         ImageView reportIcon;
         TextView reportName;
+        TextView reportCount;
         ConstraintLayout reportConstraint;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
+            reportCount = (TextView) itemView.findViewById(R.id.reportCount);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
             reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportConstraint);
         }

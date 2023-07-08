@@ -4,7 +4,7 @@ package com.example.testedittext.report_creator;
 import static com.example.testedittext.report_creator.Report.fillRekvizity;
 
 import com.example.testedittext.entities.ReportEntity;
-import com.example.testedittext.utils.ExcelData;
+import com.example.testedittext.utils.Excel;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -61,7 +61,7 @@ public class VOReport {
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
         row.setHeightInPoints((2 * sheetVO.getDefaultRowHeightInPoints()));
-        cell.setCellValue("ПРОТОКОЛ № "+ ExcelData.numberVOProtocol + " Визуального осмотра");
+        cell.setCellValue("ПРОТОКОЛ № "+ Excel.numberVOProtocol + " Визуального осмотра");
         cell.setCellStyle(styleTitulReport);
 
         Font font12 = wb.createFont();

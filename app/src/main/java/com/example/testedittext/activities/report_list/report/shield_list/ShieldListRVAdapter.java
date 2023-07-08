@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,7 +44,10 @@ public class ShieldListRVAdapter extends RecyclerView.Adapter<ShieldListRVAdapte
     public void onBindViewHolder(@NonNull ShieldListRVAdapter.ViewHolder holder, int position) {
         int pos = position;
         Shield shield = shieldsList.get(position);
+        String count = String.valueOf(shield.getShieldGroups().stream().filter(x -> !x.getAddress().isEmpty()).count());
         holder.reportName.setText(shield.getName());
+        holder.reportData.setText(count);
+        holder.reportCount.setText(pos + 1 + ".");
         holder.reportIcon.setImageResource(R.drawable.shield);
 
 
@@ -66,14 +70,18 @@ public class ShieldListRVAdapter extends RecyclerView.Adapter<ShieldListRVAdapte
 
         ImageView reportIcon;
         TextView reportName;
-        ConstraintLayout reportConstraint;
+        TextView reportCount;
+        TextView reportData;
+        LinearLayout reportConstraint;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
+            reportCount = (TextView) itemView.findViewById(R.id.reportCount);
+            reportData = (TextView) itemView.findViewById(R.id.reportData);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
-            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportConstraint);
+            reportConstraint = (LinearLayout) itemView.findViewById(R.id.reportLinearLayout);
         }
     }
 }

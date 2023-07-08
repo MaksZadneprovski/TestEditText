@@ -191,17 +191,90 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <View
+        android:id="@+id/dimView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteAlpha"
+        android:visibility="gone" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/replaceShield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/clickText"
+        android:clickable="true"
+        android:src="@drawable/replace"
+        app:layout_constraintBottom_toTopOf="@+id/copyShield"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        style="@style/MyStyleFloatingText"
+        android:text="Передвинуть щит"
+        android:id="@+id/tvf1"
+        app:layout_constraintEnd_toStartOf="@+id/replaceShield"
+        app:layout_constraintTop_toTopOf="@+id/replaceShield"
+        app:layout_constraintBottom_toBottomOf="@+id/replaceShield" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/copyShield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/clickText"
+        android:clickable="true"
+        android:src="@drawable/copy"
+        app:layout_constraintBottom_toTopOf="@+id/deleteShield"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        style="@style/MyStyleFloatingText"
+        android:text="Копировать щит"
+        android:id="@+id/tvf2"
+        app:layout_constraintEnd_toStartOf="@+id/copyShield"
+        app:layout_constraintTop_toTopOf="@+id/copyShield"
+        app:layout_constraintBottom_toBottomOf="@+id/copyShield" />
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/deleteShield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:visibility="gone"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/clickText"
         android:clickable="true"
         android:src="@drawable/delete"
+        app:layout_constraintBottom_toTopOf="@+id/showButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        style="@style/MyStyleFloatingText"
+        android:text="Удалить щит"
+        android:id="@+id/tvf3"
+        app:layout_constraintEnd_toStartOf="@+id/deleteShield"
+        app:layout_constraintTop_toTopOf="@+id/deleteShield"
+        app:layout_constraintBottom_toBottomOf="@+id/deleteShield" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/showButton"
+        style="@style/MyStyleFloating"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/showbutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ProgressBar

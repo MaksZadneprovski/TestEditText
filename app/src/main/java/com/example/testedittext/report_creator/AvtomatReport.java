@@ -2,10 +2,13 @@ package com.example.testedittext.report_creator;
 
 import static com.example.testedittext.report_creator.Report.fillRekvizity;
 
+import android.content.Context;
+
 import com.example.testedittext.entities.Group;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
-import com.example.testedittext.utils.ExcelData;
+import com.example.testedittext.entities.enums.TypeOfWork;
+import com.example.testedittext.utils.Excel;
 import com.example.testedittext.utils.ExcelFormula;
 import com.example.testedittext.utils.Storage;
 
@@ -26,7 +29,7 @@ import java.util.Map;
 
 public class AvtomatReport {
 
-    public static Workbook generateAvtomat(Workbook wb, ReportEntity report, Map<String, String> param){
+    public static Workbook generateAvtomat(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
 
         Sheet sheetAvtomat = wb.getSheet("Avtomat");
 
@@ -83,7 +86,7 @@ public class AvtomatReport {
 
         Row row = sheetAvtomat.createRow(8);
         Cell cell = row.createCell(0);
-        cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberAvtomatProtocol + " Проверки действия расцепителей автоматических выключателей до 1000 В");
+        cell.setCellValue("ПРОТОКОЛ № " + Excel.numberAvtomatProtocol + " Проверки действия расцепителей автоматических выключателей до 1000 В");
         cell.setCellStyle(styleTitle);
 
         // Начинаем с 28 строки, первые 27 занимает шапка таблицы
@@ -293,47 +296,8 @@ public class AvtomatReport {
         style5.setFont(font11);
 
 
-        row = sheetAvtomat.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("2. Проверки проведены приборами:");
-        cell.setCellStyle(style4);
-        countRow++;
 
-        row = sheetAvtomat.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("1 :    Тип -  " + param.get("type") +"; ");
-        cell.setCellStyle(style5);
-
-        row = sheetAvtomat.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Заводской номер - " + param.get("numberZav") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetAvtomat.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Диапазон измерения - " + param.get("range") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetAvtomat.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Класс точности - " + param.get("class_toch") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetAvtomat.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Дата поверки : последняя - " + param.get("lastDate") + ", очередная - "+ param.get("nextDate") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetAvtomat.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        № аттестата (св-ва) - " + param.get("numberSvid") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetAvtomat.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Орган гос. метрологической службы, проводивший поверку - " + param.get("organ") +".");
-        cell.setCellStyle(style5);
-
+        countRow = Excel.printInstruments(context, sheetAvtomat, countRow, style5, TypeOfWork.Avtomat.toString());
 
         countRow += 2;
         row = sheetAvtomat.createRow(countRow);

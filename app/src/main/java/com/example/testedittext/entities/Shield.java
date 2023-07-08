@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 // Класс, представляющий электрический щит
-public class Shield implements Serializable {
+public class Shield implements Serializable, Cloneable {
     private String name;
     private boolean isPEN;
     private Phases phases;
@@ -74,5 +74,44 @@ public class Shield implements Serializable {
                 ", shieldGroups=" + shieldGroups +
                 ", defects=" + defects +
                 '}';
+    }
+
+    @Override
+    public Shield clone() {
+        try {
+            Shield clone = (Shield) super.clone();
+            if (getShieldGroups() != null) {
+                ArrayList<Group> clonedGroupes =  new ArrayList<>();
+                for (Group g :this.getShieldGroups()) {
+                    Group cloneGroup = g.clone();
+                    clonedGroupes.add(cloneGroup);
+                }
+                clone.setShieldGroups(clonedGroupes);
+            }
+
+            if (getMetallicBonds() != null) {
+                ArrayList<MetallicBond> clonedMetallicBonds =  new ArrayList<>();
+                for (MetallicBond m :this.getMetallicBonds()) {
+                    MetallicBond cloneMetallicBond = m.clone();
+                    clonedMetallicBonds.add(cloneMetallicBond);
+                }
+                clone.setMetallicBonds(clonedMetallicBonds);
+            }
+
+            if (getDefects() != null) {
+                ArrayList<Defect> clonedDefects =  new ArrayList<>();
+                for (Defect d :this.getDefects()) {
+                    Defect defect = d.clone();
+                    clonedDefects.add(defect);
+                }
+                clone.setDefects(clonedDefects);
+            }
+
+
+
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

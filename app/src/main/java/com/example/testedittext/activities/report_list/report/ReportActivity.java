@@ -41,7 +41,7 @@ public class ReportActivity extends AppCompatActivity {
 
     TextView reportTitle, tv1, tv2, tv3, tv4, tv5;
     ProgressBar progressBar;
-    ConstraintLayout constraint3;
+    ConstraintLayout constraint3, constraint4, constraint5;
     private SharedPreferences sharedPreferences;
     public static final String APP_PREFERENCES = "mysettings";
     TextView tvCount1,tvCount2,tvCount3,tvCount4;
@@ -92,12 +92,11 @@ public class ReportActivity extends AppCompatActivity {
         tv5 = findViewById(R.id.renameReportText);
 
         // TV Основная информация
-        TextView addInf = findViewById(R.id.addInf);
+
         constraint3 = findViewById(R.id.constraint3);
-        // TV Щиты и помещения
-        TextView shieldsList = findViewById(R.id.addShield);
-        // TV Заземление и молниезащита
-        TextView ground = findViewById(R.id.tvGround);
+        constraint4 = findViewById(R.id.constraint4);
+        constraint5 = findViewById(R.id.constraint5);
+
 
 
         // Устанавливаем в TV название отчета
@@ -120,12 +119,13 @@ public class ReportActivity extends AppCompatActivity {
         buttonDelete.setOnClickListener(new DeleteReportHandler(this));
 
         // Назначаем обработчик тексту Основн. инф.
-        addInf.setOnClickListener(view -> startActivity(new Intent(view.getContext(), BasicInformationActivity.class)));
         constraint3.setOnClickListener(view -> startActivity(new Intent(view.getContext(), BasicInformationActivity.class)));
-        // Назначаем обработчик тексту Щиты и помещения
-        shieldsList.setOnClickListener((view -> startActivity(new Intent(view.getContext(), ShieldListActivity.class))));
-        // Назначаем обработчик тексту Щиты и помещения
-        ground.setOnClickListener((view -> startActivity(new Intent(view.getContext(), GroundActivity.class))));
+        // Назначаем обработчик тексту Щиты
+        constraint4.setOnClickListener((view -> startActivity(new Intent(view.getContext(), ShieldListActivity.class))));
+        // Назначаем обработчик тексту Заземление
+        constraint5.setOnClickListener((view -> startActivity(new Intent(view.getContext(), GroundActivity.class))));
+
+        dimView.setOnClickListener(view -> setVisibilityButtons());
 
         // Назначаем обработчик кнопке сохранить отчет на сервер
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);

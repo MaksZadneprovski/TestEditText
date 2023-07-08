@@ -2,7 +2,7 @@ package com.example.testedittext.entities;
 
 import java.io.Serializable;
 
-public class Defect implements Serializable {
+public class Defect implements Serializable, Cloneable {
     private String defectGroup;
     private String defect;
     private String note;
@@ -38,5 +38,16 @@ public class Defect implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public Defect clone() {
+        try {
+            Defect clone = (Defect) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

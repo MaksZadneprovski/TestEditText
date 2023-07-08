@@ -148,12 +148,12 @@ public class SettingsActivity extends AppCompatActivity implements AuthorizeCall
         spinner.setSelection(musicNum);
 
         if (!authorize){
-            clExit.setVisibility(View.INVISIBLE);
+            clExit.setVisibility(View.GONE);
             clAuthor.setVisibility(View.VISIBLE);
         }else {
             login = sharedPreferences.getString("login", null);
             clExit.setVisibility(View.VISIBLE);
-            clAuthor.setVisibility(View.INVISIBLE);
+            clAuthor.setVisibility(View.GONE);
             tvLogin.setText(login);
         }
     }

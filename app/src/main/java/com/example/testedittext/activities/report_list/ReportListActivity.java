@@ -20,6 +20,7 @@ import com.example.testedittext.activities.report_list.admin.account.AccountActi
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportInDB;
+import com.example.testedittext.entities.enums.TypeOfWork;
 import com.example.testedittext.utils.DefectsParser;
 import com.example.testedittext.utils.SortReport;
 import com.example.testedittext.utils.Storage;
@@ -57,13 +58,14 @@ public class ReportListActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.report_list_activity);
 
-        // Создаем объект, так как там есть метод, вызываемый в конструкторе, который парсит дефекты из файла
-        new Storage(this).parseDefects();
+        context = this;
+
+        // Создаем объект Storage, так как там есть метод, вызываемый в конструкторе, который парсит дефекты из файла. Делаем это в другом потоке
+        new Thread(() -> new Storage(context).parseDefects()).start();
 
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         String login = sharedPreferences.getString("login", "");
 
-        // Кнопка Создать новый отчет
         buttonAddNewReport = findViewById(R.id.addNewFolder);
         admin = findViewById(R.id.admin);
         sort = findViewById(R.id.sort);
@@ -88,19 +90,6 @@ public class ReportListActivity extends AppCompatActivity {
         showbutton.setColorFilter(Color.argb(255, 255, 255, 255));
 
 
-        String adminName = getResources().getString(R.string.admin);
-
-        if (login.equals(adminName)) {
-            admin.setVisibility(View.VISIBLE);
-            statistics.setVisibility(View.VISIBLE);
-        }
-        else {
-            admin.setVisibility(View.INVISIBLE);
-            statistics.setVisibility(View.INVISIBLE);
-        }
-
-
-
         setAdapter();
 
         // Создаем и назначаем обработчик кнопки создания отчетов
@@ -117,9 +106,13 @@ public class ReportListActivity extends AppCompatActivity {
         showbutton.setOnClickListener(view -> setVisibilityButtons());
         settings.setOnClickListener(view -> startActivity(new Intent(view.getContext(), SettingsActivity.class)));
         statistics.setOnClickListener(view -> startActivity(new Intent(view.getContext(), StatisticsActivity.class)));
+        dimView.setOnClickListener(view -> setVisibilityButtons());
 
-        viewList = new ArrayList<>(Arrays.asList(admin,buttonAddNewReport, sort, cloud, settings,statistics, tv1, tv2, tv3, tv4, tv5, tv6));
+        viewList = new ArrayList<>(Arrays.asList(buttonAddNewReport, sort, cloud, settings,  tv3, tv4, tv5, tv6));
+        setAdminPrivelegions();
 
+
+        System.out.println(TypeOfWork.Avtomat.toString());
     }
 
 
@@ -135,16 +128,10 @@ public class ReportListActivity extends AppCompatActivity {
         String login = sharedPreferences.getString("login", "");
         String adminName = getResources().getString(R.string.admin);
         if (login.equals(adminName)) {
-            admin.setVisibility(View.VISIBLE);
-            statistics.setVisibility(View.VISIBLE);
-            tv1.setVisibility(View.VISIBLE);
-            tv2.setVisibility(View.VISIBLE);
-
-        } else {
-            admin.setVisibility(View.GONE);
-            statistics.setVisibility(View.GONE);
-            tv1.setVisibility(View.GONE);
-            tv2.setVisibility(View.GONE);
+            viewList.add(statistics);
+            viewList.add(tv1);
+            viewList.add(admin);
+            viewList.add(tv2);
         }
     }
 
@@ -174,7 +161,6 @@ public class ReportListActivity extends AppCompatActivity {
     public void setVisibilityButtons(){
         if (isBtnHide) {
             ViewEditor.showButtons(viewList, dimView) ;
-            setAdminPrivelegions();
             isBtnHide = false;
         }
         else{

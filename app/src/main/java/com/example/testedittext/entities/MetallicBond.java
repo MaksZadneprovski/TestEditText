@@ -3,7 +3,7 @@ package com.example.testedittext.entities;
 import java.io.Serializable;
 
 // Металлосвязь. У щита может быть несколько измерений (РЕ контакт розеток, дверь щита, корпус щита)
-public class MetallicBond implements Serializable {
+public class MetallicBond implements Serializable, Cloneable {
 
     private String peContact;
     private String countElements;
@@ -31,5 +31,16 @@ public class MetallicBond implements Serializable {
 
     public void setNoPe(boolean noPe) {
         this.noPe = noPe;
+    }
+
+    @Override
+    public MetallicBond clone() {
+        try {
+            MetallicBond clone = (MetallicBond) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

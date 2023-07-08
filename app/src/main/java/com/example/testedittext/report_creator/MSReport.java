@@ -2,10 +2,13 @@ package com.example.testedittext.report_creator;
 
 import static com.example.testedittext.report_creator.Report.fillRekvizity;
 
+import android.content.Context;
+
 import com.example.testedittext.entities.MetallicBond;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.Shield;
-import com.example.testedittext.utils.ExcelData;
+import com.example.testedittext.entities.enums.TypeOfWork;
+import com.example.testedittext.utils.Excel;
 import com.example.testedittext.utils.ExcelFormula;
 import com.example.testedittext.utils.Storage;
 
@@ -26,7 +29,7 @@ import java.util.Map;
 
 public class MSReport {
 
-    public static Workbook generateMS(Workbook wb, ReportEntity report, Map<String, String> param){
+    public static Workbook generateMS(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
         Sheet sheetMS = wb.getSheet("MS");
 
         // Create a new font and alter it.
@@ -82,7 +85,7 @@ public class MSReport {
 
         Row row = sheetMS.createRow(10);
         Cell cell = row.createCell(0);
-        cell.setCellValue("ПРОТОКОЛ № " + ExcelData.numberMSProtocol + " Проверки наличия цепи между заземленными ");
+        cell.setCellValue("ПРОТОКОЛ № " + Excel.numberMSProtocol + " Проверки наличия цепи между заземленными ");
         cell.setCellStyle(styleTitle);
 
         // Получаем щиты для составления отчета
@@ -209,46 +212,7 @@ public class MSReport {
         style5.setFont(font11);
 
 
-        row = sheetMS.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("2. Проверки проведены приборами:");
-        cell.setCellStyle(style4);
-        countRow++;
-
-        row = sheetMS.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("1 :    Тип -  " + param.get("type") +"; ");
-        cell.setCellStyle(style5);
-
-        row = sheetMS.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Заводской номер - " + param.get("numberZav") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetMS.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Диапазон измерения - " + param.get("range") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetMS.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Класс точности - " + param.get("class_toch") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetMS.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Дата поверки : последняя - " + param.get("lastDate") + ", очередная - "+ param.get("nextDate") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetMS.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        № аттестата (св-ва) - " + param.get("numberSvid") +";");
-        cell.setCellStyle(style5);
-
-        row = sheetMS.createRow(++countRow);
-        cell = row.createCell(1);
-        cell.setCellValue("        Орган гос. метрологической службы, проводивший поверку - " + param.get("organ") +".");
-        cell.setCellStyle(style5);
+        countRow = Excel.printInstruments(context, sheetMS, countRow, style5, TypeOfWork.MetallicBond.toString());
 
 
         countRow += 2;

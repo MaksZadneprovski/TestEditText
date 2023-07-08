@@ -27,6 +27,7 @@
     <com.example.testedittext.visual.InstantAutoComplete
         android:id="@+id/tvRecView2"
         style="@style/ETForGroupRVItem"
+        android:inputType="textCapWords"
         android:layout_width="100dp"
         tools:ignore="SpeakableTextPresentCheck" />
     <!--        android:hint="Адрес" -->

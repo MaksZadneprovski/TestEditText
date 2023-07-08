@@ -40,35 +40,31 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/statistics"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/clickText"
-        android:clickable="true"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/admin"
-        app:layout_constraintEnd_toEndOf="@+id/admin"
+        style="@style/MyStyleFloating"
+        android:layout_marginEnd="24dp"
         app:srcCompat="@drawable/statistics"
+        app:layout_constraintBottom_toBottomOf="@+id/admin"
+        app:layout_constraintEnd_toStartOf="@+id/admin"
+        app:layout_constraintTop_toTopOf="@+id/admin"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         style="@style/MyStyleFloatingText"
         android:text="Статистика"
         android:id="@+id/tv1"
-        app:layout_constraintEnd_toStartOf="@+id/statistics"
-        app:layout_constraintTop_toTopOf="@+id/statistics"
-        app:layout_constraintBottom_toBottomOf="@+id/statistics" />
+        android:layout_marginBottom="32dp"
+        android:rotation="-45"
+        app:layout_constraintBottom_toTopOf="@+id/statistics"
+        app:layout_constraintEnd_toEndOf="@+id/statistics"
+        app:layout_constraintStart_toStartOf="@+id/statistics" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/admin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/clickText"
-        android:clickable="true"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/cloud"
-        app:layout_constraintEnd_toEndOf="@+id/cloud"
+        style="@style/MyStyleFloating"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cloud"
+        app:layout_constraintEnd_toStartOf="@+id/cloud"
+        app:layout_constraintTop_toTopOf="@+id/cloud"
         app:srcCompat="@drawable/adminpanel"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -76,19 +72,19 @@
         style="@style/MyStyleFloatingText"
         android:text="Аккаунты"
         android:id="@+id/tv2"
-        app:layout_constraintEnd_toStartOf="@+id/admin"
-        app:layout_constraintTop_toTopOf="@+id/admin"
-        app:layout_constraintBottom_toBottomOf="@+id/admin" />
+        android:layout_marginBottom="32dp"
+        android:rotation="-45"
+        app:layout_constraintBottom_toTopOf="@+id/admin"
+        app:layout_constraintEnd_toEndOf="@+id/admin"
+        app:layout_constraintStart_toStartOf="@+id/admin" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cloud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/clickText"
-        android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/addNewFolder"
-        app:layout_constraintEnd_toEndOf="@+id/addNewFolder"
+        style="@style/MyStyleFloating"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addNewFolder"
+        app:layout_constraintEnd_toStartOf="@+id/addNewFolder"
+        app:layout_constraintTop_toTopOf="@+id/addNewFolder"
         app:srcCompat="@drawable/cloud"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -96,39 +92,40 @@
         style="@style/MyStyleFloatingText"
         android:text="Облако"
         android:id="@+id/tv3"
-        app:layout_constraintEnd_toStartOf="@+id/cloud"
-        app:layout_constraintTop_toTopOf="@+id/cloud"
-        app:layout_constraintBottom_toBottomOf="@+id/cloud" />
+        android:layout_marginBottom="32dp"
+        android:rotation="-45"
+        app:layout_constraintBottom_toTopOf="@+id/cloud"
+        app:layout_constraintEnd_toEndOf="@+id/cloud"
+        app:layout_constraintStart_toStartOf="@+id/cloud" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addNewFolder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/clickText"
-        android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/sort"
-        app:layout_constraintEnd_toEndOf="@+id/sort"
+        style="@style/MyStyleFloating"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sort"
+        app:layout_constraintEnd_toStartOf="@+id/sort"
+        app:layout_constraintTop_toTopOf="@+id/sort"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         style="@style/MyStyleFloatingText"
-        android:text="Создать отчёт"
+        android:text="Создать"
         android:id="@+id/tv4"
-        app:layout_constraintEnd_toStartOf="@+id/addNewFolder"
-        app:layout_constraintTop_toTopOf="@+id/addNewFolder"
-        app:layout_constraintBottom_toBottomOf="@+id/addNewFolder" />
+        android:layout_marginBottom="32dp"
+        android:rotation="-45"
+        app:layout_constraintBottom_toTopOf="@+id/addNewFolder"
+        app:layout_constraintEnd_toEndOf="@+id/addNewFolder"
+        app:layout_constraintStart_toStartOf="@+id/addNewFolder" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/sort"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/clickText"
+        style="@style/MyStyleFloating"
+        android:layout_marginEnd="24dp"
         android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/settings"
-        app:layout_constraintEnd_toEndOf="@+id/settings"
+        app:layout_constraintBottom_toBottomOf="@+id/settings"
+        app:layout_constraintEnd_toStartOf="@+id/settings"
+        app:layout_constraintTop_toTopOf="@+id/settings"
         app:srcCompat="@drawable/sort"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -136,20 +133,19 @@
         style="@style/MyStyleFloatingText"
         android:text="Сортировать"
         android:id="@+id/tv5"
-        app:layout_constraintEnd_toStartOf="@+id/sort"
-        app:layout_constraintTop_toTopOf="@+id/sort"
-        app:layout_constraintBottom_toBottomOf="@+id/sort" />
+        android:layout_marginBottom="32dp"
+        android:rotation="-45"
+        app:layout_constraintBottom_toTopOf="@+id/sort"
+        app:layout_constraintEnd_toEndOf="@+id/sort"
+        app:layout_constraintStart_toStartOf="@+id/sort" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/clickText"
-        android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/showButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/MyStyleFloating"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/showButton"
+        app:layout_constraintEnd_toStartOf="@+id/showButton"
+        app:layout_constraintTop_toTopOf="@+id/showButton"
         app:srcCompat="@drawable/settings"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
@@ -157,9 +153,11 @@
         style="@style/MyStyleFloatingText"
         android:text="Настройки"
         android:id="@+id/tv6"
-        app:layout_constraintEnd_toStartOf="@+id/settings"
-        app:layout_constraintTop_toTopOf="@+id/settings"
-        app:layout_constraintBottom_toBottomOf="@+id/settings" />
+        android:layout_marginBottom="32dp"
+        android:rotation="-45"
+        app:layout_constraintBottom_toTopOf="@+id/settings"
+        app:layout_constraintEnd_toEndOf="@+id/settings"
+        app:layout_constraintStart_toStartOf="@+id/settings" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/showButton"

@@ -66,6 +66,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
     private Button selectPeople;
     private Button selectLineWidthButton ;
     private Button selectGraphicPlus;
+    private Button selectGraphicMinus;
     private Button showButton;
     private Button selectGraphicTotal;
     private TextView title;
@@ -74,7 +75,14 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
     private GestureDetector gestureDetector;
 
     private boolean isLineGraphic = true;
+    private boolean isBarGraphic = true;
+    private boolean isTableGrapfic = true;
+
+    // Используется для графика бар, меняет подтип графика с общих линий на кол-во линий по отчетам
     private boolean isTotalBarData = true;
+
+    // 0 - лайн, 1 - бар, 2 - табл.
+    private int  numGrapfic = 0;
 
     private int durationOfAnim = 500;
 
@@ -99,6 +107,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         selectTimeButton = findViewById(R.id.selectTimeButton);
         showButton = findViewById(R.id.showButton);
         selectGraphicPlus = findViewById(R.id.selectGraphicPlus);
+        selectGraphicMinus = findViewById(R.id.selectGraphicMinus);
         selectPeople = findViewById(R.id.selectPeople);
         selectLineWidthButton = findViewById(R.id.selectLineWidth);
         selectGraphicTotal = findViewById(R.id.selectGraphicTotal);
@@ -587,8 +596,16 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
             }
         });
 
-        // Обработчик нажатия на кнопку selectGraphic
+        // Обработчик нажатия на кнопку selectGraphicPlus
         selectGraphicPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeGraphic();
+            }
+        });
+
+        // Обработчик нажатия на кнопку selectGraphicPlus
+        selectGraphicMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changeGraphic();
@@ -802,6 +819,7 @@ public class StatisticsActivity extends AppCompatActivity implements ResponseEff
         dialog.show();
     }
 
+    // Выбор вида графика ( линии, столбцы, таблица )
     public void changeGraphic(){
         isLineGraphic = !isLineGraphic;
         setData();

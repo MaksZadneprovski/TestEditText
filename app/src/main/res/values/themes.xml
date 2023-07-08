@@ -61,9 +61,10 @@
     <style name="ETForBasicInf" parent="@android:style/Widget.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:inputType">textPersonName|textCapWords</item>
+        <item name="android:inputType">textPersonName|textCapWords|textMultiLine</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:minWidth">200dp</item>
+        <item name="android:minWidth">150dp</item>
+        <item name="android:maxWidth">151dp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:backgroundTint">@color/clickText</item>
@@ -136,7 +137,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginRight">16dp</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:visibility">visible</item>
+        <item name="android:visibility">gone</item>
     </style>
 
     <style name="TVForDelGroupRVItem" parent="@android:style/Widget.TextView">
@@ -173,7 +174,8 @@
 
     <style name="Constraint" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:minWidth">350dp</item>
+        <item name="android:minWidth">300dp</item>
+        <item name="android:maxWidth">310dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:background">@drawable/bg_avtor</item>
@@ -187,7 +189,8 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:minHeight">60dp</item>
-        <item name="android:minWidth">350dp</item>
+        <item name="android:maxWidth">310dp</item>
+        <item name="android:minWidth">300dp</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:background">@drawable/bg_avtor</item>
         <item name="android:elevation">3dp</item>

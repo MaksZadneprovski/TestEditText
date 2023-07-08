@@ -20,7 +20,7 @@ public class AddInstrumentHandler implements View.OnClickListener{
         Context context = view.getContext();
         Intent intent = new Intent(context, InstrumentActivity.class);
         InstrumentDAO instrumentDAO = Bd.getAppDatabaseClass(view.getContext()).getInstrumentDao();
-        List<InstrumentInDB> instrumentList =instrumentDAO.getAllInstruments();;
+        List<InstrumentInDB> instrumentList =instrumentDAO.getAllInstruments();
         if (instrumentList != null) {
             intent.putExtra("numberOfPressedInstrument", instrumentList.size());
         }else {

@@ -6,8 +6,15 @@ public class ExcelFormula {
 
     public static String getRandomCurrent(String curr){
         if (curr.isEmpty()) return "0";
-        int currInt = Integer.parseInt(curr);
-        return "CEILING(RANDBETWEEN(" + currInt*13 + "," + currInt*15 + "),1)";
+        curr = curr.trim().replace(",",".");
+        float parseFloat = 0;
+        try {
+            parseFloat = Float.parseFloat(curr);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "CEILING(RANDBETWEEN(" + parseFloat*13 + "," + parseFloat*15 + "),1)";
     }
 
     public static String getComputeResistA(int countRow){

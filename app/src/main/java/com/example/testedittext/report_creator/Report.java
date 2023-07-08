@@ -7,7 +7,7 @@ import android.os.Environment;
 import com.example.testedittext.R;
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.enums.TypeOfWork;
-import com.example.testedittext.utils.ExcelData;
+import com.example.testedittext.utils.Excel;
 import com.example.testedittext.utils.MusicPlayer;
 
 
@@ -160,51 +160,51 @@ public class Report {
         // Удаляем ненужные протоколы
         if (isVizual) {
             // Присваиваем номер протоколу
-            ExcelData.numberVOProtocol = protocolNumber++;
+            Excel.numberVOProtocol = protocolNumber++;
             wb = VOReport.generateVO(wb, report, param);
         }
         else wb.removeSheetAt(wb.getSheetIndex(sheetVO));
 
         if (isMetallicBond){
             // Присваиваем номер протоколу
-            ExcelData.numberMSProtocol = protocolNumber++;
-            wb = MSReport.generateMS(wb, report, param);
+            Excel.numberMSProtocol = protocolNumber++;
+            wb = MSReport.generateMS(wb, report, param, context);
         }
         else wb.removeSheetAt(wb.getSheetIndex(sheetMS));
 
         if (isInsulation) {
             // Присваиваем номер протоколу
-            ExcelData.numberInsulationProtocol = protocolNumber++;
-            wb = InsulationReport.generateInsulation(wb, report, param);
+            Excel.numberInsulationProtocol = protocolNumber++;
+            wb = InsulationReport.generateInsulation(wb, report, param, context);
         }
         else wb.removeSheetAt(wb.getSheetIndex(sheetInsulation));
 
         if (isF0) {
             // Присваиваем номер протоколу
-            ExcelData.numberF0Protocol = protocolNumber++;
-            wb = F0Report.generateF0(wb, report,  param);
+            Excel.numberF0Protocol = protocolNumber++;
+            wb = F0Report.generateF0(wb, report,  param, context);
         }
         else wb.removeSheetAt(wb.getSheetIndex(sheetF0));
 
 
         if (isUzo) {
             // Присваиваем номер протоколу
-            ExcelData.numberUzoProtocol = protocolNumber++;
-            wb = UzoReport.generateUzo(wb, report, param);
+            Excel.numberUzoProtocol = protocolNumber++;
+            wb = UzoReport.generateUzo(wb, report, param, context);
         }
         else wb.removeSheetAt(wb.getSheetIndex(sheetUzo));
 
         if (isAvtomat){
             // Присваиваем номер протоколу
-            ExcelData.numberAvtomatProtocol = protocolNumber++;
-            wb = AvtomatReport.generateAvtomat(wb, report, param);
+            Excel.numberAvtomatProtocol = protocolNumber++;
+            wb = AvtomatReport.generateAvtomat(wb, report, param, context);
         }
         else wb.removeSheetAt(wb.getSheetIndex(sheetAvtomat));
 
         if (isGround){
             // Присваиваем номер протоколу
-            ExcelData.numberGroundingProtocol = protocolNumber;
-            wb = GroundReport.generateGround(wb, report, param);
+            Excel.numberGroundingProtocol = protocolNumber;
+            wb = GroundReport.generateGround(wb, report, param, context);
         }
         else wb.removeSheetAt(wb.getSheetIndex(sheetGround));
 

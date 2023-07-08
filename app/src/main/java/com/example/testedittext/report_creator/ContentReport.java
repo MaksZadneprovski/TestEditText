@@ -2,7 +2,7 @@ package com.example.testedittext.report_creator;
 
 import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.enums.TypeOfWork;
-import com.example.testedittext.utils.ExcelData;
+import com.example.testedittext.utils.Excel;
 import com.example.testedittext.utils.Storage;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -110,37 +110,37 @@ public class ContentReport {
         // Визуальный осмотр
         if (type_of_work!=null) {
             if (type_of_work.contains(TypeOfWork.Visual)) {
-                generateStroke(sheetContent, 1,style,style2, text + ExcelData.numberVOProtocol + " Визуального осмотра" );
+                generateStroke(sheetContent, 1,style,style2, text + Excel.numberVOProtocol + " Визуального осмотра" );
             }
 
             // Метсвязь
             if (type_of_work.contains(TypeOfWork.MetallicBond)) {
-                generateStroke(sheetContent, Storage.pagesCountMS,style,style2, text + ExcelData.numberMSProtocol + " Проверки наличия цепи между заземленными установками и элементами заземленной установки" );
+                generateStroke(sheetContent, Storage.pagesCountMS,style,style2, text + Excel.numberMSProtocol + " Проверки наличия цепи между заземленными установками и элементами заземленной установки" );
             }
 
             // Изоляция
             if (type_of_work.contains(TypeOfWork.Insulation)) {
-                generateStroke(sheetContent, Storage.pagesCountInsulation,style,style2, text + ExcelData.numberInsulationProtocol + " Проверки сопротивления изоляции проводов, кабелей и обмоток электрических машин" );
+                generateStroke(sheetContent, Storage.pagesCountInsulation,style,style2, text + Excel.numberInsulationProtocol + " Проверки сопротивления изоляции проводов, кабелей и обмоток электрических машин" );
             }
 
             // Петля
             if (type_of_work.contains(TypeOfWork.PhaseZero)) {
-                generateStroke(sheetContent, Storage.pagesCountF0,style,style2, text + ExcelData.numberF0Protocol + " Проверки согласования параметров цепи «фаза – нуль» с характеристиками аппаратов  защиты и непрерывности защитных проводников" );
+                generateStroke(sheetContent, Storage.pagesCountF0,style,style2, text + Excel.numberF0Protocol + " Проверки согласования параметров цепи «фаза – нуль» с характеристиками аппаратов  защиты и непрерывности защитных проводников" );
             }
 
             // УЗО
             if (type_of_work.contains(TypeOfWork.Uzo)) {
-                generateStroke(sheetContent, Storage.pagesCountUzo,style,style2, text + ExcelData.numberUzoProtocol + " Проверки работы устройства защитного отключения (УЗО)" );
+                generateStroke(sheetContent, Storage.pagesCountUzo,style,style2, text + Excel.numberUzoProtocol + " Проверки работы устройства защитного отключения (УЗО)" );
             }
 
             // Прогрузка
             if (type_of_work.contains(TypeOfWork.Avtomat)) {
-                generateStroke(sheetContent, Storage.pagesCountAvtomat,style,style2, text + ExcelData.numberAvtomatProtocol + " Проверка действия расцепителей автоматических выключателей до 1000 В" );
+                generateStroke(sheetContent, Storage.pagesCountAvtomat,style,style2, text + Excel.numberAvtomatProtocol + " Проверка действия расцепителей автоматических выключателей до 1000 В" );
             }
 
             // Заземление
             if (type_of_work.contains(TypeOfWork.Grounding)) {
-                generateStroke(sheetContent, Storage.pagesCountGround,style,style2, text + ExcelData.numberGroundingProtocol + " Проверка сопротивлений заземлителей и заземляющих устройств" );
+                generateStroke(sheetContent, Storage.pagesCountGround,style,style2, text + Excel.numberGroundingProtocol + " Проверка сопротивлений заземлителей и заземляющих устройств" );
             }
         }
 

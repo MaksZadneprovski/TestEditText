@@ -23,6 +23,7 @@ public class Storage {
     public static int currentNumberSelectedShield;
     public static int currentNumberOfPressedDefect;
     public static int numberOfPressedInstrument;
+    public static int numberOfPressedShield;
 
 
     public static boolean isDeleteShield;

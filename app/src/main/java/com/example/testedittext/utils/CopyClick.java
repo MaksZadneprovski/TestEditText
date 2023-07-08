@@ -17,7 +17,7 @@ public class CopyClick implements View.OnClickListener, View.OnLongClickListener
     public static int clickedIndexInLL;
     public static String clickedText;
     public static boolean isPressedLong;
-    public static boolean isIncremented;
+    public boolean isIncremented;
 
     // Для инкрементирования числа в конце строки
     public static int numberToEnd;

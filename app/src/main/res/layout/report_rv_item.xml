@@ -16,7 +16,17 @@
         android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/reportName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/reportCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="1"
+        android:textColor="@color/clickText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/reportIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -26,7 +36,7 @@
         android:layout_marginLeft="8dp"
         android:text="Название"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/reportIcon"
+        app:layout_constraintLeft_toRightOf="@+id/reportCount"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
