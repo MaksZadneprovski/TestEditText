@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,9 +49,11 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull CloudAdapter.ViewHolder holder, int position) {
+
         ReportEntity report = reportEntityList.get(position);
         holder.reportName.setText(report.getName());
-
+        holder.reportAuthor.setText(report.getDate());
+        holder.reportCount.setText(position+1 + ".");
         holder.reportIcon.setImageResource(R.drawable.folder);
 
         holder.reportConstraint.setOnClickListener(new CloudRvItemHandler(cloudActivity, report, login));
@@ -66,14 +69,18 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.ViewHolder>{
 
         ImageView reportIcon;
         TextView reportName;
-        ConstraintLayout reportConstraint;
+        TextView reportCount;
+        TextView reportAuthor;
+        LinearLayout reportConstraint;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
+            reportCount = (TextView) itemView.findViewById(R.id.reportCount);
+            reportAuthor = (TextView) itemView.findViewById(R.id.reportAuthor);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
-            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportConstraint);
+            reportConstraint = (LinearLayout) itemView.findViewById(R.id.reportLinearLayout);
         }
     }
 }

@@ -148,7 +148,8 @@ public class UzoReport {
                         for (int j = 0; j < shieldGroups.size(); j++) {
                             Group group = shieldGroups.get(j);
                             String defenseApparatus = group.getDefenseApparatus();
-                            if (!group.getAddress().isEmpty() && !defenseApparatus.equals("Автомат") && !defenseApparatus.isEmpty()) {
+                            if (!group.getAddress().isEmpty() && !defenseApparatus.isEmpty() &&
+                                    (defenseApparatus.equals("Автомат + УЗО") || defenseApparatus.equals("УЗО") || defenseApparatus.equals("Дифавтомат"))) {
 
                                 // Строки с узо есть, значит название щита тоже есть в отчете
                                 presenceOfUzo = true;
@@ -172,25 +173,24 @@ public class UzoReport {
                                 cell.setCellValue(lineName);
                                 cell.setCellStyle(style);
 
-                            // Столбец Тип УЗО
-                            cell = row.createCell(3);
-                            if (defenseApparatus.equals("Автомат + УЗО") || defenseApparatus.equals("УЗО")) {
-                                cell.setCellValue(group.getMarkaUzo());
-                            }else {
-                                cell.setCellValue(group.getMachineBrand());
-                            }
-                            cell.setCellStyle(style);
+                                // Столбец Тип УЗО
+                                cell = row.createCell(3);
+                                if (defenseApparatus.equals("Автомат + УЗО") || defenseApparatus.equals("УЗО")) {
+                                    cell.setCellValue(group.getMarkaUzo());
+                                } else {
+                                    cell.setCellValue(group.getMachineBrand());
+                                }
+                                cell.setCellStyle(style);
 
-                            // Столбец Тип диф тока
-                            cell = row.createCell(4);
-                            cell.setCellValue(group.getTypeDifCurrent());
-                            cell.setCellStyle(style);
+                                // Столбец Тип диф тока
+                                cell = row.createCell(4);
+                                cell.setCellValue(group.getTypeDifCurrent());
+                                cell.setCellStyle(style);
 
                                 // Столбец Номин. ток нагрузки In, A
                                 cell = row.createCell(5);
                                 cell.setCellValue(group.getRatedCurrent());
                                 cell.setCellStyle(style);
-
 
 
                                 // Столбец Номинальн.  отключ. дифф. ток (30)
@@ -213,16 +213,17 @@ public class UzoReport {
                                 cell.setCellFormula(ExcelFormula.getRandomDifTime());
                                 cell.setCellStyle(style);
 
-                            // Столбец соотв
-                            cell = row.createCell(10);
-                            cell.setCellValue("соотв.");
-                            cell.setCellStyle(style);
+                                // Столбец соотв
+                                cell = row.createCell(10);
+                                cell.setCellValue("соотв.");
+                                cell.setCellStyle(style);
 
-                            cell = row.createCell(11);
-                            cell.setCellStyle(styleEndTable);
+                                cell = row.createCell(11);
+                                cell.setCellStyle(styleEndTable);
 
                                 countRow++;
-                            } else avtomatCount++;
+                            }
+                            else avtomatCount++;
                         }
                     }
 

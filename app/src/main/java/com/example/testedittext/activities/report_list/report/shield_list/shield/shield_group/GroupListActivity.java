@@ -143,7 +143,7 @@ public class GroupListActivity extends AppCompatActivity {
         TextView childAt29;
         TextView childAt31;
 
-        InstantAutoComplete childAt2;
+        InstantAutoComplete fieldAdress;
         InstantAutoComplete childAt4;
         InstantAutoComplete childAt6;
         InstantAutoComplete childAt8;
@@ -211,7 +211,7 @@ public class GroupListActivity extends AppCompatActivity {
              childAt29 = (TextView) linearOfXML.getChildAt(43);
              childAt31 = (TextView) linearOfXML.getChildAt(46);
 
-            childAt2 = (InstantAutoComplete) linearOfXML.getChildAt(3);
+            fieldAdress = (InstantAutoComplete) linearOfXML.getChildAt(3);
             childAt4 = (InstantAutoComplete) linearOfXML.getChildAt(6);
             childAt6 = (InstantAutoComplete) linearOfXML.getChildAt(9);
             childAt8 = (InstantAutoComplete) linearOfXML.getChildAt(12);
@@ -286,7 +286,7 @@ public class GroupListActivity extends AppCompatActivity {
             childAt26.setAdapter(adapter7);
             childAt28.setAdapter(adapter12);
             childAt30.setAdapter(adapter13);
-            childAt2.setAdapter(adapter14);
+            fieldAdress.setAdapter(adapter14);
 
 
 

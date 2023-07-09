@@ -6,10 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testedittext.R;
@@ -18,7 +18,10 @@ import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.utils.Storage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapter.ViewHolder> {
 
@@ -42,9 +45,19 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ReportListRVAdapter.ViewHolder holder, int position) {
-        ReportEntity report = reportInDBList.get(position).getReportEntity();
+        ReportInDB reportInDB = reportInDBList.get(position);
+        ReportEntity report = reportInDB.getReportEntity();
+
+        // Создаем объект Date на основе значения long
+        Date date = new Date(reportInDB.getDateOfCreate());
+        // Создаем объект SimpleDateFormat с нужным форматом
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
+        // Преобразуем дату в строку
+        String formattedDate = sdf.format(date);
+
         holder.reportName.setText(report.getName());
         holder.reportCount.setText(position+1 + ".");
+        holder.reportDateOrAuthor.setText(formattedDate);
 
         holder.reportIcon.setImageResource(R.drawable.folder);
 
@@ -74,15 +87,17 @@ public class ReportListRVAdapter extends RecyclerView.Adapter<ReportListRVAdapte
         ImageView reportIcon;
         TextView reportName;
         TextView reportCount;
-        ConstraintLayout reportConstraint;
+        TextView reportDateOrAuthor;
+        LinearLayout reportConstraint;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
             reportCount = (TextView) itemView.findViewById(R.id.reportCount);
+            reportDateOrAuthor = (TextView) itemView.findViewById(R.id.reportAuthor);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
-            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportConstraint);
+            reportConstraint = (LinearLayout) itemView.findViewById(R.id.reportLinearLayout);
         }
     }
 }

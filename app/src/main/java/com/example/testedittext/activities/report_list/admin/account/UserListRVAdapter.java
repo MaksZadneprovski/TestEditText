@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -111,7 +112,9 @@ public class UserListRVAdapter  extends RecyclerView.Adapter<UserListRVAdapter.V
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
-            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportConstraint);
+            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportLinearLayout);
         }
     }
+
+
 }

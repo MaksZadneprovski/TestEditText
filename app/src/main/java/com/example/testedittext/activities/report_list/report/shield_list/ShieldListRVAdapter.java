@@ -44,7 +44,14 @@ public class ShieldListRVAdapter extends RecyclerView.Adapter<ShieldListRVAdapte
     public void onBindViewHolder(@NonNull ShieldListRVAdapter.ViewHolder holder, int position) {
         int pos = position;
         Shield shield = shieldsList.get(position);
-        String count = String.valueOf(shield.getShieldGroups().stream().filter(x -> !x.getAddress().isEmpty()).count());
+        String count = "0"; // значение по умолчанию, если shield или shieldGroups равны null
+
+        if (shield != null && shield.getShieldGroups() != null) {
+            count = String.valueOf(shield.getShieldGroups()
+                    .stream()
+                    .filter(x -> x.getAddress() != null && !x.getAddress().isEmpty())
+                    .count());
+        }
         holder.reportName.setText(shield.getName());
         holder.reportData.setText(count);
         holder.reportCount.setText(pos + 1 + ".");

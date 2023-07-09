@@ -21,6 +21,7 @@ import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.entities.enums.TypeOfWork;
+import com.example.testedittext.utils.CustomExceptionHandler;
 import com.example.testedittext.utils.DefectsParser;
 import com.example.testedittext.utils.SortReport;
 import com.example.testedittext.utils.Storage;
@@ -112,7 +113,8 @@ public class ReportListActivity extends AppCompatActivity {
         setAdminPrivelegions();
 
 
-        System.out.println(TypeOfWork.Avtomat.toString());
+
+        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(this));
     }
 
 

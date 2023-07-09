@@ -3,8 +3,10 @@ package com.example.testedittext.activities.report_list.report.basic_information
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -23,7 +25,10 @@ import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.entities.enums.TypeOfWork;
 import com.example.testedittext.visual.InstantAutoComplete;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class BasicInformationActivity extends AppCompatActivity {
@@ -32,6 +37,7 @@ public class BasicInformationActivity extends AppCompatActivity {
     CheckBox cb1Visual, cb2Met, cb3Insul, cb4Phase, cb5Ground, cb6Uzo, cb7Avtomat;
     RadioButton infRadio1,infRadio2,infRadio3,infRadio4,infRadio5;
     ReportEntity report;
+    Calendar dateAndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,7 @@ public class BasicInformationActivity extends AppCompatActivity {
         // Получаем ссылку на элемент AutoCompleteTextView в разметке
         InstantAutoComplete autoCompleteTextView = findViewById(R.id.infCharacteristic);
         //
-        DatePicker datePicker = findViewById(R.id.datePicker);
+
         infDate = findViewById(R.id.infDate);
         infNumberReport = findViewById(R.id.infNumberReport);
         infCustomer = findViewById(R.id.infCustomer);
@@ -76,28 +82,20 @@ public class BasicInformationActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter (this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, characteristics);
         autoCompleteTextView.setAdapter(adapter);
 
-        // Для появления и пропадания календаря при фокусе на поле даты
+
+
+        setDataToFieldsFromBd();
+        dateAndTime = Calendar.getInstance();
+        infDate.setKeyListener(null);
+
         infDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (infDate.hasFocus()) {
-                    datePicker.setVisibility(View.VISIBLE);
-                }else {
-                    datePicker.setVisibility(View.GONE);
+                if (view.hasFocus()){
+                    setDate();
                 }
             }
         });
-
-
-        // Чтобы поле даты заполнялось при изменении календаря
-        datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                infDate.setText(i + "/" + (i1 + 1) + "/" + i2);
-            }
-        });
-
-        setDataToFieldsFromBd();
 
     }
 
@@ -187,4 +185,34 @@ public class BasicInformationActivity extends AppCompatActivity {
         reportDAO.insertReport(new ReportInDB(report));
 
     }
+
+    // отображаем диалоговое окно для выбора даты
+    public void setDate() {
+        new DatePickerDialog(BasicInformationActivity.this, d,
+                dateAndTime.get(Calendar.YEAR),
+                dateAndTime.get(Calendar.MONTH),
+                dateAndTime.get(Calendar.DAY_OF_MONTH))
+                .show();
+    }
+
+    // установка начальных даты и времени
+    private void setInitialDateTime() {
+        // Создаем объект SimpleDateFormat с нужным форматом
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
+        // Преобразуем дату в строку
+        String formattedDate = sdf.format(dateAndTime.getTime());
+
+        infDate.setText(formattedDate);
+    }
+
+    // установка обработчика выбора даты
+    DatePickerDialog.OnDateSetListener d=new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            dateAndTime.set(Calendar.YEAR, year);
+            dateAndTime.set(Calendar.MONTH, monthOfYear);
+            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            setInitialDateTime();
+        }
+    };
+
 }

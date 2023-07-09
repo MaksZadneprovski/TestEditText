@@ -151,7 +151,7 @@ public class F0Report {
                         Group group = shieldGroups.get(j);
                         ////////////////////////////////////////////////////////////////////////
 
-                        if (!group.getAddress().isEmpty() && !apparats.contains(group.defenseApparatus)) {
+                        if (!group.getAddress().isEmpty() && !apparats.contains(group.defenseApparatus) && !group.getAddress().toLowerCase().trim().equals("резерв")) {
 
                             row = sheetF0.createRow(countRow);
 
