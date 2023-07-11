@@ -199,6 +199,27 @@
             android:visibility="gone" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/reportCopy"
+            style="@style/MyStyleFloating"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/copy"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteReport"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+
+        <TextView
+            android:id="@+id/reportCoopyText"
+            style="@style/MyStyleFloatingText"
+            android:layout_marginBottom="32dp"
+            android:text="Копировать"
+            android:rotation="-45"
+            app:layout_constraintBottom_toTopOf="@+id/reportCopy"
+            app:layout_constraintEnd_toEndOf="@+id/reportCopy"
+            app:layout_constraintStart_toStartOf="@+id/reportCopy" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/showButton"
             style="@style/MyStyleFloating"
             android:layout_marginEnd="20dp"

@@ -22,12 +22,13 @@ public class ProgramReport {
 
     private static  Sheet sheetProgram;
     private static  Workbook wBook;
-    private static  int countRow = 13;
+    private static  int countRow ;
 
 
     public static Workbook generateProgram(Workbook wb, ReportEntity report, Map<String, String> param) {
         sheetProgram = wb.getSheet("Program");
         wBook = wb;
+        countRow = 13;
 
         // Заполняем строки заказчик, объект, адрес, дата
         Report.fillMainData(sheetProgram, 5, report, wb);

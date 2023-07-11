@@ -24,8 +24,11 @@ import com.example.testedittext.activities.report_list.report.basic_information.
 import com.example.testedittext.activities.report_list.report.ground.GroundActivity;
 import com.example.testedittext.activities.report_list.report.shield_list.RenameReportHandler;
 import com.example.testedittext.activities.report_list.report.shield_list.ShieldListActivity;
+import com.example.testedittext.db.Bd;
+import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.Efficiency;
 import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.utils.Calculator;
 import com.example.testedittext.utils.Storage;
 import com.example.testedittext.utils.ViewEditor;
@@ -39,7 +42,7 @@ import java.util.List;
 // Класс для редактирования отчета
 public class ReportActivity extends AppCompatActivity {
 
-    TextView reportTitle, tv1, tv2, tv3, tv4, tv5;
+    TextView reportTitle, tv1, tv2, tv3, tv4, tv5, tv6;
     ProgressBar progressBar;
     ConstraintLayout constraint3, constraint4, constraint5;
     private SharedPreferences sharedPreferences;
@@ -50,7 +53,7 @@ public class ReportActivity extends AppCompatActivity {
     View dimView;
 
 
-    FloatingActionButton reportSave,buttonShare, buttonRename, buttonDelete, reportCreate, showbutton;
+    FloatingActionButton reportSave,buttonShare, buttonRename, buttonDelete, reportCreate, showbutton, reportCopy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,11 @@ public class ReportActivity extends AppCompatActivity {
         showbutton =  findViewById(R.id.showButton);
         showbutton.setColorFilter(Color.argb(255, 255, 255, 255));
 
+
+        reportCopy =  findViewById(R.id.reportCopy);
+        reportCopy.setColorFilter(Color.argb(255, 255, 255, 255));
+
+
         // TV название отчета
         reportTitle = findViewById(R.id.reportTitle);
 
@@ -90,6 +98,7 @@ public class ReportActivity extends AppCompatActivity {
         tv3 = findViewById(R.id.shareReportText);
         tv4 = findViewById(R.id.reportCreateText);
         tv5 = findViewById(R.id.renameReportText);
+        tv6 = findViewById(R.id.reportCoopyText);
 
         // TV Основная информация
 
@@ -118,6 +127,8 @@ public class ReportActivity extends AppCompatActivity {
 
         buttonDelete.setOnClickListener(new DeleteReportHandler(this));
 
+        reportCopy.setOnClickListener(new CopyReportHandler());
+
         // Назначаем обработчик тексту Основн. инф.
         constraint3.setOnClickListener(view -> startActivity(new Intent(view.getContext(), BasicInformationActivity.class)));
         // Назначаем обработчик тексту Щиты
@@ -132,7 +143,7 @@ public class ReportActivity extends AppCompatActivity {
 
         reportSave.setOnClickListener(new SaveReportOnServerHandler());
 
-        viewList = new ArrayList<>(Arrays.asList(reportSave,buttonShare, buttonRename, buttonDelete, reportCreate,tv1, tv2, tv3, tv4, tv5));
+        viewList = new ArrayList<>(Arrays.asList(reportSave,buttonShare, buttonRename, buttonDelete,reportCopy, reportCreate,tv1, tv2, tv3, tv4, tv5, tv6));
 
 
 

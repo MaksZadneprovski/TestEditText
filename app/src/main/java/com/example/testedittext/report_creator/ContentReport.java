@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class ContentReport {
 
-    static int countRow = 13;
+    static int countRow;
     static Row row;
     static Cell cell;
 
@@ -30,6 +30,11 @@ public class ContentReport {
     static int strokeHeigth = 3;
 
     public static Workbook generateContent(Workbook wb, ReportEntity report, Map<String, String> param) {
+
+        countRow = 13;
+        // Обнуляем страницы, так как поле статичное и если создавать несколько отчетов, то пизда
+        Storage.pagesCountTotal = 3;
+
         Sheet sheetContent = wb.getSheet("Soderzh");
 
         // Заполняем строки заказчик, объект, адрес, дата

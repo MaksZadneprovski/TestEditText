@@ -2,16 +2,26 @@ package com.example.testedittext.activities.report_list.report.shield_list.shiel
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.testedittext.R;
 import com.example.testedittext.db.Bd;
@@ -35,6 +45,13 @@ public class GroupListActivity extends AppCompatActivity {
 
     ArrayList<Group> groupList;
     LinearLayout linLayout;
+
+    private List<EditText> editTextFields = new ArrayList<>();
+    private int currentFieldIndex = -1;
+
+    private SpeechRecognizer speechRecognizer;
+
+    private static final int SPEECH_REQUEST_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +190,27 @@ public class GroupListActivity extends AppCompatActivity {
             if (group != null) {
                 // Устанавливаем текст в поле таблицы
                 ((EditText) linearOfXML.getChildAt(0)).setText(group.designation);
-                ((InstantAutoComplete) linearOfXML.getChildAt(3)).setText(group.address);
+
+                InstantAutoComplete address = (InstantAutoComplete) linearOfXML.getChildAt(3);
+                address.setText(group.address);
+
+
+                ///////////////////////////////////////////// for audio
+                editTextFields.add(address);
+                address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (hasFocus) {
+                            currentFieldIndex = getFieldIndex(address);
+                            address.setText(address.getText());
+                            address.showDropDown();
+                        }else {
+                            address.setFocusableInTouchMode(false);
+                            address.setFocusable(false);
+                        }
+                    }
+                });///////////////////////////////////////////// for audio
+
                 ((InstantAutoComplete) linearOfXML.getChildAt(6)).setText(group.phases);
                 ((InstantAutoComplete) linearOfXML.getChildAt(9)).setText(group.cable);
                 ((InstantAutoComplete) linearOfXML.getChildAt(12)).setText(group.numberOfWireCores);
@@ -292,6 +329,42 @@ public class GroupListActivity extends AppCompatActivity {
 
             linLayout.addView(view);
         }
+
+        /////////////////////// for audio
+        // Назначаем слушатель для каждого поля ввода
+        for (final EditText editText : editTextFields) {
+            editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                        // Если пользователь нажимает "Next" на клавиатуре, переключаемся на следующее поле ввода
+                        switchToNextField();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        }
+
+        // Инициализируем распознаватель речи
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        speechRecognizer.setRecognitionListener(new RecognitionListenerAdapter() {
+            @Override
+            public void onResults(Bundle results) {
+                ArrayList<String> voiceResults = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                if (voiceResults != null && !voiceResults.isEmpty()) {
+                    // Получаем распознанный текст и устанавливаем его в текущее поле ввода
+                    String spokenText = voiceResults.get(0);
+                    if (currentFieldIndex != -1) {
+                        editTextFields.get(currentFieldIndex).setText(spokenText);
+                        switchToNextField();
+                    }
+                }
+            }
+        });
+
+
+
     }
 
 
@@ -338,6 +411,94 @@ public class GroupListActivity extends AppCompatActivity {
         Storage.setGroupList(groupList);
         reportDAO.insertReport(new ReportInDB(Storage.currentReportEntityStorage));
     }
+
+
+
+
+
+    //////////////////////////////////////for audio
+    // Обработка нажатия кнопки для запуска голосового ввода
+    public void onVoiceInputButtonClick(View view) {
+        startSpeechRecognition();
+    }
+
+    // Запуск распознавания речи
+    private void startSpeechRecognition() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ru-RU"); // Установите язык на "ru" для русского языка
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Диктуй");
+
+        // Запускаем активность распознавания речи и ожидаем результат
+        startActivityForResult(intent, SPEECH_REQUEST_CODE);
+    }
+
+    // Переключение на следующее поле ввода
+    private void switchToNextField() {
+        if (currentFieldIndex < editTextFields.size() - 1) {
+            currentFieldIndex++;
+            editTextFields.get(currentFieldIndex).requestFocus();
+        } else {
+            // Если достигнуто последнее поле ввода, скрываем клавиатуру
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(editTextFields.get(currentFieldIndex).getWindowToken(), 0);
+            Toast.makeText(this, "Все поля заполнены", Toast.LENGTH_SHORT).show();
+        }
+        //startSpeechRecognition();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
+            // Обработка результатов распознавания речи
+            List<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (results != null && !results.isEmpty()) {
+                String spokenText = results.get(0);
+                editTextFields.get(currentFieldIndex).setText(spokenText);
+                switchToNextField();
+            }
+        }
+    }
+
+    // Получение индекса поля ввода
+    private int getFieldIndex(EditText editText) {
+        for (int i = 0; i < editTextFields.size(); i++) {
+            if (editText == editTextFields.get(i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // Дополнительный класс-адаптер для простоты реализации RecognitionListener
+    private abstract static class RecognitionListenerAdapter implements RecognitionListener {
+        @Override
+        public void onReadyForSpeech(Bundle params) {}
+
+        @Override
+        public void onBeginningOfSpeech() {}
+
+        @Override
+        public void onRmsChanged(float rmsdB) {}
+
+        @Override
+        public void onBufferReceived(byte[] buffer) {}
+
+        @Override
+        public void onEndOfSpeech() {}
+
+        @Override
+        public void onError(int error) {}
+
+        @Override
+        public void onPartialResults(Bundle partialResults) {}
+
+        @Override
+        public void onEvent(int eventType, Bundle params) {}
+    }
+
 
 
 }

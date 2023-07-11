@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,7 +49,7 @@ public class DefectListRVAdapter extends RecyclerView.Adapter<DefectListRVAdapte
 
 
 
-        holder.reportConstraint.setOnClickListener(new View.OnClickListener() {
+        holder.reportLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DefectActivity.class);
@@ -68,14 +69,14 @@ public class DefectListRVAdapter extends RecyclerView.Adapter<DefectListRVAdapte
 
         ImageView reportIcon;
         TextView reportName;
-        ConstraintLayout reportConstraint;
+        LinearLayout reportLinear;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
-            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportConstraint);
+            reportLinear = (LinearLayout) itemView.findViewById(R.id.reportLinearLayout);
         }
     }
 }

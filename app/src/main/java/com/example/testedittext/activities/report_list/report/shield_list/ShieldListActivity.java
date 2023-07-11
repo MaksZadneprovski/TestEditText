@@ -52,8 +52,10 @@ public class ShieldListActivity extends AppCompatActivity {
         setAdapter();
 
         // Тут нужно отправить данные эффективности
-        Server server = new Server();
-        server.saveEfficiency(this, Calculator.getEfficiency(Storage.currentReportEntityStorage));
+
+
+//        Server server = new Server();
+//        server.saveEfficiency(this, Calculator.getEfficiency(Storage.currentReportEntityStorage));
     }
 
     private void setAdapter(){

@@ -33,7 +33,7 @@ public class NewReportAdder implements View.OnClickListener{
             nameReportList.add(report.getName());
         }
 
-        // Ввод названия папки
+        // Ввод названия
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle("Создать отчет");
         alert.setMessage("Введите название");
@@ -46,19 +46,7 @@ public class NewReportAdder implements View.OnClickListener{
 
                 //if (!Files.exists(path)) {
                 if (!nameReportList.contains(value)) {
-//                    try {
-//                        Files.createDirectory(path);
 //
-//                        // Устанавливаем текущую директорию
-//                        File file = new File(String.valueOf(path));
-//                        DirectoryUtil.currentDirectory = file.getAbsolutePath();;
-//
-//                        Intent intent = new Intent(context, ReportActivity.class);
-//                        context.startActivity(intent);
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
                     ReportEntity reportEntity = new ReportEntity(value);
                     reportDAO.insertReport(new ReportInDB(reportEntity));
                     Storage.currentReportEntityStorage = reportEntity;

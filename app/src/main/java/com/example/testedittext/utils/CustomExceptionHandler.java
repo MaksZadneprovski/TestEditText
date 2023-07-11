@@ -40,7 +40,7 @@ public class CustomExceptionHandler implements Thread.UncaughtExceptionHandler {
         Toast.makeText(context, "Выберите GMAIL, чтобы отправить отчет об ошибке. Если его нет, отчет скопирован, отправьте как-нибудь \uD83D\uDE01", Toast.LENGTH_LONG).show();
 
         String recipientEmail = "maksysha41@gmail.com";  // Здесь нужно указать адрес электронной почты получателя
-        String subject = "Ошибка, ebat!!!";  // Здесь нужно указать тему письма
+        String subject = "Ошибка";  // Здесь нужно указать тему письма
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
@@ -50,7 +50,7 @@ public class CustomExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         context.startActivity(Intent.createChooser(intent, "Выберите Google почту"));
 
-
+        System.out.println(stackTrace);
         // Завершаем приложение (не обязательно)
         android.os.Process.killProcess(android.os.Process.myPid());
         System.exit(1);

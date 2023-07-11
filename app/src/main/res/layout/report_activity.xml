@@ -287,6 +287,24 @@
             app:layout_constraintTop_toTopOf="@+id/reportSave"
             app:layout_constraintBottom_toBottomOf="@+id/reportSave" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/reportCopy"
+            style="@style/MyStyleFloating"
+            android:src="@drawable/copy"
+            app:layout_constraintBottom_toTopOf="@+id/reportSave"
+            app:layout_constraintEnd_toEndOf="@+id/reportSave"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+
+        <TextView
+            style="@style/MyStyleFloatingText"
+            android:text="Копировать отчёт"
+            android:id="@+id/reportCoopyText"
+            app:layout_constraintEnd_toStartOf="@+id/reportCopy"
+            app:layout_constraintTop_toTopOf="@+id/reportCopy"
+            app:layout_constraintBottom_toBottomOf="@+id/reportCopy" />
+
+
         <ProgressBar
             android:id="@+id/progressBar2"
             android:theme="@style/CircularProgress"

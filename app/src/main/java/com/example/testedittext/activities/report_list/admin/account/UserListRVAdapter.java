@@ -105,14 +105,14 @@ public class UserListRVAdapter  extends RecyclerView.Adapter<UserListRVAdapter.V
 
         ImageView reportIcon;
         TextView reportName;
-        ConstraintLayout reportConstraint;
+        LinearLayout reportConstraint;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
-            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportLinearLayout);
+            reportConstraint = (LinearLayout) itemView.findViewById(R.id.reportLinearLayout);
         }
     }
 

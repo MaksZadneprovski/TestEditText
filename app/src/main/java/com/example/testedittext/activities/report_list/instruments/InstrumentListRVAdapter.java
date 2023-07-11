@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,7 @@ public class InstrumentListRVAdapter extends RecyclerView.Adapter<InstrumentList
         holder.reportIcon.setImageResource(R.drawable.instrument);
 
 
-        holder.reportConstraint.setOnClickListener(new View.OnClickListener() {
+        holder.reportLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, InstrumentActivity.class);
@@ -69,14 +70,14 @@ public class InstrumentListRVAdapter extends RecyclerView.Adapter<InstrumentList
 
         ImageView reportIcon;
         TextView reportName;
-        ConstraintLayout reportConstraint;
+        LinearLayout reportLinearLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             reportName = (TextView) itemView.findViewById(R.id.reportName);
             reportIcon = (ImageView) itemView.findViewById(R.id.reportIcon);
-            reportConstraint = (ConstraintLayout) itemView.findViewById(R.id.reportConstraint);
+            reportLinearLayout = (LinearLayout) itemView.findViewById(R.id.reportLinearLayout);
         }
     }
 }
