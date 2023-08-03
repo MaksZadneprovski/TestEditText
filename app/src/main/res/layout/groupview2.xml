@@ -9,7 +9,7 @@
 
 
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView1"
+        android:id="@+id/iacObozn1"
         style="@style/ETForGroupRVItem"
         android:layout_width="80dp"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -17,15 +17,14 @@
 
 
     <TextView
-        android:id="@+id/buttonRv1"
+        android:id="@+id/tvObozn1"
         style="@style/TVForGroupRVItem" />
 
-    <View style="@style/verticalLine" />
 
 
 
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView2"
+        android:id="@+id/iacAddres2"
         style="@style/ETForGroupRVItem"
         android:inputType="textCapSentences"
         android:layout_width="100dp"
@@ -35,11 +34,11 @@
 
 
     <TextView
-        android:id="@+id/buttonRv2"
+        android:id="@+id/tvAddres2"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView3"
+        android:id="@+id/iacPhase3"
         style="@style/ETForGroupRVItem"
         android:layout_width="40dp"
         android:completionThreshold="0" />
@@ -47,151 +46,113 @@
 
 
     <TextView
-        android:id="@+id/buttonRv3"
+        android:id="@+id/tvPhase3"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView4"
+        android:id="@+id/iacCable4"
         style="@style/ETForGroupRVItem"
         android:layout_width="80dp"
         tools:ignore="SpeakableTextPresentCheck" />
     <!--        android:hint="Кабель" -->
 
     <TextView
-        android:id="@+id/buttonRv4"
+        android:id="@+id/tvCable4"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView5"
+        android:id="@+id/iacCores5"
         style="@style/ETForGroupRVItem"
         android:inputType="textAutoComplete|number"
         android:layout_width="40dp" />
     <!--        android:hint="Кол-во жил"-->
 
     <TextView
-        android:id="@+id/buttonRv5"
+        android:id="@+id/tvCores5"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView6"
+        android:id="@+id/iacSechen6"
         style="@style/ETForGroupRVItem"
         android:layout_width="80dp" />
     <!--        android:hint="Сечение" -->
 
     <TextView
-        android:id="@+id/buttonRv6"
+        android:id="@+id/tvSechen6"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView7"
+        android:id="@+id/iacApparat7"
         style="@style/ETForGroupRVItem"
         android:layout_width="100dp" />
     <!--        android:hint="Аппарат защиты" -->
 
     <TextView
-        android:id="@+id/buttonRv7"
+        android:id="@+id/tvApparat7"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView8"
+        android:id="@+id/iacMarkaAvtomata8"
         style="@style/ETForGroupRVItem"
         android:layout_width="80dp" />
     <!--        android:hint="Марка автомата" -->
 
     <TextView
-        android:id="@+id/buttonRv8"
+        android:id="@+id/tvMarkaAvtomata8"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView9"
+        android:id="@+id/iacNomCurr9"
         style="@style/ETForGroupRVItem"
         android:layout_width="40dp" />
     <!--    android:hint="Iном"-->
 
     <TextView
-        android:id="@+id/buttonRv9"
+        android:id="@+id/tvNomCurr9"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
-    <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView10"
-        style="@style/ETForGroupRVItem"
-        android:layout_width="80dp" />
-    <!--        android:hint="Тип расцепителя" -->
 
-    <TextView
-        android:id="@+id/buttonRv10"
-        style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
-    <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView11"
-        style="@style/ETForGroupRVItem"
-        android:layout_width="80dp" />
-    <!--        android:hint="Диапазон Ф-0" -->
 
-    <TextView
-        android:id="@+id/buttonRv11"
-        style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView12"
-        style="@style/ETForGroupRVItem"
-        android:layout_width="40dp" />
-    <!--        android:hint="t сраб. автомата" -->
-
-    <TextView
-        android:id="@+id/buttonRv12"
-        style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
-    <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView13"
+        android:id="@+id/iacUZO10"
         style="@style/ETForGroupRVItem"
         android:layout_width="80dp" />
     <!--        android:hint="Марка УЗО" -->
 
     <TextView
-        android:id="@+id/buttonRv13"
+        android:id="@+id/tvUZO10"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView14"
+        android:id="@+id/iacCurrUzo11"
         style="@style/ETForGroupRVItem"
         android:layout_width="80dp" />
     <!--        android:hint="Iном УЗО" -->
 
     <TextView
-        android:id="@+id/buttonRv14"
+        android:id="@+id/tvCurrUzo11"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView15"
+        android:id="@+id/iacNomCurrDiff12"
         style="@style/ETForGroupRVItem"
         android:layout_width="80dp" />
     <!--        android:hint="Номин. откл. диф. ток" -->
 
     <TextView
-        android:id="@+id/buttonRv15"
+        android:id="@+id/tvNomCurrDiff12"
         style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
-    <com.example.testedittext.visual.InstantAutoComplete
-        android:id="@+id/tvRecView16"
-        style="@style/ETForGroupRVItem"
-        android:layout_width="80dp" />
-    <!--        android:hint="Номин. откл. диф. ток" -->
+
 
     <TextView
-        android:id="@+id/buttonRv16"
-        style="@style/TVForGroupRVItem" />
-    <View style="@style/verticalLine" />
-    <TextView
-        android:id="@+id/measure"
+        android:id="@+id/addGroup"
         android:background="@color/clickText"
         android:layout_width="80dp"
         android:text="  +  "
         android:layout_marginRight="0dp"
         style="@style/TVForDelGroupRVItem" />
-    <View style="@style/verticalLine" />
+
     <TextView
-        android:id="@+id/buttonDelGroup"
+        android:id="@+id/delGroup"
         android:text="    -    "
         android:layout_width="70dp"
         android:paddingLeft="7dp"

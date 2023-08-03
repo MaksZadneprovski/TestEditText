@@ -29,12 +29,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textView1"
                     style="@style/TitleGroupRVItem"
                     android:layout_width="120dp"
                     android:text="Обозначение" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -42,7 +41,6 @@
                     android:layout_width="140dp"
                     android:text="Адрес" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView31"
@@ -50,7 +48,6 @@
                     android:layout_width="80dp"
                     android:text="Фаза" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -58,7 +55,6 @@
                     android:layout_width="120dp"
                     android:text="Кабель" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -66,7 +62,6 @@
                     android:layout_width="80dp"
                     android:text="Кол-во жил" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -74,7 +69,6 @@
                     android:layout_width="120dp"
                     android:text="Сечение" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -82,7 +76,6 @@
                     android:layout_width="140dp"
                     android:text="Аппарат защиты" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -90,7 +83,6 @@
                     android:layout_width="120dp"
                     android:text="Марка автомата" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -98,31 +90,6 @@
                     android:layout_width="80dp"
                     android:text="Iном" />
 
-                <View style="@style/verticalLine" />
-
-                <TextView
-                    android:id="@+id/textView10"
-                    style="@style/TitleGroupRVItem"
-                    android:layout_width="120dp"
-                    android:text="Тип расцепителя" />
-
-                <View style="@style/verticalLine" />
-
-                <TextView
-                    android:id="@+id/textView11"
-                    style="@style/TitleGroupRVItem"
-                    android:layout_width="120dp"
-                    android:text="Диапазон Ф-0" />
-
-                <View style="@style/verticalLine" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    style="@style/TitleGroupRVItem"
-                    android:layout_width="80dp"
-                    android:text="t сраб. автомата" />
-
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -130,7 +97,6 @@
                     android:layout_width="120dp"
                     android:text="Марка УЗО" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -138,7 +104,6 @@
                     android:layout_width="120dp"
                     android:text="Iном УЗО" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView15"
@@ -146,15 +111,6 @@
                     android:layout_width="120dp"
                     android:text="Ном. диф. ток" />
 
-                <View style="@style/verticalLine" />
-
-                <TextView
-                    android:id="@+id/textView16"
-                    style="@style/TitleGroupRVItem"
-                    android:layout_width="120dp"
-                    android:text="Тип диф. тока" />
-
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -162,7 +118,6 @@
                     android:layout_width="90dp"
                     android:text="Добавить" />
 
-                <View style="@style/verticalLine" />
 
                 <TextView
                     android:id="@+id/textView18"

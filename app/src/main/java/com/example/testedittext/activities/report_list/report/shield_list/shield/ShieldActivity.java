@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.testedittext.R;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.DefectListActivity;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.GroupListActivity;
+import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.GroupListActivity2;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.MetallicBondActivity;
 import com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group.test;
 import com.example.testedittext.db.Bd;

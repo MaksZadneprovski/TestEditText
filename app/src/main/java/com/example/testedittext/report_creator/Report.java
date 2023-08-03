@@ -360,10 +360,10 @@ public class Report {
     public static void fillMainData(Sheet sheet, int column, ReportEntity report, Workbook wb){
 
         // Create a new font and alter it.
-        Font font10 = wb.createFont();
-        font10.setFontHeightInPoints((short)10);
-        font10.setFontName("Times New Roman");
-        font10.setBold(false);
+        Font font14 = wb.createFont();
+        font14.setFontHeightInPoints((short)14);
+        font14.setFontName("Times New Roman");
+        font14.setBold(false);
 
         // Создаем стиль для данных об объекте
         CellStyle styleBorderNoneRight = wb.getCellStyleAt(7);
@@ -372,9 +372,10 @@ public class Report {
         styleBorderNoneRight.setBorderLeft(BorderStyle.NONE);
         styleBorderNoneRight.setBorderRight(BorderStyle.NONE);
         styleBorderNoneRight.setWrapText(false);
-        styleBorderNoneRight.setFont(font10);
+        styleBorderNoneRight.setFont(font14);
         styleBorderNoneRight.setAlignment(HorizontalAlignment.RIGHT);
         styleBorderNoneRight.setVerticalAlignment(VerticalAlignment.CENTER);
+
 
         Row row1 = sheet.getRow(0);
         Row row2 = sheet.getRow(1);
@@ -386,6 +387,8 @@ public class Report {
         Cell cell_3_15 = row3.createCell(column);
         Cell cell_4_15 = row4.createCell(column);
 
+
+
         cell_1_15.setCellValue("Заказчик: " + report.getCustomer());
         cell_2_15.setCellValue("Объект: " + report.getObject());
         cell_3_15.setCellValue("Адрес: " + report.getAddress());
@@ -396,6 +399,104 @@ public class Report {
         cell_3_15.setCellStyle(styleBorderNoneRight);
         cell_4_15.setCellStyle(styleBorderNoneRight);
     }
+
+//    public static void fillMainData(Sheet sheet, int column, ReportEntity report, Workbook wb){
+//
+//        // Create a new font and alter it.
+//        Font font14 = wb.createFont();
+//        font14.setFontHeightInPoints((short)14);
+//        font14.setFontName("Times New Roman");
+//        font14.setBold(false);
+//
+//        // Создаем стиль для данных об объекте
+//        CellStyle styleBorderNoneRight = wb.getCellStyleAt(7);
+//        styleBorderNoneRight.setBorderTop(BorderStyle.NONE);
+//        styleBorderNoneRight.setBorderBottom(BorderStyle.NONE);
+//        styleBorderNoneRight.setBorderLeft(BorderStyle.NONE);
+//        styleBorderNoneRight.setBorderRight(BorderStyle.NONE);
+//        styleBorderNoneRight.setWrapText(false);
+//        styleBorderNoneRight.setFont(font14);
+//        styleBorderNoneRight.setAlignment(HorizontalAlignment.RIGHT);
+//        styleBorderNoneRight.setVerticalAlignment(VerticalAlignment.CENTER);
+//
+//        int indexRow = 0;
+//
+//        String customer = report.getCustomer();
+//        String object = report.getObject();
+//        String address = report.getAddress();
+//        String date = report.getDate();
+//
+//        if (customer.length() > 35){
+//            String customerLine1 = object.substring(0, 35);
+//            String customerLine2 = object.substring(35);
+//
+//            Row row1 = sheet.getRow(indexRow++);
+//            Row row2 = sheet.getRow(indexRow++);
+//
+//            Cell cell1 = row1.createCell(column);
+//            Cell cell2 = row2.createCell(column);
+//
+//            cell1.setCellValue("Заказчик: " + customerLine1);
+//            cell2.setCellValue( customerLine2);
+//
+//            cell1.setCellStyle(styleBorderNoneRight);
+//            cell2.setCellStyle(styleBorderNoneRight);
+//        }else {
+//            Row row1 = sheet.getRow(indexRow++);
+//            Cell cell1 = row1.createCell(column);
+//            cell1.setCellValue("Заказчик: " + customer);
+//            cell1.setCellStyle(styleBorderNoneRight);
+//        }
+//
+//        if (object.length() > 35){
+//            String customerLine1 = object.substring(0, 35);
+//            String customerLine2 = object.substring(35);
+//
+//            Row row1 = sheet.getRow(indexRow++);
+//            Row row2 = sheet.getRow(indexRow++);
+//
+//            Cell cell1 = row1.createCell(column);
+//            Cell cell2 = row2.createCell(column);
+//
+//            cell1.setCellValue("Объект: " + customerLine1);
+//            cell2.setCellValue( customerLine2);
+//
+//            cell1.setCellStyle(styleBorderNoneRight);
+//            cell2.setCellStyle(styleBorderNoneRight);
+//        }else {
+//            Row row1 = sheet.getRow(indexRow++);
+//            Cell cell1 = row1.createCell(column);
+//            cell1.setCellValue("Объект: " + object);
+//            cell1.setCellStyle(styleBorderNoneRight);
+//        }
+//
+//        if (address.length() > 35){
+//            String customerLine1 = object.substring(0, 35);
+//            String customerLine2 = object.substring(35);
+//
+//            Row row1 = sheet.getRow(indexRow++);
+//            Row row2 = sheet.getRow(indexRow++);
+//
+//            Cell cell1 = row1.createCell(column);
+//            Cell cell2 = row2.createCell(column);
+//
+//            cell1.setCellValue("Адрес: " + customerLine1);
+//            cell2.setCellValue( customerLine2);
+//
+//            cell1.setCellStyle(styleBorderNoneRight);
+//            cell2.setCellStyle(styleBorderNoneRight);
+//        }else {
+//            Row row1 = sheet.getRow(indexRow++);
+//            Cell cell1 = row1.createCell(column);
+//            cell1.setCellValue("Адрес: " + address);
+//            cell1.setCellStyle(styleBorderNoneRight);
+//        }
+//        Row row = sheet.getRow(indexRow);
+//        Cell cell = row.createCell(column);
+//        cell.setCellValue("Дата: " + date);
+//
+//        cell.setCellStyle(styleBorderNoneRight);
+//    }
 
     public static void fillWeather(Sheet sheet,int row, ReportEntity report, Workbook wb){
 

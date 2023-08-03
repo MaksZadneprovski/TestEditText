@@ -78,7 +78,7 @@ public class VOReport {
         countRow = 21;
 
         // Заполняем Фамилии, Должности и т.д.
-        fillRekvizity(countRow, sheetVO, wb, param, 2,4,5);
+        fillRekvizity(countRow, sheetVO, wb, param, 2,3,4);
 
         return wb;
 

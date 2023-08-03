@@ -180,7 +180,19 @@ public class F0Report {
 
                             // Столбец Тип расцепителя
                             cell = row.createCell(3);
-                            cell.setCellValue(group.getReleaseType());
+                            String releaseType = group.getReleaseType();
+                            String apparat = group.getDefenseApparatus();
+                            if (releaseType == null || releaseType.isEmpty()){
+                                if (apparat.equals("Предохранитель")){
+                                    cell.setCellValue("ОВВ");
+                                }
+                                if (apparat.equals("Автомат") || apparat.equals("Автомат + УЗО") || apparat.equals("Дифавтомат")){
+                                    cell.setCellValue("ОВВ; МД");
+                                }
+                            }
+                            else {
+                                cell.setCellValue(releaseType);
+                            }
                             cell.setCellStyle(style);
 
                             // Столбец Ном.ток

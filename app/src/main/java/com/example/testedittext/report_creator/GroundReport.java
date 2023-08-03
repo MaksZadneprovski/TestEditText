@@ -185,7 +185,9 @@ public class GroundReport {
 
                             // Столбец Изм.
                             cell = row.createCell(6);
-                            cell.setCellValue(groundingDevice.getIzmerR());
+                            String izmerR = groundingDevice.getIzmerR();
+                            izmerR = izmerR.replace(".",",");
+                            cell.setCellValue(izmerR);
                             cell.setCellStyle(style);
 
                             // Столбец Привед.

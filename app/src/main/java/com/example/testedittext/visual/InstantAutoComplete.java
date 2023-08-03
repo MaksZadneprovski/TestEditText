@@ -38,6 +38,7 @@ public class InstantAutoComplete extends androidx.appcompat.widget.AppCompatAuto
                 instantAutoComplete.setFocusableInTouchMode(true);
                 instantAutoComplete.setFocusable(true);
                 instantAutoComplete.requestFocus();
+                instantAutoComplete.setSelection(instantAutoComplete.getText().length());
                 instantAutoComplete.showDropDown();
             }
         });
@@ -45,8 +46,8 @@ public class InstantAutoComplete extends androidx.appcompat.widget.AppCompatAuto
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-
-                    instantAutoComplete.setText(instantAutoComplete.getText());
+                    //instantAutoComplete.setText(instantAutoComplete.getText());
+                    instantAutoComplete.setSelection(instantAutoComplete.getText().length());
                     instantAutoComplete.showDropDown();
                 }else {
                     instantAutoComplete.setFocusableInTouchMode(false);
@@ -55,11 +56,5 @@ public class InstantAutoComplete extends androidx.appcompat.widget.AppCompatAuto
             }
         });
     }
-
-
-
-
-
-
 
 }

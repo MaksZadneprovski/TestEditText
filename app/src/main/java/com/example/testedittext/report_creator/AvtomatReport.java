@@ -195,10 +195,12 @@ public class AvtomatReport {
                             // Столбец доп. время откл. перегрузки
                             cell = row.createCell(8);
                             String ratedCurrent = group.getRatedCurrent();
+                            ratedCurrent = ratedCurrent.replace(",",".");
                             if (ratedCurrent!=null && !ratedCurrent.isEmpty()){
 
-                                int nominalTok = Integer.parseInt(ratedCurrent);
-                                if (nominalTok < 32){
+                                float nominalTok = Float.parseFloat(ratedCurrent);
+
+                                if (nominalTok < 32.0){
                                     cell.setCellValue("1-60");
                                 }else {
                                     cell.setCellValue("1-120");
