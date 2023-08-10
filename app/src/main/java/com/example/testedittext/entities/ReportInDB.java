@@ -21,14 +21,21 @@ public class ReportInDB {
     public ReportInDB(ReportEntity report) {
         this.report = new Gson().toJson(report);
         this.name = report.getName();
-        this.dateOfCreate = new Date().getTime();
+        if (report.getDate() == null || report.getDate().isEmpty()){
+            this.dateOfCreate = new Date().getTime();
+        }
+
     }
 
     public ReportInDB() {
     }
 
     public ReportEntity getReportEntity(){
-        return new Gson().fromJson(report, ReportEntity.class);
+        ReportEntity report = new Gson().fromJson(this.report, ReportEntity.class);
+        if (report.getDate() == null || report.getDate().isEmpty()){
+            //report.setDate(this.dateOfCreate);
+        }
+        return  report;
     }
 
     @Override

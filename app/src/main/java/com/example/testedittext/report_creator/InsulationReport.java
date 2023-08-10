@@ -182,7 +182,20 @@ public class InsulationReport {
 
                             // Столбец Напряжение мегаомметра
                             cell = row.createCell(3);
-                            cell.setCellValue("2500");
+                            try {
+                                float wireThickness = Float.parseFloat(group.getWireThickness());
+                                if (wireThickness >= 16.0) {
+                                    cell.setCellValue("2500");
+                                } else {
+                                    cell.setCellValue("1000");
+                                }
+                            } catch (NumberFormatException e) {
+                                // Обработка ошибки парсинга
+                                // Например, установка значения по умолчанию или логирование ошибки
+                                cell.setCellValue("1000"); // или другое значение по умолчанию
+                                e.printStackTrace(); // или логирование ошибки
+                            }
+
                             cell.setCellStyle(style);
 
                             // Столбец Допустимое R

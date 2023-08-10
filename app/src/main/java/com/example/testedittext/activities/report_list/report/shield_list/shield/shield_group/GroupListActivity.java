@@ -1,5 +1,6 @@
 package com.example.testedittext.activities.report_list.report.shield_list.shield.shield_group;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -24,7 +25,9 @@ import com.example.testedittext.R;
 import com.example.testedittext.db.Bd;
 import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.Group;
+import com.example.testedittext.entities.ReportEntity;
 import com.example.testedittext.entities.ReportInDB;
+import com.example.testedittext.entities.Shield;
 import com.example.testedittext.utils.AddViewAndObjectToList;
 import com.example.testedittext.utils.DeleteViewAndObjectFromList;
 import com.example.testedittext.utils.CopyClick;
@@ -392,6 +395,7 @@ public class GroupListActivity extends AppCompatActivity {
             group.setTypeDifCurrent(getTextFromEditTextInLinear(linearLayout, 45));
 
         }
+
     }
 
     private String getTextFromEditTextInLinear(LinearLayout linearLayout, int index) {
@@ -403,7 +407,55 @@ public class GroupListActivity extends AppCompatActivity {
 
     }
 
+
+
     private void saveGroupList(){
+        boolean isEmptyWireThickness = false;
+        boolean isEmptyNumberOfWireCores = false;
+        boolean isEmptyRatedCurrent = false;
+        boolean isEmptyDefenseApparatus = false;
+        boolean isEmptyMachineBrand = false;
+        boolean isEmptyCable = false;
+        boolean isEmptyiDifNom = false;
+        boolean isEmptyMarkaUzo = false;
+        boolean isEmptyiNomUzo = false;
+
+        for (int i = 0; i < groupList.size(); i++) {
+            Group group = groupList.get(i);
+            String defenseApparatus = group.getDefenseApparatus();
+            if (group.getAddress() != null && !group.getAddress().isEmpty()){
+                if (group.getWireThickness() == null || group.getWireThickness().isEmpty()) isEmptyWireThickness = true;
+                if (group.getNumberOfWireCores() == null || group.getNumberOfWireCores().isEmpty()) isEmptyNumberOfWireCores = true;
+                if (group.getRatedCurrent() == null || group.getRatedCurrent().isEmpty()) isEmptyRatedCurrent = true;
+                if (defenseApparatus == null || defenseApparatus.isEmpty()) isEmptyDefenseApparatus = true;
+                if (group.getMachineBrand() == null || group.getMachineBrand().isEmpty()) isEmptyMachineBrand = true;
+                if (group.getCable() == null || group.getCable().isEmpty()) isEmptyCable = true;
+                if (defenseApparatus != null) {
+                    if (defenseApparatus.equals("Автомат + УЗО") || defenseApparatus.equals("УЗО") || defenseApparatus.equals("Дифавтомат")){
+                        if (group.getiDifNom() == null || group.getiDifNom().isEmpty()) isEmptyiDifNom = true;
+                        if (!defenseApparatus.equals("Дифавтомат")){
+                            if (group.getMarkaUzo() == null || group.getMarkaUzo().isEmpty()) isEmptyMarkaUzo = true;
+                            if (group.getiNomUzo() == null || group.getiNomUzo().isEmpty()) isEmptyiNomUzo = true;
+                        }
+                    }
+                }
+            }
+        }
+        String warning = "НЕ ВЕЗДЕ ЗАПОЛНЕНЫ :\n";
+        if (isEmptyWireThickness) warning += "\nСечение кабеля";
+        if (isEmptyNumberOfWireCores) warning += "\nКол-во жил кабеля";
+        if (isEmptyRatedCurrent) warning += "\nНоминальный ток";
+        if (isEmptyDefenseApparatus) warning += "\nАппарат защиты";
+        if (isEmptyMachineBrand) warning += "\nМарка автомата";
+        if (isEmptyCable) warning += "\nМарка кабеля";
+        if (isEmptyiDifNom) warning += "\nДиф.ток срабатывания УЗО";
+        if (isEmptyMarkaUzo) warning += "\nМарка УЗО";
+        if (isEmptyiNomUzo) warning += "\nНоминальный ток УЗО";
+
+        if (warning.length() > 20){
+            Toast.makeText(this, warning, Toast.LENGTH_LONG).show();
+        }
+
         // Создание  объекта DAO для работы с БД
         ReportDAO reportDAO = Bd.getAppDatabaseClass(getApplicationContext()).getReportDao();
 

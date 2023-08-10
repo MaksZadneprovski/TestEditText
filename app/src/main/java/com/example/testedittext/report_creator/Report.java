@@ -5,7 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 
 import com.example.testedittext.R;
+import com.example.testedittext.db.Bd;
+import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportEntity;
+import com.example.testedittext.entities.ReportInDB;
 import com.example.testedittext.entities.enums.TypeOfWork;
 import com.example.testedittext.utils.Excel;
 import com.example.testedittext.utils.MusicPlayer;
@@ -28,8 +31,11 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -148,7 +154,18 @@ public class Report {
         sheets.add(sheetDefects);
         sheets.add(sheetZakl);
 
-        TitulReport.generateTitul(wb, report, param);
+        ///////// ДЛЯ ДАТЫ ОТЧЕТА, КОТОРАЯ ЯВЛЯЕТСЯ ЕГО НОМЕРОМ
+        // Создание  объекта DAO для работы с БД
+        ReportDAO reportDAO = Bd.getAppDatabaseClass(context.getApplicationContext()).getReportDao();
+        ReportInDB reportInDB = reportDAO.getReportByName(report.getName());
+        // Создаем объект Date на основе значения long
+        Date date = new Date(reportInDB.getDateOfCreate());
+        // Создаем объект SimpleDateFormat с нужным форматом
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
+        // Преобразуем дату в строку
+        String formattedDate = sdf.format(date);
+
+        TitulReport.generateTitul(wb, report, param, formattedDate);
 
         // Определяем необходимость тех или иных протоколов
         setNecessaryProtocols();
@@ -168,7 +185,7 @@ public class Report {
         if (isMetallicBond){
             // Присваиваем номер протоколу
             Excel.numberMSProtocol = protocolNumber++;
-            wb = MSReport.generateMS(wb, report, param, context);
+            wb = MSReportNew.generateMS(wb, report, param, context);
         }
         else wb.removeSheetAt(wb.getSheetIndex(sheetMS));
 

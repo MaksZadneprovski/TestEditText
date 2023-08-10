@@ -1,5 +1,7 @@
 package com.example.testedittext.report_creator;
 
+import com.example.testedittext.db.Bd;
+import com.example.testedittext.db.dao.ReportDAO;
 import com.example.testedittext.entities.ReportEntity;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -15,7 +17,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.util.Map;
 
 public class TitulReport {
-    public static Workbook generateTitul(Workbook wb, ReportEntity report, Map<String, String> param) {
+    public static Workbook generateTitul(Workbook wb, ReportEntity report, Map<String, String> param, String date) {
         Sheet sheetTitul = wb.getSheet("Titul");
 
         Font fontBig;
@@ -65,7 +67,9 @@ public class TitulReport {
         Cell cell = row.createCell(0);
         //увеличиваем высоту строки, чтобы вместить две строки текста
         row.setHeightInPoints((3 * sheetTitul.getDefaultRowHeightInPoints()));
-        cell.setCellValue("ТЕХНИЧЕСКИЙ ОТЧЕТ № "+report.getNumberReport());
+        //cell.setCellValue("ТЕХНИЧЕСКИЙ ОТЧЕТ № "+report.getNumberReport());
+
+        cell.setCellValue("ТЕХНИЧЕСКИЙ ОТЧЕТ № "+ date);
         cell.setCellStyle(styleNumberReport);
 
         // Адрес объекта
