@@ -168,24 +168,24 @@
         app:layout_constraintTop_toTopOf="@+id/addGroup">
 
 
-        <com.example.testedittext.visual.CustomButton
-            style="@style/btnCustomButton"
-            android:onClick="onVoiceInputButtonClick"
-            android:text="AA" />
+<!--        <com.example.testedittext.visual.CustomButton-->
+<!--            style="@style/btnCustomButton"-->
+<!--            android:onClick="onVoiceInputButtonClick"-->
+<!--            android:text="AA" />-->
 
-        <com.example.testedittext.visual.CustomButton
-            style="@style/btnCustomButton"
-            android:onClick="onVoiceInputButtonClick"
-            android:text="1" />
-        <com.example.testedittext.visual.CustomButton
-            style="@style/btnCustomButton"
-            android:onClick="onVoiceInputButtonClick"
-            android:text="←" />
+<!--        <com.example.testedittext.visual.CustomButton-->
+<!--            style="@style/btnCustomButton"-->
+<!--            android:onClick="onVoiceInputButtonClick"-->
+<!--            android:text="1" />-->
+<!--        <com.example.testedittext.visual.CustomButton-->
+<!--            style="@style/btnCustomButton"-->
+<!--            android:onClick="onVoiceInputButtonClick"-->
+<!--            android:text="←" />-->
 
-        <com.example.testedittext.visual.CustomButton
-            style="@style/btnCustomButton"
-            android:onClick="onVoiceInputButtonClick"
-            android:text="→" />
+<!--        <com.example.testedittext.visual.CustomButton-->
+<!--            style="@style/btnCustomButton"-->
+<!--            android:onClick="onVoiceInputButtonClick"-->
+<!--            android:text="→" />-->
 
     </LinearLayout>
 

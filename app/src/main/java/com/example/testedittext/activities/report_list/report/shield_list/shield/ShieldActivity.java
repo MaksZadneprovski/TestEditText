@@ -84,7 +84,8 @@ public class ShieldActivity extends AppCompatActivity {
         // Нажатие на текст
         tvShieldGroups.setOnClickListener(view -> {
             progressBar.setVisibility(View.VISIBLE);
-            Thread thread = new Thread(() -> startActivity(new Intent(view.getContext(), GroupListActivity.class)));
+            //Thread thread = new Thread(() -> startActivity(new Intent(view.getContext(), GroupListActivity.class)));
+            Thread thread = new Thread(() -> startActivity(new Intent(view.getContext(), GroupListActivity2.class)));
             thread.start();
         });
 

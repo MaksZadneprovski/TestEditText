@@ -6,7 +6,12 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 @Entity
 public class ReportInDB {
@@ -21,8 +26,15 @@ public class ReportInDB {
     public ReportInDB(ReportEntity report) {
         this.report = new Gson().toJson(report);
         this.name = report.getName();
+
+        // Если даты, поставленной вручную нет, ставим сегодняшнюю
         if (report.getDate() == null || report.getDate().isEmpty()){
             this.dateOfCreate = new Date().getTime();
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy");
+            LocalDate date = LocalDate.parse(report.getDate(), formatter);
+            long milliseconds = date.atStartOfDay().toInstant(ZoneOffset.of("+03:00")).toEpochMilli();
+            this.dateOfCreate = milliseconds;
         }
 
     }
@@ -32,9 +44,6 @@ public class ReportInDB {
 
     public ReportEntity getReportEntity(){
         ReportEntity report = new Gson().fromJson(this.report, ReportEntity.class);
-        if (report.getDate() == null || report.getDate().isEmpty()){
-            //report.setDate(this.dateOfCreate);
-        }
         return  report;
     }
 

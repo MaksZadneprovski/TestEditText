@@ -183,7 +183,10 @@ public class InsulationReport {
                             // Столбец Напряжение мегаомметра
                             cell = row.createCell(3);
                             try {
-                                float wireThickness = Float.parseFloat(group.getWireThickness());
+                                String wireThicknessString = group.getWireThickness();
+                                if (wireThicknessString.isEmpty()) wireThicknessString = "4";
+                                wireThicknessString = wireThicknessString.replace(",",".");
+                                float wireThickness = Float.parseFloat(wireThicknessString);
                                 if (wireThickness >= 16.0) {
                                     cell.setCellValue("2500");
                                 } else {
