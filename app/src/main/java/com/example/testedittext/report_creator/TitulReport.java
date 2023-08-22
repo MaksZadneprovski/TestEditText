@@ -17,8 +17,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.util.Map;
 
 public class TitulReport {
+    static Sheet sheetTitul;
+    static final float  constHeight = 25.0F;
     public static Workbook generateTitul(Workbook wb, ReportEntity report, Map<String, String> param, String date) {
-        Sheet sheetTitul = wb.getSheet("Titul");
+        sheetTitul = wb.getSheet("Titul");
 
         Font fontBig;
         fontBig = wb.createFont();
@@ -26,18 +28,17 @@ public class TitulReport {
         fontBig.setFontName("Times New Roman");
         fontBig.setBold(true);
 
-        Font font11;
-        font11 = wb.createFont();
-        font11.setBold(true);
-        font11.setFontHeightInPoints((short)11);
-        font11.setFontName("Times New Roman");
+        Font font14;
+        font14 = wb.createFont();
+        font14.setBold(true);
+        font14.setFontHeightInPoints((short)14);
+        font14.setFontName("Times New Roman");
 
 
         Font font = wb.createFont();
-        font.setUnderline(Font.U_SINGLE);
-        font.setFontHeightInPoints((short)14);
+        font.setFontHeightInPoints((short)12);
         font.setFontName("Times New Roman");
-        font.setBold(true);
+
 
         CellStyle style;
         style = wb.createCellStyle();
@@ -47,7 +48,7 @@ public class TitulReport {
         style.setBorderLeft(BorderStyle.NONE);
         style.setBorderBottom(BorderStyle.NONE);
         style.setBorderTop(BorderStyle.NONE);
-        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setAlignment(HorizontalAlignment.LEFT);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
         CellStyle styleNumberReport= wb.createCellStyle();
@@ -58,13 +59,21 @@ public class TitulReport {
 
         CellStyle style2= wb.createCellStyle();
         style2.setWrapText(true);
-        style2.setFont(font11);
+        style2.setFont(font14);
         style2.setAlignment(HorizontalAlignment.RIGHT);
         style2.setVerticalAlignment(VerticalAlignment.CENTER);
+        Row row;
+        Cell cell;
+
+        // Руков. лаб.
+        row = sheetTitul.createRow(14);
+        cell = row.createCell(0);
+        cell.setCellValue("Начальник электролаборатории:  __________ " + param.get("rukovoditel"));
+        cell.setCellStyle(style2);
 
         // ТЕХНИЧЕСКИЙ ОТЧЕТ №
-        Row row = sheetTitul.createRow(12);
-        Cell cell = row.createCell(0);
+        row = sheetTitul.createRow(20);
+        cell = row.createCell(0);
         //увеличиваем высоту строки, чтобы вместить две строки текста
         row.setHeightInPoints((3 * sheetTitul.getDefaultRowHeightInPoints()));
         //cell.setCellValue("ТЕХНИЧЕСКИЙ ОТЧЕТ № "+report.getNumberReport());
@@ -72,38 +81,41 @@ public class TitulReport {
         cell.setCellValue("ТЕХНИЧЕСКИЙ ОТЧЕТ № "+ date);
         cell.setCellStyle(styleNumberReport);
 
-        // Адрес объекта
-        row = sheetTitul.createRow(19);
-        cell = row.createCell(0);
-        cell.setCellValue(report.getAddress());
-        cell.setCellStyle(style);
-
-        // Наименование объекта
-        row = sheetTitul.createRow(23);
-        cell = row.createCell(0);
-        cell.setCellValue(report.getObject());
+        // Дата испытаний
+        row = sheetTitul.getRow(27);
+        cell = row.getCell(6);
+        cell.setCellValue(report.getDate());
         cell.setCellStyle(style);
 
         // Заказчик
-        row = sheetTitul.createRow(26);
-        cell = row.createCell(0);
+        row = sheetTitul.getRow(28);
+        row.setHeightInPoints(getStrokeHeight(report.getCustomer()));
+        cell = row.getCell(6);
+        row.setHeightInPoints(getStrokeHeight(report.getCustomer()));
         cell.setCellValue(report.getCustomer());
         cell.setCellStyle(style);
 
-        // Дата испытаний
-        row = sheetTitul.createRow(31);
-        cell = row.createCell(0);
-        cell.setCellValue("Испытания проведены: " + report.getDate());
-        cell.setCellStyle(style2);
+        // Наименование объекта
+        row = sheetTitul.getRow(29);
+        row.setHeightInPoints( getStrokeHeight(report.getObject()));
+        cell = row.getCell(6);
+        cell.setCellValue(report.getObject());
+        cell.setCellStyle(style);
 
-        // Руков. лаб.
-        row = sheetTitul.createRow(35);
-        cell = row.createCell(0);
-        cell.setCellValue("МП ________" + param.get("rukovoditel"));
-        cell.setCellStyle(style2);
+        // Адрес объекта
+        row = sheetTitul.getRow(30);
+        row.setHeightInPoints(getStrokeHeight(report.getAddress()));
+        cell = row.getCell(6);
+        cell.setCellValue(report.getAddress());
+        cell.setCellStyle(style);
+
 
         return wb;
 
+    }
+
+    static float getStrokeHeight(String s){
+        return (float) ((s.length() / constHeight + 1.0) * sheetTitul.getDefaultRowHeightInPoints());
     }
 }
 
