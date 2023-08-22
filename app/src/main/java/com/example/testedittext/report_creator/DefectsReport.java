@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class DefectsReport {
-    static final float number_of_characters_per_line = 30.0F;
+    static final float number_of_characters_per_line = 25.0F;
     public static Workbook generateDefects(Workbook wb, ReportEntity report, Map<String, String> param){
         Sheet sheetDefects = wb.getSheet("Vedomost");
 

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class UzoReport {
-    static final float number_of_characters_per_line = 25.0F;
+    static final float number_of_characters_per_line = 20.0F;
     public static Workbook generateUzo(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
 
         Sheet sheetUzo = wb.getSheet("Uzo");

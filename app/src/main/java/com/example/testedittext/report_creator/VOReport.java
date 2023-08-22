@@ -23,7 +23,7 @@ public class VOReport {
     private static  Sheet sheetVO;
     private static  Workbook wBook;
     private static  int countRow = 13;
-    static final float number_of_characters_per_line = 40.0F;
+    static final float number_of_characters_per_line = 30.0F;
 
     public static Workbook generateVO (Workbook wb, ReportEntity report, Map<String, String> param) {
         sheetVO = wb.getSheet("VO");

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class MSReportNew {
-    static final float number_of_characters_per_line = 26.0F;
+    static final float number_of_characters_per_line = 20.0F;
     public static Workbook generateMS(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
         Sheet sheetMS = wb.getSheet("MS");
 
