@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.util.Map;
 
 public class Zakluchenie {
+    static final float number_of_characters_per_line = 25.0F;
 
     private static Sheet sheetZakl;
 
@@ -26,7 +27,7 @@ public class Zakluchenie {
 
 
         // Заполняем строки заказчик, объект, адрес, дата
-        //Report.fillMainData(sheetZakl, 9, report, wb);
+        Report.fillMainData(sheetZakl, 6,number_of_characters_per_line, report, wb);
 
         Row row;
         Cell cell;

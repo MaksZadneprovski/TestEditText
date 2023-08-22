@@ -23,13 +23,14 @@ public class VOReport {
     private static  Sheet sheetVO;
     private static  Workbook wBook;
     private static  int countRow = 13;
+    static final float number_of_characters_per_line = 20.0F;
 
     public static Workbook generateVO (Workbook wb, ReportEntity report, Map<String, String> param) {
         sheetVO = wb.getSheet("VO");
 
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetVO, 5, report, wb);
+        Report.fillMainData(sheetVO, 4,number_of_characters_per_line, report, wb);
 
         Font fontBig;
         fontBig = wb.createFont();

@@ -28,16 +28,16 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class AvtomatReport {
-
+    static final float number_of_characters_per_line = 30.0F;
     public static Workbook generateAvtomat(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
 
         Sheet sheetAvtomat = wb.getSheet("Avtomat");
 
         // Create a new font and alter it.
-        Font font8 = wb.createFont();
-        font8.setFontHeightInPoints((short)8);
-        font8.setFontName("Times New Roman");
-        font8.setBold(false);
+        Font font14 = wb.createFont();
+        font14.setFontHeightInPoints((short)14);
+        font14.setFontName("Times New Roman");
+        font14.setBold(false);
 
         Font font16 = wb.createFont();
         font16.setFontHeightInPoints((short)16);
@@ -56,7 +56,7 @@ public class AvtomatReport {
         style.setBorderTop(BorderStyle.THIN);
         style.setTopBorderColor(IndexedColors.BLACK.getIndex());
         style.setWrapText(true);
-        style.setFont(font8);
+        style.setFont(font14);
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -78,15 +78,15 @@ public class AvtomatReport {
         ArrayList<Shield> shields = report.getShields();
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetAvtomat, 15, report, wb);
+        Report.fillMainData(sheetAvtomat, 11,number_of_characters_per_line, report, wb);
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Заполняем строку погоды
         Report.fillWeather(sheetAvtomat, 11,  report, wb);
 
-        Row row = sheetAvtomat.createRow(8);
+        Row row = sheetAvtomat.createRow(7);
         Cell cell = row.createCell(0);
-        cell.setCellValue("ПРОТОКОЛ № " + Excel.numberAvtomatProtocol + " Проверки действия расцепителей автоматических выключателей до 1000 В");
+        cell.setCellValue("ПРОТОКОЛ № " + Excel.numberAvtomatProtocol);
         cell.setCellStyle(styleTitle);
 
         // Начинаем с 28 строки, первые 27 занимает шапка таблицы

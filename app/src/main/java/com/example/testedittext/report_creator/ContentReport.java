@@ -28,6 +28,7 @@ public class ContentReport {
 
     // Высота строки
     static int strokeHeigth = 3;
+    static final float number_of_characters_per_line = 35.0F;
 
     public static Workbook generateContent(Workbook wb, ReportEntity report, Map<String, String> param) {
 
@@ -38,7 +39,7 @@ public class ContentReport {
         Sheet sheetContent = wb.getSheet("Soderzh");
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetContent, 9, report, wb);
+        Report.fillMainData(sheetContent, 6,number_of_characters_per_line ,  report, wb);
 
         String text = "ПРОТОКОЛ № ";
 

@@ -23,7 +23,7 @@ public class ProgramReport {
     private static  Sheet sheetProgram;
     private static  Workbook wBook;
     private static  int countRow ;
-
+    static final float number_of_characters_per_line = 20.0F;
 
     public static Workbook generateProgram(Workbook wb, ReportEntity report, Map<String, String> param) {
         sheetProgram = wb.getSheet("Program");
@@ -31,7 +31,7 @@ public class ProgramReport {
         countRow = 13;
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetProgram, 5, report, wb);
+        Report.fillMainData(sheetProgram, 4,number_of_characters_per_line, report, wb);
 
 
         Set<TypeOfWork> type_of_work = report.getType_of_work();

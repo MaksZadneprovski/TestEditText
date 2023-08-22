@@ -374,7 +374,7 @@ public class Report {
         cell.setCellStyle(style5);
     }
 
-    public static void fillMainData(Sheet sheet, int column, ReportEntity report, Workbook wb){
+    public static void fillMainData(Sheet sheet, int column, float number_of_characters_per_line, ReportEntity report, Workbook wb){
 
         // Create a new font and alter it.
         Font font14 = wb.createFont();
@@ -383,15 +383,15 @@ public class Report {
         font14.setBold(false);
 
         // Создаем стиль для данных об объекте
-        CellStyle styleBorderNoneRight = wb.getCellStyleAt(7);
-        styleBorderNoneRight.setBorderTop(BorderStyle.NONE);
-        styleBorderNoneRight.setBorderBottom(BorderStyle.NONE);
-        styleBorderNoneRight.setBorderLeft(BorderStyle.NONE);
-        styleBorderNoneRight.setBorderRight(BorderStyle.NONE);
-        styleBorderNoneRight.setWrapText(false);
-        styleBorderNoneRight.setFont(font14);
-        styleBorderNoneRight.setAlignment(HorizontalAlignment.RIGHT);
-        styleBorderNoneRight.setVerticalAlignment(VerticalAlignment.CENTER);
+        CellStyle styleBorderNoneLeft = wb.getCellStyleAt(7);
+        styleBorderNoneLeft.setBorderTop(BorderStyle.NONE);
+        styleBorderNoneLeft.setBorderBottom(BorderStyle.NONE);
+        styleBorderNoneLeft.setBorderLeft(BorderStyle.NONE);
+        styleBorderNoneLeft.setBorderRight(BorderStyle.NONE);
+        styleBorderNoneLeft.setWrapText(true);
+        styleBorderNoneLeft.setFont(font14);
+        styleBorderNoneLeft.setAlignment(HorizontalAlignment.LEFT);
+        styleBorderNoneLeft.setVerticalAlignment(VerticalAlignment.CENTER);
 
 
         Row row1 = sheet.getRow(0);
@@ -399,129 +399,36 @@ public class Report {
         Row row3 = sheet.getRow(2);
         Row row4 = sheet.getRow(3);
 
-        Cell cell_1_15 = row1.createCell(column);
-        Cell cell_2_15 = row2.createCell(column);
-        Cell cell_3_15 = row3.createCell(column);
-        Cell cell_4_15 = row4.createCell(column);
+        row1.setHeightInPoints(getStrokeHeight(report.getCustomer(), number_of_characters_per_line, sheet));
+        row2.setHeightInPoints(getStrokeHeight(report.getObject(), number_of_characters_per_line, sheet));
+        row3.setHeightInPoints(getStrokeHeight(report.getAddress(), number_of_characters_per_line, sheet));
+
+        Cell cell_1 = row1.getCell(column);
+        Cell cell_2 = row2.getCell(column);
+        Cell cell_3 = row3.getCell(column);
+        Cell cell_4 = row4.getCell(column);
 
 
 
-        cell_1_15.setCellValue("Заказчик: " + report.getCustomer());
-        cell_2_15.setCellValue("Объект: " + report.getObject());
-        cell_3_15.setCellValue("Адрес: " + report.getAddress());
-        cell_4_15.setCellValue("Дата: " + report.getDate());
+        cell_1.setCellValue("Заказчик: " + report.getCustomer());
+        cell_2.setCellValue("Объект: " + report.getObject());
+        cell_3.setCellValue("Адрес: " + report.getAddress());
+        cell_4.setCellValue("Дата: " + report.getDate());
 
-        cell_1_15.setCellStyle(styleBorderNoneRight);
-        cell_2_15.setCellStyle(styleBorderNoneRight);
-        cell_3_15.setCellStyle(styleBorderNoneRight);
-        cell_4_15.setCellStyle(styleBorderNoneRight);
+        cell_1.setCellStyle(styleBorderNoneLeft);
+        cell_2.setCellStyle(styleBorderNoneLeft);
+        cell_3.setCellStyle(styleBorderNoneLeft);
+        cell_4.setCellStyle(styleBorderNoneLeft);
     }
 
-//    public static void fillMainData(Sheet sheet, int column, ReportEntity report, Workbook wb){
-//
-//        // Create a new font and alter it.
-//        Font font14 = wb.createFont();
-//        font14.setFontHeightInPoints((short)14);
-//        font14.setFontName("Times New Roman");
-//        font14.setBold(false);
-//
-//        // Создаем стиль для данных об объекте
-//        CellStyle styleBorderNoneRight = wb.getCellStyleAt(7);
-//        styleBorderNoneRight.setBorderTop(BorderStyle.NONE);
-//        styleBorderNoneRight.setBorderBottom(BorderStyle.NONE);
-//        styleBorderNoneRight.setBorderLeft(BorderStyle.NONE);
-//        styleBorderNoneRight.setBorderRight(BorderStyle.NONE);
-//        styleBorderNoneRight.setWrapText(false);
-//        styleBorderNoneRight.setFont(font14);
-//        styleBorderNoneRight.setAlignment(HorizontalAlignment.RIGHT);
-//        styleBorderNoneRight.setVerticalAlignment(VerticalAlignment.CENTER);
-//
-//        int indexRow = 0;
-//
-//        String customer = report.getCustomer();
-//        String object = report.getObject();
-//        String address = report.getAddress();
-//        String date = report.getDate();
-//
-//        if (customer.length() > 35){
-//            String customerLine1 = object.substring(0, 35);
-//            String customerLine2 = object.substring(35);
-//
-//            Row row1 = sheet.getRow(indexRow++);
-//            Row row2 = sheet.getRow(indexRow++);
-//
-//            Cell cell1 = row1.createCell(column);
-//            Cell cell2 = row2.createCell(column);
-//
-//            cell1.setCellValue("Заказчик: " + customerLine1);
-//            cell2.setCellValue( customerLine2);
-//
-//            cell1.setCellStyle(styleBorderNoneRight);
-//            cell2.setCellStyle(styleBorderNoneRight);
-//        }else {
-//            Row row1 = sheet.getRow(indexRow++);
-//            Cell cell1 = row1.createCell(column);
-//            cell1.setCellValue("Заказчик: " + customer);
-//            cell1.setCellStyle(styleBorderNoneRight);
-//        }
-//
-//        if (object.length() > 35){
-//            String customerLine1 = object.substring(0, 35);
-//            String customerLine2 = object.substring(35);
-//
-//            Row row1 = sheet.getRow(indexRow++);
-//            Row row2 = sheet.getRow(indexRow++);
-//
-//            Cell cell1 = row1.createCell(column);
-//            Cell cell2 = row2.createCell(column);
-//
-//            cell1.setCellValue("Объект: " + customerLine1);
-//            cell2.setCellValue( customerLine2);
-//
-//            cell1.setCellStyle(styleBorderNoneRight);
-//            cell2.setCellStyle(styleBorderNoneRight);
-//        }else {
-//            Row row1 = sheet.getRow(indexRow++);
-//            Cell cell1 = row1.createCell(column);
-//            cell1.setCellValue("Объект: " + object);
-//            cell1.setCellStyle(styleBorderNoneRight);
-//        }
-//
-//        if (address.length() > 35){
-//            String customerLine1 = object.substring(0, 35);
-//            String customerLine2 = object.substring(35);
-//
-//            Row row1 = sheet.getRow(indexRow++);
-//            Row row2 = sheet.getRow(indexRow++);
-//
-//            Cell cell1 = row1.createCell(column);
-//            Cell cell2 = row2.createCell(column);
-//
-//            cell1.setCellValue("Адрес: " + customerLine1);
-//            cell2.setCellValue( customerLine2);
-//
-//            cell1.setCellStyle(styleBorderNoneRight);
-//            cell2.setCellStyle(styleBorderNoneRight);
-//        }else {
-//            Row row1 = sheet.getRow(indexRow++);
-//            Cell cell1 = row1.createCell(column);
-//            cell1.setCellValue("Адрес: " + address);
-//            cell1.setCellStyle(styleBorderNoneRight);
-//        }
-//        Row row = sheet.getRow(indexRow);
-//        Cell cell = row.createCell(column);
-//        cell.setCellValue("Дата: " + date);
-//
-//        cell.setCellStyle(styleBorderNoneRight);
-//    }
 
     public static void fillWeather(Sheet sheet,int row, ReportEntity report, Workbook wb){
 
         // Create a new font and alter it.
-        Font font10 = wb.createFont();
-        font10.setFontHeightInPoints((short)10);
-        font10.setFontName("Times New Roman");
-        font10.setBold(false);
+        Font font14 = wb.createFont();
+        font14.setFontHeightInPoints((short)14);
+        font14.setFontName("Times New Roman");
+        font14.setBold(false);
 
         CellStyle styleBorderNoneCenter;
         // Создаем стиль для данных об объекте
@@ -531,7 +438,7 @@ public class Report {
         styleBorderNoneCenter.setBorderLeft(BorderStyle.NONE);
         styleBorderNoneCenter.setBorderRight(BorderStyle.NONE);
         styleBorderNoneCenter.setWrapText(false);
-        styleBorderNoneCenter.setFont(font10);
+        styleBorderNoneCenter.setFont(font14);
         styleBorderNoneCenter.setAlignment(HorizontalAlignment.CENTER);
         styleBorderNoneCenter.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -561,6 +468,10 @@ public class Report {
             isAvtomat = type_of_work.contains(TypeOfWork.Avtomat);
         }
 
+    }
+
+    static float getStrokeHeight(String s,float number_of_characters_per_line, Sheet sheet ){
+        return (float) ((s.length() / number_of_characters_per_line + 1.0) * sheet.getDefaultRowHeightInPoints());
     }
 
 }

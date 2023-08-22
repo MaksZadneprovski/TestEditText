@@ -27,36 +27,26 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class GroundReport {
-
+    static final float number_of_characters_per_line = 25.0F;
     public static Workbook generateGround(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
 
         Sheet sheetGround = wb.getSheet("Ground");
 
         // Create a new font and alter it.
-        Font font8 = wb.createFont();
-        font8.setFontHeightInPoints((short)8);
-        font8.setFontName("Times New Roman");
-        font8.setBold(false);
+        Font font14 = wb.createFont();
+        font14.setFontHeightInPoints((short)14);
+        font14.setFontName("Times New Roman");
+        font14.setBold(false);
 
-        Font font11 = wb.createFont();
-        font11.setFontHeightInPoints((short)11);
-        font11.setFontName("Times New Roman");
-        font11.setBold(true);
+        Font font14B = wb.createFont();
+        font14B.setFontHeightInPoints((short)14);
+        font14B.setFontName("Times New Roman");
+        font14B.setBold(true);
 
-        Font font12 = wb.createFont();
-        font12.setFontHeightInPoints((short)12);
-        font12.setFontName("Times New Roman");
-        font12.setBold(true);
-
-        Font fontForSurname = wb.createFont();
-        fontForSurname.setFontHeightInPoints((short)11);
-        fontForSurname.setFontName("Times New Roman");
-        fontForSurname.setUnderline((byte) 1);
-
-        CellStyle styleForSurname;
-        styleForSurname = wb.createCellStyle();
-        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
-        styleForSurname.setFont(fontForSurname);
+        Font font16 = wb.createFont();
+        font16.setFontHeightInPoints((short)16);
+        font16.setFontName("Times New Roman");
+        font16.setBold(true);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -65,12 +55,10 @@ public class GroundReport {
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderLeft(BorderStyle.THIN);
         style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        //style.setBorderRight(BorderStyle.THIN);
-        //style.setRightBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderTop(BorderStyle.THIN);
         style.setTopBorderColor(IndexedColors.BLACK.getIndex());
         style.setWrapText(true);
-        style.setFont(font8);
+        style.setFont(font14B);
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -78,7 +66,7 @@ public class GroundReport {
         // Создаем стиль для создания рамки у ячейки
         styleTitle = wb.createCellStyle();
         styleTitle.setWrapText(false);
-        styleTitle.setFont(font12);
+        styleTitle.setFont(font16);
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -92,20 +80,20 @@ public class GroundReport {
         // Создаем стиль для создания рамки у ячейки
         styleInf = wb.createCellStyle();
         styleInf.setWrapText(false);
-        styleInf.setFont(font11);
+        styleInf.setFont(font14B);
         styleInf.setAlignment(HorizontalAlignment.LEFT);
         styleInf.setVerticalAlignment(VerticalAlignment.CENTER);
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetGround, 9, report, wb);
+        Report.fillMainData(sheetGround, 6,number_of_characters_per_line, report, wb);
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Заполняем строку погоды
         Report.fillWeather(sheetGround, 10,  report, wb);
 
-        Row row = sheetGround.createRow(7);
+        Row row = sheetGround.createRow(6);
         Cell cell = row.createCell(0);
-        cell.setCellValue("ПРОТОКОЛ № " + Excel.numberGroundingProtocol + " Проверки сопротивлений заземлителей и заземляющих устройств");
+        cell.setCellValue("ПРОТОКОЛ № " + Excel.numberGroundingProtocol );
         cell.setCellStyle(styleTitle);
 
         Ground ground = report.getGround();

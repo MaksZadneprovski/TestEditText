@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class F0Report {
-
+    static final float number_of_characters_per_line = 35.0F;
 
     public static Workbook generateF0(Workbook wb, ReportEntity report, Map<String, String> param, Context context ){
 
@@ -38,25 +38,16 @@ public class F0Report {
         Sheet sheetF0 = wb.getSheet("F0");
 
         // Create a new font and alter it.
-        Font font8 = wb.createFont();
-        font8.setFontHeightInPoints((short)8);
-        font8.setFontName("Times New Roman");
-        font8.setBold(false);
+        Font font14 = wb.createFont();
+        font14.setFontHeightInPoints((short)14);
+        font14.setFontName("Times New Roman");
+        font14.setBold(false);
 
-        Font font12 = wb.createFont();
-        font12.setFontHeightInPoints((short)12);
-        font12.setFontName("Times New Roman");
-        font12.setBold(true);
+        Font font16 = wb.createFont();
+        font16.setFontHeightInPoints((short)16);
+        font16.setFontName("Times New Roman");
+        font16.setBold(true);
 
-        Font fontForSurname = wb.createFont();
-        fontForSurname.setFontHeightInPoints((short)11);
-        fontForSurname.setFontName("Times New Roman");
-        fontForSurname.setUnderline((byte) 1);
-
-        CellStyle styleForSurname;
-        styleForSurname = wb.createCellStyle();
-        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
-        styleForSurname.setFont(fontForSurname);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -65,19 +56,17 @@ public class F0Report {
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderLeft(BorderStyle.THIN);
         style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        //style.setBorderRight(BorderStyle.THIN);
-        //style.setRightBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderTop(BorderStyle.THIN);
         style.setTopBorderColor(IndexedColors.BLACK.getIndex());
         style.setWrapText(true);
-        style.setFont(font8);
+        style.setFont(font14);
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
         CellStyle styleTitle;
         styleTitle = wb.createCellStyle();
         styleTitle.setWrapText(true);
-        styleTitle.setFont(font12);
+        styleTitle.setFont(font16);
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -97,7 +86,7 @@ public class F0Report {
         ArrayList<Shield> shields = report.getShields();
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetF0, 14, report, wb);
+        Report.fillMainData(sheetF0, 7,number_of_characters_per_line, report, wb);
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Заполняем строку погоды

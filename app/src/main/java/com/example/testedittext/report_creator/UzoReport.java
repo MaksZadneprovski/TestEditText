@@ -28,31 +28,21 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class UzoReport {
-
+    static final float number_of_characters_per_line = 25.0F;
     public static Workbook generateUzo(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
 
         Sheet sheetUzo = wb.getSheet("Uzo");
 
         // Create a new font and alter it.
-        Font font8 = wb.createFont();
-        font8.setFontHeightInPoints((short)8);
-        font8.setFontName("Times New Roman");
-        font8.setBold(false);
+        Font font14 = wb.createFont();
+        font14.setFontHeightInPoints((short)14);
+        font14.setFontName("Times New Roman");
+        font14.setBold(false);
 
-        Font font12 = wb.createFont();
-        font12.setFontHeightInPoints((short)12);
-        font12.setFontName("Times New Roman");
-        font12.setBold(true);
-
-        Font fontForSurname = wb.createFont();
-        fontForSurname.setFontHeightInPoints((short)11);
-        fontForSurname.setFontName("Times New Roman");
-        fontForSurname.setUnderline((byte) 1);
-
-        CellStyle styleForSurname;
-        styleForSurname = wb.createCellStyle();
-        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
-        styleForSurname.setFont(fontForSurname);
+        Font font16 = wb.createFont();
+        font16.setFontHeightInPoints((short)16);
+        font16.setFontName("Times New Roman");
+        font16.setBold(true);
 
         CellStyle style;
         // Создаем стиль для создания рамки у ячейки
@@ -61,12 +51,10 @@ public class UzoReport {
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderLeft(BorderStyle.THIN);
         style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        //style.setBorderRight(BorderStyle.THIN);
-        //style.setRightBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderTop(BorderStyle.THIN);
         style.setTopBorderColor(IndexedColors.BLACK.getIndex());
         style.setWrapText(true);
-        style.setFont(font8);
+        style.setFont(font16);
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -74,7 +62,7 @@ public class UzoReport {
         // Создаем стиль для создания рамки у ячейки
         styleTitle = wb.createCellStyle();
         styleTitle.setWrapText(true);
-        styleTitle.setFont(font12);
+        styleTitle.setFont(font16);
         styleTitle.setAlignment(HorizontalAlignment.CENTER);
         styleTitle.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -88,15 +76,15 @@ public class UzoReport {
         ArrayList<Shield> shields = report.getShields();
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetUzo, 11, report, wb);
+        Report.fillMainData(sheetUzo, 6,number_of_characters_per_line, report, wb);
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Заполняем строку погоды
         Report.fillWeather(sheetUzo, 10,  report, wb);
 
-        Row row = sheetUzo.createRow(7);
+        Row row = sheetUzo.createRow(6);
         Cell cell = row.createCell(0);
-        cell.setCellValue("ПРОТОКОЛ № " + Excel.numberUzoProtocol + " Проверки работы устройства защитного отключения (УЗО)");
+        cell.setCellValue("ПРОТОКОЛ № " + Excel.numberUzoProtocol);
         cell.setCellStyle(styleTitle);
 
         // Начинаем с 29 строки, первые 28 занимает шапка таблицы

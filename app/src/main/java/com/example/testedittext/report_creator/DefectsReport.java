@@ -24,20 +24,16 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class DefectsReport {
-
+    static final float number_of_characters_per_line = 25.0F;
     public static Workbook generateDefects(Workbook wb, ReportEntity report, Map<String, String> param){
         Sheet sheetDefects = wb.getSheet("Vedomost");
 
         // Create a new font and alter it.
-        Font font8 = wb.createFont();
-        font8.setFontHeightInPoints((short)8);
-        font8.setFontName("Times New Roman");
-        font8.setBold(false);
-
         Font font14 = wb.createFont();
-        font14.setFontHeightInPoints((short)16);
+        font14.setFontHeightInPoints((short)14);
         font14.setFontName("Times New Roman");
-        font14.setBold(true);
+        font14.setBold(false);
+
 
         Font fontForSurname = wb.createFont();
         fontForSurname.setFontHeightInPoints((short)11);
@@ -61,7 +57,7 @@ public class DefectsReport {
         style.setBorderTop(BorderStyle.THIN);
         style.setTopBorderColor(IndexedColors.BLACK.getIndex());
         style.setWrapText(true);
-        style.setFont(font8);
+        style.setFont(font14);
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -111,7 +107,7 @@ public class DefectsReport {
         ArrayList<Shield> shields = report.getShields();
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetDefects, 7, report, wb );
+        Report.fillMainData(sheetDefects, 4,number_of_characters_per_line, report, wb );
 
         // Начинаем с 9 строки
         int countRow = 8;
