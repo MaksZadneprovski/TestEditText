@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class AvtomatReport {
-    static final float number_of_characters_per_line = 30.0F;
+    static final float number_of_characters_per_line = 50.0F;
     public static Workbook generateAvtomat(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
 
         Sheet sheetAvtomat = wb.getSheet("Avtomat");
@@ -78,7 +78,7 @@ public class AvtomatReport {
         ArrayList<Shield> shields = report.getShields();
 
         // Заполняем строки заказчик, объект, адрес, дата
-        Report.fillMainData(sheetAvtomat, 11,number_of_characters_per_line, report, wb);
+        Report.fillMainData(sheetAvtomat, 8,number_of_characters_per_line, report, wb);
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Заполняем строку погоды
@@ -267,35 +267,21 @@ public class AvtomatReport {
 
 
         // Приборы и закалючение
-        Font font11Bold = wb.createFont();
-        font11Bold.setFontHeightInPoints((short)11);
-        font11Bold.setFontName("Times New Roman");
-        font11Bold.setBold(true);
-
-        Font font11 = wb.createFont();
-        font11.setFontHeightInPoints((short)11);
-        font11.setFontName("Times New Roman");
-
-        Font fontForSurname = wb.createFont();
-        fontForSurname.setFontHeightInPoints((short)11);
-        fontForSurname.setFontName("Times New Roman");
-        fontForSurname.setUnderline((byte) 1);
-
-        CellStyle styleForSurname;
-        styleForSurname = wb.createCellStyle();
-        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
-        styleForSurname.setFont(fontForSurname);
+        Font font14Bold = wb.createFont();
+        font14Bold.setFontHeightInPoints((short)14);
+        font14Bold.setFontName("Times New Roman");
+        font14Bold.setBold(true);
 
 
         CellStyle style4;
         style4 = wb.createCellStyle();
         style4.setAlignment(HorizontalAlignment.LEFT);
-        style4.setFont(font11Bold);
+        style4.setFont(font14Bold);
 
         CellStyle style5;
         style5 = wb.createCellStyle();
         style5.setAlignment(HorizontalAlignment.LEFT);
-        style5.setFont(font11);
+        style5.setFont(font14);
 
 
 

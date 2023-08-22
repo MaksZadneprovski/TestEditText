@@ -120,14 +120,14 @@ public class ProgramReport {
         Row row;
         Cell cell;
 
-        Font font12 = wb.createFont();
-        font12.setFontHeightInPoints((short)12);
-        font12.setFontName("Times New Roman");
-        font12.setUnderline(Font.U_SINGLE);
+        Font font14 = wb.createFont();
+        font14.setFontHeightInPoints((short)14);
+        font14.setFontName("Times New Roman");
+        font14.setUnderline(Font.U_SINGLE);
 
         CellStyle style3;
         style3 = wb.createCellStyle();
-        style3.setFont(font12);
+        style3.setFont(font14);
         style3.setAlignment(HorizontalAlignment.CENTER);
         style3.setWrapText(false);
 
@@ -153,10 +153,10 @@ public class ProgramReport {
         Cell cell;
 
         // Высота строки
-        int strokeHeigth = 5;
+        //int strokeHeigth = 5;
 
         Font font = wBook.createFont();
-        font.setFontHeightInPoints((short)11);
+        font.setFontHeightInPoints((short)14);
         font.setFontName("Times New Roman");
 
         CellStyle style;
@@ -202,7 +202,7 @@ public class ProgramReport {
         cell.setCellStyle(style2);
 
         //увеличиваем высоту строки, чтобы вместить две строки текста
-        row.setHeightInPoints((strokeHeigth * sheetProgram.getDefaultRowHeightInPoints()));
+        //row.setHeightInPoints((strokeHeigth * sheetProgram.getDefaultRowHeightInPoints()));
         countRow++;
     }
 }

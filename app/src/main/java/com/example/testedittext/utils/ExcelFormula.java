@@ -33,7 +33,7 @@ public class ExcelFormula {
     }
 
     public static String getRangeForAvtomat(int countRow){
-        return "CONCATENATE(E"+ (countRow+1) + "*5,\" - \",E" + (countRow+1) + "*10)";
+        return "E"+ (countRow+1) + "*5";
     }
 
     public static String getNeOtklTokUzo(int countRow){

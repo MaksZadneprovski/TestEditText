@@ -18,7 +18,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import java.util.Map;
 
 public class Zakluchenie {
-    static final float number_of_characters_per_line = 25.0F;
+    static final float number_of_characters_per_line = 30.0F;
 
     private static Sheet sheetZakl;
 
@@ -43,16 +43,6 @@ public class Zakluchenie {
         font11.setFontHeightInPoints((short)11);
         font11.setFontName("Times New Roman");
 
-        Font fontForSurname = wb.createFont();
-        fontForSurname.setFontHeightInPoints((short)11);
-        fontForSurname.setFontName("Times New Roman");
-        fontForSurname.setUnderline((byte) 1);
-
-        CellStyle styleForSurname;
-        styleForSurname = wb.createCellStyle();
-        styleForSurname.setAlignment(HorizontalAlignment.LEFT);
-        styleForSurname.setFont(fontForSurname);
-
         CellStyle style;
         style = wb.createCellStyle();
         style.setWrapText(true);
@@ -64,10 +54,6 @@ public class Zakluchenie {
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
-        CellStyle style5;
-        style5 = wb.createCellStyle();
-        style5.setAlignment(HorizontalAlignment.LEFT);
-        style5.setFont(font11);
 
         // Адрес объекта
         row = sheetZakl.createRow(9);

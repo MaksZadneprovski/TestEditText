@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class GroundReport {
-    static final float number_of_characters_per_line = 25.0F;
+    static final float number_of_characters_per_line = 30.0F;
     public static Workbook generateGround(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
 
         Sheet sheetGround = wb.getSheet("Ground");
@@ -202,24 +202,21 @@ public class GroundReport {
                 }
 
             // Приборы и закалючение
-            Font font11Bold = wb.createFont();
-            font11Bold.setFontHeightInPoints((short)11);
-            font11Bold.setFontName("Times New Roman");
-            font11Bold.setBold(true);
+            Font font14Bold = wb.createFont();
+            font14Bold.setFontHeightInPoints((short)14);
+            font14Bold.setFontName("Times New Roman");
+            font14Bold.setBold(true);
 
-            Font font12N = wb.createFont();
-            font12N.setFontHeightInPoints((short)12);
-            font12N.setFontName("Times New Roman");
 
             CellStyle style4;
             style4 = wb.createCellStyle();
             style4.setAlignment(HorizontalAlignment.LEFT);
-            style4.setFont(font11Bold);
+            style4.setFont(font14Bold);
 
             CellStyle style5;
             style5 = wb.createCellStyle();
             style5.setAlignment(HorizontalAlignment.LEFT);
-            style5.setFont(font12N);
+            style5.setFont(font14);
 
 
             countRow = Excel.printInstruments(context, sheetGround, countRow, style5, TypeOfWork.Grounding.toString());

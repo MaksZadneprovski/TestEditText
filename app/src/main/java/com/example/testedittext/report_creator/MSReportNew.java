@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class MSReportNew {
-    static final float number_of_characters_per_line = 18.0F;
+    static final float number_of_characters_per_line = 26.0F;
     public static Workbook generateMS(Workbook wb, ReportEntity report, Map<String, String> param, Context context){
         Sheet sheetMS = wb.getSheet("MS");
 
@@ -36,7 +36,6 @@ public class MSReportNew {
         Font font14 = wb.createFont();
         font14.setFontHeightInPoints((short)14);
         font14.setFontName("Times New Roman");
-        font14.setBold(false);
 
         Font font16 = wb.createFont();
         font16.setFontHeightInPoints((short)16);
@@ -230,24 +229,20 @@ public class MSReportNew {
 
 
         // Приборы и закалючение
-        Font font11Bold = wb.createFont();
-        font11Bold.setFontHeightInPoints((short)11);
-        font11Bold.setFontName("Times New Roman");
-        font11Bold.setBold(true);
-
-        Font font11 = wb.createFont();
-        font11.setFontHeightInPoints((short)11);
-        font11.setFontName("Times New Roman");
+        Font font14Bold = wb.createFont();
+        font14Bold.setFontHeightInPoints((short)14);
+        font14Bold.setFontName("Times New Roman");
+        font14Bold.setBold(true);
 
         CellStyle style4;
         style4 = wb.createCellStyle();
         style4.setAlignment(HorizontalAlignment.LEFT);
-        style4.setFont(font11Bold);
+        style4.setFont(font14Bold);
 
         CellStyle style5;
         style5 = wb.createCellStyle();
         style5.setAlignment(HorizontalAlignment.LEFT);
-        style5.setFont(font11);
+        style5.setFont(font14);
 
 
         countRow = Excel.printInstruments(context, sheetMS, countRow, style5, TypeOfWork.MetallicBond.toString());
@@ -271,7 +266,7 @@ public class MSReportNew {
 
         countRow += 2;
         // Заполняем Фамилии, Должности и т.д.
-        countRow = fillRekvizity(countRow, sheetMS, wb, param, 1,3,5);
+        countRow = fillRekvizity(countRow, sheetMS, wb, param, 1,3,4);
 
 
 

@@ -265,24 +265,24 @@ public class Report {
 
     static int fillRekvizity(int countRow, Sheet sheet, Workbook wb, Map<String, String> param, int i1, int i2,int i3){
 
-        Font font11 = wb.createFont();
-        font11.setFontHeightInPoints((short)11);
-        font11.setFontName("Times New Roman");
+        Font font14 = wb.createFont();
+        font14.setFontHeightInPoints((short)14);
+        font14.setFontName("Times New Roman");
 
         Font fontForSurname = wb.createFont();
-        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontHeightInPoints((short)14);
         fontForSurname.setFontName("Times New Roman");
         fontForSurname.setUnderline((byte) 1);
 
         CellStyle style5;
         style5 = wb.createCellStyle();
         style5.setAlignment(HorizontalAlignment.LEFT);
-        style5.setFont(font11);
+        style5.setFont(font14);
 
         CellStyle style5Center;
         style5Center = wb.createCellStyle();
         style5Center.setAlignment(HorizontalAlignment.CENTER);
-        style5Center.setFont(font11);
+        style5Center.setFont(font14);
 
         CellStyle styleForSurname;
         styleForSurname = wb.createCellStyle();
@@ -349,7 +349,7 @@ public class Report {
         cell.setCellValue("Руководитель  лаборатории");
         cell.setCellStyle(styleForSurname);
         cell = row.createCell(i2);
-        cell.setCellValue("____________");
+        cell.setCellValue("__________");
         cell.setCellStyle(style5Center);
         cell = row.createCell(i3);
         cell.setCellValue(param.get("rukovoditel"));

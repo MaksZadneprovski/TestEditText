@@ -37,7 +37,6 @@ public class UzoReport {
         Font font14 = wb.createFont();
         font14.setFontHeightInPoints((short)14);
         font14.setFontName("Times New Roman");
-        font14.setBold(false);
 
         Font font16 = wb.createFont();
         font16.setFontHeightInPoints((short)16);
@@ -54,7 +53,7 @@ public class UzoReport {
         style.setBorderTop(BorderStyle.THIN);
         style.setTopBorderColor(IndexedColors.BLACK.getIndex());
         style.setWrapText(true);
-        style.setFont(font16);
+        style.setFont(font14);
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
 
@@ -228,24 +227,20 @@ public class UzoReport {
         }
 
         // Приборы и закалючение
-        Font font11Bold = wb.createFont();
-        font11Bold.setFontHeightInPoints((short)11);
-        font11Bold.setFontName("Times New Roman");
-        font11Bold.setBold(true);
-
-        Font font11 = wb.createFont();
-        font11.setFontHeightInPoints((short)11);
-        font11.setFontName("Times New Roman");
+        Font font14Bold = wb.createFont();
+        font14Bold.setFontHeightInPoints((short)14);
+        font14Bold.setFontName("Times New Roman");
+        font14Bold.setBold(true);
 
         CellStyle style4;
         style4 = wb.createCellStyle();
         style4.setAlignment(HorizontalAlignment.LEFT);
-        style4.setFont(font11Bold);
+        style4.setFont(font14Bold);
 
         CellStyle style5;
         style5 = wb.createCellStyle();
         style5.setAlignment(HorizontalAlignment.LEFT);
-        style5.setFont(font11);
+        style5.setFont(font14);
 
 
         countRow = Excel.printInstruments(context, sheetUzo, countRow, style5, TypeOfWork.Uzo.toString());
@@ -269,7 +264,7 @@ public class UzoReport {
 
         countRow += 2;
         // Заполняем Фамилии, Должности и т.д.
-        countRow = fillRekvizity(countRow, sheetUzo, wb, param, 2,5,8);
+        countRow = fillRekvizity(countRow, sheetUzo, wb, param, 2,4,7);
 
         // Получаем количество страниц (Значение неточное, может быть посчитано неточно)
         int countRowInList = 62;

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class DefectsReport {
-    static final float number_of_characters_per_line = 25.0F;
+    static final float number_of_characters_per_line = 30.0F;
     public static Workbook generateDefects(Workbook wb, ReportEntity report, Map<String, String> param){
         Sheet sheetDefects = wb.getSheet("Vedomost");
 
@@ -36,7 +36,7 @@ public class DefectsReport {
 
 
         Font fontForSurname = wb.createFont();
-        fontForSurname.setFontHeightInPoints((short)11);
+        fontForSurname.setFontHeightInPoints((short)14);
         fontForSurname.setFontName("Times New Roman");
         fontForSurname.setUnderline((byte) 1);
 
@@ -52,8 +52,6 @@ public class DefectsReport {
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderLeft(BorderStyle.THIN);
         style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        //style.setBorderRight(BorderStyle.THIN);
-        //style.setRightBorderColor(IndexedColors.BLACK.getIndex());
         style.setBorderTop(BorderStyle.THIN);
         style.setTopBorderColor(IndexedColors.BLACK.getIndex());
         style.setWrapText(true);
@@ -75,30 +73,20 @@ public class DefectsReport {
         styleEndTable.setBorderLeft(BorderStyle.THIN);
         styleEndTable.setLeftBorderColor(IndexedColors.BLACK.getIndex());
 
-
-        Font font11Bold = wb.createFont();
-        font11Bold.setFontHeightInPoints((short)11);
-        font11Bold.setFontName("Times New Roman");
-        font11Bold.setBold(true);
-
-        Font font11 = wb.createFont();
-        font11.setFontHeightInPoints((short)11);
-        font11.setFontName("Times New Roman");
-
         CellStyle style4;
         style4 = wb.createCellStyle();
         style4.setAlignment(HorizontalAlignment.CENTER);
-        style4.setFont(font11);
+        style4.setFont(font14);
 
         CellStyle style5;
         style5 = wb.createCellStyle();
         style5.setAlignment(HorizontalAlignment.LEFT);
-        style5.setFont(font11);
+        style5.setFont(font14);
 
         CellStyle style5Center;
         style5Center = wb.createCellStyle();
         style5Center.setAlignment(HorizontalAlignment.CENTER);
-        style5Center.setFont(font11);
+        style5Center.setFont(font14);
 
         Row row ;
         Cell cell;
@@ -232,7 +220,9 @@ public class DefectsReport {
         cell.setCellStyle(style5);
 
 
-        countRow += 2;
+        if (countRow < 23) countRow = 23;
+        else countRow += 2;
+
         row = sheetDefects.createRow(countRow);
         cell = row.createCell(1);
         cell.setCellValue("Ведомость составил:");

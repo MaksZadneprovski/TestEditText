@@ -23,7 +23,7 @@ public class VOReport {
     private static  Sheet sheetVO;
     private static  Workbook wBook;
     private static  int countRow = 13;
-    static final float number_of_characters_per_line = 20.0F;
+    static final float number_of_characters_per_line = 40.0F;
 
     public static Workbook generateVO (Workbook wb, ReportEntity report, Map<String, String> param) {
         sheetVO = wb.getSheet("VO");
@@ -76,7 +76,7 @@ public class VOReport {
         style3.setAlignment(HorizontalAlignment.RIGHT);
         style3.setWrapText(false);
 
-        countRow = 21;
+        countRow = 18;
 
         // Заполняем Фамилии, Должности и т.д.
         fillRekvizity(countRow, sheetVO, wb, param, 2,3,4);
